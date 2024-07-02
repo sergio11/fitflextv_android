@@ -1,59 +1,55 @@
 <resources>
     <string name="app_name">FitFlexTV</string>
-    <string name="start_session">Start session</string>
-    <string name="start_routine">Start routine</string>
-    <string name="start_program">Start program</string>
-    <string name="categories">Categories</string>
-    <string name="recommended_for_you">Recommended for you</string>
-    <string name="image">Image %1$s</string>
-    <string name="end_workout">End workout</string>
-    <string name="song_image">Song image</string>
-    <string name="set_up_daily_reminder">Setup a daily reminder</string>
-    <string name="recommend_schedule">Recommend schedule</string>
+    <string name="start_session">Let\'s Get Started!</string>
+    <string name="start_routine">Kick Off Your Routine</string>
+    <string name="start_program">Start Your Program</string>
+    <string name="categories">Explore Categories</string>
+    <string name="recommended_for_you">Recommended for You</string>
+    <string name="image">View Image %1$s</string>
+    <string name="end_workout">Wrap Up Your Workout</string>
+    <string name="song_image">Discover Song Image</string>
+    <string name="set_up_daily_reminder">Set Up Daily Reminders</string>
+    <string name="recommend_schedule">Get Your Recommended Schedule</string>
 
-    // More options
-    <string name="start_workout">Start workout</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="more_info">More info</string>
-    <string name="view_instructor">View Instructor</string>
-    <string name="share">Share</string>
-    <string name="to_go_back">to go back</string>
+    <string name="start_workout">Let\'s Work Out!</string>
+    <string name="add_to_favorites">Add to Favorites</string>
+    <string name="more_info">Get More Info</string>
+    <string name="view_instructor">Meet Your Awesome Instructor</string>
+    <string name="share">Share the Fun</string>
+    <string name="to_go_back">Press Back</string>
     <string name="press">Press</string>
 
-    <string name="whos_working_out_today">Who’s working out today?</string>
-    <string name="sign_in_with_a_different_user">Sign in with a different user</string>
-    <string name="length">Length</string>
-    <string name="_15_30_mins">15-30 mins</string>
+    <string name="whos_working_out_today">Who’s Joining Today?</string>
+    <string name="sign_in_with_a_different_user">Sign in as Someone New</string>
+    <string name="length">Duration</string>
+    <string name="_15_30_mins">15–30 Minutes</string>
     <string name="instructor">Instructor</string>
-    <string name="class_type">Class type</string>
-    <string name="class_language">Class language</string>
+    <string name="class_type">Class Type</string>
+    <string name="class_language">Language</string>
     <string name="difficulty">Difficulty</string>
     <string name="subtitles">Subtitles</string>
-    <string name="sort_by">Sort by</string>
+    <string name="sort_by">Sort By</string>
     <string name="reset">Reset</string>
     <string name="clear">Clear</string>
-    <string name="filters">Filters</string>
+    <string name="filters">Apply Filters</string>
     <string name="days">Days</string>
     <string name="intensity">Intensity</string>
-    <string name="minutes_per_day">Minutes per day</string>
-    <string name="weekly_plan">Weekly plan</string>
-    <string name="challenge_details">Challenge details</string>
+    <string name="minutes_per_day">Minutes per Day</string>
+    <string name="weekly_plan">Weekly Plan</string>
+    <string name="challenge_details">Challenge Details</string>
 
-
-    <!-- settings -->
     <string name="settings">Settings</string>
     <string name="app_settings">App Settings</string>
-    <string name="personal_settings">Personal</string>
+    <string name="personal_settings">Personal Settings</string>
 
-    //Subscription
-    <string name="month">month</string>
-    <string name="months">months</string>
-    <string name="month_subscription">Month Subscription</string>
-    <string name="subscribe_now">Subscribe now</string>
-    <string name="restore_purchases">Restore purchases</string>
-    <string name="subscribe_to_premium">Subscribe to Premium</string>
-    <string name="subscribe_brief">Subscribe to our services to start your fitness journey</string>
-    <string name="our_plans">Our plans</string>
-    <string name="free_trail">Start your 7-day free trial then</string>
-    <string name="subscription_cancelled">Subscription continues until cancelled</string>
+    <string name="month">Month</string>
+    <string name="months">Months</string>
+    <string name="month_subscription">Monthly Subscription</string>
+    <string name="subscribe_now">Subscribe Now!</string>
+    <string name="restore_purchases">Restore Purchases</string>
+    <string name="subscribe_to_premium">Unlock Premium Features</string>
+    <string name="subscribe_brief">Start Your Fitness Journey Today!</string>
+    <string name="our_plans">Explore Our Plans</string>
+    <string name="free_trail">Start Your 7-Day Free Trial</string>
+    <string name="subscription_cancelled">Subscription Continues Until Cancelled</string>
 </resources>
