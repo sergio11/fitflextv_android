@@ -39,6 +39,7 @@ import androidx.media3.ui.PlayerView
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerTitle
 import com.dreamsoftware.fitflextv.ui.screens.player.video.composable.VideoPlayerControlsIcon
@@ -49,7 +50,6 @@ import com.dreamsoftware.fitflextv.ui.screens.player.video.composable.VideoPlaye
 import com.dreamsoftware.fitflextv.ui.screens.player.video.composable.rememberVideoPlayerState
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.dPadVideoEvents
-import com.google.jetfit.R
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -174,7 +174,6 @@ private fun VideoPlayerContent(
 }
 
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun VideoPlayerControls(
     isPlaying: Boolean,

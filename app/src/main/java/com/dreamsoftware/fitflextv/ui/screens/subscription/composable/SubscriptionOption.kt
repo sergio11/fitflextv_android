@@ -18,7 +18,6 @@ import androidx.tv.material3.RadioButtonDefaults
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 internal fun SubscriptionOption(
     modifier: Modifier = Modifier,

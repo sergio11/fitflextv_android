@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.settings
 
-import com.google.jetfit.R
+import com.dreamsoftware.fitflextv.R
 
 data class SettingsUIState(
     val settingsMenuUIState: SettingsMenuUIState = SettingsMenuUIState(),

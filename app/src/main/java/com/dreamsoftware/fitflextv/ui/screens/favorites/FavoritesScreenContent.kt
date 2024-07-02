@@ -35,21 +35,19 @@ import androidx.compose.ui.window.Dialog
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
 import androidx.tv.foundation.lazy.grid.items
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
+import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.FavWorkout
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardWithIntensity
 import com.dreamsoftware.fitflextv.ui.core.components.CommonOutLinedButtonWithLeadingIcon
-import com.dreamsoftware.fitflextv.domain.model.FavWorkout
 import com.dreamsoftware.fitflextv.ui.theme.onSurface
 import com.dreamsoftware.fitflextv.ui.theme.popupShadow
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 import com.dreamsoftware.fitflextv.ui.theme.surfaceVariant
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun FavoritesScreenContent(
     modifier: Modifier = Modifier,
@@ -112,7 +110,6 @@ fun FavoritesScreenContent(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun WorkoutDetailsPopup(
     workout: FavWorkout,
@@ -209,13 +206,11 @@ fun WorkoutDetailsPopup(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 internal fun Loading(modifier: Modifier = Modifier) {
     Text(text = "Loading...", modifier = modifier, textAlign = TextAlign.Center)
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 internal fun Error(modifier: Modifier = Modifier) {
     Text(text = "Wops, something went wrong.", modifier = modifier, textAlign = TextAlign.Center)

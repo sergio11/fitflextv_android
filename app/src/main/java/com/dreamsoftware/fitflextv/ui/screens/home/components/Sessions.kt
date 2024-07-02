@@ -49,6 +49,7 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.ShapeDefaults
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.domain.model.SessionBO
 import com.dreamsoftware.fitflextv.ui.screens.home.carouselSaver
@@ -56,7 +57,6 @@ import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.theme.shadowCarouselColor
 import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
-import com.google.jetfit.R
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable

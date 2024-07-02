@@ -31,16 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Card
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonOutlineButton
 import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun ProfileSelectorContent(
     state: ProfileSelectorUiState,
@@ -48,7 +46,6 @@ fun ProfileSelectorContent(
     onSignInClick: () -> Unit,
     onProfileSelectedClick: (idProfile: String) -> Unit,
 ) {
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -86,7 +83,6 @@ fun ProfileSelectorContent(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun ItemProfile(
     state: ProfileUiState, onClick: (idProfile: String) -> Unit, modifier: Modifier = Modifier,

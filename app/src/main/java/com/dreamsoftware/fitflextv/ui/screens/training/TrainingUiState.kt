@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
-import com.google.jetfit.R
 
 data class TrainingUiState(
     val isFilterExpended: Boolean = false,

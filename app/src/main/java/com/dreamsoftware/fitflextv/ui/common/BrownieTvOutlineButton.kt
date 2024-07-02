@@ -18,16 +18,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ButtonDefaults
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.OutlinedButtonDefaults
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 internal fun BrownieTvOutlineButton(
     modifier: Modifier = Modifier,
@@ -72,7 +70,7 @@ internal fun BrownieTvOutlineButton(
 
 @Preview
 @Composable
-private fun JFOutlineButtonWithIconPreview() {
+private fun OutlineButtonWithIconPreview() {
     FitFlexTVTheme {
         BrownieTvOutlineButton(
             isIcon = true,
@@ -83,7 +81,7 @@ private fun JFOutlineButtonWithIconPreview() {
 
 @Preview
 @Composable
-private fun JFOutlineButtonWithoutIconPreview() {
+private fun OutlineButtonWithoutIconPreview() {
     FitFlexTVTheme {
         BrownieTvOutlineButton(
             buttonText = "Subscribe now"

@@ -37,13 +37,12 @@ import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.theme.surface
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun SettingsContent(
+fun SettingsScreenContent(
     state: SettingsUIState,
     selectedItem: MutableState<SettingsItemUIState?>,
     updateSetting: (SettingsItemUIState) -> Unit = {}
@@ -149,8 +148,6 @@ private fun SettingsItem(
     )
 }
 
-
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun SubSettingItem(
     item: SettingsItemUIState,
@@ -191,7 +188,6 @@ private fun SubSettingItem(
         )
     }
 }
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun SettingsDetail(
     item: SettingsItemUIState,

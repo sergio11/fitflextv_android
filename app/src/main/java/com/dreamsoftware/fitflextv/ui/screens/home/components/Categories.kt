@@ -28,11 +28,10 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun Categories(
     categories: List<CategoryBO>,
@@ -64,7 +63,6 @@ fun Categories(
 }
 
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun CategoryItem(
     modifier: Modifier = Modifier,

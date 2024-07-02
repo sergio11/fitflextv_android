@@ -41,12 +41,12 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.composable.AudioPlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.composable.AudioPlayerSeeker
 import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerTitle
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.dPadAudioEvents
-import com.google.jetfit.R
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -59,7 +59,6 @@ fun AudioPlayerScreen(
 }
 
 @androidx.annotation.OptIn(UnstableApi::class)
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun AudioPlayerContent(
     state: SongUiState,
@@ -152,7 +151,6 @@ private fun AudioPlayerContent(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @androidx.annotation.OptIn(UnstableApi::class)
 @Composable
 private fun AudioPlayerControls(

@@ -1,8 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.subscription
 
 import android.content.Context
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
-import com.google.jetfit.R
 
 sealed interface SubscriptionUiState {
     data object Loading : SubscriptionUiState
