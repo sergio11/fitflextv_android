@@ -4,6 +4,10 @@ kotlin = "1.9.0"
 core-ktx = "1.13.1"
 appcompat = "1.7.0"
 compose-bom = "2024.06.00"
+firebase-auth-ktx = "23.0.0"
+firebase-firestore-ktx = "25.0.0"
+firebase-auth = "23.0.0"
+firebase-bom = "33.1.1"
 tv-foundation = "1.0.0-alpha10"
 tv-material = "1.0.0-beta01"
 lifecycle-runtime-ktx = "2.8.3"
@@ -29,13 +33,15 @@ benchmark = "1.2.4"
 
 
 [libraries]
-androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebase-auth-ktx" }
+firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebase-firestore-ktx" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebase-auth" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "benchmark-macro-junit4" }
 androidx-hilt-android = { module = "androidx.hilt:hilt-android", version.ref = "hilt-android" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil-compose" }
