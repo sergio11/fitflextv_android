@@ -1,13 +1,13 @@
 package com.dreamsoftware.fitflextv.data.repository.workout
 
-import com.dreamsoftware.fitflextv.data.entities.FavList
-import com.dreamsoftware.fitflextv.data.entities.Workout
+import com.dreamsoftware.fitflextv.domain.model.FavListBO
+import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {
-    fun getWorkouts(): List<Workout>
+    fun getWorkouts(): List<WorkoutBO>
 
-    fun getWorkoutById(id: String): Workout
+    fun getWorkoutById(id: String): WorkoutBO
 
-    fun getFavoritesWorkouts(): Flow<FavList>
+    fun getFavoritesWorkouts(): Flow<FavListBO>
 }

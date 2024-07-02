@@ -12,13 +12,14 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
-import com.dreamsoftware.fitflextv.presentation.App
-import com.dreamsoftware.fitflextv.presentation.theme.FitFlexTVTheme
-import com.dreamsoftware.fitflextv.presentation.theme.LocalNavigationProvider
+import com.dreamsoftware.fitflextv.ui.App
+import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fitflextv.ui.theme.LocalNavigationProvider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     @OptIn(ExperimentalTvMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +37,6 @@ class MainActivity : ComponentActivity() {
                             onBackPressed = onBackPressedDispatcher::onBackPressed,
                         )
                     }
-
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.repository.instructor
 
-import com.dreamsoftware.fitflextv.data.entities.Subscription
+import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 import com.dreamsoftware.fitflextv.data.repository.sessions.SessionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,19 +17,19 @@ class InstructorRepositoryImpl @Inject constructor(
         return sessionRepository.getSessions().find { it.id == instructorId }?.imageUrl ?: ""
     }
 
-    override fun getSubscriptionOptionsByInstructorId(instructorId: String): Flow<List<Subscription>> {
+    override fun getSubscriptionOptionsByInstructorId(instructorId: String): Flow<List<SubscriptionBO>> {
         return flow {
             emit(
                 listOf(
-                    Subscription(
+                    SubscriptionBO(
                         periodTime = "1",
                         price = "$7.99",
                     ),
-                    Subscription(
+                    SubscriptionBO(
                         periodTime = "3",
                         price = "$19.99",
                     ),
-                    Subscription(
+                    SubscriptionBO(
                         periodTime = "12",
                         price = "$79.99",
                     ),
