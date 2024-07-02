@@ -12,7 +12,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.OutlinedIconButton
 import androidx.tv.material3.OutlinedIconButtonDefaults
-import com.google.jetfit.R
+import com.dreamsoftware.fitflextv.R
 
 @Composable
 fun CommonOutlineIconButton(

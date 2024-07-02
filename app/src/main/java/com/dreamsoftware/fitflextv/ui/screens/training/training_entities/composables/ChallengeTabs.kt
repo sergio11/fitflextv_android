@@ -24,17 +24,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.itemsIndexed
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Tab
 import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityUiState
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ChallengeTabs(
     state: TrainingEntityUiState,

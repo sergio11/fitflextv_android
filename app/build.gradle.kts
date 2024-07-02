@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.google.jetfit"
+    namespace = "com.dreamsoftware.fitflextv"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.google.jetfit"
+        applicationId = "com.dreamsoftware.fitflextv"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

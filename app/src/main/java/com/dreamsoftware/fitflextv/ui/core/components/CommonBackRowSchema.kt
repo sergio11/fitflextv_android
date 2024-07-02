@@ -15,10 +15,9 @@ import androidx.tv.material3.Icon
 import androidx.tv.material3.IconButton
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CommonBackRowSchema(
     modifier: Modifier = Modifier,

@@ -15,14 +15,12 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.IconButtonDefaults
 import androidx.tv.material3.MaterialTheme
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 internal fun VideoPlayerControlsIcon(
     state: VideoPlayerState,

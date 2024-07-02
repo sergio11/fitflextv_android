@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonBackRowSchema
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardDetails
 import com.dreamsoftware.fitflextv.ui.core.components.CommonMoreOptionsButton
-import com.google.jetfit.R
 
 @Composable
 fun MoreOptionsScreenContent(

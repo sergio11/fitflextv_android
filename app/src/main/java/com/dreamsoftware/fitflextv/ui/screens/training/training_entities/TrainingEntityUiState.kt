@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.training.training_entities
 
-import com.google.jetfit.R
+import com.dreamsoftware.fitflextv.R
 
 data class TrainingEntityUiState(
     val contentType: ContentType = ContentType.ROUTINE,

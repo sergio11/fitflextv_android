@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.theme
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.google.jetfit.R
+import com.dreamsoftware.fitflextv.R
 
 val IBMPlexSans = FontFamily(
     Font(R.font.ibm_plex_sans_bold, weight = FontWeight.Bold),

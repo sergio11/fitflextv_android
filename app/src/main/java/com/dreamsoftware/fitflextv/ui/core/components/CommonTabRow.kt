@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.composable
+package com.dreamsoftware.fitflextv.ui.core.components
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Tab
 import androidx.tv.material3.TabRow
@@ -16,8 +15,8 @@ import androidx.tv.material3.TabRowDefaults
 import androidx.tv.material3.Text
 
 @Composable
-@OptIn(ExperimentalTvMaterial3Api::class, ExperimentalComposeUiApi::class)
-fun BrownieTabRow(
+@OptIn(ExperimentalComposeUiApi::class)
+fun CommonTabRow(
     tabs: List<String>,
     selectedTabIndex: Int,
     focusTabIndex: Int,

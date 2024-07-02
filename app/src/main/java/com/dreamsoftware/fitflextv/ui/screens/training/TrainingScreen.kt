@@ -25,7 +25,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.core.components.CommonOutlineButton
-import com.dreamsoftware.fitflextv.ui.screens.training.composable.BrownieTabRow
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTabRow
 import com.dreamsoftware.fitflextv.ui.screens.training.composable.FilterSideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.composable.SideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.composable.SortSideMenu
@@ -94,7 +94,7 @@ private fun TrainingContent(
 
 
                 Spacer(modifier = Modifier.width(20.dp))
-                BrownieTabRow(
+                CommonTabRow(
                     tabs = tabs,
                     selectedTabIndex = state.selectedTab,
                     focusTabIndex = state.focusTabIndex,

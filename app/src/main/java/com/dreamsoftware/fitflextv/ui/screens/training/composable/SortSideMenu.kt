@@ -21,11 +21,10 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.RadioButtonDefaults
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingUiState
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun SortSideMenu(
     onDismissSideMenu: () -> Unit,

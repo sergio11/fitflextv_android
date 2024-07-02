@@ -17,20 +17,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
 import androidx.tv.material3.ButtonDefaults
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.IconButton
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityUiState
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.getSecondaryButtonID
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.getSecondaryButtonIcon
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.getStartButtonID
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.isSecondaryButtonVisible
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun TrainingEntityDetails(
     state: TrainingEntityUiState,
@@ -109,7 +107,6 @@ fun TrainingEntityDetails(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun TrainingDetailsButton(
     iconId: Int,
@@ -134,7 +131,6 @@ fun TrainingDetailsButton(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun TrainingInfo(
     info: String,
@@ -154,7 +150,6 @@ fun TrainingInfo(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun RoutineFavouriteButton(isFavorite: Boolean, onClick: () -> Unit) {
     IconButton(

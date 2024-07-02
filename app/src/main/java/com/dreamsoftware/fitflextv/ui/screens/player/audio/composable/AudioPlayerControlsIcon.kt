@@ -9,13 +9,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ButtonBorder
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.IconButtonDefaults
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.google.jetfit.R
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun AudioPlayerControlsIcon(
     icon: Int,
@@ -34,8 +32,6 @@ fun AudioPlayerControlsIcon(
     )
 }
 
-
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Preview(device = Devices.TV_1080p)
 @Composable
 fun PreviewAudioPlayerControlsIcon() {

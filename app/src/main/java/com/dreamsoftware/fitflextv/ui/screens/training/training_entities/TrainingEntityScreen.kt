@@ -55,6 +55,5 @@ private fun TrainingEntityContent(
                 onClickCard = {}
             )
         }
-
     }
 }

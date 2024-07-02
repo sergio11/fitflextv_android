@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens
 
-import com.google.jetfit.R
+import com.dreamsoftware.fitflextv.R
 
 enum class Screens(
     private val args: List<String>? = null,
