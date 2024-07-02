@@ -1,9 +1,9 @@
 package com.dreamsoftware.fitflextv.data.repository.routine
 
-import com.dreamsoftware.fitflextv.data.entities.Routine
+import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 
 interface RoutineRepository {
 
-    fun getRoutines(): List<Routine>
-    fun getRoutineById(id: String): Routine
+    fun getRoutines(): List<RoutineBO>
+    fun getRoutineById(id: String): RoutineBO
 }

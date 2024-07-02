@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.repository.instructor
 
-import com.dreamsoftware.fitflextv.data.entities.Subscription
+import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 import kotlinx.coroutines.flow.Flow
 
 interface InstructorRepository {
@@ -9,5 +9,5 @@ interface InstructorRepository {
 
     suspend fun getInstructorImageById(instructorId: String): String
 
-    fun getSubscriptionOptionsByInstructorId(instructorId: String): Flow<List<Subscription>>
+    fun getSubscriptionOptionsByInstructorId(instructorId: String): Flow<List<SubscriptionBO>>
 }

@@ -1,10 +1,10 @@
 package com.dreamsoftware.fitflextv.data.repository.series
 
-import com.dreamsoftware.fitflextv.data.entities.Series
-import com.dreamsoftware.fitflextv.data.entities.Song
+import com.dreamsoftware.fitflextv.domain.model.SeriesBO
+import com.dreamsoftware.fitflextv.domain.model.SongBO
 
 interface SeriesRepository {
-    fun getSeries(): List<Series>
-    fun getSeriesById(id: String): Series
-    fun getSongById(id: String): Song
+    fun getSeries(): List<SeriesBO>
+    fun getSeriesById(id: String): SeriesBO
+    fun getSongById(id: String): SongBO
 }

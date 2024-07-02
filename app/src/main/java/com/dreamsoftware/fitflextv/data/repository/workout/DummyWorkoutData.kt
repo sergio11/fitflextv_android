@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.repository.workout
 
-import com.dreamsoftware.fitflextv.data.entities.FavWorkout
+import com.dreamsoftware.fitflextv.domain.model.FavWorkout
 import kotlin.random.Random
 
 class DummyWorkoutData {
