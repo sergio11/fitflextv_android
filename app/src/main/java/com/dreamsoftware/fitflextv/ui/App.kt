@@ -58,9 +58,12 @@ fun App(
             composable(
                 route = Screens.ProfileSelector()
             ) {
-                ProfileSelectorScreen(
-                    onSignInClick = { navController.navigate(Screens.Subscription()) }
-                )
+                with(navController) {
+                    ProfileSelectorScreen(
+                        onGoToSignIn = { navigate(Screens.Subscription()) },
+                        onGoToDashboard = { navigateTo(Screens.Dashboard) }
+                    )
+                }
             }
 
             composable(

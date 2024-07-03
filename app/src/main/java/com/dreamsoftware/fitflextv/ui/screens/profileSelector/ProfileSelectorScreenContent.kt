@@ -69,7 +69,7 @@ fun ProfileSelectorContent(
         ) {
             items(state.profiles) { profile ->
                 ItemProfile(
-                    profile,
+                    state = profile,
                     onClick = onProfileSelectedClick,
                 )
             }
@@ -85,7 +85,9 @@ fun ProfileSelectorContent(
 
 @Composable
 private fun ItemProfile(
-    state: ProfileUiState, onClick: (idProfile: String) -> Unit, modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier,
+    state: ProfileVO,
+    onClick: (String) -> Unit,
 ) {
     var isItemProfileFocused by remember { mutableStateOf(false) }
     key(state.id) {
