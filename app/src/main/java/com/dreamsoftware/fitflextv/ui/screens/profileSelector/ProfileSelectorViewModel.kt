@@ -1,47 +1,63 @@
 package com.dreamsoftware.fitflextv.ui.screens.profileSelector
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
-import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
+import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
+import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.SideEffect
+import com.dreamsoftware.fitflextv.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileSelectorViewModel @Inject constructor(
-    private val IUserRepository: IUserRepository
-) : ViewModel() {
+    private val getUserProfilesUseCase: GetUserProfilesUseCase
+) : BaseViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>() {
 
-    private val _state: MutableStateFlow<ProfileSelectorUiState> by lazy {
-        MutableStateFlow(ProfileSelectorUiState())
-    }
-    val state = _state.asStateFlow()
+    override fun onGetDefaultState(): ProfileSelectorUiState = ProfileSelectorUiState()
 
-    init {
-        getUserProfiles()
+    fun getUserProfiles() {
+        executeUseCase(
+            useCase = getUserProfilesUseCase,
+            onSuccess = ::onGetUserProfilesSuccessfully,
+            onMapExceptionToState = ::onMapExceptionToState
+        )
     }
 
-    private fun getUserProfiles() {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    isLoading = false,
-                    profiles = IUserRepository.getUserProfiles().map {
-                        it.toProfileUiState()
-                    },
-                )
-            }
-        }
+    private fun onGetUserProfilesSuccessfully(profiles: List<ProfileBO>) {
+        updateState { it.copy(profiles = profiles.map { profile -> profile.toProfileUiState() } ) }
     }
+
+    private fun onMapExceptionToState(ex: Exception, uiState: ProfileSelectorUiState) =
+        uiState.copy(
+            errorMessage = null
+        )
 
     private fun ProfileBO.toProfileUiState() =
-        ProfileUiState(
+        ProfileVO(
             id = id,
             name = name,
             avatar = avatar
         )
 }
+
+data class ProfileSelectorUiState(
+    override val isLoading: Boolean = false,
+    override val errorMessage: String? = null,
+    val lastFocusedItemId: String = "",
+    val profileItemAlreadyFocused: Boolean = false,
+    val error: String? = null,
+    val profiles: List<ProfileVO> = emptyList(),
+): UiState<ProfileSelectorUiState>(isLoading, errorMessage) {
+    override fun copyState(isLoading: Boolean, errorMessage: String?): ProfileSelectorUiState =
+        copy(isLoading = isLoading, errorMessage = errorMessage)
+}
+
+@Immutable
+data class ProfileVO(
+    val id: String,
+    val name: String,
+    val avatar: String,
+)
+
+sealed interface ProfileSelectorSideEffects: SideEffect

@@ -17,14 +17,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    IWorkoutRepository: IWorkoutRepository
+    workoutRepository: IWorkoutRepository
 ) : ViewModel() {
 
     private val selectedWorkoutItem: MutableStateFlow<FavWorkout?> = MutableStateFlow(null)
     val selectedWorkout = selectedWorkoutItem.asStateFlow()
 
     val uiState: StateFlow<FavoritesScreenUiState> = combine(
-        IWorkoutRepository.getFavoritesWorkouts()
+        workoutRepository.getFavoritesWorkouts()
     ) { favoritesWorkouts ->
         FavoritesScreenUiState.Ready(favoritesWorkouts.last())
     }.stateIn(
