@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.training_entities
+package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities
 
 sealed class TrainingEntityPages {
     data object EntityDetails : TrainingEntityPages()

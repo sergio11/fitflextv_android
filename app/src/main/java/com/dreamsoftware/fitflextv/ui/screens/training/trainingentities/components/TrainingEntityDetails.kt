@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.training_entities.composables
+package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -23,11 +23,7 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityUiState
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.getSecondaryButtonID
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.getSecondaryButtonIcon
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.getStartButtonID
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.isSecondaryButtonVisible
+import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityUiState
 
 @Composable
 fun TrainingEntityDetails(
@@ -108,7 +104,7 @@ fun TrainingEntityDetails(
 }
 
 @Composable
-fun TrainingDetailsButton(
+private fun TrainingDetailsButton(
     iconId: Int,
     textId: Int,
     onClick: () -> Unit
@@ -132,7 +128,7 @@ fun TrainingDetailsButton(
 }
 
 @Composable
-fun TrainingInfo(
+private fun TrainingInfo(
     info: String,
     label: String,
 ) {
@@ -151,7 +147,7 @@ fun TrainingInfo(
 }
 
 @Composable
-fun RoutineFavouriteButton(isFavorite: Boolean, onClick: () -> Unit) {
+private fun RoutineFavouriteButton(isFavorite: Boolean, onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
         colors = ButtonDefaults.colors(containerColor = Color.Transparent),

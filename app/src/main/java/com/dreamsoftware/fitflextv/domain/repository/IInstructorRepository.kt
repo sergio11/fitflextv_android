@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IInstructorRepository {
 
-    suspend fun getInstructors():List<String>
+    suspend fun getInstructors(): List<String>
 
     suspend fun getInstructorImageById(instructorId: String): String
 

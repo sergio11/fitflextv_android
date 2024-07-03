@@ -21,7 +21,7 @@ import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.profileselector.ProfileSelectorScreen
 import com.dreamsoftware.fitflextv.ui.screens.subscription.SubscriptionScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreen
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityScreen
+import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityScreen
 import com.dreamsoftware.fitflextv.ui.utils.navigateTo
 import com.dreamsoftware.fitflextv.ui.utils.navigationDrawerGraph
 

@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.core
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.core.UseCaseWithParams
+import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -148,7 +148,7 @@ abstract class BaseViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : View
      * @param onGetDefaultValue A function that provides a default value in case of failure.
      * @return The result of the use case execution.
      */
-    protected suspend fun <PARAMS, RESULT, UC : UseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
+    protected suspend fun <PARAMS, RESULT, UC : BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
         onMapExceptionToState: ((Exception, STATE) -> STATE)? = null,
@@ -177,7 +177,7 @@ abstract class BaseViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : View
      * @param onFailed A callback function to be invoked upon failed execution.
      * @param onMapExceptionToState A function to map exceptions to the state.
      */
-    protected fun <PARAMS, RESULT, UC : UseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
+    protected fun <PARAMS, RESULT, UC : BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
         onSuccess: (RESULT) -> Unit = {},

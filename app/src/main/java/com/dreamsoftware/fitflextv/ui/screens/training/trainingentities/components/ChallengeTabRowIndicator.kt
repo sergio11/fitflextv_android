@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.training_entities.composables
+package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.width
 import androidx.tv.material3.MaterialTheme
 
 @Composable
-fun ChallengeTabRowIndicator(
+internal fun ChallengeTabRowIndicator(
     currentTabPosition: DpRect,
     doesTabRowHaveFocus: Boolean,
     modifier: Modifier = Modifier,
