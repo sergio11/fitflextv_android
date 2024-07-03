@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.composable
+package com.dreamsoftware.fitflextv.ui.screens.training.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
@@ -23,7 +23,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 
 @Composable
-fun SideMenu(
+internal fun SideMenu(
     isSideMenuExpended: Boolean = false,
     onDismissSideMenu: () -> Unit,
     content: @Composable () -> Unit

@@ -60,7 +60,7 @@ import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun Sessions(
+internal fun Sessions(
     sessions: List<SessionBO>,
     padding: PaddingValues,
     carouselState: CarouselState,

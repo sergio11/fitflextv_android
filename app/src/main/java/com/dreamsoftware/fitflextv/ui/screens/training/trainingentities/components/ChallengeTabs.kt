@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.training_entities.composables
+package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,11 +31,11 @@ import androidx.tv.material3.TabRow
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityUiState
+import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityUiState
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ChallengeTabs(
+internal fun ChallengeTabs(
     state: TrainingEntityUiState,
     onClickBackChallenge: () -> Unit,
     onClickCard: (Int) -> Unit,

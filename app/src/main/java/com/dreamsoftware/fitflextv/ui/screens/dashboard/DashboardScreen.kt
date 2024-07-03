@@ -22,7 +22,7 @@ import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.settings.SettingsScreen
 import com.dreamsoftware.fitflextv.ui.screens.subscription.SubscriptionScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreen
-import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityScreen
+import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityScreen
 
 @Composable
 fun DashboardScreen(

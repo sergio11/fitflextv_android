@@ -21,7 +21,7 @@ import com.dreamsoftware.fitflextv.ui.screens.home.components.TrainingsRecommend
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun HomeScreenContent(
+internal fun HomeScreenContent(
     state: HomeUiState,
     carouselState: CarouselState,
     onStartSessionPressed: (String) -> Unit,

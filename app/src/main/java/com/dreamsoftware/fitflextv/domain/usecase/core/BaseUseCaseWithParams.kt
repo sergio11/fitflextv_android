@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
  * @param ParamsType The type of parameters required by the use case.
  * @param ReturnType The type of the result returned by the use case.
  */
-abstract class UseCaseWithParams<ParamsType, ReturnType> {
+abstract class BaseUseCaseWithParams<ParamsType, ReturnType> {
 
     /**
      * This function must be implemented in the child class to provide the actual

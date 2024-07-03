@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.training_entities.composables
+package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 
 @Composable
-fun RoundedGradientImage(
+internal fun RoundedGradientImage(
     modifier: Modifier = Modifier,
     imageUrl: String
 ) {

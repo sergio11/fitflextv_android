@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.composable
+package com.dreamsoftware.fitflextv.ui.screens.training.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +28,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingFilterData
 
 @Composable
-fun FilterSideMenu(
+internal fun FilterSideMenu(
     onDismissSideMenu: () -> Unit,
     filtrationFields: List<TrainingFilterData>
 ) {
@@ -53,7 +53,6 @@ fun FilterSideMenu(
                     onClick = onDismissSideMenu
                 )
             }
-
         }
         items(filtrationFields) { field ->
             ListItem(
@@ -68,7 +67,7 @@ fun FilterSideMenu(
                 },
                 trailingContent = {
                     Icon(
-                        Icons.Default.KeyboardArrowRight,
+                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
                         modifier = Modifier.size(ListItemDefaults.IconSize),
                         contentDescription = "back icon"
                     )
@@ -84,7 +83,6 @@ fun FilterSideMenu(
                         text = field.description,
                         style = MaterialTheme.typography.bodySmall
                     )
-
                 },
                 colors = ListItemDefaults.colors(
                     containerColor = Color.Transparent,

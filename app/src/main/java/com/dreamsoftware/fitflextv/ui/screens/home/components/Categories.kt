@@ -33,7 +33,7 @@ import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
-fun Categories(
+internal fun Categories(
     categories: List<CategoryBO>,
     onClick: (id: String) -> Unit,
     modifier: Modifier = Modifier,

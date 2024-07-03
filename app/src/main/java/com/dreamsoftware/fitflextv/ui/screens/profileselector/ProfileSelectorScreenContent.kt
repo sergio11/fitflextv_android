@@ -40,7 +40,7 @@ import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 
 @Composable
-fun ProfileSelectorContent(
+internal fun ProfileSelectorContent(
     state: ProfileSelectorUiState,
     profileFocusRequester: FocusRequester,
     onSignInClick: () -> Unit,
