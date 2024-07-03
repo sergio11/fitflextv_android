@@ -43,10 +43,10 @@ fun DashboardScreen(
             ) {
                 composable(Screens.Home()) {
                     HomeScreen(
-                        onStartSessionCLick = {
+                        onStartSession = {
                             navController.navigate(Screens.TrainingEntity())
                         },
-                        onCardClick = {
+                        onGoToCategory = {
                             navController.navigate(Screens.MoreOptions())
                         }
                     )

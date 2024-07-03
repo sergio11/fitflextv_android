@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
 import androidx.tv.foundation.lazy.grid.items
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
@@ -25,7 +24,7 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingBO
 internal fun TrainingsRecommended(
     modifier: Modifier = Modifier,
     state: List<TrainingBO>,
-    onClick: (id: String) -> Unit
+    onClick: (String) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(

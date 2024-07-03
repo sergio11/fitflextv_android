@@ -61,30 +61,25 @@ import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun Sessions(
-    sessionBOS: List<SessionBO>,
+    sessions: List<SessionBO>,
     padding: PaddingValues,
     carouselState: CarouselState,
     onStartSessionCLick: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     var isCarouselFocused by remember { mutableStateOf(false) }
-
     Carousel(
         modifier = modifier
             .fillMaxSize()
             .padding(padding)
-            .conditional(
-                isCarouselFocused,
-                ifTrue = {
-                    shadowBox(
-                        color = shadowCarouselColor,
-                        blurRadius = 40.dp,
-                        offset = DpOffset(0.dp, 8.dp),
-                        shape = MaterialTheme.shapes.extraLarge,
-                    )
-                }
-            )
+            .conditional(isCarouselFocused, ifTrue = {
+                shadowBox(
+                    color = shadowCarouselColor,
+                    blurRadius = 40.dp,
+                    offset = DpOffset(0.dp, 8.dp),
+                    shape = MaterialTheme.shapes.extraLarge,
+                )
+            })
             .border(
                 width = 3.dp,
                 color = MaterialTheme.colorScheme.border.copy(alpha = if (isCarouselFocused) 1f else 0f),
@@ -94,11 +89,12 @@ fun Sessions(
             .onFocusChanged {
                 isCarouselFocused = it.hasFocus
             },
-        itemCount = sessionBOS.size,
+        itemCount = sessions.size,
         carouselState = carouselState,
         carouselIndicator = {
             CarouselIndicator(
-                itemCount = sessionBOS.size, activeItemIndex = carouselState.activeItemIndex
+                itemCount = sessions.size,
+                activeItemIndex = carouselState.activeItemIndex
             )
         },
         contentTransformStartToEnd = fadeIn(tween(durationMillis = 1000)).togetherWith(
@@ -106,25 +102,19 @@ fun Sessions(
         ),
         contentTransformEndToStart = fadeIn(tween(durationMillis = 1000)).togetherWith(
             fadeOut(tween(durationMillis = 1000))
-        ),
-
-        ) { index ->
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            val session = sessionBOS[index]
+        )
+    ) { index ->
+        Box(modifier = Modifier.fillMaxSize()) {
+            val session = sessions[index]
             CarouselItemBackground(
-                sessionbO = session,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                session = session
             )
             CarouselItemForeground(
                 session = session,
                 isCarouselFocused = isCarouselFocused,
                 onCLickStartSession = { onStartSessionCLick(session.id) },
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
+                modifier = Modifier.align(Alignment.BottomStart)
             )
         }
     }
@@ -133,7 +123,9 @@ fun Sessions(
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun BoxScope.CarouselIndicator(
-    itemCount: Int, activeItemIndex: Int, modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    itemCount: Int,
+    activeItemIndex: Int,
 ) {
     Box(modifier = modifier
         .padding(32.dp)
@@ -153,7 +145,6 @@ private fun BoxScope.CarouselIndicator(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun CarouselItemForeground(
     session: SessionBO,
@@ -166,25 +157,18 @@ private fun CarouselItemForeground(
             .padding(start = 34.dp, bottom = 32.dp)
             .width(
                 360.dp
-            ),
-        verticalArrangement = Arrangement.Bottom
+            ), verticalArrangement = Arrangement.Bottom
     ) {
         Text(
-            text = session.instructor,
-            style = MaterialTheme.typography.labelMedium.copy(
+            text = session.instructor, style = MaterialTheme.typography.labelMedium.copy(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
-            ),
-            maxLines = 1
+            ), maxLines = 1
         )
         Text(
-            text = session.title,
-            style = MaterialTheme.typography.headlineSmall.copy(
+            text = session.title, style = MaterialTheme.typography.headlineSmall.copy(
                 color = MaterialTheme.colorScheme.onSurface
-            ),
-            maxLines = 1,
-            modifier = Modifier.padding(top = 4.dp)
+            ), maxLines = 1, modifier = Modifier.padding(top = 4.dp)
         )
-
         Text(
             text = session.description,
             style = MaterialTheme.typography.bodySmall.copy(
@@ -194,8 +178,6 @@ private fun CarouselItemForeground(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = 12.dp, bottom = 28.dp)
         )
-
-
         AnimatedVisibility(visible = isCarouselFocused) {
             CommonFillButton(
                 onClick = onCLickStartSession,
@@ -213,11 +195,10 @@ private fun CarouselItemForeground(
 }
 
 @Composable
-private fun CarouselItemBackground(sessionbO: SessionBO, modifier: Modifier = Modifier) {
+private fun CarouselItemBackground(session: SessionBO, modifier: Modifier = Modifier) {
     var sizeCard by remember { mutableStateOf(Size.Zero) }
-    AsyncImage(
-        model = sessionbO.imageUrl,
-        contentDescription = stringResource(id = R.string.image, sessionbO.title),
+    AsyncImage(model = session.imageUrl,
+        contentDescription = stringResource(id = R.string.image, session.title),
         modifier = modifier
             .fillMaxSize()
             .aspectRatio(21F / 9F)
@@ -236,7 +217,6 @@ private fun CarouselItemBackground(sessionbO: SessionBO, modifier: Modifier = Mo
                         radius = sizeCard.width * .75f,
                     )
                 )
-
             }
             .drawWithContent {
                 drawContent()
@@ -260,28 +240,21 @@ private fun CarouselItemBackground(sessionbO: SessionBO, modifier: Modifier = Mo
 @Composable
 private fun SessionsPreview() {
     val carouselState = rememberSaveable(saver = carouselSaver) { CarouselState(0) }
-
     FitFlexTVTheme {
-        Sessions(
-            sessionBOS = listOf(
-                SessionBO(
-                    id = "1",
-                    instructor = "Danielle Orlando",
-                    title = "Strengthen & lengthen pilates",
-                    description = "This pilates workout is perfect for good balance between your overall strength and flexibility. Use your own body weight to strengthen and sculpt our muscles",
-                    imageUrl = "https://cdn.muscleandstrength.com/sites/default/files/strong-brunette-doing-shoulder-press.jpg"
-                ),
-                SessionBO(
-                    id = "2",
-                    instructor = "John Smith",
-                    title = "Yoga Flow",
-                    description = "Join us for a relaxing yoga flow session to unwind and improve flexibility. Suitable for all levels.",
-                    imageUrl = "https://1.bp.blogspot.com/-06DVesUYzOQ/Xxff6Ysq8VI/AAAAAAAABJ0/HljMYwQN9iEOcuBIRrTmzVMiYQWekkvWgCLcBGAsYHQ/s640/vinyasa.jpg"
-                )
-            ),
-            padding = PaddingValues(),
-            carouselState = carouselState,
-            onStartSessionCLick = {}
-        )
+        Sessions(sessions = listOf(
+            SessionBO(
+                id = "1",
+                instructor = "Danielle Orlando",
+                title = "Strengthen & lengthen pilates",
+                description = "This pilates workout is perfect for good balance between your overall strength and flexibility. Use your own body weight to strengthen and sculpt our muscles",
+                imageUrl = "https://cdn.muscleandstrength.com/sites/default/files/strong-brunette-doing-shoulder-press.jpg"
+            ), SessionBO(
+                id = "2",
+                instructor = "John Smith",
+                title = "Yoga Flow",
+                description = "Join us for a relaxing yoga flow session to unwind and improve flexibility. Suitable for all levels.",
+                imageUrl = "https://1.bp.blogspot.com/-06DVesUYzOQ/Xxff6Ysq8VI/AAAAAAAABJ0/HljMYwQN9iEOcuBIRrTmzVMiYQWekkvWgCLcBGAsYHQ/s640/vinyasa.jpg"
+            )
+        ), padding = PaddingValues(), carouselState = carouselState, onStartSessionCLick = {})
     }
 }

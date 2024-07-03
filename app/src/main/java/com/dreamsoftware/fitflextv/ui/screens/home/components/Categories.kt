@@ -62,6 +62,8 @@ fun Categories(
     }
 }
 
+private const val GRADIENT_START = 0.6f
+private const val GRADIENT_END = 1.0f
 
 @Composable
 private fun CategoryItem(
@@ -70,8 +72,8 @@ private fun CategoryItem(
     onClick: () -> Unit
 ) {
     val gradiantColors = arrayOf(
-        .6f to MaterialTheme.colorScheme.surfaceVariant,
-        1f to Color.Transparent
+        GRADIENT_START to MaterialTheme.colorScheme.surfaceVariant,
+        GRADIENT_END to Color.Transparent
     )
     Card(
         colors = CardDefaults.colors(Color.Transparent),

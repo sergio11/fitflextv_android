@@ -23,40 +23,42 @@ import com.dreamsoftware.fitflextv.ui.screens.home.components.TrainingsRecommend
 @Composable
 fun HomeScreenContent(
     state: HomeUiState,
-    onClick: (id: String) -> Unit,
     carouselState: CarouselState,
-    onCardClick: (id: String) -> Unit,
+    onStartSessionPressed: (String) -> Unit,
+    onCategorySelected: (String) -> Unit,
 ) {
-    TvLazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .semantics { contentDescription = "Home Screen" },
-        verticalArrangement = Arrangement.spacedBy(40.dp),
-        contentPadding = PaddingValues(vertical = 40.dp)
-    ) {
-        item {
-            Sessions(
-                sessionBOS = state.sessionBOS,
-                padding = PaddingValues(horizontal = 32.dp),
-                onStartSessionCLick = onClick,
-                carouselState = carouselState,
-                modifier = Modifier
-                    .height(340.dp)
-                    .fillMaxWidth()
-            )
-        }
-        item {
-            Categories(
-                categories = state.categories,
-                onClick = onCardClick
-            )
-        }
-        item {
-            TrainingsRecommended(
-                state = state.recommended,
-                onClick = onCardClick
-            )
+    with(state) {
+        TvLazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .semantics { contentDescription = "Home Screen" },
+            verticalArrangement = Arrangement.spacedBy(40.dp),
+            contentPadding = PaddingValues(vertical = 40.dp)
+        ) {
+            item {
+                Sessions(
+                    sessions = sessions,
+                    padding = PaddingValues(horizontal = 32.dp),
+                    onStartSessionCLick = onStartSessionPressed,
+                    carouselState = carouselState,
+                    modifier = Modifier
+                        .height(340.dp)
+                        .fillMaxWidth()
+                )
+            }
+            item {
+                Categories(
+                    categories = categories,
+                    onClick = onCategorySelected
+                )
+            }
+            item {
+                TrainingsRecommended(
+                    state = state.recommended,
+                    onClick = onCategorySelected
+                )
+            }
         }
     }
 }
