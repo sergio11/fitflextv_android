@@ -2,10 +2,10 @@ package com.dreamsoftware.fitflextv.ui.screens.training.training_entities
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.data.repository.challenges.ChallengesRepository
-import com.dreamsoftware.fitflextv.data.repository.routine.RoutineRepository
-import com.dreamsoftware.fitflextv.data.repository.series.SeriesRepository
-import com.dreamsoftware.fitflextv.data.repository.workout.WorkoutRepository
+import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
+import com.dreamsoftware.fitflextv.domain.repository.IRoutineRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
+import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,10 +15,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrainingEntityViewModel @Inject constructor(
-    private val workoutRepository: WorkoutRepository,
-    private val challengesRepository: ChallengesRepository,
-    private val seriesRepository: SeriesRepository,
-    private val routineRepository: RoutineRepository
+    private val workoutRepository: IWorkoutRepository,
+    private val challengesRepository: IChallengesRepository,
+    private val seriesRepository: ISeriesRepository,
+    private val routineRepository: IRoutineRepository
 ) : ViewModel() {
     val id: String = "1"
     private val contentType: TrainingEntityUiState.ContentType =

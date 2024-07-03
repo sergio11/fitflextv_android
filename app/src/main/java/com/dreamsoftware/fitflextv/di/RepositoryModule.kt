@@ -1,79 +1,86 @@
 package com.dreamsoftware.fitflextv.di
 
-
-import com.dreamsoftware.fitflextv.data.repository.challenges.ChallengesRepository
-import com.dreamsoftware.fitflextv.data.repository.challenges.ChallengesRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.instructor.InstructorRepository
-import com.dreamsoftware.fitflextv.data.repository.instructor.InstructorRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.routine.RoutineRepository
-import com.dreamsoftware.fitflextv.data.repository.routine.RoutineRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.series.SeriesRepository
-import com.dreamsoftware.fitflextv.data.repository.series.SeriesRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.sessions.SessionRepository
-import com.dreamsoftware.fitflextv.data.repository.sessions.SessionRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.training.TrainingRepository
-import com.dreamsoftware.fitflextv.data.repository.training.TrainingRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.user.UserRepository
-import com.dreamsoftware.fitflextv.data.repository.user.UserRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.workout.WorkoutRepository
-import com.dreamsoftware.fitflextv.data.repository.workout.WorkoutRepositoryImpl
-import dagger.Binds
+import com.dreamsoftware.fitflextv.data.repository.impl.ChallengesRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.InstructorRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.RoutineRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.SeriesRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.SessionRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.TrainingRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.UserRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.WorkoutRepositoryImpl
+import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
+import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
+import com.dreamsoftware.fitflextv.domain.repository.IRoutineRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISessionRepository
+import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
+import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
+import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+class RepositoryModule {
 
-
+    @Provides
     @Singleton
-    @Binds
-    abstract fun bindSessionRepository(
-        sessionRepository: SessionRepositoryImpl
-    ): SessionRepository
+    fun provideChallengeRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IChallengesRepository =
+        ChallengesRepositoryImpl(dispatcher)
 
+    @Provides
     @Singleton
-    @Binds
-    abstract fun bindSeriesRepository(
-        seriesRepositoryImpl: SeriesRepositoryImpl
-    ): SeriesRepository
+    fun provideInstructorRepository(
+        sessionRepository: ISessionRepository,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IInstructorRepository =
+        InstructorRepositoryImpl(sessionRepository, dispatcher)
 
+    @Provides
     @Singleton
-    @Binds
-    abstract fun bindWorkoutRepository(
-        workoutRepositoryImpl: WorkoutRepositoryImpl
-    ): WorkoutRepository
+    fun provideRoutineRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IRoutineRepository =
+        RoutineRepositoryImpl(dispatcher)
 
+    @Provides
     @Singleton
-    @Binds
-    abstract fun bindInstructorRepository(
-        instructorRepositoryImpl: InstructorRepositoryImpl
-    ): InstructorRepository
+    fun provideSeriesRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ISeriesRepository =
+        SeriesRepositoryImpl(dispatcher)
 
-
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindChallengeRepository(
-       challengesRepositoryImpl: ChallengesRepositoryImpl
-    ): ChallengesRepository
+    fun provideSessionRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ISessionRepository =
+        SessionRepositoryImpl(dispatcher)
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindRoutineRepository(
-        routineRepositoryImpl: RoutineRepositoryImpl
-    ): RoutineRepository
+    fun provideTrainingRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ITrainingRepository =
+        TrainingRepositoryImpl(dispatcher)
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindTrainingRepository(
-        trainingRepositoryImpl: TrainingRepositoryImpl
-    ): TrainingRepository
+    fun provideUserRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IUserRepository =
+        UserRepositoryImpl(dispatcher)
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindUserRepository(
-        userRepositoryImpl: UserRepositoryImpl
-    ): UserRepository
+    fun provideWorkoutRepository(
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IWorkoutRepository =
+        WorkoutRepositoryImpl(dispatcher)
 }

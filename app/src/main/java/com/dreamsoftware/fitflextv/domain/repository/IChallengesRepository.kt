@@ -1,8 +1,8 @@
-package com.dreamsoftware.fitflextv.data.repository.challenges
+package com.dreamsoftware.fitflextv.domain.repository
 
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 
-interface ChallengesRepository {
+interface IChallengesRepository {
     fun getChallenges(): List<ChallengeBO>
     fun getChallengeById(id: String): ChallengeBO
 }

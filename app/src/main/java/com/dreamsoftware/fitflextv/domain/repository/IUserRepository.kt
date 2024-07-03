@@ -1,8 +1,7 @@
-package com.dreamsoftware.fitflextv.data.repository.user
+package com.dreamsoftware.fitflextv.domain.repository
 
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 
-interface UserRepository {
+interface IUserRepository {
     suspend fun getUserProfiles(): List<ProfileBO>
-
 }

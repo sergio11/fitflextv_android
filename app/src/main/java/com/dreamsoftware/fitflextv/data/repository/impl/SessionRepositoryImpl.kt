@@ -1,11 +1,14 @@
-package com.dreamsoftware.fitflextv.data.repository.sessions
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.model.SessionBO
-import javax.inject.Inject
+import com.dreamsoftware.fitflextv.domain.repository.ISessionRepository
+import kotlinx.coroutines.CoroutineDispatcher
 
-class SessionRepositoryImpl @Inject constructor():SessionRepository
-{
+internal class SessionRepositoryImpl(
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), ISessionRepository {
     override suspend fun getSessions(): List<SessionBO> {
         return listOf(
             SessionBO(

@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profileSelector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
-import com.dreamsoftware.fitflextv.data.repository.user.UserRepository
+import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileSelectorViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val IUserRepository: IUserRepository
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<ProfileSelectorUiState> by lazy {
@@ -30,7 +30,7 @@ class ProfileSelectorViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     isLoading = false,
-                    profiles = userRepository.getUserProfiles().map {
+                    profiles = IUserRepository.getUserProfiles().map {
                         it.toProfileUiState()
                     },
                 )

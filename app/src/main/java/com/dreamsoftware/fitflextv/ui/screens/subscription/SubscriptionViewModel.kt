@@ -4,7 +4,7 @@ package com.dreamsoftware.fitflextv.ui.screens.subscription
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
-import com.dreamsoftware.fitflextv.data.repository.instructor.InstructorRepository
+import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.utils.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import com.dreamsoftware.fitflextv.utils.Result
 
 @HiltViewModel
 class SubscriptionViewModel @Inject constructor(
-    private val instructorRepository: InstructorRepository
+    private val iInstructorRepository: IInstructorRepository
 ) : ViewModel() {
 
     private val _instructorImageState = MutableStateFlow("")
@@ -36,13 +36,13 @@ class SubscriptionViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _instructorImageState.value = instructorRepository.getInstructorImageById(INSTRUCTOR_ID)
+            _instructorImageState.value = iInstructorRepository.getInstructorImageById(INSTRUCTOR_ID)
         }
     }
 
 
     val uiState: StateFlow<SubscriptionUiState> =
-        instructorRepository.getSubscriptionOptionsByInstructorId(INSTRUCTOR_ID)
+        iInstructorRepository.getSubscriptionOptionsByInstructorId(INSTRUCTOR_ID)
             .asResult()
             .map {
                 when (it) {

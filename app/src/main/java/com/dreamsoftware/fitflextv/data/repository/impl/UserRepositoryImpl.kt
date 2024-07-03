@@ -1,11 +1,13 @@
-package com.dreamsoftware.fitflextv.data.repository.user
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
-import javax.inject.Inject
+import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
+import kotlinx.coroutines.CoroutineDispatcher
 
-class UserRepositoryImpl @Inject constructor(
-
-):UserRepository {
+internal class UserRepositoryImpl(
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), IUserRepository {
     override suspend fun getUserProfiles(): List<ProfileBO> {
         return listOf(
             ProfileBO(
@@ -25,5 +27,4 @@ class UserRepositoryImpl @Inject constructor(
             ),
         )
     }
-
 }

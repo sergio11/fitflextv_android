@@ -1,15 +1,19 @@
-package com.dreamsoftware.fitflextv.data.repository.series
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.SongBO
 import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
+import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import java.util.Date
-import javax.inject.Inject
 
-class SeriesRepositoryImpl @Inject constructor() : SeriesRepository {
+internal class SeriesRepositoryImpl(
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), ISeriesRepository {
 
     override fun getSongById(id: String): SongBO {
         return SongBO(

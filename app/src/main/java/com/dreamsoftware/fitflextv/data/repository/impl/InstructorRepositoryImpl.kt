@@ -1,14 +1,17 @@
-package com.dreamsoftware.fitflextv.data.repository.instructor
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
-import com.dreamsoftware.fitflextv.data.repository.sessions.SessionRepository
+import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISessionRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class InstructorRepositoryImpl @Inject constructor(
-    private val sessionRepository: SessionRepository
-):InstructorRepository{
+internal class InstructorRepositoryImpl(
+    private val sessionRepository: ISessionRepository,
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), IInstructorRepository {
     override suspend fun getInstructors(): List<String> {
         return sessionRepository.getSessions().map { it.instructor }
     }

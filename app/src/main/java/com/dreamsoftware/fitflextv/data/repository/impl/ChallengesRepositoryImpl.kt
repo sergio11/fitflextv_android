@@ -1,16 +1,19 @@
-package com.dreamsoftware.fitflextv.data.repository.challenges
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageBO
 import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
+import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import java.util.Date
-import javax.inject.Inject
 
-class ChallengesRepositoryImpl @Inject constructor(
-) : ChallengesRepository {
+internal class ChallengesRepositoryImpl(
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), IChallengesRepository {
     private val getWorkouts: () -> List<WorkoutBO>
         get() = {
             listOf()

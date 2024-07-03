@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.player.audio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.data.repository.series.SeriesRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AudioPlayerViewModel @Inject constructor(
-    private val seriesRepository: SeriesRepository
+    private val ISeriesRepository: ISeriesRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(AudioPlayerUiState())
     val state get() = _state.asStateFlow()
@@ -25,7 +25,7 @@ class AudioPlayerViewModel @Inject constructor(
     private fun getSongById() {
         try {
             viewModelScope.launch(Dispatchers.IO) {
-                val song = seriesRepository.getSongById("123456sdasdsa")
+                val song = ISeriesRepository.getSongById("123456sdasdsa")
                 _state.update {
                     it.copy(
                         isLoading = false,
