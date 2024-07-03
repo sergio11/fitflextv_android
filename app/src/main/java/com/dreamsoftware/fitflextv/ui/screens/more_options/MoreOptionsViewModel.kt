@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.more_options
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.data.repository.training.TrainingRepository
+import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.utils.Result
 import com.dreamsoftware.fitflextv.utils.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,12 +14,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoreOptionsViewModel @Inject constructor(
-    trainingRepository: TrainingRepository
+    ITrainingRepository: ITrainingRepository
 ) :
     ViewModel() {
 
     val uiState: StateFlow<MoreOptionsUiState> =
-        trainingRepository.getTrainingById(1)
+        ITrainingRepository.getTrainingById(1)
             .asResult()
             .map {
                 when (it) {

@@ -2,8 +2,8 @@ package com.dreamsoftware.fitflextv.ui.screens.training
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.data.repository.instructor.InstructorRepository
-import com.dreamsoftware.fitflextv.data.repository.workout.WorkoutRepository
+import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
+import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrainingViewModel @Inject constructor(
-    private val instructorRepository: InstructorRepository,
-    private val workoutRepository: WorkoutRepository
+    private val iInstructorRepository: IInstructorRepository,
+    private val IWorkoutRepository: IWorkoutRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TrainingUiState())
@@ -27,7 +27,7 @@ class TrainingViewModel @Inject constructor(
 
     private fun getInstructors() {
         viewModelScope.launch {
-            val result = instructorRepository.getInstructors()
+            val result = iInstructorRepository.getInstructors()
             _state.update {
                 it.copy(
                     instructorList = result,
@@ -39,7 +39,7 @@ class TrainingViewModel @Inject constructor(
 
     private fun getWorkout() {
         viewModelScope.launch {
-            val result = workoutRepository.getWorkouts()
+            val result = IWorkoutRepository.getWorkouts()
             _state.update {
                 it.copy(
                     workoutBOS = result

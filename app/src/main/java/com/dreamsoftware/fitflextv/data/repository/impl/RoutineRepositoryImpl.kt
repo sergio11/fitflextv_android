@@ -1,17 +1,18 @@
-package com.dreamsoftware.fitflextv.data.repository.routine
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
+import com.dreamsoftware.fitflextv.domain.repository.IRoutineRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import java.util.Date
-import javax.inject.Inject
 
-class RoutineRepositoryImpl @Inject constructor(
-
-):RoutineRepository
-{
+internal class RoutineRepositoryImpl (
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), IRoutineRepository {
     override fun getRoutines(): List<RoutineBO> = listOf(
         RoutineBO(
             "1",

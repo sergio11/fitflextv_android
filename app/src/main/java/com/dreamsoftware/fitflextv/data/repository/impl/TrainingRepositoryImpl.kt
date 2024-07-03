@@ -1,15 +1,16 @@
-package com.dreamsoftware.fitflextv.data.repository.training
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.TrainingBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingDetailsBO
+import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class TrainingRepositoryImpl @Inject constructor(
-
-):TrainingRepository
-{
+internal class TrainingRepositoryImpl(
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), ITrainingRepository {
     override suspend fun getTrainingsRecommended(): List<TrainingBO> {
         return listOf(
             TrainingBO(
@@ -86,6 +87,5 @@ class TrainingRepositoryImpl @Inject constructor(
             )
         }
     }
-
 
 }

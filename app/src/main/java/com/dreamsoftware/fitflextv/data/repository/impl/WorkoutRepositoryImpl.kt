@@ -1,16 +1,21 @@
-package com.dreamsoftware.fitflextv.data.repository.workout
+package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.workout.DummyWorkoutData
 import com.dreamsoftware.fitflextv.domain.model.FavListBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageBO
 import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
+import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
 import java.util.Date
-import javax.inject.Inject
 
-class WorkoutRepositoryImpl @Inject constructor() : WorkoutRepository {
+internal class WorkoutRepositoryImpl(
+    dispatcher: CoroutineDispatcher
+) : SupportRepositoryImpl(dispatcher), IWorkoutRepository {
 
     private val dummyWorkoutData: DummyWorkoutData = DummyWorkoutData()
     override fun getWorkouts(): List<WorkoutBO> = listOf(
@@ -200,6 +205,5 @@ class WorkoutRepositoryImpl @Inject constructor() : WorkoutRepository {
     override fun getFavoritesWorkouts() = flow {
         emit(FavListBO(value = dummyWorkoutData.list))
     }
-
 
 }

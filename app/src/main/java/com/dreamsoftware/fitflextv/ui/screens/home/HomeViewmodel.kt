@@ -2,8 +2,8 @@ package com.dreamsoftware.fitflextv.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.data.repository.sessions.SessionRepository
-import com.dreamsoftware.fitflextv.data.repository.training.TrainingRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISessionRepository
+import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val sessionRepository: SessionRepository,
-    private val trainingRepository: TrainingRepository
+    private val ISessionRepository: ISessionRepository,
+    private val ITrainingRepository: ITrainingRepository
 ) : ViewModel() {
     private val _state: MutableStateFlow<HomeUiState> by lazy { MutableStateFlow(HomeUiState()) }
     val state = _state.asStateFlow()
@@ -27,9 +27,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    sessionBOS = sessionRepository.getSessions(),
-                    categories = sessionRepository.getCategories(),
-                    recommended = trainingRepository.getTrainingsRecommended()
+                    sessionBOS = ISessionRepository.getSessions(),
+                    categories = ISessionRepository.getCategories(),
+                    recommended = ITrainingRepository.getTrainingsRecommended()
                 )
             }
         }

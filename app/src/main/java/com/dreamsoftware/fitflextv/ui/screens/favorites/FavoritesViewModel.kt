@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.favorites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.model.FavWorkout
-import com.dreamsoftware.fitflextv.data.repository.workout.WorkoutRepository
+import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
 import com.dreamsoftware.fitflextv.domain.model.FavListBO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,14 +17,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    workoutRepository: WorkoutRepository
+    IWorkoutRepository: IWorkoutRepository
 ) : ViewModel() {
 
     private val selectedWorkoutItem: MutableStateFlow<FavWorkout?> = MutableStateFlow(null)
     val selectedWorkout = selectedWorkoutItem.asStateFlow()
 
     val uiState: StateFlow<FavoritesScreenUiState> = combine(
-        workoutRepository.getFavoritesWorkouts()
+        IWorkoutRepository.getFavoritesWorkouts()
     ) { favoritesWorkouts ->
         FavoritesScreenUiState.Ready(favoritesWorkouts.last())
     }.stateIn(
