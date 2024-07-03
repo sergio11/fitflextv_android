@@ -18,7 +18,7 @@ import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
 import com.dreamsoftware.fitflextv.ui.screens.more_options.MoreOptionsScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
-import com.dreamsoftware.fitflextv.ui.screens.profileSelector.ProfileSelectorScreen
+import com.dreamsoftware.fitflextv.ui.screens.profileselector.ProfileSelectorScreen
 import com.dreamsoftware.fitflextv.ui.screens.subscription.SubscriptionScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.training_entities.TrainingEntityScreen
@@ -95,10 +95,10 @@ fun App(
                 )
             ) {
                 HomeScreen(
-                    onStartSessionCLick = {
+                    onStartSession = {
                         navController.navigate(Screens.TrainingEntity())
                     },
-                    onCardClick = {
+                    onGoToCategory = {
                         navController.navigate(Screens.MoreOptions())
                     }
                 )

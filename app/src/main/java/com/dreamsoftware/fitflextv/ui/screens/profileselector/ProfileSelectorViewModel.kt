@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.profileSelector
+package com.dreamsoftware.fitflextv.ui.screens.profileselector
 
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
@@ -46,7 +46,6 @@ data class ProfileSelectorUiState(
     override val errorMessage: String? = null,
     val lastFocusedItemId: String = "",
     val profileItemAlreadyFocused: Boolean = false,
-    val error: String? = null,
     val profiles: List<ProfileVO> = emptyList(),
 ): UiState<ProfileSelectorUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): ProfileSelectorUiState =
