@@ -1,6 +1,5 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities
+package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
@@ -13,22 +12,20 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
-import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityUiState.*
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TrainingEntityViewModel @Inject constructor(
+class TrainingDetailViewModel @Inject constructor(
     private val getRoutineByIdUseCase: GetRoutineByIdUseCase,
     private val getWorkoutByIdUseCase: GetWorkoutByIdUseCase,
     private val getTrainingSeriesByIdUseCase: GetTrainingSeriesByIdUseCase,
     private val getChallengeByIdUseCase: GetChallengeByIdUseCase
-) : BaseViewModel<TrainingEntityUiState, TrainingEntitySideEffects>() {
+) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>() {
     val id: String = "1"
 
-    override fun onGetDefaultState(): TrainingEntityUiState = TrainingEntityUiState()
+    override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 
     fun fetchData() {
         when (uiState.value.contentType) {
@@ -159,7 +156,7 @@ class TrainingEntityViewModel @Inject constructor(
     }
 }
 
-data class TrainingEntityUiState(
+data class TrainingDetailUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
     val contentType: ContentType = ContentType.ROUTINE,
@@ -171,13 +168,13 @@ data class TrainingEntityUiState(
     val tabs: List<String> = listOf(),
     val weaklyPlans: List<Map<String, List<ChallengeWorkoutItemUiState>>> = listOf(),
     val isFavorite: Boolean = false,
-    val challengePages: List<TrainingEntityPages> = listOf(
-        TrainingEntityPages.EntityDetails,
-        TrainingEntityPages.EntityTabs
+    val challengePages: List<TrainingDetailPages> = listOf(
+        TrainingDetailPages.DetailDetails,
+        TrainingDetailPages.DetailTabs
     )
-): UiState<TrainingEntityUiState>(isLoading, errorMessage) {
+): UiState<TrainingDetailUiState>(isLoading, errorMessage) {
 
-    override fun copyState(isLoading: Boolean, errorMessage: String?): TrainingEntityUiState =
+    override fun copyState(isLoading: Boolean, errorMessage: String?): TrainingDetailUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)
 
     data class ChallengeWorkoutItemUiState(
@@ -224,5 +221,9 @@ data class TrainingEntityUiState(
     }
 }
 
+sealed class TrainingDetailPages {
+    data object DetailDetails : TrainingDetailPages()
+    data object DetailTabs : TrainingDetailPages()
+}
 
-sealed interface TrainingEntitySideEffects: SideEffect
+sealed interface TrainingDetailSideEffects: SideEffect

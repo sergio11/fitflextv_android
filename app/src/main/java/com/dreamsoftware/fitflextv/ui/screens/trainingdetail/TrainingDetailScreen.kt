@@ -1,22 +1,22 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities
+package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
 @Composable
-fun TrainingEntityScreen(
-    viewModel: TrainingEntityViewModel = hiltViewModel(),
+fun TrainingDetailScreen(
+    viewModel: TrainingDetailViewModel = hiltViewModel(),
     onClickStart: () -> Unit,
 ) {
     CommonScreen(
         viewModel = viewModel,
-        onInitialUiState = { TrainingEntityUiState() },
+        onInitialUiState = { TrainingDetailUiState() },
         onInit = {
             fetchData()
         }
     ) { uiState ->
-        TrainingEntityScreenContent(
+        TrainingDetailScreenContent(
             state = uiState,
             onClickStart = onClickStart
         )
