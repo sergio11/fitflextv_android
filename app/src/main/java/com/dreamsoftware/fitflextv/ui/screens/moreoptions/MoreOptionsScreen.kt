@@ -13,6 +13,7 @@ fun MoreOptionsScreen(
 ) {
     CommonScreen(
         viewModel = viewModel,
+        onBackPressed = onBackPressed,
         onInitialUiState = { MoreOptionsUiState() },
         onSideEffect = {
 

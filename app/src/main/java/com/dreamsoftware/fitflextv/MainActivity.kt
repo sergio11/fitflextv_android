@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
-import com.dreamsoftware.fitflextv.ui.App
+import com.dreamsoftware.fitflextv.ui.navigation.AppNavHost
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.theme.LocalNavigationProvider
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     CompositionLocalProvider(LocalNavigationProvider provides navController) {
-                        App(
+                        AppNavHost(
                             navController = navController,
                             onBackPressed = onBackPressedDispatcher::onBackPressed,
                         )

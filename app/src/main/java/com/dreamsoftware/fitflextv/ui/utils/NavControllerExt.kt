@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.utils
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import com.dreamsoftware.fitflextv.ui.screens.Screens
+import com.dreamsoftware.fitflextv.ui.navigation.Screens
 
 
 fun NavController.navigateTo(screen: Screens) {

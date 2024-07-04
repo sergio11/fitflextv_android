@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">FitFlexTV</string>
+
+    <string name="dialog_generic_accept_button">Accept</string>
+    <string name="dialog_generic_cancel_button">Cancel</string>
+
+    <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
+    <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_main_title_text">Welcome to FitFlexTV!</string>
+    <string name="onboarding_secondary_title_text">Your Ultimate Fitness Journey Begins Here</string>
+    <string name="onboarding_additional_info_text">Join us and transform your fitness routine with personalized workouts and expert guidance.</string>
+    <string name="onboarding_sign_in_button_text">Get Moving!</string>
+    <string name="onboarding_sign_up_button_text">Join Us Today!</string>
+    <string name="onboarding_exit_app_dialog_title">Leaving So Soon?</string>
+    <string name="onboarding_exit_app_dialog_description">Are you sure you want to exit the app? We\'ll miss you!</string>
+
     <string name="start_session">Let\'s Get Started!</string>
     <string name="start_routine">Kick Off Your Routine</string>
     <string name="start_program">Start Your Program</string>
@@ -52,4 +68,6 @@
     <string name="our_plans">Explore Our Plans</string>
     <string name="free_trail">Start Your 7-Day Free Trial</string>
     <string name="subscription_cancelled">Subscription Continues Until Cancelled</string>
+
+    <string name="no_text_value">--</string>
 </resources>

@@ -13,6 +13,7 @@ fun FavoritesScreen(
 ) {
     CommonScreen(
         viewModel = viewModel,
+        onBackPressed = onBackPressed,
         onInitialUiState = { FavoritesUiState() },
         onSideEffect = {
 

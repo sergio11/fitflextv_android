@@ -13,7 +13,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dreamsoftware.fitflextv.ui.screens.Screens
+import com.dreamsoftware.fitflextv.ui.navigation.Screens
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreen
 import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreen
@@ -76,11 +76,16 @@ fun DashboardScreen(
                     SettingsScreen()
                 }
                 composable(Screens.TrainingEntity()) {
-                    TrainingDetailScreen(
-                        onClickStart = {
-                            navController.navigate(Screens.VideoPlayer())
-                        }
-                    )
+                    with(navController) {
+                        TrainingDetailScreen(
+                            onClickStart = {
+                                navigate(Screens.VideoPlayer())
+                            },
+                            onBackPressed = {
+                                popBackStack()
+                            }
+                        )
+                    }
                 }
                 composable(Screens.MoreOptions()) {
                     with(navController) {
