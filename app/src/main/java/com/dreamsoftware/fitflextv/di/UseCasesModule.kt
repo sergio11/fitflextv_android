@@ -21,6 +21,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -148,4 +149,9 @@ class UseCasesModule {
         GetSongByIdUseCase(
             seriesRepository = seriesRepository
         )
+
+    @Provides
+    @ViewModelScoped
+    fun provideSignInUseCase(): SignInUseCase =
+        SignInUseCase()
 }

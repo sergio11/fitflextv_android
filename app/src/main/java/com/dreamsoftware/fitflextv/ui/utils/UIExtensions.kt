@@ -40,3 +40,9 @@ fun Duration.toAudioTextDuration() = toComponents { h, m, s, _ ->
         "${m}:${s.padStartWith0()}"
     }
 }
+
+val String.Companion.EMPTY: String
+    get() = ""
+
+val Char.Companion.SPACE: Char
+    get() = ' '

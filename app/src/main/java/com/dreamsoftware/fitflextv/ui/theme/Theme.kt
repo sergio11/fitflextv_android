@@ -12,7 +12,6 @@ import androidx.tv.material3.lightColorScheme
 val LocalNavigationProvider = staticCompositionLocalOf<NavHostController> {
     error("No navigation host controller provided.")
 }
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun FitFlexTVTheme(
     content: @Composable () -> Unit,

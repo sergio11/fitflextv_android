@@ -10,6 +10,7 @@ enum class Screens(
     val navigationDrawerIcon: Int? = null
 ) {
     Onboarding,
+    SignIn,
     MoreOptions,
     VideoPlayer,
     AudioPlayer,

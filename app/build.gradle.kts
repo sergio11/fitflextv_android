@@ -80,6 +80,8 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.coil.compose)
     implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.material.icons.extended)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
