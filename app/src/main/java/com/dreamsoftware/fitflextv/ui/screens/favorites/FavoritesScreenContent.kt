@@ -49,69 +49,81 @@ import com.dreamsoftware.fitflextv.ui.theme.surfaceVariant
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 
 @Composable
-fun FavoritesScreenContent(
+internal fun FavoritesScreenContent(
     modifier: Modifier = Modifier,
-    workoutsList: List<FavWorkout>,
-    selectedItem: FavWorkout? = null,
+    state: FavoritesUiState,
     onStartWorkout: (id: String) -> Unit,
     onRemoveWorkout: (id: String) -> Unit,
     onWorkoutSelect: (FavWorkout) -> Unit,
     onBackPressed: () -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = "Favorites",
-            modifier = Modifier.padding(bottom = 8.dp, top = 56.dp, start = 32.dp, end = 32.dp),
-            style = TextStyle(
-                fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.LightGray
-            )
-        )
-        TvLazyHorizontalGrid(
-            contentPadding = PaddingValues(horizontal = 46.dp),
-            rows = TvGridCells.Fixed(2),
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp)
-        ) {
-            items(items = workoutsList, key = { it.id }) { item ->
-                CommonCardWithIntensity(modifier = Modifier
-                    .width(196.dp)
-                    .padding(horizontal = 12.dp),
-                    imageUrl = item.image,
-                    title = item.name,
-                    timeText = item.duration,
-                    typeText = "Intensity",
-                    intensityLevel = item.intensity,
-                    onClick = {
-                        onWorkoutSelect(item)
-                    })
-            }
-        }
-        AnimatedVisibility(
-            visible = selectedItem != null,
-            enter = fadeIn(
-                animationSpec = tween(300)
-            ),
-            exit = fadeOut(
-                animationSpec = tween(300)
-            ),
-        ) {
-            selectedItem?.let {
-                WorkoutDetailsPopup(
-                    workout = it,
-                    onStartWorkout = onStartWorkout,
-                    onRemoveWorkout = onRemoveWorkout,
-                    onBackPressed = onBackPressed
+    with(state) {
+        if (isLoading) {
+            Loading(modifier = Modifier.fillMaxSize())
+        } else if (!errorMessage.isNullOrBlank()) {
+            Error(modifier = Modifier.fillMaxSize())
+        } else {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "Favorites",
+                    modifier = Modifier.padding(
+                        bottom = 8.dp,
+                        top = 56.dp,
+                        start = 32.dp,
+                        end = 32.dp
+                    ),
+                    style = TextStyle(
+                        fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.LightGray
+                    )
                 )
+                TvLazyHorizontalGrid(
+                    contentPadding = PaddingValues(horizontal = 46.dp),
+                    rows = TvGridCells.Fixed(2),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 24.dp)
+                ) {
+                    items(items = favoritesWorkouts, key = { it.id }) { item ->
+                        CommonCardWithIntensity(modifier = Modifier
+                            .width(196.dp)
+                            .padding(horizontal = 12.dp),
+                            imageUrl = item.image,
+                            title = item.name,
+                            timeText = item.duration,
+                            typeText = "Intensity",
+                            intensityLevel = item.intensity,
+                            onClick = {
+                                onWorkoutSelect(item)
+                            })
+                    }
+                }
+                AnimatedVisibility(
+                    visible = selectedWorkoutItem != null,
+                    enter = fadeIn(
+                        animationSpec = tween(300)
+                    ),
+                    exit = fadeOut(
+                        animationSpec = tween(300)
+                    ),
+                ) {
+                    selectedWorkoutItem?.let {
+                        WorkoutDetailsPopup(
+                            workout = it,
+                            onStartWorkout = onStartWorkout,
+                            onRemoveWorkout = onRemoveWorkout,
+                            onBackPressed = onBackPressed
+                        )
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-fun WorkoutDetailsPopup(
+private fun WorkoutDetailsPopup(
     workout: FavWorkout,
     onStartWorkout: (id: String) -> Unit,
     onRemoveWorkout: (id: String) -> Unit,
@@ -207,11 +219,11 @@ fun WorkoutDetailsPopup(
 }
 
 @Composable
-internal fun Loading(modifier: Modifier = Modifier) {
+private fun Loading(modifier: Modifier = Modifier) {
     Text(text = "Loading...", modifier = modifier, textAlign = TextAlign.Center)
 }
 
 @Composable
-internal fun Error(modifier: Modifier = Modifier) {
+private fun Error(modifier: Modifier = Modifier) {
     Text(text = "Wops, something went wrong.", modifier = modifier, textAlign = TextAlign.Center)
 }

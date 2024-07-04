@@ -1,63 +1,53 @@
 package com.dreamsoftware.fitflextv.ui.screens.favorites
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.model.FavWorkout
-import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
-import com.dreamsoftware.fitflextv.domain.model.FavListBO
+import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
+import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.SideEffect
+import com.dreamsoftware.fitflextv.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    workoutRepository: IWorkoutRepository
-) : ViewModel() {
+    private val getFavoritesWorkoutsUseCase: GetFavoritesWorkoutsUseCase
+) : BaseViewModel<FavoritesUiState, FavoritesSideEffects>() {
 
-    private val selectedWorkoutItem: MutableStateFlow<FavWorkout?> = MutableStateFlow(null)
-    val selectedWorkout = selectedWorkoutItem.asStateFlow()
+    override fun onGetDefaultState(): FavoritesUiState = FavoritesUiState()
 
-    val uiState: StateFlow<FavoritesScreenUiState> = combine(
-        workoutRepository.getFavoritesWorkouts()
-    ) { favoritesWorkouts ->
-        FavoritesScreenUiState.Ready(favoritesWorkouts.last())
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = FavoritesScreenUiState.Loading
-    )
+    fun fetchData() {
+        executeUseCase(useCase = getFavoritesWorkoutsUseCase, onSuccess = ::onGetFavoritesWorkoutsSuccessfully)
+    }
 
     fun onWorkoutSelect(favWorkout: FavWorkout) {
-        this.selectedWorkoutItem.update {favWorkout}
+        updateState { it.copy(selectedWorkoutItem = favWorkout) }
     }
 
     fun onStartWorkout(id: String) {
-        this.selectedWorkoutItem.update {null}
+        updateState { it.copy(selectedWorkoutItem = null) }
     }
 
     fun onRemoveWorkout(id: String) {
-        this.selectedWorkoutItem.update {null}
+        updateState { it.copy(selectedWorkoutItem = null) }
     }
 
-    fun onDismissRequest(){
-        this.selectedWorkoutItem.update { FavWorkout() }
+    fun onDismissRequest() {
+        updateState { it.copy(selectedWorkoutItem = FavWorkout()) }
     }
 
+    private fun onGetFavoritesWorkoutsSuccessfully(favoritesWorkouts: List<FavWorkout>) {
+        updateState { it.copy(favoritesWorkouts = favoritesWorkouts) }
+    }
 }
 
-
-
-sealed interface FavoritesScreenUiState {
-    data object Loading: FavoritesScreenUiState
-    data object Error: FavoritesScreenUiState
-    data class Ready(
-        val favoritesWorkouts: FavListBO,
-    ): FavoritesScreenUiState
-
+data class FavoritesUiState(
+    override val isLoading: Boolean = false,
+    override val errorMessage: String? = null,
+    val favoritesWorkouts: List<FavWorkout> = emptyList(),
+    val selectedWorkoutItem: FavWorkout? = null
+): UiState<FavoritesUiState>(isLoading, errorMessage) {
+    override fun copyState(isLoading: Boolean, errorMessage: String?): FavoritesUiState =
+        copy(isLoading = isLoading, errorMessage = errorMessage)
 }
+
+sealed interface FavoritesSideEffects: SideEffect
