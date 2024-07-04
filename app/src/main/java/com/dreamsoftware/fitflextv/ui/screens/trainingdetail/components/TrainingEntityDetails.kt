@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components
+package com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
@@ -23,21 +23,21 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityUiState
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
 
 @Composable
 fun TrainingEntityDetails(
-    state: TrainingEntityUiState,
+    state: TrainingDetailUiState,
     onClickStart: () -> Unit,
     onClickSecondaryButton: () -> Unit,
     onClickRoutineFavourite: () -> Unit,
     onClickChallengesPlan: () -> Unit
 ) {
     val descriptionWidth = (LocalConfiguration.current.screenWidthDp / 2).dp
-    val isChallenges = state.contentType == TrainingEntityUiState.ContentType.CHALLENGES
-    val isRoutine = state.contentType == TrainingEntityUiState.ContentType.ROUTINE
+    val isChallenges = state.contentType == TrainingDetailUiState.ContentType.CHALLENGES
+    val isRoutine = state.contentType == TrainingDetailUiState.ContentType.ROUTINE
     val paddingBottom = when (state.contentType) {
-        TrainingEntityUiState.ContentType.CHALLENGES -> 24.dp
+        TrainingDetailUiState.ContentType.CHALLENGES -> 24.dp
         else -> 80.dp
     }
     Column(

@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components
+package com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition

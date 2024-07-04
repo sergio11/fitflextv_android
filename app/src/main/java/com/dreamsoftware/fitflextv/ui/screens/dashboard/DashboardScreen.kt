@@ -22,7 +22,7 @@ import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.settings.SettingsScreen
 import com.dreamsoftware.fitflextv.ui.screens.subscription.SubscriptionScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreen
-import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.TrainingEntityScreen
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreen
 
 @Composable
 fun DashboardScreen(
@@ -76,7 +76,7 @@ fun DashboardScreen(
                     SettingsScreen()
                 }
                 composable(Screens.TrainingEntity()) {
-                    TrainingEntityScreen(
+                    TrainingDetailScreen(
                         onClickStart = {
                             navController.navigate(Screens.VideoPlayer())
                         }

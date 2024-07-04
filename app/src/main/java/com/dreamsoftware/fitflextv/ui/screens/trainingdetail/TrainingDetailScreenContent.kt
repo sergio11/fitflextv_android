@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.training.trainingentities
+package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
@@ -11,13 +11,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components.ChallengeTabs
-import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components.RoundedGradientImage
-import com.dreamsoftware.fitflextv.ui.screens.training.trainingentities.components.TrainingEntityDetails
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.ChallengeTabs
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.RoundedGradientImage
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.TrainingEntityDetails
 
 @Composable
-internal fun TrainingEntityScreenContent(
-    state: TrainingEntityUiState,
+internal fun TrainingDetailScreenContent(
+    state: TrainingDetailUiState,
     onClickStart: () -> Unit,
 ) {
     var isChallengeTabsVisible by remember { mutableStateOf(false) }

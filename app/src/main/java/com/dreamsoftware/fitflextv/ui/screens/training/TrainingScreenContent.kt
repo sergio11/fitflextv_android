@@ -76,9 +76,7 @@ internal fun TrainingScreenContent(
                     onClick = onClickSortBy
                 )
                 Spacer(modifier = Modifier.width(58.dp))
-
             }
-
         }
 
         item {
