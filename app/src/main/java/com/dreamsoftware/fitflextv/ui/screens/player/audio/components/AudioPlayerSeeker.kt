@@ -7,32 +7,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.dreamsoftware.fitflextv.ui.utils.padStartWith0
+import com.dreamsoftware.fitflextv.ui.utils.toAudioTextDuration
+import com.dreamsoftware.fitflextv.ui.utils.toAudioTextProgress
 import kotlin.time.Duration
 
 @Composable
-fun AudioPlayerSeeker(
+internal fun AudioPlayerSeeker(
     onSeek: (Float) -> Unit,
     contentProgress: Duration,
     contentDuration: Duration,
     modifier: Modifier = Modifier,
 ) {
-    val textProgress = contentProgress.toComponents { h, m, s, _ ->
-        if (h > 0) {
-            "$h:${m}:${s.padStartWith0()}"
-        } else {
-            "${m}:${s.padStartWith0()}"
-        }
-
-    }
-    val textDuration = contentDuration.toComponents { h, m, s, _ ->
-        if (h > 0) {
-            "$h:${m}:${s.padStartWith0()}"
-        } else {
-            "${m}:${s.padStartWith0()}"
-        }
-    }
-
     Column(modifier = modifier) {
         AudioPlayerControllerIndicator(
             progress = (contentProgress / contentDuration).toFloat(),
@@ -43,8 +28,8 @@ fun AudioPlayerSeeker(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            AudioPlayerDurationText(textDuration = textProgress)
-            AudioPlayerDurationText(textDuration = textDuration)
+            AudioPlayerDurationText(textDuration = contentProgress.toAudioTextProgress())
+            AudioPlayerDurationText(textDuration = contentDuration.toAudioTextDuration())
         }
     }
 }

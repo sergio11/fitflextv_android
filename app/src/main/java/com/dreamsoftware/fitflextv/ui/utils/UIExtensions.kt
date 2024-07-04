@@ -8,7 +8,7 @@ fun Number.padStartWith0(): String = this.toString().padStart(2, '0')
 fun TrainingDetailsBO?.formatTimeAndTypeTraining(): String =
     this?.run { "$time | $type ••••" }.orEmpty()
 
-fun Duration.toTextProgress() = toComponents { h, m, s, _ ->
+fun Duration.toVideoTextProgress() = toComponents { h, m, s, _ ->
     if (h > 0) {
         "$h:${m.padStartWith0()}:${s.padStartWith0()}"
     } else {
@@ -16,10 +16,27 @@ fun Duration.toTextProgress() = toComponents { h, m, s, _ ->
     }
 }
 
-fun Duration.toTextDuration() = toComponents { h, m, s, _ ->
+fun Duration.toVideoTextDuration() = toComponents { h, m, s, _ ->
     if (h > 0) {
         "$h:${m.padStartWith0()}:${s.padStartWith0()}"
     } else {
         "${m.padStartWith0()}:${s.padStartWith0()}"
+    }
+}
+
+
+fun Duration.toAudioTextProgress() = toComponents { h, m, s, _ ->
+    if (h > 0) {
+        "$h:${m}:${s.padStartWith0()}"
+    } else {
+        "${m}:${s.padStartWith0()}"
+    }
+}
+
+fun Duration.toAudioTextDuration() = toComponents { h, m, s, _ ->
+    if (h > 0) {
+        "$h:${m}:${s.padStartWith0()}"
+    } else {
+        "${m}:${s.padStartWith0()}"
     }
 }
