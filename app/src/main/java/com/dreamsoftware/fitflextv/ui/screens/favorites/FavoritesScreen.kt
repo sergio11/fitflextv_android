@@ -1,41 +1,33 @@
 package com.dreamsoftware.fitflextv.ui.screens.favorites
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
 @Composable
 fun FavoritesScreen(
+    viewModel: FavoritesViewModel = hiltViewModel(),
     onBackPressed: () -> Unit,
     onStartWorkout: (id: String) -> Unit
 ) {
+    CommonScreen(
+        viewModel = viewModel,
+        onInitialUiState = { FavoritesUiState() },
+        onSideEffect = {
 
-    val favoritesViewModel: FavoritesViewModel = hiltViewModel()
-    val uiState by favoritesViewModel.uiState.collectAsStateWithLifecycle()
-    val selectedItem by favoritesViewModel.selectedWorkout.collectAsStateWithLifecycle()
-
-    when (val value = uiState) {
-        is FavoritesScreenUiState.Ready -> {
-            FavoritesScreenContent(
-                modifier = Modifier,
-                workoutsList = value.favoritesWorkouts,
-                onWorkoutSelect = favoritesViewModel::onWorkoutSelect,
-                onStartWorkout = onStartWorkout,
-                onRemoveWorkout = favoritesViewModel::onRemoveWorkout,
-                selectedItem = selectedItem,
-                onBackPressed = onBackPressed
-            )
+        },
+        onInit = {
+            fetchData()
         }
-
-        is FavoritesScreenUiState.Loading -> {
-            Loading(modifier = Modifier.fillMaxSize())
-        }
-
-        is FavoritesScreenUiState.Error -> {
-            Error(modifier = Modifier.fillMaxSize())
-        }
+    ) { uiState ->
+        FavoritesScreenContent(
+            modifier = Modifier,
+            state = uiState,
+            onWorkoutSelect = ::onWorkoutSelect,
+            onStartWorkout = onStartWorkout,
+            onRemoveWorkout = ::onRemoveWorkout,
+            onBackPressed = onBackPressed
+        )
     }
 }
