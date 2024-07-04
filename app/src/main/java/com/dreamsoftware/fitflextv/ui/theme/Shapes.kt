@@ -5,7 +5,6 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Shapes
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 val Shapes = Shapes(
     extraSmall = RoundedCornerShape(4.dp),
     small = RoundedCornerShape(12.dp),

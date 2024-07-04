@@ -16,6 +16,20 @@
     <string name="onboarding_exit_app_dialog_title">Leaving So Soon?</string>
     <string name="onboarding_exit_app_dialog_description">Are you sure you want to exit the app? We\'ll miss you!</string>
 
+    <!-- Sign in -->
+    <string name="sign_in_progress_dialog_title">Signing You In</string>
+    <string name="sign_in_progress_dialog_description">Please wait a moment while we prepare your personalized fitness experience.</string>
+    <string name="sign_in_do_not_have_account_yet_text">Don\'t have an account yet?</string>
+    <string name="sign_in_go_sign_up_button_text">Join the FitFlex Family</string>
+    <string name="sign_in_main_title_text">Welcome Back to FitFlexTV!</string>
+    <string name="sign_in_secondary_title_text">Your fitness journey continues here.</string>
+    <string name="sign_in_form_heading_text">Sign In to Your Account</string>
+    <string name="sign_in_form_email_label_text">Email Address</string>
+    <string name="sign_in_form_password_label_text">Password</string>
+    <string name="sign_in_main_button_text">Start Sweating!</string>
+
+
+
     <string name="start_session">Let\'s Get Started!</string>
     <string name="start_routine">Kick Off Your Routine</string>
     <string name="start_program">Start Your Program</string>
