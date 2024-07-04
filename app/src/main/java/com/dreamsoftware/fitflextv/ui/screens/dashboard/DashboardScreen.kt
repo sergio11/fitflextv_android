@@ -16,7 +16,7 @@ import androidx.navigation.compose.composable
 import com.dreamsoftware.fitflextv.ui.screens.Screens
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreen
 import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
-import com.dreamsoftware.fitflextv.ui.screens.more_options.MoreOptionsScreen
+import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.settings.SettingsScreen
@@ -83,15 +83,17 @@ fun DashboardScreen(
                     )
                 }
                 composable(Screens.MoreOptions()) {
-                    MoreOptionsScreen(
-                        onStartClick = {
-                            navController.navigate(Screens.AudioPlayer())
-                        },
-                        onBackPressed = onBackPressed,
-                        onFavouriteClick = {
-                            navController.navigate(Screens.Favorite())
-                        }
-                    )
+                    with(navController) {
+                        MoreOptionsScreen(
+                            onStartClick = {
+                                navigate(Screens.AudioPlayer())
+                            },
+                            onBackPressed = onBackPressed,
+                            onFavouriteClick = {
+                                navigate(Screens.Favorite())
+                            }
+                        )
+                    }
                 }
                 composable(Screens.Subscription()) {
                     SubscriptionScreen(

@@ -15,7 +15,7 @@ import androidx.navigation.navArgument
 import com.dreamsoftware.fitflextv.ui.screens.Screens
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreen
 import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
-import com.dreamsoftware.fitflextv.ui.screens.more_options.MoreOptionsScreen
+import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.profileselector.ProfileSelectorScreen

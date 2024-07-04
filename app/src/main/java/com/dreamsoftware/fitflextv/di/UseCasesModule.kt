@@ -13,6 +13,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetRoutineByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetSessionsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingSeriesByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
@@ -117,5 +118,14 @@ class UseCasesModule {
     ): GetTrainingSeriesByIdUseCase =
         GetTrainingSeriesByIdUseCase(
             seriesRepository = seriesRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetTrainingByIdUseCase(
+        trainingRepository: ITrainingRepository
+    ): GetTrainingByIdUseCase =
+        GetTrainingByIdUseCase(
+            trainingRepository = trainingRepository
         )
 }
