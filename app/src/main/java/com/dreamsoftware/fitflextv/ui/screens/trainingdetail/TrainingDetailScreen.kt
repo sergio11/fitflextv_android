@@ -8,9 +8,11 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 fun TrainingDetailScreen(
     viewModel: TrainingDetailViewModel = hiltViewModel(),
     onClickStart: () -> Unit,
+    onBackPressed: () -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
+        onBackPressed = onBackPressed,
         onInitialUiState = { TrainingDetailUiState() },
         onInit = {
             fetchData()

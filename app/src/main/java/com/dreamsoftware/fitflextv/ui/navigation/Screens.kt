@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens
+package com.dreamsoftware.fitflextv.ui.navigation
 
 import com.dreamsoftware.fitflextv.R
 
@@ -9,6 +9,7 @@ enum class Screens(
     val isNavigationDrawerItem: Boolean = false,
     val navigationDrawerIcon: Int? = null
 ) {
+    Onboarding,
     MoreOptions,
     VideoPlayer,
     AudioPlayer,

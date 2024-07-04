@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui
+package com.dreamsoftware.fitflextv.ui.navigation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -12,10 +12,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.dreamsoftware.fitflextv.ui.screens.Screens
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreen
 import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreen
+import com.dreamsoftware.fitflextv.ui.screens.onboarding.OnboardingScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.profileselector.ProfileSelectorScreen
@@ -28,14 +28,14 @@ import com.dreamsoftware.fitflextv.ui.utils.navigationDrawerGraph
 @OptIn(ExperimentalComposeUiApi::class)
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun App(
+fun AppNavHost(
     navController: NavHostController,
     onBackPressed: () -> Unit
 ) {
     NavHost(
         navController = navController,
         route = "root_host",
-        startDestination = Screens.ProfileSelector(),
+        startDestination = Screens.Onboarding(),
         modifier = Modifier
             .semantics {
                 testTagsAsResourceId = true
@@ -45,6 +45,18 @@ fun App(
                 onNavigateToRoot = navController::navigateTo,
                 onBackPressed = onBackPressed
             )
+            composable(route = Screens.Onboarding()) {
+                with(navController) {
+                    OnboardingScreen(
+                        onGoToSignIn = {
+
+                        },
+                        onGoToSignUp = {
+
+                        }
+                    )
+                }
+            }
             composable(
                 route = Screens.VideoPlayer(),
             ) {
@@ -126,11 +138,16 @@ fun App(
                     }
                 )
             ) {
-                TrainingDetailScreen(
-                    onClickStart = {
-                        navController.navigate(Screens.VideoPlayer())
-                    }
-                )
+                with(navController) {
+                    TrainingDetailScreen(
+                        onClickStart = {
+                            navigate(Screens.VideoPlayer())
+                        },
+                        onBackPressed = {
+                            popBackStack()
+                        }
+                    )
+                }
             }
             composable(
                 route = Screens.Subscription(),

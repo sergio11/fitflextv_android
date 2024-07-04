@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.ModalNavigationDrawer
@@ -23,7 +22,7 @@ import androidx.tv.material3.NavigationDrawerItem
 import androidx.tv.material3.NavigationDrawerItemColors
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.Screens
+import com.dreamsoftware.fitflextv.ui.navigation.Screens
 
 @Composable
 fun DashboardNavigationDrawer(

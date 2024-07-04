@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalTvMaterial3Api::class)
-
 package com.dreamsoftware.fitflextv.ui.core.components
 
 import androidx.compose.foundation.background
@@ -23,11 +21,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Card
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CommonCard(
     modifier: Modifier = Modifier,
