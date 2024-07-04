@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerControllerIndicator
 
 @Composable
-fun AudioPlayerControllerIndicator(
+internal fun AudioPlayerControllerIndicator(
     progress: Float,
     onSeek: (seekProgress: Float) -> Unit,
     modifier: Modifier = Modifier,

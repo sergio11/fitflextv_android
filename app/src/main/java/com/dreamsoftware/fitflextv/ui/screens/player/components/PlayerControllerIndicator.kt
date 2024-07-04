@@ -24,9 +24,9 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.ui.utils.handleDPadKeyEvents
 
-@OptIn(ExperimentalTvMaterial3Api::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun PlayerControllerIndicator(
+internal fun PlayerControllerIndicator(
     progress: Float,
     onSeek: (seekProgress: Float) -> Unit,
     isSelected: Boolean,

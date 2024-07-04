@@ -19,7 +19,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonFillIconButton
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
-fun PlayerControlsIcon(
+internal fun PlayerControlsIcon(
     icon: Int,
     border: ButtonBorder,
     buttonColor: Color,

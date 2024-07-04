@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.dreamsoftware.fitflextv.ui.utils.toTextDuration
-import com.dreamsoftware.fitflextv.ui.utils.toTextProgress
+import com.dreamsoftware.fitflextv.ui.utils.toVideoTextDuration
+import com.dreamsoftware.fitflextv.ui.utils.toVideoTextProgress
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -30,7 +30,7 @@ internal fun VideoPlayerSeeker(
         VideoPlayerDurationText(
             modifier = Modifier.padding(
                 horizontal = 12.dp
-            ), textProgress = contentProgress.toTextProgress(), textDuration = contentDuration.toTextDuration()
+            ), textProgress = contentProgress.toVideoTextProgress(), textDuration = contentDuration.toVideoTextDuration()
         )
     }
 }

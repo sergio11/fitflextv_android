@@ -15,7 +15,7 @@ import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerControlsIc
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
-fun AudioPlayerControlsIcon(
+internal fun AudioPlayerControlsIcon(
     icon: Int,
     modifier: Modifier = Modifier,
     border: ButtonBorder = IconButtonDefaults.border(),

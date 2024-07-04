@@ -1,50 +1,56 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.audio
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
+import com.dreamsoftware.fitflextv.domain.model.SongBO
+import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
+import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.SideEffect
+import com.dreamsoftware.fitflextv.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AudioPlayerViewModel @Inject constructor(
-    private val ISeriesRepository: ISeriesRepository
-) : ViewModel() {
-    private val _state = MutableStateFlow(AudioPlayerUiState())
-    val state get() = _state.asStateFlow()
+    private val getSongByIdUseCase: GetSongByIdUseCase
+) : BaseViewModel<AudioPlayerUiState, AudioPlayerSideEffects>() {
 
-    init {
-        getSongById()
+    override fun onGetDefaultState(): AudioPlayerUiState = AudioPlayerUiState()
+
+    fun fetchData(songId: String) {
+        executeUseCaseWithParams(
+            useCase = getSongByIdUseCase,
+            params = GetSongByIdUseCase.Params(songId),
+            onSuccess = ::onGetSongByIdSuccessfully
+        )
     }
 
-    private fun getSongById() {
-        try {
-            viewModelScope.launch(Dispatchers.IO) {
-                val song = ISeriesRepository.getSongById("123456sdasdsa")
-                _state.update {
-                    it.copy(
-                        isLoading = false,
-                        error = null,
-                        songUiState = SongUiState(
-                            title = song.title,
-                            author = song.author,
-                            audioUrl = song.audioUrl,
-                            id = song.id,
-                            imageUrl = song.imageUrl,
-                            date = song.createdDate,
-                        )
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            _state.update {
-                it.copy(isLoading = false, error = e.message.toString())
+    private fun onGetSongByIdSuccessfully(songBO: SongBO) {
+        updateState {
+            with(songBO) {
+                it.copy(
+                    title = title,
+                    author = author,
+                    audioUrl = audioUrl,
+                    id = id,
+                    imageUrl = imageUrl,
+                    date = createdDate,
+                )
             }
         }
     }
 }
+
+data class AudioPlayerUiState(
+    override val isLoading: Boolean = false,
+    override val errorMessage: String? = null,
+    val id: String = "",
+    val audioUrl: String = "",
+    val title: String = "",
+    val author: String = "",
+    val imageUrl: String? = null,
+    val date: String? = null,
+): UiState<AudioPlayerUiState>(isLoading, errorMessage) {
+    override fun copyState(isLoading: Boolean, errorMessage: String?): AudioPlayerUiState =
+        copy(isLoading = isLoading, errorMessage = errorMessage)
+}
+
+sealed interface AudioPlayerSideEffects: SideEffect

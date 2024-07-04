@@ -14,9 +14,8 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun PlayerTitle(
+internal fun PlayerTitle(
     title: String,
     description: String,
     modifier: Modifier = Modifier,
