@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.audio.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.audio.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ButtonBorder
 import androidx.tv.material3.IconButtonDefaults
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerControlsIcon
+import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable

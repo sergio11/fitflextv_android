@@ -38,13 +38,12 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.player.audio.composable.AudioPlayerControlsIcon
-import com.dreamsoftware.fitflextv.ui.screens.player.audio.composable.AudioPlayerSeeker
-import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerTitle
+import com.dreamsoftware.fitflextv.ui.screens.player.audio.components.AudioPlayerControlsIcon
+import com.dreamsoftware.fitflextv.ui.screens.player.audio.components.AudioPlayerSeeker
+import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerTitle
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.dPadAudioEvents
 import kotlinx.coroutines.delay

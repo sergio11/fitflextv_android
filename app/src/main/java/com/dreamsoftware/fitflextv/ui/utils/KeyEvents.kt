@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.media3.exoplayer.ExoPlayer
-import com.dreamsoftware.fitflextv.ui.screens.player.video.composable.VideoPlayerState
+import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerState
 
 @RequiresApi(Build.VERSION_CODES.N_MR1)
 private val DPadEventsKeyCodes = listOf(

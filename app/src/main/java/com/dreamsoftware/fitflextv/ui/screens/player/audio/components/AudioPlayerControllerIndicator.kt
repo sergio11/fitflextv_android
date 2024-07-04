@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.audio.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.audio.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerControllerIndicator
+import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerControllerIndicator
 
 @Composable
 fun AudioPlayerControllerIndicator(

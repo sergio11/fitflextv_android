@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.annotation.IntRange
 import androidx.compose.runtime.Composable

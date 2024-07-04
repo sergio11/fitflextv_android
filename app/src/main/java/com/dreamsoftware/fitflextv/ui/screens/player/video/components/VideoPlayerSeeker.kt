@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -8,33 +8,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.dreamsoftware.fitflextv.ui.utils.padStartWith0
+import com.dreamsoftware.fitflextv.ui.utils.toTextDuration
+import com.dreamsoftware.fitflextv.ui.utils.toTextProgress
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
-fun VideoPlayerSeeker(
+internal fun VideoPlayerSeeker(
     state: VideoPlayerState,
     onSeek: (Float) -> Unit,
     contentProgress: Duration,
     contentDuration: Duration,
     modifier: Modifier = Modifier,
 ) {
-    val textProgress = contentProgress.toComponents { h, m, s, _ ->
-        if (h > 0) {
-            "$h:${m.padStartWith0()}:${s.padStartWith0()}"
-        } else {
-            "${m.padStartWith0()}:${s.padStartWith0()}"
-        }
-
-    }
-    val textDuration = contentDuration.toComponents { h, m, s, _ ->
-        if (h > 0) {
-            "$h:${m.padStartWith0()}:${s.padStartWith0()}"
-        } else {
-            "${m.padStartWith0()}:${s.padStartWith0()}"
-        }
-    }
     Row(
         modifier = modifier, verticalAlignment = Alignment.CenterVertically
     ) {
@@ -44,7 +30,7 @@ fun VideoPlayerSeeker(
         VideoPlayerDurationText(
             modifier = Modifier.padding(
                 horizontal = 12.dp
-            ), textProgress = textProgress, textDuration = textDuration
+            ), textProgress = contentProgress.toTextProgress(), textDuration = contentDuration.toTextDuration()
         )
     }
 }

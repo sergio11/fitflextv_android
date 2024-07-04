@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -18,7 +18,7 @@ import androidx.tv.material3.Border
 import androidx.tv.material3.IconButtonDefaults
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerControlsIcon
+import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
 
-
 inline fun Modifier.conditional(
     condition: Boolean,
     ifTrue: Modifier.() -> Modifier,
@@ -107,7 +106,7 @@ fun Modifier.shadowBox(
                         }
 
                         else -> size
-                    } as Size,
+                    },
                     layoutDirection = layoutDirection,
                     density = density
                 )

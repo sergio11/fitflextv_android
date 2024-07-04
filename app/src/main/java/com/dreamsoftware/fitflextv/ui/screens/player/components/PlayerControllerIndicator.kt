@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.components
 
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Canvas
