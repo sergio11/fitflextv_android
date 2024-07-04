@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.audio.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.audio.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

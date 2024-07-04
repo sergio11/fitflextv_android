@@ -103,7 +103,6 @@ fun SettingsScreenContent(
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun SettingsItem(
     item: SettingsItemUIState,

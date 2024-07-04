@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
@@ -11,9 +11,8 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun VideoPlayerDurationText(
+internal fun VideoPlayerDurationText(
     textProgress: String,
     textDuration: String,
     modifier: Modifier = Modifier,

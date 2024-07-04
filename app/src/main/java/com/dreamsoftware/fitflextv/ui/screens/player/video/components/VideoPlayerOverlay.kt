@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -27,68 +27,69 @@ import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
-fun VideoPlayerOverlay(
-    isPlaying: Boolean,
+internal fun VideoPlayerOverlay(
     modifier: Modifier = Modifier,
+    isPlaying: Boolean,
     state: VideoPlayerState = rememberVideoPlayerState(),
     focusRequester: FocusRequester = remember { FocusRequester() },
-    subtitles: @Composable () -> Unit = {},
-    controls: @Composable () -> Unit = {},
-    centerButton: @Composable () -> Unit = {},
+    onBuildSubtitles: @Composable () -> Unit = {},
+    onBuildControls: @Composable () -> Unit = {},
+    onBuildCenterButton: @Composable () -> Unit = {},
 ) {
-    LaunchedEffect(state.controlsVisibility) {
-        if (state.controlsVisibility) {
-            focusRequester.requestFocus()
-        }
-    }
-
-    LaunchedEffect(isPlaying) {
-        if (isPlaying) {
-            state.showControls()
-        } else {
-            state.showControls(seconds = Int.MAX_VALUE)
-        }
-    }
-
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        AnimatedVisibility(
-            visible = state.controlsVisibility,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            OverlayBackground(modifier = Modifier.fillMaxSize())
+    with(state) {
+        LaunchedEffect(controlsVisibility) {
+            if (controlsVisibility) {
+                focusRequester.requestFocus()
+            }
         }
 
-        AnimatedVisibility(
-            visible = state.controlsVisibility,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            centerButton()
+        LaunchedEffect(isPlaying) {
+            if (isPlaying) {
+                showControls()
+            } else {
+                showControls(seconds = Int.MAX_VALUE)
+            }
         }
-    }
 
-    Column {
         Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.BottomCenter
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            subtitles()
+            AnimatedVisibility(
+                visible = controlsVisibility,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                OverlayBackground(modifier = Modifier.fillMaxSize())
+            }
+
+            AnimatedVisibility(
+                visible = controlsVisibility,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                onBuildCenterButton()
+            }
         }
 
-        AnimatedVisibility(
-            visible = state.controlsVisibility,
-            enter = slideInVertically { it } + fadeIn(),
-            exit = slideOutVertically { it } + fadeOut()
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(bottom = 32.dp, top = 8.dp, start = 56.dp, end = 56.dp)
+        Column {
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.BottomCenter
             ) {
-                controls()
+                onBuildSubtitles()
+            }
+            AnimatedVisibility(
+                visible = controlsVisibility,
+                enter = slideInVertically { it } + fadeIn(),
+                exit = slideOutVertically { it } + fadeOut()
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(bottom = 32.dp, top = 8.dp, start = 56.dp, end = 56.dp)
+                ) {
+                    onBuildControls()
+                }
             }
         }
     }
@@ -117,7 +118,7 @@ fun PreviewVideoPlayerOverlay() {
             VideoPlayerOverlay(
                 isPlaying = true,
                 modifier = Modifier.align(Alignment.BottomCenter),
-                subtitles = {
+                onBuildSubtitles = {
                     Box(
                         Modifier
                             .fillMaxWidth()
@@ -125,7 +126,7 @@ fun PreviewVideoPlayerOverlay() {
                             .background(Color.Red)
                     )
                 },
-                controls = {
+                onBuildControls = {
                     Box(
                         Modifier
                             .fillMaxWidth()
@@ -133,7 +134,7 @@ fun PreviewVideoPlayerOverlay() {
                             .background(Color.Blue)
                     )
                 },
-                centerButton = {
+                onBuildCenterButton = {
                     Box(
                         Modifier
                             .size(88.dp)

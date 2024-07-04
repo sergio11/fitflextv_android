@@ -1,50 +1,56 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.video
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
+import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
+import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
+import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.SideEffect
+import com.dreamsoftware.fitflextv.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class VideoPlayerViewModel @Inject constructor(
-    private val IWorkoutRepository: IWorkoutRepository
-) : ViewModel() {
-    private val _state = MutableStateFlow(VideoPlayerUiState())
-    val state get() = _state.asStateFlow()
+    private val getWorkoutByIdUseCase: GetWorkoutByIdUseCase
+) : BaseViewModel<VideoPlayerUiState, VideoPlayerSideEffects>() {
 
-    init {
-        getWorkoutById()
+    override fun onGetDefaultState(): VideoPlayerUiState = VideoPlayerUiState()
+
+    fun fetchData(workoutId: String) {
+        executeUseCaseWithParams(
+            useCase = getWorkoutByIdUseCase,
+            params = GetWorkoutByIdUseCase.Params(workoutId),
+            onSuccess = ::onGetWorkoutByIdSuccessfully
+        )
     }
 
-    private fun getWorkoutById() {
-        try {
-            viewModelScope.launch(Dispatchers.IO) {
-                val workout = IWorkoutRepository.getWorkoutById("1")
-                _state.update {
-                    it.copy(
-                        isLoading = false,
-                        error = null,
-                        workoutUiState = WorkoutUiState(
-                            title = workout.name,
-                            instructor = workout.instructorName,
-                            videoUrl = workout.videoUrl,
-                            id = workout.id,
-                            subtitles = null,
-                            subtitleUri = workout.subtitleUri,
-                        )
-                    )
-                }
-            }
-        } catch (e: Exception) {
-            _state.update {
-                it.copy(isLoading = false, error = e.message.toString())
+    private fun onGetWorkoutByIdSuccessfully(workoutBO: WorkoutBO) {
+        updateState {
+            with(workoutBO) {
+                it.copy(
+                    title = name,
+                    instructor = instructorName,
+                    videoUrl = videoUrl,
+                    id = id,
+                    subtitles = null,
+                    subtitleUri = subtitleUri,
+                )
             }
         }
     }
 }
+
+data class VideoPlayerUiState(
+    override val isLoading: Boolean = false,
+    override val errorMessage: String? = null,
+    val id: String = "",
+    val videoUrl: String = "",
+    val title: String = "",
+    val instructor: String = "",
+    val subtitles: String? = null,
+    val subtitleUri: String? = null,
+): UiState<VideoPlayerUiState>(isLoading, errorMessage) {
+    override fun copyState(isLoading: Boolean, errorMessage: String?): VideoPlayerUiState =
+        copy(isLoading = isLoading, errorMessage = errorMessage)
+}
+
+sealed interface VideoPlayerSideEffects: SideEffect

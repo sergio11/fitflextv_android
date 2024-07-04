@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -11,11 +11,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import com.dreamsoftware.fitflextv.ui.screens.player.composable.PlayerControllerIndicator
+import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerControllerIndicator
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
-fun RowScope.VideoPlayerControllerIndicator(
+internal fun RowScope.VideoPlayerControllerIndicator(
     progress: Float,
     onSeek: (seekProgress: Float) -> Unit,
     state: VideoPlayerState,

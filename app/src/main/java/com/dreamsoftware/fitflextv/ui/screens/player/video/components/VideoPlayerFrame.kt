@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.video.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.video.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
-fun VideoPlayerFrame(
+internal fun VideoPlayerFrame(
     videoSeeker: @Composable () -> Unit,
     videoTitle: @Composable () -> Unit,
     modifier: Modifier = Modifier,

@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.player.composable
+package com.dreamsoftware.fitflextv.ui.screens.player.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.size
