@@ -22,18 +22,18 @@ val onError = Color(0xFF690005) // Very dark red
 val errorContainer = Color(0xFF93000A) // Dark red
 val onErrorContainer = Color(0xFFFFDAD6) // Very light red
 
-val background = Color(0xFF191C1B) // Dark gray for background
-val onBackground = Color(0xFFE1E3E0) // Light gray for text on dark background
+val background = Color(0xFF2E3E36) // Dark greenish-gray for background
+val onBackground = Color(0xFFECEFF1) // Light gray for text on dark background
 
-val surface = Color(0xFF1A1A1A) // Dark charcoal gray for surface
-val surfaceContainerHigh = Color(0xFF272B29) // Darker gray for containers
-val onSurface = Color(0xFFC4C7C4) // Light gray for text on gray surface
-val surfaceVariant = Color(0xFF3F4945) // Darker gray for variants
-val onSurfaceVariant = Color(0xFFBFC9C3) // Very light gray for text on gray variants
+val surface = Color(0xFF3A4B43) // Greenish-gray for surface
+val surfaceContainerHigh = Color(0xFF495A52) // Slightly lighter greenish-gray for containers
+val onSurface = Color(0xFFD5D8DC) // Light gray for text on greenish-gray surface
+val surfaceVariant = Color(0xFF607D73) // Medium greenish-gray for variants
+val onSurfaceVariant = Color(0xFFE6EBE8) // Very light gray for text on greenish-gray variants
 
 val outline = Color(0xFF89938E) // Gray for outlines
-val inverseOnSurface = Color(0xFF191C1B) // Dark gray for text on inverse surface
-val inverseSurface = Color(0xFFE1E3E0) // Light gray for inverse surface
-val shadowCarouselColor = Color(0x994B635B) // Translucent black for shadows
-val inversePrimary = Color(0xFF004D40) // Dark teal for inverse primary
-val popupShadow = Color(0x332E312F) // Translucent black for popup shadows
+val inverseOnSurface = Color(0xFF2E3E36) // Dark greenish-gray for text inverted on surface
+val inverseSurface = Color(0xFFECEFF1) // Light gray for inverted surface
+val shadowCarouselColor = Color(0x994B635B) // Semi-transparent black for shadows
+val inversePrimary = Color(0xFF48DDB8) // Light emerald for inverse primary
+val popupShadow = Color(0x332E312F) // Semi-transparent black for popup shadows

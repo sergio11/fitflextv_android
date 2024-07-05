@@ -31,7 +31,8 @@ internal fun TrainingsRecommended(
             modifier = Modifier.padding(start = 32.dp),
             type = CommonTextTypeEnum.HEADLINE_MEDIUM,
             titleRes = R.string.recommended_for_you,
-            textColor = MaterialTheme.colorScheme.onSurface
+            textColor = MaterialTheme.colorScheme.onSurface,
+            textBold = true
         )
         TvLazyHorizontalGrid(
             modifier = Modifier

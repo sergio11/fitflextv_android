@@ -26,11 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -47,11 +47,13 @@ import androidx.tv.material3.CarouselState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.ShapeDefaults
-import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.domain.model.SessionBO
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.home.carouselSaver
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.theme.shadowCarouselColor
@@ -152,87 +154,96 @@ private fun CarouselItemForeground(
     modifier: Modifier = Modifier,
     isCarouselFocused: Boolean = false
 ) {
-    Column(
-        modifier = modifier
-            .padding(start = 34.dp, bottom = 32.dp)
-            .width(
-                360.dp
-            ), verticalArrangement = Arrangement.Bottom
-    ) {
-        Text(
-            text = session.instructor, style = MaterialTheme.typography.labelMedium.copy(
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            ), maxLines = 1
-        )
-        Text(
-            text = session.title, style = MaterialTheme.typography.headlineSmall.copy(
-                color = MaterialTheme.colorScheme.onSurface
-            ), maxLines = 1, modifier = Modifier.padding(top = 4.dp)
-        )
-        Text(
-            text = session.description,
-            style = MaterialTheme.typography.bodySmall.copy(
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            ),
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(top = 12.dp, bottom = 28.dp)
-        )
-        AnimatedVisibility(visible = isCarouselFocused) {
-            CommonFillButton(
-                onClick = onCLickStartSession,
-                text = stringResource(id = R.string.start_session),
-                icon = R.drawable.play_icon,
-                iconTint = MaterialTheme.colorScheme.inverseOnSurface,
-                buttonColor = ButtonDefaults.colors(
-                    containerColor = MaterialTheme.colorScheme.inverseSurface,
-                    contentColor = MaterialTheme.colorScheme.inverseOnSurface,
-                    focusedContentColor = MaterialTheme.colorScheme.inverseOnSurface,
-                ),
-            )
+    with(MaterialTheme.colorScheme) {
+        CommonFocusRequester { focusRequester ->
+            Column(
+                modifier = modifier
+                    .padding(start = 34.dp, bottom = 32.dp)
+                    .width(360.dp),
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                CommonText(
+                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    titleText = session.instructor,
+                    singleLine = true,
+                    textColor = onSurfaceVariant
+                )
+                CommonText(
+                    modifier = Modifier.padding(top = 4.dp),
+                    type = CommonTextTypeEnum.HEADLINE_SMALL,
+                    titleText = session.title,
+                    singleLine = true,
+                    textColor = onSurface
+                )
+                CommonText(
+                    modifier = Modifier.padding(top = 12.dp, bottom = 28.dp),
+                    type = CommonTextTypeEnum.BODY_SMALL,
+                    titleText = session.description,
+                    singleLine = true,
+                    textColor = onSurfaceVariant,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                AnimatedVisibility(visible = isCarouselFocused) {
+                    CommonFillButton(
+                        modifier = Modifier.focusRequester(focusRequester),
+                        onClick = onCLickStartSession,
+                        text = stringResource(id = R.string.start_session),
+                        icon = R.drawable.play_icon,
+                        iconTint = inverseOnSurface,
+                        buttonColor = ButtonDefaults.colors(
+                            containerColor = inverseSurface,
+                            contentColor = inverseOnSurface,
+                            focusedContentColor = inverseOnSurface,
+                        ),
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
 private fun CarouselItemBackground(session: SessionBO, modifier: Modifier = Modifier) {
-    var sizeCard by remember { mutableStateOf(Size.Zero) }
-    AsyncImage(model = session.imageUrl,
-        contentDescription = stringResource(id = R.string.image, session.title),
-        modifier = modifier
-            .fillMaxSize()
-            .aspectRatio(21F / 9F)
-            .onGloballyPositioned { coordinates ->
-                sizeCard = coordinates.size.toSize()
-            }
-            .drawWithContent {
-                drawContent()
-                drawRect(
-                    Brush.radialGradient(
-                        colors = listOf(
-                            Color(0x00395B77),
-                            Color(0x1F395B77),
-                        ),
-                        center = Offset(sizeCard.width, -(sizeCard.width * .35F)),
-                        radius = sizeCard.width * .75f,
+    with(MaterialTheme.colorScheme) {
+        var sizeCard by remember { mutableStateOf(Size.Zero) }
+        AsyncImage(model = session.imageUrl,
+            contentDescription = stringResource(id = R.string.image, session.title),
+            modifier = modifier
+                .fillMaxSize()
+                .aspectRatio(21F / 9F)
+                .onGloballyPositioned { coordinates ->
+                    sizeCard = coordinates.size.toSize()
+                }
+                .drawWithContent {
+                    drawContent()
+                    drawRect(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                primary.copy(alpha = 0.0f),
+                                primary.copy(alpha = 0.12f),
+                            ),
+                            center = Offset(sizeCard.width, -(sizeCard.width * .35F)),
+                            radius = sizeCard.width * .75f,
+                        )
                     )
-                )
-            }
-            .drawWithContent {
-                drawContent()
-                drawRect(
-                    Brush.radialGradient(
-                        colors = listOf(
-                            Color(0x1A191C1B),
-                            Color(0xFF191C1B),
-                        ),
-                        center = Offset(sizeCard.width, -(sizeCard.width * .35F)),
-                        radius = sizeCard.width * .75f,
+                }
+                .drawWithContent {
+                    drawContent()
+                    drawRect(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                surface.copy(alpha = 0.1f),
+                                surface,
+                            ),
+                            center = Offset(sizeCard.width, -(sizeCard.width * .35F)),
+                            radius = sizeCard.width * .75f,
+                        )
                     )
-                )
-            },
-        contentScale = ContentScale.Crop
-    )
+                },
+            contentScale = ContentScale.Crop
+        )
+    }
 }
 
 @OptIn(ExperimentalTvMaterial3Api::class)

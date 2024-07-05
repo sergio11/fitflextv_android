@@ -42,7 +42,8 @@ internal fun Categories(
             modifier = Modifier.padding(start = 32.dp),
             type = CommonTextTypeEnum.HEADLINE_MEDIUM,
             titleRes = R.string.categories,
-            textColor = MaterialTheme.colorScheme.onSurface
+            textColor = MaterialTheme.colorScheme.onSurface,
+            textBold = true
         )
         TvLazyRow(
             modifier = Modifier.fillMaxWidth(),

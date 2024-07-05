@@ -149,7 +149,7 @@ private fun OnboardingVideoBackground() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.7f))
+            .background(MaterialTheme.colorScheme.background.copy(alpha = 0.8f))
     )
 }
 
