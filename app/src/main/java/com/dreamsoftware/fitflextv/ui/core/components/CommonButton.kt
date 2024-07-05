@@ -79,7 +79,7 @@ fun CommonButton(
                             when(style) {
                                 CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
                                 CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
-                                CommonButtonStyleTypeEnum.TRANSPARENT -> surface
+                                CommonButtonStyleTypeEnum.TRANSPARENT -> onTertiaryContainer
                             }
                         } else {
                             Color.Transparent
@@ -106,7 +106,7 @@ fun CommonButton(
                 contentColor = when(style) {
                     CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
                     CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
-                    CommonButtonStyleTypeEnum.TRANSPARENT -> surface
+                    CommonButtonStyleTypeEnum.TRANSPARENT -> onTertiaryContainer
                 },
                 focusedContainerColor = when(style) {
                     CommonButtonStyleTypeEnum.NORMAL -> tertiary.copy(alpha = 0.8f)
@@ -131,7 +131,7 @@ fun CommonButton(
                     textColor = when(style) {
                         CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
                         CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
-                        CommonButtonStyleTypeEnum.TRANSPARENT -> surface
+                        CommonButtonStyleTypeEnum.TRANSPARENT -> onTertiaryContainer
                     },
                     textAlign = TextAlign.Center,
                     textBold = true

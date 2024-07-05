@@ -20,6 +20,7 @@ import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.profileselector.ProfileSelectorScreen
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreen
+import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreen
 import com.dreamsoftware.fitflextv.ui.screens.subscription.SubscriptionScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreen
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreen
@@ -53,7 +54,7 @@ fun AppNavHost(
                             navigate(Screens.SignIn())
                         },
                         onGoToSignUp = {
-
+                            navigate(Screens.SignUp())
                         }
                     )
                 }
@@ -68,11 +69,20 @@ fun AppNavHost(
 
                         },
                         onGoToSignUp = {
-
+                            navigate(Screens.SignUp())
                         },
                         onBackPressed = {
                             popBackStack()
                         },
+                    )
+                }
+            }
+            composable(route = Screens.SignUp()) {
+                with(navController) {
+                    SignUpScreen(
+                        onBackPressed = {
+                            popBackStack()
+                        }
                     )
                 }
             }

@@ -182,13 +182,15 @@ private fun SignInFormInfo(modifier: Modifier) {
         CommonText(
             titleRes = R.string.sign_in_main_title_text,
             type = CommonTextTypeEnum.HEADLINE_MEDIUM,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            textBold = true
         )
         Spacer(modifier = Modifier.height(20.dp))
         CommonText(
             titleRes = R.string.sign_in_secondary_title_text,
             type = CommonTextTypeEnum.BODY_LARGE,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            textBold = true
         )
     }
 }

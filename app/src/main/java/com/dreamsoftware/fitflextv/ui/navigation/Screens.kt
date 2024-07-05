@@ -11,6 +11,7 @@ enum class Screens(
 ) {
     Onboarding,
     SignIn,
+    SignUp,
     MoreOptions,
     VideoPlayer,
     AudioPlayer,

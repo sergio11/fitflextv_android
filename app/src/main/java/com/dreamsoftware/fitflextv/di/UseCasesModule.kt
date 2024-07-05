@@ -22,6 +22,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -154,4 +155,9 @@ class UseCasesModule {
     @ViewModelScoped
     fun provideSignInUseCase(): SignInUseCase =
         SignInUseCase()
+
+    @Provides
+    @ViewModelScoped
+    fun provideSignUpUseCase(): SignUpUseCase =
+        SignUpUseCase()
 }
