@@ -41,6 +41,14 @@
     <string name="sign_up_form_password_label_text">Create a Password</string>
     <string name="sign_up_form_repeat_password_label_text">Repeat Password</string>
 
+    <!-- Favorites -->
+    <string name="favorites_screen_title">Favorites</string>
+
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="start_workout">Let\'s Work Out!</string>
+    <string name="more_info">Get More Info</string>
+    <string name="view_instructor">Meet Your Awesome Instructor</string>
+    <string name="share">Share the Fun</string>
     <string name="start_session">Let\'s Get Started!</string>
     <string name="start_routine">Kick Off Your Routine</string>
     <string name="start_program">Start Your Program</string>
@@ -52,11 +60,7 @@
     <string name="set_up_daily_reminder">Set Up Daily Reminders</string>
     <string name="recommend_schedule">Get Your Recommended Schedule</string>
 
-    <string name="start_workout">Let\'s Work Out!</string>
-    <string name="add_to_favorites">Add to Favorites</string>
-    <string name="more_info">Get More Info</string>
-    <string name="view_instructor">Meet Your Awesome Instructor</string>
-    <string name="share">Share the Fun</string>
+
     <string name="to_go_back">Press Back</string>
     <string name="press">Press</string>
 

@@ -63,10 +63,10 @@ fun AppNavHost(
                 with(navController) {
                     SignInScreen(
                         onGoToHome = {
-
+                            navigate(Screens.Dashboard())
                         },
                         onGoToProfileSelector = {
-
+                            navigate(Screens.ProfileSelector())
                         },
                         onGoToSignUp = {
                             navigate(Screens.SignUp())
@@ -89,12 +89,16 @@ fun AppNavHost(
             composable(
                 route = Screens.VideoPlayer(),
             ) {
-                VideoPlayerScreen()
+                VideoPlayerScreen {
+                    navController.popBackStack()
+                }
             }
             composable(
                 route = Screens.AudioPlayer(),
             ) {
-                AudioPlayerScreen()
+                AudioPlayerScreen {
+                    navController.popBackStack()
+                }
             }
             composable(
                 route = Screens.ProfileSelector()
@@ -137,7 +141,7 @@ fun AppNavHost(
             ) {
                 HomeScreen(
                     onStartSession = {
-                        navController.navigate(Screens.TrainingEntity())
+                        navController.navigate(Screens.TrainingDetail())
                     },
                     onGoToCategory = {
                         navController.navigate(Screens.MoreOptions())
@@ -154,13 +158,13 @@ fun AppNavHost(
             ) {
                 TrainingScreen(
                     onClickItem = {
-                        navController.navigate(Screens.TrainingEntity())
+                        navController.navigate(Screens.TrainingDetail())
                     }
                 )
             }
 
             composable(
-                route = Screens.TrainingEntity(),
+                route = Screens.TrainingDetail(),
                 arguments = listOf(
                     navArgument("") {
                         type = NavType.StringType

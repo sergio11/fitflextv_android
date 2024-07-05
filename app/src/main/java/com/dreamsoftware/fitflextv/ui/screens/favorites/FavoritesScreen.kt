@@ -28,7 +28,7 @@ fun FavoritesScreen(
             onWorkoutSelect = ::onWorkoutSelect,
             onStartWorkout = onStartWorkout,
             onRemoveWorkout = ::onRemoveWorkout,
-            onBackPressed = onBackPressed
+            onDismissRequest = ::onDismissRequest
         )
     }
 }

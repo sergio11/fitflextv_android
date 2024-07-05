@@ -32,7 +32,7 @@ class FavoritesViewModel @Inject constructor(
     }
 
     fun onDismissRequest() {
-        updateState { it.copy(selectedWorkoutItem = FavWorkout()) }
+        updateState { it.copy(selectedWorkoutItem = null) }
     }
 
     private fun onGetFavoritesWorkoutsSuccessfully(favoritesWorkouts: List<FavWorkout>) {

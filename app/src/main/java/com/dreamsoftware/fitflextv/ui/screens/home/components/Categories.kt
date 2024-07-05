@@ -16,7 +16,6 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,12 +23,12 @@ import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.items
 import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
@@ -39,11 +38,11 @@ internal fun Categories(
     modifier: Modifier = Modifier,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
-        Text(
+        CommonText(
             modifier = Modifier.padding(start = 32.dp),
-            text = stringResource(R.string.categories),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface
+            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            titleRes = R.string.categories,
+            textColor = MaterialTheme.colorScheme.onSurface
         )
         TvLazyRow(
             modifier = Modifier.fillMaxWidth(),
@@ -95,19 +94,19 @@ private fun CategoryItem(
                 contentScale = ContentScale.Crop
             )
             Column(modifier = Modifier.padding(start = 16.dp)) {
-                Text(
+                CommonText(
                     modifier = Modifier.width(180.dp),
-                    text = categoryBO.title,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    titleText = categoryBO.title,
+                    type = CommonTextTypeEnum.BODY_LARGE,
+                    textColor = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(
+                CommonText(
                     modifier = Modifier.width(200.dp),
-                    text = categoryBO.description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    titleText = categoryBO.description,
+                    type = CommonTextTypeEnum.BODY_SMALL,
+                    textColor = MaterialTheme.colorScheme.onSurface,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
