@@ -10,7 +10,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.navigation.compose.rememberNavController
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
 import com.dreamsoftware.fitflextv.ui.navigation.AppNavHost
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
@@ -21,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-    @OptIn(ExperimentalTvMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,8 +31,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     CompositionLocalProvider(LocalNavigationProvider provides navController) {
                         AppNavHost(
-                            navController = navController,
-                            onBackPressed = onBackPressedDispatcher::onBackPressed,
+                            navController = navController
                         )
                     }
                 }
