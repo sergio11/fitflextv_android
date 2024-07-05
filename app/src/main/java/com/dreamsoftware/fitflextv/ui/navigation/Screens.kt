@@ -18,7 +18,7 @@ enum class Screens(
     Dashboard,
     Subscription,
     ProfileSelector,
-    TrainingEntity,
+    TrainingDetail,
     Home(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.home),
     Training(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.fitness_center),
     Favorite(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.favorite),

@@ -9,16 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
 import androidx.tv.foundation.lazy.grid.items
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.domain.model.TrainingBO
+import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 
 @Composable
 internal fun TrainingsRecommended(
@@ -27,11 +27,11 @@ internal fun TrainingsRecommended(
     onClick: (String) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
-        Text(
+        CommonText(
             modifier = Modifier.padding(start = 32.dp),
-            text = stringResource(R.string.recommended_for_you),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface
+            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            titleRes = R.string.recommended_for_you,
+            textColor = MaterialTheme.colorScheme.onSurface
         )
         TvLazyHorizontalGrid(
             modifier = Modifier

@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
@@ -39,7 +40,9 @@ fun CommonText(
     textBold: Boolean = false,
     maxLines: Int = DEFAULT_MAX_LINES,
     textColor: Color? = null,
-    textAlign: TextAlign? = null
+    textAlign: TextAlign? = null,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true
 ) {
     with(MaterialTheme.colorScheme) {
         CommonTextComponent(
@@ -52,6 +55,8 @@ fun CommonText(
             textColor = textColor ?: onPrimary,
             textAlign = textAlign,
             textBold = textBold,
+            overflow = overflow,
+            softWrap = softWrap,
             textStyle = with(MaterialTheme.typography) {
                 when (type) {
                     CommonTextTypeEnum.TITLE_LARGE -> titleLarge
@@ -81,7 +86,9 @@ private fun CommonTextComponent(
     textColor: Color,
     textBold: Boolean,
     textAlign: TextAlign?,
-    textStyle: TextStyle
+    textStyle: TextStyle,
+    overflow: TextOverflow,
+    softWrap: Boolean
 ) {
     Text(
         modifier = modifier,
@@ -89,6 +96,8 @@ private fun CommonTextComponent(
         textAlign = textAlign,
         color = textColor,
         style = textStyle,
+        overflow = overflow,
+        softWrap = softWrap,
         fontWeight = if (textBold) {
             FontWeight.Bold
         } else {

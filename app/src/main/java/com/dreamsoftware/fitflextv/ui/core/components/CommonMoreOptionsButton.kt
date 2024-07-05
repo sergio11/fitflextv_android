@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.core.components
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -13,57 +14,52 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Button
 import androidx.tv.material3.ButtonDefaults
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
 fun CommonMoreOptionsButton(
     modifier: Modifier = Modifier,
-    text: String = "",
+    @StringRes textRes: Int,
     @DrawableRes icon: Int,
     onClick: () -> Unit = {}
 ) {
-    Button(
-        modifier = modifier.size(height = 50.dp, width = 292.dp),
-        shape = ButtonDefaults.shape(shape = RoundedCornerShape(12.dp)),
-        colors = ButtonDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.onSurface,
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
-                0.4f
+    with(MaterialTheme.colorScheme) {
+        Button(
+            modifier = modifier.size(height = 50.dp, width = 292.dp),
+            shape = ButtonDefaults.shape(shape = RoundedCornerShape(12.dp)),
+            colors = ButtonDefaults.colors(
+                focusedContainerColor = onSurface,
+                containerColor = surfaceVariant.copy(0.4f),
+                focusedContentColor = inverseOnSurface,
+                contentColor = onSurface
             ),
-            focusedContentColor = MaterialTheme.colorScheme.inverseOnSurface,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-        scale = ButtonDefaults.scale(
-            scale = 1f,
-            focusedScale = 1.1f,
-        ),
-        onClick = onClick
-    ) {
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 15.dp),
+            scale = ButtonDefaults.scale(scale = 1f, focusedScale = 1.1f),
+            onClick = onClick
+        ) {
             Icon(
                 modifier = Modifier.size(20.dp),
                 painter = painterResource(id = icon),
                 contentDescription = "button icon",
             )
             Spacer(modifier = Modifier.width(12.dp))
-            Text(
-                text = text,
-                style = MaterialTheme.typography.titleMedium,
+            CommonText(
+                type = CommonTextTypeEnum.TITLE_MEDIUM,
+                titleRes = textRes
             )
         }
     }
+}
 
 @Preview
 @Composable
 private fun MoreOptionsButtonPreview() {
     FitFlexTVTheme {
         CommonMoreOptionsButton(
-            text = "Add to favorites",
+            textRes = R.string.add_to_favorites,
             icon = R.drawable.ic_outline_favorite,
         )
     }

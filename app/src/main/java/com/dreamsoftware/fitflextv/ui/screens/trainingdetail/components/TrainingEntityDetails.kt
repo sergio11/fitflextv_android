@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
 import androidx.tv.material3.ButtonDefaults
@@ -23,6 +23,9 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
 
 @Composable
@@ -40,76 +43,80 @@ fun TrainingEntityDetails(
         TrainingDetailUiState.ContentType.CHALLENGES -> 24.dp
         else -> 80.dp
     }
-    Column(
-        modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                text = state.subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = state.title,
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
-        Text(
-            text = state.description,
-            modifier = Modifier.width(descriptionWidth),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(48.dp)) {
-            state.itemsInfo.forEach { item ->
-                TrainingInfo(
-                    info = item.info,
-                    label = item.label
+    CommonFocusRequester { requester ->
+        Column(
+            modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                CommonText(
+                    titleText = state.subtitle,
+                    type =  CommonTextTypeEnum.BODY_SMALL,
+                    textColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                CommonText(
+                    titleText = state.title,
+                    type = CommonTextTypeEnum.HEADLINE_LARGE,
+                    textColor = MaterialTheme.colorScheme.onSurface
                 )
             }
-        }
-        Row(
-            modifier = Modifier.padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            TrainingDetailsButton(
-                iconId = R.drawable.play_icon,
-                textId = state.contentType.getStartButtonID(),
-                onClick = onClickStart
+            CommonText(
+                modifier = Modifier.width(descriptionWidth),
+                titleText = state.description,
+                type = CommonTextTypeEnum.BODY_LARGE,
+                maxLines = 2,
+                textColor = MaterialTheme.colorScheme.onSurfaceVariant
             )
-            if (state.contentType.isSecondaryButtonVisible())
+            Row(horizontalArrangement = Arrangement.spacedBy(48.dp)) {
+                state.itemsInfo.forEach { item ->
+                    TrainingInfo(
+                        info = item.info,
+                        label = item.label
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier.padding(top = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
                 TrainingDetailsButton(
-                    iconId = state.contentType.getSecondaryButtonIcon(),
-                    textId = state.contentType.getSecondaryButtonID(),
-                    onClick = onClickSecondaryButton
+                    modifier = Modifier.focusRequester(requester),
+                    iconId = R.drawable.play_icon,
+                    textId = state.contentType.getStartButtonID(),
+                    onClick = onClickStart
                 )
-            if (isRoutine)
-                RoutineFavouriteButton(
-                    isFavorite = state.isFavorite,
-                    onClick = onClickRoutineFavourite
+                if (state.contentType.isSecondaryButtonVisible())
+                    TrainingDetailsButton(
+                        iconId = state.contentType.getSecondaryButtonIcon(),
+                        textId = state.contentType.getSecondaryButtonID(),
+                        onClick = onClickSecondaryButton
+                    )
+                if (isRoutine)
+                    RoutineFavouriteButton(
+                        isFavorite = state.isFavorite,
+                        onClick = onClickRoutineFavourite
+                    )
+            }
+            if (isChallenges)
+                ChallengesPlanButton(
+                    modifier = Modifier.padding(top = 16.dp),
+                    subtitle = stringResource(R.string.weekly_plan),
+                    iconId = R.drawable.down_arrow_head_icon,
+                    onClick = onClickChallengesPlan
                 )
         }
-        if (isChallenges)
-            ChallengesPlanButton(
-                modifier = Modifier.padding(top = 16.dp),
-                subtitle = stringResource(R.string.weekly_plan),
-                iconId = R.drawable.down_arrow_head_icon,
-                onClick = onClickChallengesPlan
-            )
     }
 }
 
 @Composable
 private fun TrainingDetailsButton(
+    modifier: Modifier = Modifier,
     iconId: Int,
     textId: Int,
     onClick: () -> Unit
 ) {
     OutlinedButton(
+        modifier = modifier,
         onClick = onClick,
     ) {
         Row(
@@ -132,17 +139,19 @@ private fun TrainingInfo(
     info: String,
     label: String,
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = info,
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+    with(MaterialTheme.colorScheme) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            CommonText(
+                type = CommonTextTypeEnum.BODY_LARGE,
+                titleText = info,
+                textColor = onBackground
+            )
+            CommonText(
+                type = CommonTextTypeEnum.BODY_SMALL,
+                titleText = label,
+                textColor = onSurfaceVariant
+            )
+        }
     }
 }
 

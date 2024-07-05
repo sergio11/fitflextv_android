@@ -7,9 +7,11 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 @Composable
 fun VideoPlayerScreen(
     viewModel: VideoPlayerViewModel = hiltViewModel(),
+    onBackPressed: () -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
+        onBackPressed = onBackPressed,
         onInitialUiState = { VideoPlayerUiState() },
         onSideEffect = {
 

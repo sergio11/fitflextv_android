@@ -22,15 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
@@ -41,7 +39,10 @@ import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.FavWorkout
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardWithIntensity
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonOutLinedButtonWithLeadingIcon
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.onSurface
 import com.dreamsoftware.fitflextv.ui.theme.popupShadow
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
@@ -55,7 +56,7 @@ internal fun FavoritesScreenContent(
     onStartWorkout: (id: String) -> Unit,
     onRemoveWorkout: (id: String) -> Unit,
     onWorkoutSelect: (FavWorkout) -> Unit,
-    onBackPressed: () -> Unit,
+    onDismissRequest: () -> Unit,
 ) {
     with(state) {
         if (isLoading) {
@@ -66,17 +67,11 @@ internal fun FavoritesScreenContent(
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
-                    text = "Favorites",
-                    modifier = Modifier.padding(
-                        bottom = 8.dp,
-                        top = 56.dp,
-                        start = 32.dp,
-                        end = 32.dp
-                    ),
-                    style = TextStyle(
-                        fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.LightGray
-                    )
+                CommonText(
+                    modifier = Modifier.padding(bottom = 8.dp, top = 56.dp, start = 32.dp, end = 32.dp),
+                    type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+                    titleRes = R.string.favorites_screen_title,
+                    textBold = true
                 )
                 TvLazyHorizontalGrid(
                     contentPadding = PaddingValues(horizontal = 46.dp),
@@ -113,7 +108,7 @@ internal fun FavoritesScreenContent(
                             workout = it,
                             onStartWorkout = onStartWorkout,
                             onRemoveWorkout = onRemoveWorkout,
-                            onBackPressed = onBackPressed
+                            onBackPressed = onDismissRequest
                         )
                     }
                 }
@@ -130,88 +125,89 @@ private fun WorkoutDetailsPopup(
     onBackPressed: () -> Unit
 ) {
     Dialog(onDismissRequest = onBackPressed) {
-        Box(
-            modifier = Modifier
-                .background(surfaceContainerHigh, RoundedCornerShape(16.dp))
-                .fillMaxWidth(0.75f)
-                .fillMaxHeight(0.8f)
-                .shadowBox(
-                    color = popupShadow,
-                    blurRadius = 40.dp,
-                    offset = DpOffset(0.dp, 8.dp)
-                )
-                .clip(RoundedCornerShape(16.dp))
-        ) {
-            AsyncImage(
+        CommonFocusRequester { focusRequester ->
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.5f)
-                    .alpha(0.88f),
-                model = workout.image,
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(surfaceVariant.copy(alpha = 0.35f))
-                    .padding(horizontal = 24.dp), horizontalAlignment = Alignment.Start
+                    .background(surfaceContainerHigh, RoundedCornerShape(16.dp))
+                    .fillMaxWidth(0.75f)
+                    .fillMaxHeight(0.8f)
+                    .shadowBox(
+                        color = popupShadow,
+                        blurRadius = 40.dp,
+                        offset = DpOffset(0.dp, 8.dp)
+                    )
+                    .clip(RoundedCornerShape(16.dp))
             ) {
-                Spacer(modifier = Modifier.fillMaxHeight(0.45f))
-                Text(
-                    text = workout.name,
-                    textAlign = TextAlign.Justify,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = onSurface,
-                    modifier = Modifier.padding(bottom = 8.dp),
-                    overflow = TextOverflow.Ellipsis,
-                )
-                Row(
+                AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Start
+                        .fillMaxHeight(0.5f)
+                        .alpha(0.88f),
+                    model = workout.image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop
+                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(surfaceVariant.copy(alpha = 0.35f))
+                        .padding(horizontal = 24.dp), horizontalAlignment = Alignment.Start
                 ) {
-                    Text(
-                        text = "${workout.duration} | Intensity ",
-                        modifier = Modifier,
+                    Spacer(modifier = Modifier.fillMaxHeight(0.45f))
+                    CommonText(
+                        modifier = Modifier.padding(bottom = 8.dp),
+                        type = CommonTextTypeEnum.HEADLINE_SMALL,
+                        textColor = onSurface,
                         textAlign = TextAlign.Justify,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = onSurface,
+                        titleText = workout.name,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        CommonText(
+                            modifier = Modifier,
+                            type = CommonTextTypeEnum.LABEL_MEDIUM,
+                            titleText = "${workout.duration} | Intensity ",
+                            textColor = onSurface,
+                            overflow = TextOverflow.Ellipsis,
+                            softWrap = true,
+                            maxLines = 4
+                        )
+                        repeat(workout.intensity) { Text(text = "•") }
+                    }
+                    CommonText(
+                        titleText = workout.description,
+                        modifier = Modifier.padding(bottom = 28.dp),
+                        type = CommonTextTypeEnum.BODY_SMALL,
+                        textColor = Color.LightGray,
                         overflow = TextOverflow.Ellipsis,
                         softWrap = true,
                         maxLines = 4
                     )
-                    repeat(workout.intensity) { Text(text = "•") }
-                }
-                Text(
-                    text = workout.description,
-                    modifier = Modifier.padding(bottom = 28.dp),
-                    textAlign = TextAlign.Justify,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.LightGray,
-                    overflow = TextOverflow.Ellipsis,
-                    softWrap = true,
-                    maxLines = 4
-                )
-                CommonOutLinedButtonWithLeadingIcon(
-                    text = "Start",
-                    icon = R.drawable.play_icon,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 12.dp)
-                ) {
-                    onStartWorkout(workout.id)
-                }
-                CommonOutLinedButtonWithLeadingIcon(
-                    text = "Remove from favorites",
-                    icon = R.drawable.icon_remove,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 24.dp)
-                ) {
-                    onRemoveWorkout(workout.id)
+                    CommonOutLinedButtonWithLeadingIcon(
+                        text = "Start",
+                        icon = R.drawable.play_icon,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .focusRequester(focusRequester)
+                            .padding(bottom = 12.dp)
+                    ) {
+                        onStartWorkout(workout.id)
+                    }
+                    CommonOutLinedButtonWithLeadingIcon(
+                        text = "Remove from favorites",
+                        icon = R.drawable.icon_remove,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 24.dp)
+                    ) {
+                        onRemoveWorkout(workout.id)
+                    }
                 }
             }
         }

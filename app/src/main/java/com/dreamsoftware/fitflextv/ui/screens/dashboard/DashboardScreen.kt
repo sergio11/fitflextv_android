@@ -44,7 +44,7 @@ fun DashboardScreen(
                 composable(Screens.Home()) {
                     HomeScreen(
                         onStartSession = {
-                            navController.navigate(Screens.TrainingEntity())
+                            navController.navigate(Screens.TrainingDetail())
                         },
                         onGoToCategory = {
                             navController.navigate(Screens.MoreOptions())
@@ -54,7 +54,7 @@ fun DashboardScreen(
                 composable(Screens.Training()) {
                     TrainingScreen(
                         onClickItem = {
-                            navController.navigate(Screens.TrainingEntity())
+                            navController.navigate(Screens.TrainingDetail())
                         }
                     )
                 }
@@ -67,15 +67,19 @@ fun DashboardScreen(
                     )
                 }
                 composable(Screens.VideoPlayer()) {
-                    VideoPlayerScreen()
+                    VideoPlayerScreen {
+                        navController.popBackStack()
+                    }
                 }
                 composable(Screens.AudioPlayer()) {
-                    AudioPlayerScreen()
+                    AudioPlayerScreen {
+                        navController.popBackStack()
+                    }
                 }
                 composable(Screens.Settings()) {
                     SettingsScreen()
                 }
-                composable(Screens.TrainingEntity()) {
+                composable(Screens.TrainingDetail()) {
                     with(navController) {
                         TrainingDetailScreen(
                             onClickStart = {
