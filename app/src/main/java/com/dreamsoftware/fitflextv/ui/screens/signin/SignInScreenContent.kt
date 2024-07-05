@@ -167,7 +167,7 @@ private fun SignInVideoBackground() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
+            .background(MaterialTheme.colorScheme.background.copy(alpha = 0.8f))
     )
 }
 

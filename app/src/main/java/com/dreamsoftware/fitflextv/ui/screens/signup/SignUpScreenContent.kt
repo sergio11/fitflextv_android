@@ -22,7 +22,6 @@ import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -119,7 +118,7 @@ private fun SignUpBackground() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
+            .background(MaterialTheme.colorScheme.background.copy(alpha = 0.8f))
     )
 }
 

@@ -109,9 +109,9 @@ fun CommonButton(
                     CommonButtonStyleTypeEnum.TRANSPARENT -> onTertiaryContainer
                 },
                 focusedContainerColor = when(style) {
-                    CommonButtonStyleTypeEnum.NORMAL -> tertiary.copy(alpha = 0.8f)
-                    CommonButtonStyleTypeEnum.INVERSE ->  tertiary.copy(alpha = 0.8f)
-                    CommonButtonStyleTypeEnum.TRANSPARENT -> tertiary.copy(alpha = 0.8f)
+                    CommonButtonStyleTypeEnum.NORMAL -> primary.copy(alpha = 0.8f)
+                    CommonButtonStyleTypeEnum.INVERSE ->  primary.copy(alpha = 0.8f)
+                    CommonButtonStyleTypeEnum.TRANSPARENT -> primary.copy(alpha = 0.8f)
                 }
             )
         ) {
