@@ -1,14 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.dashboard
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.KeyEventType
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.input.key.type
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -26,91 +19,98 @@ import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScree
 
 @Composable
 fun DashboardScreen(
-    onBackPressed: () -> Unit,
     navController: NavHostController,
     onNavigateTo: (Screens) -> Unit,
     currentDestination: NavDestination?
 ) {
-    BackPressHandledArea(onBackPressed = onBackPressed) {
-        DashboardNavigationDrawer(
-            modifier = Modifier,
-            onNavigateTo = onNavigateTo,
-            currentDestination = currentDestination,
+    DashboardNavigationDrawer(
+        modifier = Modifier,
+        onNavigateTo = onNavigateTo,
+        currentDestination = currentDestination,
+    ) {
+        NavHost(
+            navController = navController,
+            startDestination = Screens.Home(),
         ) {
-            NavHost(
-                navController = navController,
-                startDestination = Screens.Home(),
-            ) {
-                composable(Screens.Home()) {
+            composable(Screens.Home()) {
+                with(navController) {
                     HomeScreen(
                         onStartSession = {
-                            navController.navigate(Screens.TrainingDetail())
+                            navigate(Screens.TrainingDetail())
                         },
                         onGoToCategory = {
-                            navController.navigate(Screens.MoreOptions())
+                            navigate(Screens.MoreOptions())
                         }
                     )
                 }
-                composable(Screens.Training()) {
-                    TrainingScreen(
-                        onClickItem = {
-                            navController.navigate(Screens.TrainingDetail())
-                        }
-                    )
-                }
-                composable(Screens.Favorite()) {
+            }
+            composable(Screens.Training()) {
+                TrainingScreen(
+                    onClickItem = {
+                        navController.navigate(Screens.TrainingDetail())
+                    }
+                )
+            }
+            composable(Screens.Favorite()) {
+                with(navController) {
                     FavoritesScreen(
-                        onBackPressed = onBackPressed,
+                        onBackPressed = {
+                            popBackStack()
+                        },
                         onStartWorkout = {
-                            navController.navigate(Screens.VideoPlayer())
+                            navigate(Screens.VideoPlayer())
                         }
                     )
                 }
-                composable(Screens.VideoPlayer()) {
-                    VideoPlayerScreen {
-                        navController.popBackStack()
-                    }
+            }
+            composable(Screens.VideoPlayer()) {
+                VideoPlayerScreen {
+                    navController.popBackStack()
                 }
-                composable(Screens.AudioPlayer()) {
-                    AudioPlayerScreen {
-                        navController.popBackStack()
-                    }
+            }
+            composable(Screens.AudioPlayer()) {
+                AudioPlayerScreen {
+                    navController.popBackStack()
                 }
-                composable(Screens.Settings()) {
-                    SettingsScreen()
+            }
+            composable(Screens.Settings()) {
+                SettingsScreen()
+            }
+            composable(Screens.TrainingDetail()) {
+                with(navController) {
+                    TrainingDetailScreen(
+                        onClickStart = {
+                            navigate(Screens.VideoPlayer())
+                        },
+                        onBackPressed = {
+                            popBackStack()
+                        }
+                    )
                 }
-                composable(Screens.TrainingDetail()) {
-                    with(navController) {
-                        TrainingDetailScreen(
-                            onClickStart = {
-                                navigate(Screens.VideoPlayer())
-                            },
-                            onBackPressed = {
-                                popBackStack()
-                            }
-                        )
-                    }
+            }
+            composable(Screens.MoreOptions()) {
+                with(navController) {
+                    MoreOptionsScreen(
+                        onStartClick = {
+                            navigate(Screens.AudioPlayer())
+                        },
+                        onBackPressed = {
+                            popBackStack()
+                        },
+                        onFavouriteClick = {
+                            navigate(Screens.Favorite())
+                        }
+                    )
                 }
-                composable(Screens.MoreOptions()) {
-                    with(navController) {
-                        MoreOptionsScreen(
-                            onStartClick = {
-                                navigate(Screens.AudioPlayer())
-                            },
-                            onBackPressed = onBackPressed,
-                            onFavouriteClick = {
-                                navigate(Screens.Favorite())
-                            }
-                        )
-                    }
-                }
-                composable(Screens.Subscription()) {
+            }
+            composable(Screens.Subscription()) {
+                with(navController) {
                     SubscriptionScreen(
                         onSubscribeClick = {
-                            navController.navigate(Screens.ProfileSelector())
+                            navigate(Screens.ProfileSelector())
                         },
                         onRestorePurchasesClick = {
-                            navController.navigate(Screens.ProfileSelector())
+                            navigate(Screens.ProfileSelector())
                         }
                     )
                 }
@@ -118,24 +118,3 @@ fun DashboardScreen(
         }
     }
 }
-
-@Composable
-private fun BackPressHandledArea(
-    onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit,
-) =
-    Box(
-        modifier = Modifier
-            .onPreviewKeyEvent {
-                if (it.key == Key.Back && it.type == KeyEventType.KeyUp) {
-                    onBackPressed()
-                    true
-                } else {
-                    false
-                }
-            }
-            .then(modifier),
-        content = content
-    )
-

@@ -11,18 +11,18 @@ import com.dreamsoftware.fitflextv.ui.navigation.Screens
 import com.dreamsoftware.fitflextv.ui.screens.dashboard.DashboardScreen
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-fun NavGraphBuilder.navigationDrawerGraph(onNavigateToRoot: (Screens) -> Unit, onBackPressed: () -> Unit) {
+fun NavGraphBuilder.navigationDrawerGraph(
+    onNavigateToRoot: (Screens) -> Unit
+) {
     composable(route = Screens.Dashboard()) {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
 
         DashboardScreen(
-                onBackPressed = onBackPressed,
-                navController = navController,
-                currentDestination = navBackStackEntry?.destination,
-                onNavigateTo = navController::navigateTo
+            navController = navController,
+            currentDestination = navBackStackEntry?.destination,
+            onNavigateTo = navController::navigateTo
         )
     }
-
 }
