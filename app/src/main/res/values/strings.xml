@@ -20,15 +20,26 @@
     <string name="sign_in_progress_dialog_title">Signing You In</string>
     <string name="sign_in_progress_dialog_description">Please wait a moment while we prepare your personalized fitness experience.</string>
     <string name="sign_in_do_not_have_account_yet_text">Don\'t have an account yet?</string>
-    <string name="sign_in_go_sign_up_button_text">Join the FitFlex Family</string>
+    <string name="sign_in_go_sign_up_button_text">Join us!</string>
     <string name="sign_in_main_title_text">Welcome Back to FitFlexTV!</string>
-    <string name="sign_in_secondary_title_text">Your fitness journey continues here.</string>
+    <string name="sign_in_secondary_title_text">Continue your exciting fitness journey right here with FitFlexTV. Discover new workouts, connect with instructors, and achieve your fitness goals with our vibrant community and personalized recommendations.</string>
     <string name="sign_in_form_heading_text">Sign In to Your Account</string>
     <string name="sign_in_form_email_label_text">Email Address</string>
     <string name="sign_in_form_password_label_text">Password</string>
     <string name="sign_in_main_button_text">Start Sweating!</string>
 
-
+    <!-- Sign up -->
+    <string name="sign_up_progress_dialog_title">Creating Your Account</string>
+    <string name="sign_up_progress_dialog_description">Hold tight while we set up your personalized fitness journey!</string>
+    <string name="sign_up_main_title_text">Join the FitFlexTV Community</string>
+    <string name="sign_up_secondary_title_text">Start your fitness adventure today.</string>
+    <string name="sign_up_main_button">Let\'s Get Started!</string>
+    <string name="sign_up_form_first_name_label_text">First Name</string>
+    <string name="sign_up_form_surname_label_text">Surname</string>
+    <string name="sign_up_form_email_label_text">Email Address</string>
+    <string name="sign_up_form_username_label_text">Choose a Username</string>
+    <string name="sign_up_form_password_label_text">Create a Password</string>
+    <string name="sign_up_form_repeat_password_label_text">Repeat Password</string>
 
     <string name="start_session">Let\'s Get Started!</string>
     <string name="start_routine">Kick Off Your Routine</string>

@@ -123,13 +123,15 @@ private fun OnboardingContentInfo(modifier: Modifier) {
                 titleRes = R.string.onboarding_main_title_text,
                 type = CommonTextTypeEnum.HEADLINE_LARGE,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
+                textBold = true
             )
             Spacer(modifier = Modifier.height(20.dp))
             CommonText(
                 titleRes = R.string.onboarding_secondary_title_text,
                 type = CommonTextTypeEnum.BODY_LARGE,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                textBold = true
             )
             Spacer(modifier = Modifier.height(50.dp))
             CommonText(

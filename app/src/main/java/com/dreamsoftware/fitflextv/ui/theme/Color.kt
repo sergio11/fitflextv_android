@@ -4,18 +4,18 @@ import androidx.compose.ui.graphics.Color
 
 val primary = Color(0xFF00BFA5) // More intense emerald
 val onPrimary = Color(0xFFFFFFFF) // White for good contrast on intense emerald
-val primaryContainer = Color(0xFF00796B) // Dark emerald
-val onPrimaryContainer = Color(0xFF48DDB8) // Light emerald
+val primaryContainer = Color(0xFF004D40) // Dark emerald
+val onPrimaryContainer = Color(0xFFFFFFFF) // Light emerald
 
 val secondary = Color(0xFFB2CCC2) // Light green
 val onSecondary = Color(0xFF1D352D) // Dark green
 val secondaryContainer = Color(0xFF344C43) // Darker green
 val onSecondaryContainer = Color(0xFFCEE9DD) // Very light green
 
-val tertiary = Color(0xFFA8CBE2) // Light blue
-val onTertiary = Color(0xFF0E3446) // Very dark blue
-val tertiaryContainer = Color(0xFF284B5E) // Dark blue
-val onTertiaryContainer = Color(0xFFC4E7FF) // Very light blue
+val tertiary = Color(0xFFC9AED1)
+val onTertiary = Color(0xFF2A003A)
+val tertiaryContainer = Color(0xFF967BB3)
+val onTertiaryContainer = Color(0xFFE6D4F3)
 
 val error = Color(0xFFFFB4AB) // Light red
 val onError = Color(0xFF690005) // Very dark red
@@ -25,7 +25,7 @@ val onErrorContainer = Color(0xFFFFDAD6) // Very light red
 val background = Color(0xFF191C1B) // Dark gray for background
 val onBackground = Color(0xFFE1E3E0) // Light gray for text on dark background
 
-val surface = Color(0xFF111413) // Very dark gray for surface
+val surface = Color(0xFF1A1A1A) // Dark charcoal gray for surface
 val surfaceContainerHigh = Color(0xFF272B29) // Darker gray for containers
 val onSurface = Color(0xFFC4C7C4) // Light gray for text on gray surface
 val surfaceVariant = Color(0xFF3F4945) // Darker gray for variants
