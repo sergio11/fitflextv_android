@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import java.util.Date
 
-internal class RoutineMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO> {
+internal class RoutineRemoteMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO> {
 
     private companion object {
         const val UID_KEY = "uid"

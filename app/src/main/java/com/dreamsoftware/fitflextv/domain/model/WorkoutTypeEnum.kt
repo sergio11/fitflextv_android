@@ -1,6 +1,8 @@
 package com.dreamsoftware.fitflextv.domain.model
 
-enum class WorkoutTypeEnum(val value: String) {
+import com.dreamsoftware.fitflextv.utils.HasValue
+
+enum class WorkoutTypeEnum(override val value: String): HasValue {
     YOGA("Yoga"),
     STRENGTH("Strength"),
     SESSIONS("Sessions"),

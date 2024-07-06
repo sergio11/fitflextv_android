@@ -3,8 +3,8 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
-import com.dreamsoftware.fitflextv.domain.model.LanguageBO
-import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
+import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
+import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
@@ -33,8 +33,8 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.EASY,
                 Date(),
-                LanguageBO.ENGLISH,
-                SubtitleLanguageBO.ENGLISH
+                LanguageEnum.ENGLISH,
+                SubtitleLanguageEnum.ENGLISH
             ),
             ChallengeBO(
                 "2",
@@ -48,8 +48,8 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.HARD,
                 Date(),
-                LanguageBO.ENGLISH,
-                SubtitleLanguageBO.ENGLISH
+                LanguageEnum.ENGLISH,
+                SubtitleLanguageEnum.ENGLISH
             ),
             ChallengeBO(
                 "3",
@@ -63,8 +63,8 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.MEDIUM,
                 Date(),
-                LanguageBO.ENGLISH,
-                SubtitleLanguageBO.ENGLISH
+                LanguageEnum.ENGLISH,
+                SubtitleLanguageEnum.ENGLISH
             ),
             ChallengeBO(
                 "4",
@@ -78,8 +78,8 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.MEDIUM,
                 Date(),
-                LanguageBO.ENGLISH,
-                SubtitleLanguageBO.ENGLISH
+                LanguageEnum.ENGLISH,
+                SubtitleLanguageEnum.ENGLISH
             )
         )
 

@@ -2,12 +2,12 @@ package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryDataSource
-import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SessionDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
@@ -15,11 +15,11 @@ import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
-import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryMapper
-import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineMapper
-import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesMapper
-import com.dreamsoftware.fitflextv.data.remote.mapper.SessionMapper
-import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.SessionRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedRemoteMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -44,7 +44,7 @@ class FirebaseModule {
      */
     @Provides
     @Singleton
-    fun provideUserAuthenticatedMapper(): IOneSideMapper<FirebaseUser, AuthUserDTO> = UserAuthenticatedMapper()
+    fun provideUserAuthenticatedRemoteMapper(): IOneSideMapper<FirebaseUser, AuthUserDTO> = UserAuthenticatedRemoteMapper()
 
     /**
      * Provides a singleton instance of RoutineMapper.
@@ -52,7 +52,7 @@ class FirebaseModule {
      */
     @Provides
     @Singleton
-    fun provideRoutineMapper(): IOneSideMapper<Map<String, Any?>, RoutineDTO> = RoutineMapper()
+    fun provideRoutineRemoteMapper(): IOneSideMapper<Map<String, Any?>, RoutineDTO> = RoutineRemoteMapper()
 
     /**
      * Provides a singleton instance of SeriesMapper.
@@ -60,7 +60,7 @@ class FirebaseModule {
      */
     @Provides
     @Singleton
-    fun provideSeriesMapper(): IOneSideMapper<Map<String, Any?>, SeriesDTO> = SeriesMapper()
+    fun provideSeriesRemoteMapper(): IOneSideMapper<Map<String, Any?>, SeriesDTO> = SeriesRemoteMapper()
 
 
     /**
@@ -69,7 +69,7 @@ class FirebaseModule {
      */
     @Provides
     @Singleton
-    fun provideCategoryMapper(): IOneSideMapper<Map<String, Any?>, CategoryDTO> = CategoryMapper()
+    fun provideCategoryRemoteMapper(): IOneSideMapper<Map<String, Any?>, CategoryDTO> = CategoryRemoteMapper()
 
 
     /**
@@ -78,7 +78,7 @@ class FirebaseModule {
      */
     @Provides
     @Singleton
-    fun provideSessionMapper(): IOneSideMapper<Map<String, Any?>, SessionDTO> = SessionMapper()
+    fun provideSessionRemoteMapper(): IOneSideMapper<Map<String, Any?>, SessionDTO> = SessionRemoteMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -119,7 +119,7 @@ class FirebaseModule {
         routineMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO>,
         firestore: FirebaseFirestore,
         @IoDispatcher dispatcher: CoroutineDispatcher
-    ): IRoutineDataSource = RoutineDataSourceImpl(
+    ): IRoutineRemoteDataSource = RoutineRemoteDataSourceImpl(
         firestore,
         routineMapper,
         dispatcher
