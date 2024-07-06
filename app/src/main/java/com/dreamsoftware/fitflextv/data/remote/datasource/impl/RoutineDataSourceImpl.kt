@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
@@ -42,7 +42,7 @@ internal class RoutineDataSourceImpl(
         }
     }
 
-    @Throws(FetchRemoteRoutineException::class)
+    @Throws(FetchRemoteRoutineByIdException::class)
     override suspend fun getRoutineById(id: String): RoutineDTO = withContext(dispatcher)  {
         try {
             val document = firebaseStore.collection(COLLECTION_NAME)
@@ -50,12 +50,12 @@ internal class RoutineDataSourceImpl(
                 .get()
                 .await()
             routineMapper.mapInToOut(
-                document.data ?: throw FetchRemoteRoutineException("routine data is null")
+                document.data ?: throw FetchRemoteRoutineByIdException("routine data is null")
             )
         } catch (ex: FirebaseException) {
             throw ex
         } catch (ex: Exception) {
-            throw FetchRemoteRoutineException(
+            throw FetchRemoteRoutineByIdException(
                 "An error occurred when trying to fetch the routine with ID $id",
                 ex
             )

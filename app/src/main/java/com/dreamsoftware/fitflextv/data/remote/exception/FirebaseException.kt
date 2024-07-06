@@ -9,4 +9,8 @@ class SignUpException(message: String? = null, cause: Throwable? = null): Fireba
 
 // Routines
 class FetchRemoteRoutinesException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
-class FetchRemoteRoutineException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
+class FetchRemoteRoutineByIdException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
+
+// Series
+class FetchRemoteSeriesException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
+class FetchRemoteSeriesByIdException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
