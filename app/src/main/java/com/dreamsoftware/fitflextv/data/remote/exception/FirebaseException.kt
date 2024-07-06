@@ -14,3 +14,6 @@ class FetchRemoteRoutineByIdException(message: String? = null, cause: Throwable?
 // Series
 class FetchRemoteSeriesException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
 class FetchRemoteSeriesByIdException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
+
+// Categories
+class FetchRemoteCategoriesException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)

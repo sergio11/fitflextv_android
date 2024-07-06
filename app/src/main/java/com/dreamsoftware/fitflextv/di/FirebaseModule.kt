@@ -1,14 +1,18 @@
 package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoriesDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedMapper
@@ -53,6 +57,15 @@ class FirebaseModule {
     @Provides
     @Singleton
     fun provideSeriesMapper(): IOneSideMapper<Map<String, Any?>, SeriesDTO> = SeriesMapper()
+
+
+    /**
+     * Provides a singleton instance of CategoryMapper.
+     * @return a new instance of CategoryMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideCategoryMapper(): IOneSideMapper<Map<String, Any?>, CategoryDTO> = CategoryMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -108,6 +121,18 @@ class FirebaseModule {
     ): ISeriesDataSource = SeriesDataSourceImpl(
         firestore,
         seriesMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideCategoryRemoteDataSource(
+        categoryMapper: IOneSideMapper<Map<String, Any?>, CategoryDTO>,
+        firestore: FirebaseFirestore,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ICategoryDataSource = CategoriesDataSourceImpl(
+        firestore,
+        categoryMapper,
         dispatcher
     )
 }
