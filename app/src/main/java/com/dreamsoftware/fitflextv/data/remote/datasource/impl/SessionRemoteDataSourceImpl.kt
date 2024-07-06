@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
-import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSessionsException
 import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
@@ -10,11 +10,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-internal class SessionDataSourceImpl(
+internal class SessionRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val sessionsMapper: IOneSideMapper<Map<String, Any?>, SessionDTO>,
     private val dispatcher: CoroutineDispatcher
-): ISessionDataSource {
+): ISessionRemoteDataSource {
 
     private companion object {
         const val COLLECTION_NAME = "sessions"

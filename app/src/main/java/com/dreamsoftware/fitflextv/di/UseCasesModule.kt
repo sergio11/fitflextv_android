@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.di
 
+import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IRoutineRepository
@@ -54,10 +55,10 @@ class UseCasesModule {
     @Provides
     @ViewModelScoped
     fun provideGetCategoriesUseCase(
-        sessionRepository: ISessionRepository
+        categoryRepository: ICategoryRepository
     ): GetCategoriesUseCase =
         GetCategoriesUseCase(
-            sessionRepository = sessionRepository
+            categoryRepository = categoryRepository
         )
 
     @Provides

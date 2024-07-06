@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
-import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
@@ -10,11 +10,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-internal class CategoryDataSourceImpl(
+internal class CategoryRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val categoriesMapper: IOneSideMapper<Map<String, Any?>, CategoryDTO>,
     private val dispatcher: CoroutineDispatcher
-): ICategoryDataSource {
+): ICategoryRemoteDataSource {
 
     private companion object {
         const val COLLECTION_NAME = "categories"
