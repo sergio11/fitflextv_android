@@ -4,17 +4,21 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoriesDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SessionDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.SessionMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
@@ -66,6 +70,15 @@ class FirebaseModule {
     @Provides
     @Singleton
     fun provideCategoryMapper(): IOneSideMapper<Map<String, Any?>, CategoryDTO> = CategoryMapper()
+
+
+    /**
+     * Provides a singleton instance of SessionMapper.
+     * @return a new instance of SessionMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideSessionMapper(): IOneSideMapper<Map<String, Any?>, SessionDTO> = SessionMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -130,9 +143,21 @@ class FirebaseModule {
         categoryMapper: IOneSideMapper<Map<String, Any?>, CategoryDTO>,
         firestore: FirebaseFirestore,
         @IoDispatcher dispatcher: CoroutineDispatcher
-    ): ICategoryDataSource = CategoriesDataSourceImpl(
+    ): ICategoryDataSource = CategoryDataSourceImpl(
         firestore,
         categoryMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideSessionRemoteDataSource(
+        sessionMapper: IOneSideMapper<Map<String, Any?>, SessionDTO>,
+        firestore: FirebaseFirestore,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ISessionDataSource = SessionDataSourceImpl(
+        firestore,
+        sessionMapper,
         dispatcher
     )
 }
