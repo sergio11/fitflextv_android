@@ -1,18 +1,18 @@
-package com.dreamsoftware.fitflextv.domain.model
+package com.dreamsoftware.fitflextv.data.remote.dto
 
 import java.util.Date
 
-data class RoutineBO (
+data class RoutineDTO(
     val id: String,
     val name: String,
     val description: String,
     val instructorName: String,
-    val workoutTypeEnum: WorkoutTypeEnum,
+    val workoutType: String,
     val imageUrl: String,
     val duration: Long,
     val videoUrl: String,
-    val intensityEnum: IntensityEnum,
+    val intensity: String,
     val releasedDate: Date,
-    val language: LanguageBO,
-    val subtitleLanguage: SubtitleLanguageBO
+    val language: String,
+    val subtitleLanguage: String
 )
