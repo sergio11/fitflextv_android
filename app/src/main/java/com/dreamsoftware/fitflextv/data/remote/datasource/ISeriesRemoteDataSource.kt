@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesException
 
-interface ISeriesDataSource {
+interface ISeriesRemoteDataSource {
 
     @Throws(FetchRemoteSeriesException::class)
     suspend fun getSeries(): List<SeriesDTO>

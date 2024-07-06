@@ -1,6 +1,5 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.video
 
-import android.net.Uri
 import android.os.Build
 import androidx.annotation.OptIn
 import androidx.compose.animation.AnimatedVisibility
@@ -75,20 +74,7 @@ internal fun VideoPlayerScreenContent(
         exoPlayer.setMediaItem(
             MediaItem.Builder()
                 .setUri(state.videoUrl)
-                .setSubtitleConfigurations(
-                    if (state.subtitles == null) {
-                        emptyList()
-                    } else {
-                        listOf(
-                            MediaItem.SubtitleConfiguration
-                                .Builder(Uri.parse(state.subtitleUri))
-                                .setMimeType("application/vtt")
-                                .setLanguage("en")
-                                .setSelectionFlags(C.SELECTION_FLAG_AUTOSELECT)
-                                .build()
-                        )
-                    }
-                ).build()
+                .build()
         )
         exoPlayer.prepare()
     }
@@ -142,11 +128,6 @@ internal fun VideoPlayerScreenContent(
                         state = videoPlayerState,
                         isPlaying = isPlaying,
                     )
-                },
-                onBuildSubtitles = {
-                    AnimatedVisibility(visible = state.subtitles != null) {
-                        Text(text = state.subtitles.toString())
-                    }
                 },
                 onBuildControls = {
                     VideoPlayerControls(

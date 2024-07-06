@@ -3,23 +3,27 @@ package com.dreamsoftware.fitflextv.di
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
-import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SessionRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.WorkoutRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SessionRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.WorkoutRemoteMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -81,6 +85,14 @@ class FirebaseModule {
     fun provideSessionRemoteMapper(): IOneSideMapper<Map<String, Any?>, SessionDTO> = SessionRemoteMapper()
 
     /**
+     * Provides a singleton instance of WorkoutRemoteMapper.
+     * @return a new instance of WorkoutRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideWorkoutRemoteMapper(): IOneSideMapper<Map<String, Any?>, WorkoutDTO> = WorkoutRemoteMapper()
+
+    /**
      * Provides a singleton instance of FirebaseAuth.
      * @return the default instance of FirebaseAuth.
      */
@@ -131,7 +143,7 @@ class FirebaseModule {
         seriesMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO>,
         firestore: FirebaseFirestore,
         @IoDispatcher dispatcher: CoroutineDispatcher
-    ): ISeriesDataSource = SeriesDataSourceImpl(
+    ): ISeriesRemoteDataSource = SeriesRemoteDataSourceImpl(
         firestore,
         seriesMapper,
         dispatcher
@@ -158,6 +170,18 @@ class FirebaseModule {
     ): ISessionRemoteDataSource = SessionRemoteDataSourceImpl(
         firestore,
         sessionMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideWorkoutRemoteDataSource(
+        workoutMapper: IOneSideMapper<Map<String, Any?>, WorkoutDTO>,
+        firestore: FirebaseFirestore,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IWorkoutRemoteDataSource = WorkoutRemoteDataSourceImpl(
+        firestore,
+        workoutMapper,
         dispatcher
     )
 }
