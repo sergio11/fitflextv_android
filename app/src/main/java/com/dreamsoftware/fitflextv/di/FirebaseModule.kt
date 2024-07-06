@@ -1,15 +1,15 @@
 package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
-import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
-import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SessionDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SessionRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
@@ -143,7 +143,7 @@ class FirebaseModule {
         categoryMapper: IOneSideMapper<Map<String, Any?>, CategoryDTO>,
         firestore: FirebaseFirestore,
         @IoDispatcher dispatcher: CoroutineDispatcher
-    ): ICategoryDataSource = CategoryDataSourceImpl(
+    ): ICategoryRemoteDataSource = CategoryRemoteDataSourceImpl(
         firestore,
         categoryMapper,
         dispatcher
@@ -155,7 +155,7 @@ class FirebaseModule {
         sessionMapper: IOneSideMapper<Map<String, Any?>, SessionDTO>,
         firestore: FirebaseFirestore,
         @IoDispatcher dispatcher: CoroutineDispatcher
-    ): ISessionDataSource = SessionDataSourceImpl(
+    ): ISessionRemoteDataSource = SessionRemoteDataSourceImpl(
         firestore,
         sessionMapper,
         dispatcher
