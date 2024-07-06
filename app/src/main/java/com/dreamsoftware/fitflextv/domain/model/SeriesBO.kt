@@ -15,6 +15,6 @@ data class SeriesBO(
     val videoUrl: String,
     val intensityEnum: IntensityEnum,
     val releasedDate: Date,
-    val languageBO: LanguageBO,
-    val subtitleLanguageBO: SubtitleLanguageBO
+    val language: LanguageBO,
+    val subtitleLanguage: SubtitleLanguageBO
 )

@@ -1,18 +1,25 @@
 package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
+import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedMapper
+import com.dreamsoftware.fitflextv.ui.utils.IMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 // Dagger module for providing Firebase-related dependencies
@@ -27,6 +34,15 @@ class FirebaseModule {
     @Provides
     @Singleton
     fun provideUserAuthenticatedMapper(): IOneSideMapper<FirebaseUser, AuthUserDTO> = UserAuthenticatedMapper()
+
+
+    /**
+     * Provides a singleton instance of RoutineMapper.
+     * @return a new instance of RoutineMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideRoutineMapper(): IOneSideMapper<Map<String, Any?>, RoutineDTO> = RoutineMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -58,5 +74,18 @@ class FirebaseModule {
     ): IAuthRemoteDataSource = AuthRemoteDataSourceImpl(
         userAuthenticatedMapper,
         firebaseAuth
+    )
+
+
+    @Provides
+    @Singleton
+    fun provideRoutineRemoteDataSource(
+        routineMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO>,
+        firestore: FirebaseFirestore,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IRoutineDataSource = RoutineDataSourceImpl(
+        firestore,
+        routineMapper,
+        dispatcher
     )
 }

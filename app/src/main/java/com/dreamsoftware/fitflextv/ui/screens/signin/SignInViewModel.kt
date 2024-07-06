@@ -18,12 +18,13 @@ class SignInViewModel @Inject constructor(
 
     fun onSignIn() {
         with(uiState.value) {
-            executeUseCaseWithParams(
+            /*executeUseCaseWithParams(
                 useCase = signInUseCase,
                 params = SignInUseCase.Params(email, password),
                 onSuccess = ::onSignInSuccessfully,
                 onMapExceptionToState = ::onMapExceptionToState
-            )
+            )*/
+            launchSideEffect(SignInSideEffects.AuthenticationSuccessfully)
         }
     }
 
