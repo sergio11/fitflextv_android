@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-internal class CategoriesDataSourceImpl(
+internal class CategoryDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val categoriesMapper: IOneSideMapper<Map<String, Any?>, CategoryDTO>,
     private val dispatcher: CoroutineDispatcher
