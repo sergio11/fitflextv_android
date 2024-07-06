@@ -32,7 +32,6 @@ internal fun VideoPlayerOverlay(
     isPlaying: Boolean,
     state: VideoPlayerState = rememberVideoPlayerState(),
     focusRequester: FocusRequester = remember { FocusRequester() },
-    onBuildSubtitles: @Composable () -> Unit = {},
     onBuildControls: @Composable () -> Unit = {},
     onBuildCenterButton: @Composable () -> Unit = {},
 ) {
@@ -73,12 +72,6 @@ internal fun VideoPlayerOverlay(
         }
 
         Column {
-            Box(
-                modifier = Modifier.weight(1f),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                onBuildSubtitles()
-            }
             AnimatedVisibility(
                 visible = controlsVisibility,
                 enter = slideInVertically { it } + fadeIn(),
@@ -118,14 +111,6 @@ fun PreviewVideoPlayerOverlay() {
             VideoPlayerOverlay(
                 isPlaying = true,
                 modifier = Modifier.align(Alignment.BottomCenter),
-                onBuildSubtitles = {
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(100.dp)
-                            .background(Color.Red)
-                    )
-                },
                 onBuildControls = {
                     Box(
                         Modifier

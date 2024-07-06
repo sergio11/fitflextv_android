@@ -30,9 +30,7 @@ class VideoPlayerViewModel @Inject constructor(
                     title = name,
                     instructor = instructorName,
                     videoUrl = videoUrl,
-                    id = id,
-                    subtitles = null,
-                    subtitleUri = subtitleUri,
+                    id = id
                 )
             }
         }
@@ -45,9 +43,7 @@ data class VideoPlayerUiState(
     val id: String = "",
     val videoUrl: String = "",
     val title: String = "",
-    val instructor: String = "",
-    val subtitles: String? = null,
-    val subtitleUri: String? = null,
+    val instructor: String = ""
 ): UiState<VideoPlayerUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): VideoPlayerUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)

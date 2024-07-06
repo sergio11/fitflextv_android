@@ -1,9 +1,9 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
-import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
-import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesException
+import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsException
 import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,52 +11,52 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-internal class SeriesDataSourceImpl(
+internal class WorkoutRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
-    private val seriesMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO>,
+    private val seriesMapper: IOneSideMapper<Map<String, Any?>, WorkoutDTO>,
     private val dispatcher: CoroutineDispatcher
-): ISeriesDataSource {
+): IWorkoutRemoteDataSource {
 
     private companion object {
-        const val COLLECTION_NAME = "series"
+        const val COLLECTION_NAME = "workouts"
     }
 
-    @Throws(FetchRemoteSeriesException::class)
-    override suspend fun getSeries(): List<SeriesDTO> = withContext(dispatcher)  {
+    @Throws(FetchRemoteWorkoutsException::class)
+    override suspend fun getWorkouts(): List<WorkoutDTO> = withContext(dispatcher)  {
         try {
             val snapshot = firebaseStore.collection(COLLECTION_NAME)
                 .get()
                 .await()
             snapshot.documents.map { document ->
                 seriesMapper.mapInToOut(
-                    document.data ?: throw FetchRemoteSeriesException("series data is null")
+                    document.data ?: throw FetchRemoteWorkoutsException("workouts data is null")
                 )
             }
         } catch (ex: FirebaseException) {
             throw ex
         } catch (ex: Exception) {
-            throw FetchRemoteSeriesException(
-                "An error occurred when trying to fetch series",
+            throw FetchRemoteWorkoutsException(
+                "An error occurred when trying to fetch workouts",
                 ex
             )
         }
     }
 
-    @Throws(FetchRemoteSeriesByIdException::class)
-    override suspend fun getSeriesById(id: String): SeriesDTO = withContext(dispatcher)  {
+    @Throws(FetchRemoteWorkoutByIdException::class)
+    override suspend fun getWorkoutById(id: String): WorkoutDTO = withContext(dispatcher)  {
         try {
             val document = firebaseStore.collection(COLLECTION_NAME)
                 .document(id)
                 .get()
                 .await()
             seriesMapper.mapInToOut(
-                document.data ?: throw FetchRemoteSeriesByIdException("series data is null")
+                document.data ?: throw FetchRemoteWorkoutByIdException("workout data is null")
             )
         } catch (ex: FirebaseException) {
             throw ex
         } catch (ex: Exception) {
-            throw FetchRemoteSeriesByIdException(
-                "An error occurred when trying to fetch the series with ID $id",
+            throw FetchRemoteWorkoutByIdException(
+                "An error occurred when trying to fetch the workout with ID $id",
                 ex
             )
         }
