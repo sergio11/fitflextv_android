@@ -2,13 +2,16 @@ package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedMapper
-import com.dreamsoftware.fitflextv.ui.utils.IMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -35,7 +38,6 @@ class FirebaseModule {
     @Singleton
     fun provideUserAuthenticatedMapper(): IOneSideMapper<FirebaseUser, AuthUserDTO> = UserAuthenticatedMapper()
 
-
     /**
      * Provides a singleton instance of RoutineMapper.
      * @return a new instance of RoutineMapper.
@@ -43,6 +45,14 @@ class FirebaseModule {
     @Provides
     @Singleton
     fun provideRoutineMapper(): IOneSideMapper<Map<String, Any?>, RoutineDTO> = RoutineMapper()
+
+    /**
+     * Provides a singleton instance of SeriesMapper.
+     * @return a new instance of SeriesMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideSeriesMapper(): IOneSideMapper<Map<String, Any?>, SeriesDTO> = SeriesMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -86,6 +96,18 @@ class FirebaseModule {
     ): IRoutineDataSource = RoutineDataSourceImpl(
         firestore,
         routineMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideSeriesRemoteDataSource(
+        seriesMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO>,
+        firestore: FirebaseFirestore,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ISeriesDataSource = SeriesDataSourceImpl(
+        firestore,
+        seriesMapper,
         dispatcher
     )
 }
