@@ -14,6 +14,6 @@ data class ChallengeBO(
     val weaklyPlans: List<Pair<String, List<WorkoutBO>>>,
     val intensityEnum: IntensityEnum,
     val releasedDate: Date,
-    val language: LanguageBO,
-    val subtitleLanguage: SubtitleLanguageBO
+    val language: LanguageEnum,
+    val subtitleLanguage: SubtitleLanguageEnum
 )

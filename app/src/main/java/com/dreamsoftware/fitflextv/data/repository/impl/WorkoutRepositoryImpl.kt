@@ -3,8 +3,8 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.workout.DummyWorkoutData
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
-import com.dreamsoftware.fitflextv.domain.model.LanguageBO
-import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
+import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
+import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
@@ -28,8 +28,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video1",
             intensityEnum = IntensityEnum.MEDIUM,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -43,8 +43,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video2",
             intensityEnum = IntensityEnum.HARD,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -58,8 +58,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video3",
             intensityEnum = IntensityEnum.MEDIUM,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -73,8 +73,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video4",
             intensityEnum = IntensityEnum.HARD,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -88,8 +88,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video5",
             intensityEnum = IntensityEnum.MEDIUM,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -103,8 +103,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video6",
             intensityEnum = IntensityEnum.MEDIUM,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -118,8 +118,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video7",
             intensityEnum = IntensityEnum.HARD,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -133,8 +133,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video8",
             intensityEnum = IntensityEnum.EASY,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -148,8 +148,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video9",
             intensityEnum = IntensityEnum.MEDIUM,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -163,8 +163,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video10",
             intensityEnum = IntensityEnum.HARD,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -178,8 +178,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video11",
             intensityEnum = IntensityEnum.EASY,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         ),
         WorkoutBO(
@@ -193,8 +193,8 @@ internal class WorkoutRepositoryImpl(
             videoUrl = "https://example.com/video12",
             intensityEnum = IntensityEnum.MEDIUM,
             releasedDate = Date(),
-            languageBO = LanguageBO.ENGLISH,
-            subtitleLanguageBO = SubtitleLanguageBO.ENGLISH,
+            languageEnum = LanguageEnum.ENGLISH,
+            subtitleLanguageEnum = SubtitleLanguageEnum.ENGLISH,
             subtitleUri = null
         )
     )

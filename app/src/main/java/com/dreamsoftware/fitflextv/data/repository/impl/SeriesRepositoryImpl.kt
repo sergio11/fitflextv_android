@@ -2,10 +2,10 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
-import com.dreamsoftware.fitflextv.domain.model.LanguageBO
+import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.SongBO
-import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageBO
+import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -40,8 +40,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/cardio_challenge_video.mp4",
             IntensityEnum.HARD,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "2",
@@ -56,8 +56,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/cardio_challenge_video.mp4",
             IntensityEnum.HARD,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "3",
@@ -72,8 +72,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/strength_training_bootcamp_video.mp4",
             IntensityEnum.MEDIUM,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "4",
@@ -88,8 +88,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/beginner_pilates_program_video.mp4",
             IntensityEnum.EASY,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "5",
@@ -104,8 +104,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/yoga_stress_relief_video.mp4",
             IntensityEnum.EASY,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "6",
@@ -120,8 +120,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/total_body_burn_video.mp4",
             IntensityEnum.HARD,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "7",
@@ -136,8 +136,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/prenatal_yoga_video.mp4",
             IntensityEnum.EASY,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "8",
@@ -152,8 +152,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/advanced_hiit_video.mp4",
             IntensityEnum.HARD,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         ),
         SeriesBO(
             "9",
@@ -168,8 +168,8 @@ internal class SeriesRepositoryImpl(
             "https://example.com/core_strength_challenge_video.mp4",
             IntensityEnum.MEDIUM,
             Date(),
-            LanguageBO.ENGLISH,
-            SubtitleLanguageBO.ENGLISH
+            LanguageEnum.ENGLISH,
+            SubtitleLanguageEnum.ENGLISH
         )
     )
 

@@ -18,3 +18,13 @@ fun <T> Flow<T>.asResult(): Flow<Result<T>> = map<T, Result<T>> {
 }.catch {
     emit(Result.Error(it))
 }
+
+interface HasValue {
+    val value: String
+}
+
+inline fun <reified T : Enum<T>> enumValueOfOrDefault(value: String, default: T): T {
+    return enumValues<T>().find {
+        (it as? HasValue)?.value == value
+    } ?: default
+}

@@ -14,8 +14,8 @@ data class WorkoutBO(
     val videoUrl: String,
     val intensityEnum: IntensityEnum,
     val releasedDate: Date,
-    val languageBO: LanguageBO,
-    val subtitleLanguageBO: SubtitleLanguageBO,
+    val languageEnum: LanguageEnum,
+    val subtitleLanguageEnum: SubtitleLanguageEnum,
     val subtitleUri: String?)
 
 @Serializable

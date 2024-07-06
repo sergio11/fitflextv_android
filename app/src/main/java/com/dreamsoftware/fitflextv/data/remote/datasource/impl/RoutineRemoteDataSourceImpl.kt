@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
-import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesException
@@ -11,11 +11,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-internal class RoutineDataSourceImpl(
+internal class RoutineRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val routineMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO>,
     private val dispatcher: CoroutineDispatcher
-): IRoutineDataSource {
+): IRoutineRemoteDataSource {
 
     private companion object {
         const val COLLECTION_NAME = "routines"

@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesException
 
-interface IRoutineDataSource {
+interface IRoutineRemoteDataSource {
 
     @Throws(FetchRemoteRoutinesException::class)
     suspend fun getRoutines(): List<RoutineDTO>

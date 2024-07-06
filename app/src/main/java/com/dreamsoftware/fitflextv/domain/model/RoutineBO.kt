@@ -13,6 +13,6 @@ data class RoutineBO (
     val videoUrl: String,
     val intensityEnum: IntensityEnum,
     val releasedDate: Date,
-    val language: LanguageBO,
-    val subtitleLanguage: SubtitleLanguageBO
+    val language: LanguageEnum,
+    val subtitleLanguage: SubtitleLanguageEnum
 )
