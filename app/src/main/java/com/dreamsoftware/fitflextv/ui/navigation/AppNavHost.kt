@@ -182,7 +182,7 @@ fun AppNavHost(
                 )
             ) {
                 TrainingScreen(
-                    onClickItem = { id ->
+                    onGoToTrainingDetail = { id ->
                         navController.navigate(Screens.TrainingDetail.buildRoute(id))
                     }
                 )
