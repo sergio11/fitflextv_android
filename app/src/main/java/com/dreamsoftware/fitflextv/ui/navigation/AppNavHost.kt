@@ -24,7 +24,7 @@ import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreen
 import com.dreamsoftware.fitflextv.ui.screens.subscription.SubscriptionScreen
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreen
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreen
-import com.dreamsoftware.fitflextv.ui.utils.navigateTo
+import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
 import com.dreamsoftware.fitflextv.ui.utils.navigationDrawerGraph
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -36,38 +36,40 @@ fun AppNavHost(
     NavHost(
         navController = navController,
         route = "root_host",
-        startDestination = Screens.Onboarding(),
+        startDestination = Screens.Onboarding.route,
         modifier = Modifier
             .semantics {
                 testTagsAsResourceId = true
             },
         builder = {
             navigationDrawerGraph(
-                onNavigateToRoot = navController::navigateTo
+                onNavigateToRoot = {
+                    navController.navigateSingleTopTo(it.route)
+                }
             )
-            composable(route = Screens.Onboarding()) {
+            composable(route = Screens.Onboarding.route) {
                 with(navController) {
                     OnboardingScreen(
                         onGoToSignIn = {
-                            navigate(Screens.SignIn())
+                            navigate(Screens.SignIn.route)
                         },
                         onGoToSignUp = {
-                            navigate(Screens.SignUp())
+                            navigate(Screens.SignUp.route)
                         }
                     )
                 }
             }
-            composable(route = Screens.SignIn()) {
+            composable(route = Screens.SignIn.route) {
                 with(navController) {
                     SignInScreen(
                         onGoToHome = {
-                            navigateTo(Screens.Dashboard)
+                            navigateSingleTopTo(Screens.Dashboard.route)
                         },
                         onGoToProfileSelector = {
-                            navigateTo(Screens.ProfileSelector)
+                            navigateSingleTopTo(Screens.ProfileSelector.route)
                         },
                         onGoToSignUp = {
-                            navigate(Screens.SignUp())
+                            navigate(Screens.SignUp.route)
                         },
                         onBackPressed = {
                             popBackStack()
@@ -75,7 +77,7 @@ fun AppNavHost(
                     )
                 }
             }
-            composable(route = Screens.SignUp()) {
+            composable(route = Screens.SignUp.route) {
                 with(navController) {
                     SignUpScreen(
                         onBackPressed = {
@@ -85,58 +87,61 @@ fun AppNavHost(
                 }
             }
             composable(
-                route = Screens.VideoPlayer(),
+                route = Screens.VideoPlayer.route,
             ) {
                 VideoPlayerScreen {
                     navController.popBackStack()
                 }
             }
             composable(
-                route = Screens.AudioPlayer(),
+                route = Screens.AudioPlayer.route,
             ) {
                 AudioPlayerScreen {
                     navController.popBackStack()
                 }
             }
             composable(
-                route = Screens.ProfileSelector()
+                route = Screens.ProfileSelector.route
             ) {
                 with(navController) {
                     ProfileSelectorScreen(
                         onGoToSignIn = {
-                            navigate(Screens.Subscription())
+                            navigate(Screens.Subscription.route)
                         },
                         onGoToDashboard = {
-                            navigateTo(Screens.Dashboard)
+                            navigateSingleTopTo(Screens.Dashboard.route)
                         }
                     )
                 }
             }
 
             composable(
-                route = Screens.MoreOptions(),
+                route = Screens.MoreOptions.route,
                 arguments = listOf(
                     navArgument("") {
                         type = NavType.StringType
                     }
                 )
-            ) {
-                with(navController) {
-                    MoreOptionsScreen(
-                        onBackPressed = {
-                            popBackStack()
-                        },
-                        onStartClick = {
-                            navigate(Screens.AudioPlayer())
-                        },
-                        onFavouriteClick = {
-                            navigate(Screens.Favorite())
-                        }
-                    )
+            ) { navBackStackEntry ->
+                navBackStackEntry.arguments?.let(Screens.MoreOptions::parseArgs)?.let { args ->
+                    with(navController) {
+                        MoreOptionsScreen(
+                            args = args,
+                            onBackPressed = {
+                                popBackStack()
+                            },
+                            onStartClick = {
+                                navigate(Screens.AudioPlayer.route)
+                            },
+                            onFavouriteClick = {
+                                navigate(Screens.Favorite.route)
+                            }
+                        )
+                    }
                 }
             }
             composable(
-                route = Screens.Favorite()
+                route = Screens.Favorite.route
             ) {
                 with(navController) {
                     FavoritesScreen(
@@ -144,13 +149,13 @@ fun AppNavHost(
                             popBackStack()
                         },
                         onStartWorkout = {
-                            navigate(Screens.VideoPlayer())
+                            navigate(Screens.VideoPlayer.route)
                         }
                     )
                 }
             }
             composable(
-                route = Screens.Home(),
+                route = Screens.Home.route,
                 arguments = listOf(
                     navArgument("") {
                         type = NavType.StringType
@@ -159,17 +164,17 @@ fun AppNavHost(
             ) {
                 with(navController) {
                     HomeScreen(
-                        onStartSession = {
-                            navigate(Screens.TrainingDetail())
+                        onStartSession = { id ->
+                            navigate(Screens.TrainingDetail.buildRoute(id))
                         },
-                        onGoToCategory = {
-                            navigate(Screens.MoreOptions())
+                        onGoToCategory = { categoryId ->
+                            navigate(Screens.MoreOptions.buildRoute(categoryId))
                         }
                     )
                 }
             }
             composable(
-                route = Screens.Training(),
+                route = Screens.Training.route,
                 arguments = listOf(
                     navArgument("") {
                         type = NavType.StringType
@@ -177,41 +182,44 @@ fun AppNavHost(
                 )
             ) {
                 TrainingScreen(
-                    onClickItem = {
-                        navController.navigate(Screens.TrainingDetail())
+                    onClickItem = { id ->
+                        navController.navigate(Screens.TrainingDetail.buildRoute(id))
                     }
                 )
             }
 
             composable(
-                route = Screens.TrainingDetail(),
+                route = Screens.TrainingDetail.route,
                 arguments = listOf(
                     navArgument("") {
                         type = NavType.StringType
                     }
                 )
-            ) {
-                with(navController) {
-                    TrainingDetailScreen(
-                        onClickStart = {
-                            navigate(Screens.VideoPlayer())
-                        },
-                        onBackPressed = {
-                            popBackStack()
-                        }
-                    )
+            ) { navBackStackEntry ->
+                navBackStackEntry.arguments?.let(Screens.TrainingDetail::parseArgs)?.let { args ->
+                    with(navController) {
+                        TrainingDetailScreen(
+                            args = args,
+                            onClickStart = {
+                                navigate(Screens.VideoPlayer.route)
+                            },
+                            onBackPressed = {
+                                popBackStack()
+                            }
+                        )
+                    }
                 }
             }
             composable(
-                route = Screens.Subscription(),
+                route = Screens.Subscription.route,
             ) {
                 with(navController) {
                     SubscriptionScreen(
                         onSubscribeClick = {
-                            navigate(Screens.ProfileSelector())
+                            navigate(Screens.ProfileSelector.route)
                         },
                         onRestorePurchasesClick = {
-                            navigate(Screens.ProfileSelector())
+                            navigate(Screens.ProfileSelector.route)
                         }
                     )
                 }

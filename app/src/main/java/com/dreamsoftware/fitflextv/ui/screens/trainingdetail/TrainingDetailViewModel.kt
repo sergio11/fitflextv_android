@@ -23,11 +23,10 @@ class TrainingDetailViewModel @Inject constructor(
     private val getTrainingSeriesByIdUseCase: GetTrainingSeriesByIdUseCase,
     private val getChallengeByIdUseCase: GetChallengeByIdUseCase
 ) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>() {
-    val id: String = "1"
 
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 
-    fun fetchData() {
+    fun fetchData(id: String) {
         when (uiState.value.contentType) {
             ContentType.CHALLENGES -> fetchChallengeById(id)
             ContentType.SERIES -> fetchSeriesById(id)

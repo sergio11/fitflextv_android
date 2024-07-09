@@ -44,6 +44,4 @@ internal class WorkoutRepositoryImpl(
     }
 
     override suspend fun getFavoritesWorkouts() = dummyWorkoutData.list
-
-
 }

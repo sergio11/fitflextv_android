@@ -24,3 +24,7 @@ class FetchRemoteSessionsException(message: String? = null, cause: Throwable? = 
 // Workout
 class FetchRemoteWorkoutsException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
 class FetchRemoteWorkoutByIdException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
+
+// Training
+class FetchRemoteTrainingsRecommendedException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)
+class FetchRemoteTrainingByIdException(message: String? = null, cause: Throwable? = null): FirebaseException(message, cause)

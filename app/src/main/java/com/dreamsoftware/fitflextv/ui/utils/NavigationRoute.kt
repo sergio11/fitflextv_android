@@ -14,7 +14,7 @@ import com.dreamsoftware.fitflextv.ui.screens.dashboard.DashboardScreen
 fun NavGraphBuilder.navigationDrawerGraph(
     onNavigateToRoot: (Screens) -> Unit
 ) {
-    composable(route = Screens.Dashboard()) {
+    composable(route = Screens.Dashboard.route) {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -22,7 +22,9 @@ fun NavGraphBuilder.navigationDrawerGraph(
         DashboardScreen(
             navController = navController,
             currentDestination = navBackStackEntry?.destination,
-            onNavigateTo = navController::navigateTo
+            onNavigateTo = { screen ->
+                navController.navigateSingleTopTo(screen.route)
+            }
         )
     }
 }

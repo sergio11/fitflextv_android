@@ -20,3 +20,7 @@ class FetchSeriesByIdException(message: String? = null, cause: Throwable? = null
 // Workout
 class FetchWorkoutsException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchWorkoutByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
+// Training
+class FetchTrainingsRecommendedException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class FetchTrainingByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

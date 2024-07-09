@@ -4,11 +4,13 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSou
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ITrainingRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.TrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.repository.impl.CategoryRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.ChallengesRepositoryImpl
@@ -23,11 +25,13 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.CategoryMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.SeriesMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.SessionMapper
+import com.dreamsoftware.fitflextv.data.repository.mapper.TrainingMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.WorkoutMapper
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.SessionBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
@@ -69,6 +73,10 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideWorkoutMapper(): IOneSideMapper<WorkoutDTO, WorkoutBO> = WorkoutMapper()
+
+    @Provides
+    @Singleton
+    fun provideTrainingMapper(): IOneSideMapper<TrainingDTO, TrainingBO> = TrainingMapper()
 
     @Provides
     @Singleton
@@ -127,9 +135,15 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideTrainingRepository(
+        trainingRemoteDataSource: ITrainingRemoteDataSource,
+        trainingMapper: IOneSideMapper<TrainingDTO, TrainingBO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ITrainingRepository =
-        TrainingRepositoryImpl(dispatcher)
+        TrainingRepositoryImpl(
+            trainingRemoteDataSource,
+            trainingMapper,
+            dispatcher
+        )
 
     @Provides
     @Singleton
