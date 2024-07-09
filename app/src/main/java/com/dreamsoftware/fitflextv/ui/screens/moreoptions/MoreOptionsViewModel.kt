@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.moreoptions
 
-import com.dreamsoftware.fitflextv.domain.model.TrainingDetailsBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
@@ -15,7 +15,7 @@ class MoreOptionsViewModel @Inject constructor(
 
     override fun onGetDefaultState(): MoreOptionsUiState = MoreOptionsUiState()
 
-    fun fetchData(trainingId: Int) {
+    fun fetchData(trainingId: String) {
         executeUseCaseWithParams(
             useCase = getTrainingByIdUseCase,
             params = GetTrainingByIdUseCase.Params(trainingId),
@@ -23,7 +23,7 @@ class MoreOptionsViewModel @Inject constructor(
         )
     }
 
-    private fun onGetTrainingByIdSuccessfully(trainingDetailsBO: TrainingDetailsBO) {
+    private fun onGetTrainingByIdSuccessfully(trainingDetailsBO: TrainingBO) {
         updateState { it.copy(trainingDetailsBO = trainingDetailsBO) }
     }
 }
@@ -31,7 +31,7 @@ class MoreOptionsViewModel @Inject constructor(
 data class MoreOptionsUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
-    val trainingDetailsBO: TrainingDetailsBO? = null
+    val trainingDetailsBO: TrainingBO? = null
 ): UiState<MoreOptionsUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): MoreOptionsUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)

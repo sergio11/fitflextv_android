@@ -33,11 +33,11 @@ private val BACKGROUND_CONTENT_PADDING = 12.dp
 fun DashboardNavigationDrawer(
     modifier: Modifier = Modifier,
     currentDestination: NavDestination?,
+    screens: List<Screens>,
     onNavigateTo: (Screens) -> Unit,
     content: @Composable () -> Unit,
 ) {
     with(MaterialTheme.colorScheme) {
-        val screens = Screens.entries.filter { it.isNavigationDrawerItem }
         ModalNavigationDrawer(
             scrimBrush = Brush.horizontalGradient(
                 listOf(
@@ -55,7 +55,7 @@ fun DashboardNavigationDrawer(
                 ) {
                     screens.forEachIndexed { index, screen ->
                         val selected: Boolean =
-                            currentDestination?.hierarchy?.any { it.route == screen.name } ?: false
+                            currentDestination?.hierarchy?.any { it.route == screen.route } ?: false
                         NavigationDrawerItem(
                             colors = NavigationDrawerItemColors(
                                 containerColor = Color.Transparent,
@@ -78,7 +78,7 @@ fun DashboardNavigationDrawer(
                             modifier = Modifier.padding(bottom = BACKGROUND_CONTENT_PADDING),
                             selected = selected,
                             onClick = { onNavigateTo(screen) },
-                            content = { Text(screens[index].name) },
+                            content = { Text(screens[index].name ) },
                             leadingContent = {
                                 Icon(
                                     painter = painterResource(

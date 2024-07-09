@@ -1,40 +1,67 @@
 package com.dreamsoftware.fitflextv.ui.navigation
 
+import android.os.Bundle
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreenArgs
 
-enum class Screens(
-    private val args: List<String>? = null,
-    var routePath: String? = null,
-    var clearBackStack: Boolean = false,
+sealed class Screens(
+    val route: String,
+    val name: String,
+    arguments: List<NamedNavArgument> = emptyList(),
     val isNavigationDrawerItem: Boolean = false,
     val navigationDrawerIcon: Int? = null
 ) {
-    Onboarding,
-    SignIn,
-    SignUp,
-    MoreOptions,
-    VideoPlayer,
-    AudioPlayer,
-    Dashboard,
-    Subscription,
-    ProfileSelector,
-    TrainingDetail,
-    Home(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.home),
-    Training(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.fitness_center),
-    Favorite(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.favorite),
-    Settings(isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.settings);
 
-    operator fun invoke(): String {
-        val argList = StringBuilder()
-        args?.let { nnArgs ->
-            nnArgs.forEach { arg -> argList.append("/{$arg}") }
+    data object Splash: Screens(route = "splash", name = "Splash")
+    data object Onboarding: Screens(route = "onboarding", name = "Onboarding")
+    data object SignIn: Screens(route = "sign_in", name = "SignIn")
+    data object SignUp: Screens(route = "sign_up", name = "SignUp")
+    data object Dashboard: Screens(route = "dashboard", name = "Dashboard")
+    data object Subscription: Screens(route = "subscription", name = "Subscription")
+    data object ProfileSelector: Screens(route = "profile_selector", name = "ProfileSelector")
+    data object Home: Screens(route = "home", name = "Home", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.home)
+    data object Training: Screens(route = "training", name = "Training", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.fitness_center)
+    data object Favorite: Screens(route = "favorite", name = "Favorite", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.favorite)
+    data object Settings: Screens(route = "settings", name = "Settings", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.settings)
+    data object VideoPlayer: Screens(route = "video_player", name = "VideoPlayer")
+    data object AudioPlayer: Screens(route = "audio_player", name = "AudioPlayer")
+    data object TrainingDetail : Screens(route = "training_detail/{id}", name = "TrainingDetail", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
         }
-        return name + argList
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): TrainingDetailScreenArgs? = with(args) {
+            getString("id")?.let {
+                TrainingDetailScreenArgs(id = it)
+            }
+        }
     }
 
-    fun withArgs(vararg args: Any): String {
-        val destination = StringBuilder()
-        args.forEach { arg -> destination.append("/$arg") }
-        return name + destination
+    data object MoreOptions : Screens(route = "more_options/{id}", name = "MoreOptions", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): MoreOptionsScreenArgs? = with(args) {
+            getString("id")?.let {
+                MoreOptionsScreenArgs(id = it)
+            }
+        }
     }
 }

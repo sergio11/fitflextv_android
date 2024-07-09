@@ -26,91 +26,103 @@ fun DashboardScreen(
     DashboardNavigationDrawer(
         modifier = Modifier,
         onNavigateTo = onNavigateTo,
+        screens = listOf(
+            Screens.Home,
+            Screens.Training,
+            Screens.Favorite,
+            Screens.Settings
+        ),
         currentDestination = currentDestination,
     ) {
         NavHost(
             navController = navController,
-            startDestination = Screens.Home(),
+            startDestination = Screens.Home.route,
         ) {
-            composable(Screens.Home()) {
+            composable(Screens.Home.route) {
                 with(navController) {
                     HomeScreen(
-                        onStartSession = {
-                            navigate(Screens.TrainingDetail())
+                        onStartSession = { id ->
+                            navigate(Screens.TrainingDetail.buildRoute(id))
                         },
-                        onGoToCategory = {
-                            navigate(Screens.MoreOptions())
+                        onGoToCategory = { id ->
+                            navigate(Screens.MoreOptions.buildRoute(id))
                         }
                     )
                 }
             }
-            composable(Screens.Training()) {
+            composable(Screens.Training.route) {
                 TrainingScreen(
-                    onClickItem = {
-                        navController.navigate(Screens.TrainingDetail())
+                    onClickItem = { id ->
+                        navController.navigate(Screens.TrainingDetail.buildRoute(id))
                     }
                 )
             }
-            composable(Screens.Favorite()) {
+            composable(Screens.Favorite.route) {
                 with(navController) {
                     FavoritesScreen(
                         onBackPressed = {
                             popBackStack()
                         },
                         onStartWorkout = {
-                            navigate(Screens.VideoPlayer())
+                            navigate(Screens.VideoPlayer.route)
                         }
                     )
                 }
             }
-            composable(Screens.VideoPlayer()) {
+            composable(Screens.VideoPlayer.route) {
                 VideoPlayerScreen {
                     navController.popBackStack()
                 }
             }
-            composable(Screens.AudioPlayer()) {
+            composable(Screens.AudioPlayer.route) {
                 AudioPlayerScreen {
                     navController.popBackStack()
                 }
             }
-            composable(Screens.Settings()) {
+            composable(Screens.Settings.route) {
                 SettingsScreen()
             }
-            composable(Screens.TrainingDetail()) {
-                with(navController) {
-                    TrainingDetailScreen(
-                        onClickStart = {
-                            navigate(Screens.VideoPlayer())
-                        },
-                        onBackPressed = {
-                            popBackStack()
-                        }
-                    )
+            composable(Screens.TrainingDetail.route) { navBackStackEntry ->
+                navBackStackEntry.arguments?.let(Screens.TrainingDetail::parseArgs)?.let { args ->
+                    with(navController) {
+                        TrainingDetailScreen(
+                            args = args,
+                            onClickStart = {
+                                navigate(Screens.VideoPlayer.route)
+                            },
+                            onBackPressed = {
+                                popBackStack()
+                            }
+                        )
+                    }
                 }
             }
-            composable(Screens.MoreOptions()) {
-                with(navController) {
-                    MoreOptionsScreen(
-                        onStartClick = {
-                            navigate(Screens.AudioPlayer())
-                        },
-                        onBackPressed = {
-                            popBackStack()
-                        },
-                        onFavouriteClick = {
-                            navigate(Screens.Favorite())
-                        }
-                    )
+            composable(Screens.MoreOptions.route) { navBackStackEntry ->
+                navBackStackEntry.arguments?.let(Screens.MoreOptions::parseArgs)?.let { args ->
+                    with(navController) {
+                        MoreOptionsScreen(
+                            args = args,
+                            onStartClick = {
+                                navigate(Screens.AudioPlayer.route)
+                            },
+                            onBackPressed = {
+                                popBackStack()
+                            },
+                            onFavouriteClick = {
+                                navigate(Screens.Favorite.route)
+                            }
+                        )
+                    }
                 }
             }
-            composable(Screens.Subscription()) {
+            composable(Screens.Subscription.route) {
                 with(navController) {
                     SubscriptionScreen(
                         onSubscribeClick = {
-                            navigate(Screens.ProfileSelector())
+                            navigate(Screens.ProfileSelector.route)
                         },
                         onRestorePurchasesClick = {
-                            navigate(Screens.ProfileSelector())
+                            navigate(Screens.ProfileSelector.route)
                         }
                     )
                 }

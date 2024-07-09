@@ -4,9 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
+
+data class MoreOptionsScreenArgs(
+    val id: String
+)
+
 @Composable
 fun MoreOptionsScreen(
     viewModel: MoreOptionsViewModel = hiltViewModel(),
+    args: MoreOptionsScreenArgs,
     onBackPressed: () -> Unit,
     onStartClick: () -> Unit,
     onFavouriteClick: () -> Unit,
@@ -19,7 +25,7 @@ fun MoreOptionsScreen(
 
         },
         onInit = {
-            fetchData(1)
+            fetchData(args.id)
         }
     ) { uiState ->
         MoreOptionsScreenContent(

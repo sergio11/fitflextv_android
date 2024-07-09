@@ -1,6 +1,6 @@
-package com.dreamsoftware.fitflextv.domain.model
+package com.dreamsoftware.fitflextv.data.remote.dto
 
-data class TrainingDetailsBO(
+data class TrainingDTO(
     val id: String,
     val instructor: String,
     val type: String,
