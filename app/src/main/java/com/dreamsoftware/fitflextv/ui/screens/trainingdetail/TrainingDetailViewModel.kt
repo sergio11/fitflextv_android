@@ -158,7 +158,7 @@ class TrainingDetailViewModel @Inject constructor(
 data class TrainingDetailUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
-    val contentType: ContentType = ContentType.ROUTINE,
+    val contentType: ContentType = ContentType.WORK_OUT,
     val subtitle: String = "",
     val title: String = "",
     val description: String = "",
