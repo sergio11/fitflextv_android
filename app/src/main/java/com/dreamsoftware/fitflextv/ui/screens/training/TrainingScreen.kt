@@ -31,9 +31,5 @@ fun TrainingScreen(
         )
     }
 }
-data class SectionTab(
-    val id: Int,
-    val title: String,
-)
 
 
