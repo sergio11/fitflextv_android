@@ -14,7 +14,7 @@ import javax.inject.Inject
 class TrainingViewModel @Inject constructor(
     private val getInstructorsUseCase: GetInstructorsUseCase,
     private val getWorkoutsUseCase: GetWorkoutsUseCase
-) : BaseViewModel<TrainingUiState, TrainingSideEffects>() {
+) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
     override fun onGetDefaultState(): TrainingUiState = with(FilterSideMenuVO()) {
         TrainingUiState(
@@ -56,28 +56,32 @@ class TrainingViewModel @Inject constructor(
         updateState { it.copy(workoutList = workoutList) }
     }
 
-    fun onFilterClicked() {
+    override fun onFilterClicked() {
         updateState { it.copy(isFilterExpended = !it.isFilterExpended) }
     }
 
-    fun onSortedClicked() {
+    override fun onSortedClicked() {
         updateState { it.copy(isSortExpended = !it.isSortExpended) }
     }
 
-    fun onDismissSideMenu() {
+    override fun onDismissSideMenu() {
         updateState { it.copy(isFilterExpended = false, isSortExpended = false) }
     }
 
-    fun onSelectedSortedItem(sortItemIndex: Int) {
-        updateState { it.copy(selectedSortItem = sortItemIndex) }
+    override fun onSelectedSortedItem(currentIndex: Int) {
+        updateState { it.copy(selectedSortItem = currentIndex) }
     }
 
-    fun onChangeSelectedTab(index: Int) {
+    override fun onChangeSelectedTab(index: Int) {
         updateState { it.copy(selectedTab = index) }
     }
 
-    fun onChangeFocusTab(index: Int) {
+    override fun onChangeFocusTab(index: Int) {
         updateState { it.copy(focusTabIndex = index) }
+    }
+
+    override fun onItemClicked(id: String) {
+        launchSideEffect(TrainingSideEffects.OpenTrainingDetail(id))
     }
 }
 
@@ -98,7 +102,9 @@ data class TrainingUiState(
         copy(isLoading = isLoading, errorMessage = errorMessage)
 }
 
-sealed interface TrainingSideEffects : SideEffect
+sealed interface TrainingSideEffects : SideEffect {
+    data class OpenTrainingDetail(val id: String): TrainingSideEffects
+}
 
 data class TrainingFilterData(
     val icon: Int,

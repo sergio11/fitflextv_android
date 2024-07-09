@@ -16,7 +16,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
-import androidx.tv.foundation.lazy.grid.items
 import androidx.tv.foundation.lazy.grid.itemsIndexed
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.material3.MaterialTheme
@@ -32,25 +31,19 @@ import com.dreamsoftware.fitflextv.ui.utils.conditional
 @Composable
 internal fun TrainingScreenContent(
     state: TrainingUiState,
-    onClickFilter: () -> Unit,
-    onClickSortBy: () -> Unit,
-    onDismissSideMenu: () -> Unit,
-    onSelectedItem: (currentIndex: Int) -> Unit,
-    onChangeSelectedTab: (index: Int) -> Unit,
-    onChangeFocusTab: (index: Int) -> Unit,
-    onClickItem : (id:String) -> Unit
+    actionListener: TrainingScreenActionListener
 ) {
-    SideMenu(onDismissSideMenu = onDismissSideMenu, isSideMenuExpended = state.isFilterExpended) {
+    SideMenu(onDismissSideMenu = actionListener::onDismissSideMenu, isSideMenuExpended = state.isFilterExpended) {
         FilterSideMenu(
-            onDismissSideMenu = onDismissSideMenu,
+            onDismissSideMenu = actionListener::onDismissSideMenu,
             filtrationFields = state.filterItems
         )
     }
-    SideMenu(onDismissSideMenu = onDismissSideMenu, isSideMenuExpended = state.isSortExpended) {
+    SideMenu(onDismissSideMenu = actionListener::onDismissSideMenu, isSideMenuExpended = state.isSortExpended) {
         SortSideMenu(
-            onDismissSideMenu = onDismissSideMenu,
+            onDismissSideMenu = actionListener::onDismissSideMenu,
             selectedIndex = state.selectedSortItem,
-            onSelectedItem = onSelectedItem
+            onSelectedItem = actionListener::onSelectedSortedItem
         )
     }
     val tabs = listOf("Workout", "Series", "Challenges", "Routines")
@@ -70,15 +63,15 @@ internal fun TrainingScreenContent(
                         tabs = tabs,
                         selectedTabIndex = state.selectedTab,
                         focusTabIndex = state.focusTabIndex,
-                        onClick = onChangeSelectedTab,
-                        onFocus = onChangeFocusTab,
+                        onClick = actionListener::onChangeSelectedTab,
+                        onFocus = actionListener::onChangeFocusTab,
                     )
                     Spacer(modifier = Modifier.weight(1F))
-                    CommonOutlineButton(text = "Filters", onClick = onClickFilter)
+                    CommonOutlineButton(text = "Filters", onClick = actionListener::onFilterClicked)
                     Spacer(modifier = Modifier.width(14.dp))
                     CommonOutlineButton(
                         text = "Sort by: ${SortItem.entries[state.selectedSortItem]}",
-                        onClick = onClickSortBy
+                        onClick = actionListener::onSortedClicked
                     )
                     Spacer(modifier = Modifier.width(58.dp))
                 }
@@ -103,7 +96,7 @@ internal fun TrainingScreenContent(
                             title = training.name,
                             timeText = training.duration,
                             typeText = training.intensityEnum.level,
-                            onClick = { onClickItem(training.id) },
+                            onClick = { actionListener.onItemClicked(training.id) },
                             titleTextStyle = MaterialTheme.typography.titleMedium,
                             timeTextStyle = MaterialTheme.typography.labelMedium,
                             typeTextStyle = MaterialTheme.typography.labelMedium,

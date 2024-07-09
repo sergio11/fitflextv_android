@@ -52,7 +52,7 @@ fun DashboardScreen(
             }
             composable(Screens.Training.route) {
                 TrainingScreen(
-                    onClickItem = { id ->
+                    onGoToTrainingDetail = { id ->
                         navController.navigate(Screens.TrainingDetail.buildRoute(id))
                     }
                 )
