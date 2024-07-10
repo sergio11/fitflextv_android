@@ -42,7 +42,7 @@ fun DashboardScreen(
                 with(navController) {
                     HomeScreen(
                         onStartSession = { id ->
-                            navigate(Screens.TrainingDetail.buildRoute(id))
+                            //navigate(Screens.TrainingDetail.buildRoute(id))
                         },
                         onGoToCategory = { id ->
                             navigate(Screens.MoreOptions.buildRoute(id))
@@ -52,8 +52,8 @@ fun DashboardScreen(
             }
             composable(Screens.Training.route) {
                 TrainingScreen(
-                    onGoToTrainingDetail = { id ->
-                        navController.navigate(Screens.TrainingDetail.buildRoute(id))
+                    onGoToTrainingProgramDetail = { id, type ->
+                        navController.navigate(Screens.TrainingDetail.buildRoute(id, type))
                     }
                 )
             }

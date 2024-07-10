@@ -165,7 +165,7 @@ fun AppNavHost(
                 with(navController) {
                     HomeScreen(
                         onStartSession = { id ->
-                            navigate(Screens.TrainingDetail.buildRoute(id))
+                            //navigate(Screens.TrainingDetail.buildRoute(id))
                         },
                         onGoToCategory = { categoryId ->
                             navigate(Screens.MoreOptions.buildRoute(categoryId))
@@ -182,8 +182,8 @@ fun AppNavHost(
                 )
             ) {
                 TrainingScreen(
-                    onGoToTrainingDetail = { id ->
-                        navController.navigate(Screens.TrainingDetail.buildRoute(id))
+                    onGoToTrainingProgramDetail = { id, type ->
+                        navController.navigate(Screens.TrainingDetail.buildRoute(id, type))
                     }
                 )
             }
