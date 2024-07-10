@@ -9,7 +9,7 @@ data class RoutineDTO(
     val instructorName: String,
     val workoutType: String,
     val imageUrl: String,
-    val duration: Long,
+    val duration: String,
     val videoUrl: String,
     val intensity: String,
     val releasedDate: Date,

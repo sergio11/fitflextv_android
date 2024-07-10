@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.core.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
@@ -7,6 +8,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Tab
@@ -17,7 +19,7 @@ import androidx.tv.material3.Text
 @Composable
 @OptIn(ExperimentalComposeUiApi::class)
 fun CommonTabRow(
-    tabs: List<String>,
+    @StringRes tabs: List<Int>,
     selectedTabIndex: Int,
     focusTabIndex: Int,
     onClick: (Int) -> Unit,
@@ -49,7 +51,7 @@ fun CommonTabRow(
                     onFocus = { onFocus(index) }
                 ) {
                     Text(
-                        text = tab,
+                        text = stringResource(id = tab),
                         style = MaterialTheme.typography.labelLarge,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
                     )

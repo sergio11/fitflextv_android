@@ -24,7 +24,7 @@ internal class SessionRepositoryImpl(
                 .let(sessionMapper::mapInListToOutList)
                 .toList()
         } catch (ex: FetchRemoteSessionsException) {
-            throw FetchSessionsException("An error occurred when fetching sessions")
+            throw FetchSessionsException("An error occurred when fetching sessions", ex)
         }
     }
 }

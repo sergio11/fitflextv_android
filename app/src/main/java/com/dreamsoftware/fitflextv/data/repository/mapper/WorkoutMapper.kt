@@ -17,14 +17,14 @@ internal class WorkoutMapper : IOneSideMapper<WorkoutDTO, WorkoutBO> {
             name = name,
             description = description,
             instructorName = instructorName,
-            workoutTypeEnum = enumValueOfOrDefault(workoutType, WorkoutTypeEnum.YOGA),
+            workoutType = enumValueOfOrDefault(workoutType, WorkoutTypeEnum.YOGA),
             imageUrl = imageUrl,
             duration = duration,
             videoUrl = videoUrl,
-            intensityEnum = enumValueOfOrDefault(intensity, IntensityEnum.EASY),
+            intensity = enumValueOfOrDefault(intensity, IntensityEnum.EASY),
             releasedDate = releasedDate,
-            languageEnum = enumValueOfOrDefault(language, LanguageEnum.ENGLISH),
-            subtitleLanguageEnum = enumValueOfOrDefault(subtitleLanguage, SubtitleLanguageEnum.ENGLISH),
+            language = enumValueOfOrDefault(language, LanguageEnum.ENGLISH),
+            subtitleLanguage = enumValueOfOrDefault(subtitleLanguage, SubtitleLanguageEnum.ENGLISH),
         )
     }
 

@@ -25,7 +25,7 @@ internal class CategoryRepositoryImpl(
                 .let(categoryMapper::mapInListToOutList)
                 .toList()
         } catch (ex: FetchRemoteCategoriesException) {
-            throw FetchSessionsException("An error occurred when fetching categories")
+            throw FetchSessionsException("An error occurred when fetching categories", ex)
         }
     }
 }

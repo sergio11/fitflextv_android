@@ -1,8 +1,13 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
+import android.util.Log
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.usecase.GetChallengesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetRoutinesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetSeriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutsUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
@@ -13,7 +18,10 @@ import javax.inject.Inject
 @HiltViewModel
 class TrainingViewModel @Inject constructor(
     private val getInstructorsUseCase: GetInstructorsUseCase,
-    private val getWorkoutsUseCase: GetWorkoutsUseCase
+    private val getWorkoutsUseCase: GetWorkoutsUseCase,
+    private val getRoutinesUseCase: GetRoutinesUseCase,
+    private val getSeriesUseCase: GetSeriesUseCase,
+    private val getChallengesUseCase: GetChallengesUseCase
 ) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
     override fun onGetDefaultState(): TrainingUiState = with(FilterSideMenuVO()) {
@@ -31,29 +39,13 @@ class TrainingViewModel @Inject constructor(
     }
 
     fun fetchData() {
-        fetchWorkout()
-        fetchInstructors()
-    }
-
-    private fun fetchInstructors() {
-        executeUseCase(useCase = getInstructorsUseCase, onSuccess = ::onGetInstructorsSuccessfully)
-    }
-
-    private fun fetchWorkout() {
-        executeUseCase(useCase = getWorkoutsUseCase, onSuccess = ::onGetWorkoutsSuccessfully)
-    }
-
-    private fun onGetInstructorsSuccessfully(instructorList: List<String>) {
-        updateState {
-            it.copy(
-                instructorList = instructorList,
-                filterSideMenuVO = it.filterSideMenuVO.copy(instructor = instructorList.first())
-            )
+        when(uiState.value.trainingTypeSelected) {
+            TrainingTypeEnum.WORK_OUT -> fetchWorkout()
+            TrainingTypeEnum.SERIES -> fetchSeries()
+            TrainingTypeEnum.CHALLENGES -> fetchChallenges()
+            TrainingTypeEnum.ROUTINE -> fetchRoutines()
         }
-    }
-
-    private fun onGetWorkoutsSuccessfully(workoutList: List<WorkoutBO>) {
-        updateState { it.copy(workoutList = workoutList) }
+        fetchInstructors()
     }
 
     override fun onFilterClicked() {
@@ -73,7 +65,13 @@ class TrainingViewModel @Inject constructor(
     }
 
     override fun onChangeSelectedTab(index: Int) {
-        updateState { it.copy(selectedTab = index) }
+        updateState {
+            it.copy(
+                selectedTab = index,
+                trainingTypeSelected = TrainingTypeEnum.entries[index]
+            )
+        }
+        fetchData()
     }
 
     override fun onChangeFocusTab(index: Int) {
@@ -82,6 +80,39 @@ class TrainingViewModel @Inject constructor(
 
     override fun onItemClicked(id: String) {
         launchSideEffect(TrainingSideEffects.OpenTrainingDetail(id))
+    }
+
+    private fun fetchInstructors() {
+        executeUseCase(useCase = getInstructorsUseCase, onSuccess = ::onGetInstructorsSuccessfully)
+    }
+
+    private fun fetchWorkout() {
+        executeUseCase(useCase = getWorkoutsUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
+    }
+
+    private fun fetchRoutines() {
+        executeUseCase(useCase = getRoutinesUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
+    }
+
+    private fun fetchSeries() {
+        executeUseCase(useCase = getSeriesUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
+    }
+
+    private fun fetchChallenges() {
+        executeUseCase(useCase = getChallengesUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
+    }
+
+    private fun onGetInstructorsSuccessfully(instructorList: List<String>) {
+        updateState {
+            it.copy(
+                instructorList = instructorList,
+                filterSideMenuVO = it.filterSideMenuVO.copy(instructor = instructorList.first())
+            )
+        }
+    }
+
+    private fun onGetTrainingProgramsSuccessfully(trainingPrograms: List<ITrainingProgramBO>) {
+        updateState { it.copy(trainingPrograms = trainingPrograms) }
     }
 }
 
@@ -92,10 +123,17 @@ data class TrainingUiState(
     val isSortExpended: Boolean = false,
     val filterSideMenuVO: FilterSideMenuVO = FilterSideMenuVO(),
     val instructorList: List<String> = emptyList(),
-    val workoutList: List<WorkoutBO> = emptyList(),
+    val trainingPrograms: List<ITrainingProgramBO> = emptyList(),
     val filterItems: List<TrainingFilterData> = emptyList(),
     val selectedSortItem: Int = 0,
     val selectedTab: Int = 0,
+    val tabsTitle: List<Int> = listOf(
+        R.string.training_type_workout_name,
+        R.string.training_type_series_name,
+        R.string.training_type_challenges_name,
+        R.string.training_type_routines_name,
+    ),
+    val trainingTypeSelected: TrainingTypeEnum = TrainingTypeEnum.WORK_OUT,
     val focusTabIndex: Int = 0,
 ) : UiState<TrainingUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): TrainingUiState =
