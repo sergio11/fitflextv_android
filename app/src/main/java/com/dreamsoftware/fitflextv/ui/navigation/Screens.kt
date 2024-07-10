@@ -5,6 +5,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreenArgs
 
@@ -29,20 +30,31 @@ sealed class Screens(
     data object Settings: Screens(route = "settings", name = "Settings", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.settings)
     data object VideoPlayer: Screens(route = "video_player", name = "VideoPlayer")
     data object AudioPlayer: Screens(route = "audio_player", name = "AudioPlayer")
-    data object TrainingDetail : Screens(route = "training_detail/{id}", name = "TrainingDetail", arguments = listOf(
+    data object TrainingDetail : Screens(route = "training_detail/{type}/{id}", name = "TrainingDetail", arguments = listOf(
+        navArgument("type") {
+            type = NavType.StringType
+        },
         navArgument("id") {
             type = NavType.StringType
         }
     )) {
-        fun buildRoute(id: String): String =
+        fun buildRoute(id: String, type: TrainingTypeEnum): String =
             route.replace(
                 oldValue = "{id}",
                 newValue = id
+            ).replace(
+                oldValue = "{type}",
+                newValue = type.name
             )
 
         fun parseArgs(args: Bundle): TrainingDetailScreenArgs? = with(args) {
-            getString("id")?.let {
-                TrainingDetailScreenArgs(id = it)
+            getString("id")?.let { id ->
+                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
+                    TrainingDetailScreenArgs(
+                        id = id,
+                        type = type
+                    )
+                }
             }
         }
     }

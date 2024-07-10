@@ -2,9 +2,13 @@ package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
-data class TrainingDetailScreenArgs(val id: String)
+data class TrainingDetailScreenArgs(
+    val id: String,
+    val type: TrainingTypeEnum
+)
 
 @Composable
 fun TrainingDetailScreen(
@@ -18,7 +22,10 @@ fun TrainingDetailScreen(
         onBackPressed = onBackPressed,
         onInitialUiState = { TrainingDetailUiState() },
         onInit = {
-            fetchData(args.id)
+            fetchData(
+                id = args.id,
+                type = args.type
+            )
         }
     ) { uiState ->
         TrainingDetailScreenContent(

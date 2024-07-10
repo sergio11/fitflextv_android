@@ -1,6 +1,5 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
-import android.util.Log
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
@@ -79,7 +78,10 @@ class TrainingViewModel @Inject constructor(
     }
 
     override fun onItemClicked(id: String) {
-        launchSideEffect(TrainingSideEffects.OpenTrainingDetail(id))
+        launchSideEffect(TrainingSideEffects.OpenTrainingProgramDetail(
+            id = id,
+            type = uiState.value.trainingTypeSelected
+        ))
     }
 
     private fun fetchInstructors() {
@@ -141,7 +143,8 @@ data class TrainingUiState(
 }
 
 sealed interface TrainingSideEffects : SideEffect {
-    data class OpenTrainingDetail(val id: String): TrainingSideEffects
+
+    data class OpenTrainingProgramDetail(val id: String, val type: TrainingTypeEnum): TrainingSideEffects
 }
 
 data class TrainingFilterData(

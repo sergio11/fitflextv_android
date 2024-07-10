@@ -26,8 +26,9 @@ class TrainingDetailViewModel @Inject constructor(
 
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 
-    fun fetchData(id: String) {
-        when (uiState.value.trainingType) {
+    fun fetchData(id: String, type: TrainingTypeEnum) {
+        updateState { it.copy(trainingType = type) }
+        when (type) {
             TrainingTypeEnum.CHALLENGES -> fetchChallengeById(id)
             TrainingTypeEnum.SERIES -> fetchSeriesById(id)
             TrainingTypeEnum.WORK_OUT -> fetchWorkoutById(id)
