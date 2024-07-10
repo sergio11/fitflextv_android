@@ -3,16 +3,16 @@ package com.dreamsoftware.fitflextv.domain.model
 import java.util.Date
 
 data class WorkoutBO(
-    val id: String,
-    val name: String,
-    val description: String,
-    val instructorName: String,
-    val workoutTypeEnum: WorkoutTypeEnum,
-    val imageUrl: String,
-    val duration: String,
+    override val id: String,
+    override val name: String,
+    override val description: String,
+    override val instructorName: String,
+    override val workoutType: WorkoutTypeEnum,
+    override val imageUrl: String,
     val videoUrl: String,
-    val intensityEnum: IntensityEnum,
-    val releasedDate: Date,
-    val languageEnum: LanguageEnum,
-    val subtitleLanguageEnum: SubtitleLanguageEnum
-)
+    override val intensity: IntensityEnum,
+    override val releasedDate: Date,
+    override val language: LanguageEnum,
+    override val subtitleLanguage: SubtitleLanguageEnum,
+    override val duration: String
+) : ITrainingProgramBO

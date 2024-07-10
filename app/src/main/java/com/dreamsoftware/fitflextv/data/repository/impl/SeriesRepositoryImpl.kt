@@ -28,7 +28,7 @@ internal class SeriesRepositoryImpl(
                 .let(seriesMapper::mapInListToOutList)
                 .toList()
         } catch (ex: FetchRemoteSeriesException) {
-            throw FetchSeriesException("An error occurred when fetching series")
+            throw FetchSeriesException("An error occurred when fetching series", ex)
         }
     }
 
@@ -39,7 +39,7 @@ internal class SeriesRepositoryImpl(
                 .getSeriesById(id)
                 .let(seriesMapper::mapInToOut)
         } catch (ex: FetchRemoteSeriesByIdException) {
-            throw FetchSeriesByIdException("An error occurred when fetching series $id")
+            throw FetchSeriesByIdException("An error occurred when fetching series $id", ex)
         }
     }
 

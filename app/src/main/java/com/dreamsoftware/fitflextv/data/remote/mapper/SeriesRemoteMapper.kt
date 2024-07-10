@@ -15,7 +15,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
         const val IMAGE_URL_KEY = "imageUrl"
         const val NUMBER_OF_WEEKS = "numberOfWeeks"
         const val NUMBER_OF_CLASSES = "numberOfClasses"
-        const val MINUTES_PER_DAY = "minutesPerDay"
+        const val DURATION = "duration"
         const val VIDEO_URL_KEY = "videoUrl"
         const val INTENSITY_KEY = "intensity"
         const val RELEASED_DATE_KEY = "releasedDate"
@@ -32,8 +32,8 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
             workoutType = get(WORKOUT_TYPE_KEY) as String,
             imageUrl = get(IMAGE_URL_KEY) as String,
             numberOfWeeks = get(NUMBER_OF_WEEKS) as Long,
-            numberOfClasses = get(NUMBER_OF_CLASSES) as Int,
-            minutesPerDay = get(MINUTES_PER_DAY) as Int,
+            numberOfClasses = get(NUMBER_OF_CLASSES) as Long,
+            duration = get(DURATION) as String,
             videoUrl = get(VIDEO_URL_KEY) as String,
             intensity = get(INTENSITY_KEY) as String,
             releasedDate = Date(),

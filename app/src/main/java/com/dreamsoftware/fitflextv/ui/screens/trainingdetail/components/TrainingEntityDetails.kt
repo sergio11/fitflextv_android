@@ -23,10 +23,15 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
+import com.dreamsoftware.fitflextv.ui.utils.getSecondaryButtonID
+import com.dreamsoftware.fitflextv.ui.utils.getSecondaryButtonIcon
+import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
+import com.dreamsoftware.fitflextv.ui.utils.isSecondaryButtonVisible
 
 @Composable
 fun TrainingEntityDetails(
@@ -36,74 +41,76 @@ fun TrainingEntityDetails(
     onClickRoutineFavourite: () -> Unit,
     onClickChallengesPlan: () -> Unit
 ) {
-    val descriptionWidth = (LocalConfiguration.current.screenWidthDp / 2).dp
-    val isChallenges = state.contentType == TrainingDetailUiState.ContentType.CHALLENGES
-    val isRoutine = state.contentType == TrainingDetailUiState.ContentType.ROUTINE
-    val paddingBottom = when (state.contentType) {
-        TrainingDetailUiState.ContentType.CHALLENGES -> 24.dp
-        else -> 80.dp
-    }
-    CommonFocusRequester { requester ->
-        Column(
-            modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                CommonText(
-                    titleText = state.subtitle,
-                    type =  CommonTextTypeEnum.BODY_SMALL,
-                    textColor = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                CommonText(
-                    titleText = state.title,
-                    type = CommonTextTypeEnum.HEADLINE_LARGE,
-                    textColor = MaterialTheme.colorScheme.onSurface
-                )
-            }
-            CommonText(
-                modifier = Modifier.width(descriptionWidth),
-                titleText = state.description,
-                type = CommonTextTypeEnum.BODY_LARGE,
-                maxLines = 2,
-                textColor = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Row(horizontalArrangement = Arrangement.spacedBy(48.dp)) {
-                state.itemsInfo.forEach { item ->
-                    TrainingInfo(
-                        info = item.info,
-                        label = item.label
+    with(state) {
+        val descriptionWidth = (LocalConfiguration.current.screenWidthDp / 2).dp
+        val isChallenges = trainingType == TrainingTypeEnum.CHALLENGES
+        val isRoutine = trainingType == TrainingTypeEnum.ROUTINE
+        val paddingBottom = when (trainingType) {
+            TrainingTypeEnum.CHALLENGES -> 24.dp
+            else -> 80.dp
+        }
+        CommonFocusRequester { requester ->
+            Column(
+                modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    CommonText(
+                        titleText = subtitle,
+                        type =  CommonTextTypeEnum.BODY_SMALL,
+                        textColor = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    CommonText(
+                        titleText = title,
+                        type = CommonTextTypeEnum.HEADLINE_LARGE,
+                        textColor = MaterialTheme.colorScheme.onSurface
                     )
                 }
-            }
-            Row(
-                modifier = Modifier.padding(top = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                TrainingDetailsButton(
-                    modifier = Modifier.focusRequester(requester),
-                    iconId = R.drawable.play_icon,
-                    textId = state.contentType.getStartButtonID(),
-                    onClick = onClickStart
+                CommonText(
+                    modifier = Modifier.width(descriptionWidth),
+                    titleText = description,
+                    type = CommonTextTypeEnum.BODY_LARGE,
+                    maxLines = 2,
+                    textColor = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                if (state.contentType.isSecondaryButtonVisible())
+                Row(horizontalArrangement = Arrangement.spacedBy(48.dp)) {
+                    itemsInfo.forEach { item ->
+                        TrainingInfo(
+                            info = item.info,
+                            label = item.label
+                        )
+                    }
+                }
+                Row(
+                    modifier = Modifier.padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     TrainingDetailsButton(
-                        iconId = state.contentType.getSecondaryButtonIcon(),
-                        textId = state.contentType.getSecondaryButtonID(),
-                        onClick = onClickSecondaryButton
+                        modifier = Modifier.focusRequester(requester),
+                        iconId = R.drawable.play_icon,
+                        textId = trainingType.getStartButtonID(),
+                        onClick = onClickStart
                     )
-                if (isRoutine)
-                    RoutineFavouriteButton(
-                        isFavorite = state.isFavorite,
-                        onClick = onClickRoutineFavourite
+                    if (trainingType.isSecondaryButtonVisible())
+                        TrainingDetailsButton(
+                            iconId = trainingType.getSecondaryButtonIcon(),
+                            textId = trainingType.getSecondaryButtonID(),
+                            onClick = onClickSecondaryButton
+                        )
+                    if (isRoutine)
+                        RoutineFavouriteButton(
+                            isFavorite = isFavorite,
+                            onClick = onClickRoutineFavourite
+                        )
+                }
+                if (isChallenges)
+                    ChallengesPlanButton(
+                        modifier = Modifier.padding(top = 16.dp),
+                        subtitle = stringResource(R.string.weekly_plan),
+                        iconId = R.drawable.down_arrow_head_icon,
+                        onClick = onClickChallengesPlan
                     )
             }
-            if (isChallenges)
-                ChallengesPlanButton(
-                    modifier = Modifier.padding(top = 16.dp),
-                    subtitle = stringResource(R.string.weekly_plan),
-                    iconId = R.drawable.down_arrow_head_icon,
-                    onClick = onClickChallengesPlan
-                )
         }
     }
 }

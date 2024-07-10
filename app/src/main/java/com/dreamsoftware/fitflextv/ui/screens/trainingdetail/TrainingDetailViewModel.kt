@@ -1,9 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
-import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetRoutineByIdUseCase
@@ -27,11 +27,11 @@ class TrainingDetailViewModel @Inject constructor(
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 
     fun fetchData(id: String) {
-        when (uiState.value.contentType) {
-            ContentType.CHALLENGES -> fetchChallengeById(id)
-            ContentType.SERIES -> fetchSeriesById(id)
-            ContentType.WORK_OUT -> fetchWorkoutById(id)
-            ContentType.ROUTINE -> fetchRoutineById(id)
+        when (uiState.value.trainingType) {
+            TrainingTypeEnum.CHALLENGES -> fetchChallengeById(id)
+            TrainingTypeEnum.SERIES -> fetchSeriesById(id)
+            TrainingTypeEnum.WORK_OUT -> fetchWorkoutById(id)
+            TrainingTypeEnum.ROUTINE -> fetchRoutineById(id)
         }
     }
 
@@ -71,12 +71,12 @@ class TrainingDetailViewModel @Inject constructor(
         updateState {
             with(routineBO) {
                 it.copy(
-                    subtitle = "$instructorName | ${workoutTypeEnum.value}",
+                    subtitle = "$instructorName | ${workoutType.value}",
                     title = name,
                     description = description,
                     itemsInfo = listOf(
                         TrainingInfoItem("$duration min", "Duration"),
-                        TrainingInfoItem(intensityEnum.value, "Intensity")
+                        TrainingInfoItem(intensity.value, "Intensity")
                     ),
                     imageUrl = imageUrl
                 )
@@ -88,12 +88,12 @@ class TrainingDetailViewModel @Inject constructor(
         updateState {
             with(workoutBO) {
                 it.copy(
-                    subtitle = "$instructorName  |  ${workoutTypeEnum.value}",
+                    subtitle = "$instructorName  |  ${workoutType.value}",
                     title = name,
                     description = description,
                     itemsInfo = listOf(
                         TrainingInfoItem("$duration min", "Duration"),
-                        TrainingInfoItem(intensityEnum.value, "Intensity")
+                        TrainingInfoItem(intensity.value, "Intensity")
                     ),
                     imageUrl = imageUrl
                 )
@@ -105,14 +105,14 @@ class TrainingDetailViewModel @Inject constructor(
         updateState {
             with(seriesBO) {
                 it.copy(
-                    subtitle = "$instructorName  |  ${intensityEnum.value}",
+                    subtitle = "$instructorName  |  ${intensity.value}",
                     title = name,
                     description = description,
                     itemsInfo = listOf(
                         TrainingInfoItem(numberOfWeeks.toString(), "Week"),
                         TrainingInfoItem(numberOfClasses.toString(), "Classes"),
-                        TrainingInfoItem(intensityEnum.value, "Intensity"),
-                        TrainingInfoItem(minutesPerDay.toString(), "Minutes per day")
+                        TrainingInfoItem(intensity.value, "Intensity"),
+                        TrainingInfoItem(duration.toString(), "Minutes per day")
                     ),
                     imageUrl = imageUrl
                 )
@@ -124,15 +124,15 @@ class TrainingDetailViewModel @Inject constructor(
         updateState {
             with(challengeBO) {
                 it.copy(
-                    subtitle = "$instructorName  |  ${workoutTypeEnum.value}",
+                    subtitle = "$instructorName  |  ${workoutType.value}",
                     title = name,
                     description = description,
                     imageUrl = imageUrl,
                     tabs = weaklyPlans.map { weaklyPlan -> weaklyPlan.first },
                     itemsInfo = listOf(
                         TrainingInfoItem(numberOfDays.toString(), "Days"),
-                        TrainingInfoItem(intensityEnum.value, "Intensity"),
-                        TrainingInfoItem(minutesPerDay.toString(), "Minutes per day")
+                        TrainingInfoItem(intensity.value, "Intensity"),
+                        TrainingInfoItem(duration.toString(), "Minutes per day")
                     ),
                     weaklyPlans = weaklyPlans.map { weaklyPlan ->
                         mapOf(
@@ -144,7 +144,7 @@ class TrainingDetailViewModel @Inject constructor(
                                         imageUrl = workout.imageUrl,
                                         title = workout.name,
                                         time = workout.duration,
-                                        typeText = workout.intensityEnum.level
+                                        typeText = workout.intensity.level
                                     )
                                 })
                         )
@@ -158,7 +158,7 @@ class TrainingDetailViewModel @Inject constructor(
 data class TrainingDetailUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
-    val contentType: ContentType = ContentType.WORK_OUT,
+    val trainingType: TrainingTypeEnum = TrainingTypeEnum.WORK_OUT,
     val subtitle: String = "",
     val title: String = "",
     val description: String = "",
@@ -187,37 +187,6 @@ data class TrainingDetailUiState(
         val info: String = "",
         val label: String = ""
     )
-
-    enum class ContentType {
-        CHALLENGES,
-        SERIES,
-        WORK_OUT,
-        ROUTINE;
-
-        fun getStartButtonID() = when (this) {
-            CHALLENGES -> R.string.start_session
-            SERIES -> R.string.start_program
-            WORK_OUT -> R.string.start_workout
-            ROUTINE -> R.string.start_routine
-        }
-
-        fun getSecondaryButtonID() = when (this) {
-            CHALLENGES -> R.string.add_to_favorites
-            SERIES -> R.string.recommend_schedule
-            else -> R.string.set_up_daily_reminder
-        }
-
-        fun getSecondaryButtonIcon() = when (this) {
-            CHALLENGES -> R.drawable.fav_icon
-            SERIES -> R.drawable.message_icon
-            else -> R.drawable.bell_icon
-        }
-
-        fun isSecondaryButtonVisible() = when (this) {
-            WORK_OUT -> false
-            else -> true
-        }
-    }
 }
 
 sealed class TrainingDetailPages {

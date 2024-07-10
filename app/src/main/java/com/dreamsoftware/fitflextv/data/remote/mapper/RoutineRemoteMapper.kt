@@ -29,7 +29,7 @@ internal class RoutineRemoteMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO
             instructorName = get(INSTRUCTOR_NAME_KEY) as String,
             workoutType = get(WORKOUT_TYPE_KEY) as String,
             imageUrl = get(IMAGE_URL_KEY) as String,
-            duration = get(DURATION_KEY) as Long,
+            duration = get(DURATION_KEY) as String,
             videoUrl = get(VIDEO_URL_KEY) as String,
             intensity = get(INTENSITY_KEY) as String,
             releasedDate = Date(),
