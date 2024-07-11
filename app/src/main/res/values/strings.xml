@@ -47,6 +47,8 @@
     <!-- Trainings -->
     <string name="trainings_not_programs_available">No training programs available</string>
 
+    <!-- Favorites -->
+    <string name="favorites_not_workout_available">No favorite workouts available yet. Explore and add your favorites to get started on your fitness journey!</string>
 
 
     <string name="add_to_favorites">Add to favorites</string>
