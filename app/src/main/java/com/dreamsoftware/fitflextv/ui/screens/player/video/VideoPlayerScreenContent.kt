@@ -2,11 +2,12 @@ package com.dreamsoftware.fitflextv.ui.screens.player.video
 
 import android.os.Build
 import androidx.annotation.OptIn
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -18,8 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -33,11 +34,12 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerTitle
 import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerFrame
@@ -66,7 +68,7 @@ internal fun VideoPlayerScreenContent(
             .build()
             .apply {
                 playWhenReady = true
-                repeatMode = Player.REPEAT_MODE_OFF
+                repeatMode = Player.REPEAT_MODE_ALL
             }
     }
 
@@ -92,6 +94,7 @@ internal fun VideoPlayerScreenContent(
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
         Box(
             Modifier
+                .fillMaxSize()
                 .dPadVideoEvents(
                     exoPlayer,
                     videoPlayerState,
@@ -99,47 +102,51 @@ internal fun VideoPlayerScreenContent(
                 .focusable()
         ) {
             AndroidView(
+                modifier = Modifier.fillMaxSize(),
                 factory = {
                     PlayerView(context)
-                        .apply { useController = false }
+                        .apply {
+                            useController = false
+                            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+                        }
                 },
                 update = { it.player = exoPlayer },
                 onRelease = { exoPlayer.release() }
             )
 
-            val focusRequester = remember { FocusRequester() }
-
-            VideoPlayerOverlay(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                focusRequester = focusRequester,
-                state = videoPlayerState,
-                isPlaying = isPlaying,
-                onBuildCenterButton = {
-                    VideoPlayerControlsIcon(
-                        modifier = Modifier.focusRequester(focusRequester),
-                        icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
-                        onClick = {
-                            if (isPlaying) {
-                                exoPlayer.play()
-                            } else {
-                                exoPlayer.pause()
-                            }
-                        },
-                        state = videoPlayerState,
-                        isPlaying = isPlaying,
-                    )
-                },
-                onBuildControls = {
-                    VideoPlayerControls(
-                        isPlaying = isPlaying,
-                        contentCurrentPosition = contentCurrentPosition,
-                        exoPlayer = exoPlayer,
-                        state = videoPlayerState,
-                        title = state.title,
-                        instructor = state.instructor,
-                    )
-                }
-            )
+            CommonFocusRequester { focusRequester ->
+                VideoPlayerOverlay(
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    focusRequester = focusRequester,
+                    state = videoPlayerState,
+                    isPlaying = isPlaying,
+                    onBuildCenterButton = {
+                        VideoPlayerControlsIcon(
+                            modifier = Modifier.focusRequester(focusRequester),
+                            icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
+                            onClick = {
+                                if (isPlaying) {
+                                    exoPlayer.pause()
+                                } else {
+                                    exoPlayer.play()
+                                }
+                            },
+                            state = videoPlayerState,
+                            isPlaying = isPlaying,
+                        )
+                    },
+                    onBuildControls = {
+                        VideoPlayerControls(
+                            isPlaying = isPlaying,
+                            contentCurrentPosition = contentCurrentPosition,
+                            exoPlayer = exoPlayer,
+                            state = videoPlayerState,
+                            title = state.title,
+                            instructor = state.instructor,
+                        )
+                    }
+                )
+            }
         }
     }
 }
