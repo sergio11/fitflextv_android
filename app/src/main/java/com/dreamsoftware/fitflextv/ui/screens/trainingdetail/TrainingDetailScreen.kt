@@ -14,13 +14,18 @@ data class TrainingDetailScreenArgs(
 fun TrainingDetailScreen(
     viewModel: TrainingDetailViewModel = hiltViewModel(),
     args: TrainingDetailScreenArgs,
-    onClickStart: () -> Unit,
+    onOpenTrainingProgram: (String) -> Unit,
     onBackPressed: () -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { TrainingDetailUiState() },
+        onSideEffect = {
+            when(it) {
+                is TrainingDetailSideEffects.OpenTrainingProgram -> onOpenTrainingProgram(it.id)
+            }
+        },
         onInit = {
             fetchData(
                 id = args.id,
@@ -30,7 +35,7 @@ fun TrainingDetailScreen(
     ) { uiState ->
         TrainingDetailScreenContent(
             state = uiState,
-            onClickStart = onClickStart
+            actionListener = viewModel
         )
     }
 }

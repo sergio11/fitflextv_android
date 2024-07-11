@@ -12,7 +12,7 @@ data class SeriesBO(
     val numberOfWeeks: Long,
     val numberOfClasses: Long,
     override val duration: String,
-    val videoUrl: String,
+    override val videoUrl: String,
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
     override val language: LanguageEnum,

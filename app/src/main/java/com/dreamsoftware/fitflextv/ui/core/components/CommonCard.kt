@@ -27,27 +27,27 @@ import coil.compose.AsyncImage
 @Composable
 fun CommonCard(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit ,
+    onClick: () -> Unit,
     imageUrl: String,
     title: String,
     timeText: String,
     typeText: String,
     timeTextStyle: TextStyle = TextStyle(color = Color.LightGray),
     typeTextStyle: TextStyle = TextStyle(color = Color.LightGray),
-    titleTextStyle : TextStyle = TextStyle(color = Color.White),
+    titleTextStyle: TextStyle = TextStyle(color = Color.White),
     dividerColor: Color = Color.LightGray,
     cardAspectRatio: Float = 16f / 9f
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .size(width = 196.dp, height = 158.25.dp)
-    ){
+    ) {
         Card(
-            onClick = onClick ,
+            onClick = onClick,
             modifier = modifier
                 .aspectRatio(cardAspectRatio)
                 .background(Color.Transparent, RoundedCornerShape(16.dp))
-                .padding(bottom = 8.dp),
+                .padding(bottom = 8.dp)
         ) {
             AsyncImage(
                 model = imageUrl, contentDescription = "Image",
@@ -65,11 +65,11 @@ fun CommonCard(
         )
         Row(
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Text(
                 text = timeText,
                 style = timeTextStyle,
-                modifier = Modifier.padding( end = 4.dp)
+                modifier = Modifier.padding(end = 4.dp)
             )
             Text(
                 modifier = Modifier

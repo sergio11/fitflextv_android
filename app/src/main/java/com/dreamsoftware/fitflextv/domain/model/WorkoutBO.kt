@@ -9,7 +9,7 @@ data class WorkoutBO(
     override val instructorName: String,
     override val workoutType: WorkoutTypeEnum,
     override val imageUrl: String,
-    val videoUrl: String,
+    override val videoUrl: String,
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
     override val language: LanguageEnum,

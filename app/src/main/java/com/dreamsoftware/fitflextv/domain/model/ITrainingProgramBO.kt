@@ -12,6 +12,7 @@ interface ITrainingProgramBO {
     val intensity: IntensityEnum
     val releasedDate: Date
     val language: LanguageEnum
+    val videoUrl: String
     val duration: String
     val subtitleLanguage: SubtitleLanguageEnum
 }

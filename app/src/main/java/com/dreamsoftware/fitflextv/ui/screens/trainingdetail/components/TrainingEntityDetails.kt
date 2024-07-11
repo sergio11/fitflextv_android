@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -77,7 +78,7 @@ fun TrainingEntityDetails(
                     itemsInfo.forEach { item ->
                         TrainingInfo(
                             info = item.info,
-                            label = item.label
+                            labelRes = item.labelRes
                         )
                     }
                 }
@@ -144,7 +145,7 @@ private fun TrainingDetailsButton(
 @Composable
 private fun TrainingInfo(
     info: String,
-    label: String,
+    @StringRes labelRes: Int,
 ) {
     with(MaterialTheme.colorScheme) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -155,7 +156,7 @@ private fun TrainingInfo(
             )
             CommonText(
                 type = CommonTextTypeEnum.BODY_SMALL,
-                titleText = label,
+                titleRes = labelRes,
                 textColor = onSurfaceVariant
             )
         }

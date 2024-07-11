@@ -10,6 +10,7 @@ data class ChallengeBO(
     override val workoutType: WorkoutTypeEnum,
     override val imageUrl: String,
     override val duration: String,
+    override val videoUrl: String,
     val numberOfDays: Int,
     val weaklyPlans: List<Pair<String, List<WorkoutBO>>>,
     override val intensity: IntensityEnum,

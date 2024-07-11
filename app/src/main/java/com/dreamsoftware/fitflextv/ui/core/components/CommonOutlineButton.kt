@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalTvMaterial3Api::class)
-
 package com.dreamsoftware.fitflextv.ui.core.components
 
 import androidx.compose.foundation.layout.padding
@@ -11,12 +9,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.ButtonColors
 import androidx.tv.material3.Icon
+import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
+import androidx.tv.material3.OutlinedButtonDefaults
 import androidx.tv.material3.Text
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CommonOutlineButton(
     modifier: Modifier = Modifier,
@@ -29,6 +28,9 @@ fun CommonOutlineButton(
 ) {
     OutlinedButton(
         onClick = { onClick() },
+        colors = OutlinedButtonDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.primary
+        ),
         modifier = modifier
     ) {
         icon?.let { painterResource(id = it) }

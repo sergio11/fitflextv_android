@@ -87,7 +87,7 @@ fun DashboardScreen(
                     with(navController) {
                         TrainingDetailScreen(
                             args = args,
-                            onClickStart = {
+                            onOpenTrainingProgram = {
                                 navigate(Screens.VideoPlayer.route)
                             },
                             onBackPressed = {
