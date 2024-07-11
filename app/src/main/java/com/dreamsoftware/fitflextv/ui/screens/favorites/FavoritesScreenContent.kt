@@ -32,14 +32,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
-import androidx.tv.foundation.lazy.grid.items
-import androidx.tv.material3.MaterialTheme
+import androidx.tv.foundation.lazy.grid.itemsIndexed
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.FavWorkout
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardWithIntensity
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
+import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
+import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
 import com.dreamsoftware.fitflextv.ui.core.components.CommonOutLinedButtonWithLeadingIcon
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
@@ -47,6 +48,7 @@ import com.dreamsoftware.fitflextv.ui.theme.onSurface
 import com.dreamsoftware.fitflextv.ui.theme.popupShadow
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 import com.dreamsoftware.fitflextv.ui.theme.surfaceVariant
+import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 
 @Composable
@@ -60,10 +62,10 @@ internal fun FavoritesScreenContent(
 ) {
     with(state) {
         if (isLoading) {
-            Loading(modifier = Modifier.fillMaxSize())
-        } else if (!errorMessage.isNullOrBlank()) {
-            Error(modifier = Modifier.fillMaxSize())
-        } else {
+            CommonLoadingState()
+        } else if(state.favoritesWorkouts.isEmpty()) {
+            CommonNoContentState(messageRes = R.string.favorites_not_workout_available)
+        }else {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -73,25 +75,30 @@ internal fun FavoritesScreenContent(
                     titleRes = R.string.favorites_screen_title,
                     textBold = true
                 )
-                TvLazyHorizontalGrid(
-                    contentPadding = PaddingValues(horizontal = 46.dp),
-                    rows = TvGridCells.Fixed(2),
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 24.dp)
-                ) {
-                    items(items = favoritesWorkouts, key = { it.id }) { item ->
-                        CommonCardWithIntensity(modifier = Modifier
-                            .width(196.dp)
-                            .padding(horizontal = 12.dp),
-                            imageUrl = item.image,
-                            title = item.name,
-                            timeText = item.duration,
-                            typeText = "Intensity",
-                            intensityLevel = item.intensity,
-                            onClick = {
-                                onWorkoutSelect(item)
-                            })
+                CommonFocusRequester { focusRequester ->
+                    TvLazyHorizontalGrid(
+                        contentPadding = PaddingValues(horizontal = 46.dp),
+                        rows = TvGridCells.Fixed(2),
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 24.dp)
+                    ) {
+                        itemsIndexed(items = favoritesWorkouts, key = { _, item -> item.id }) { idx, item ->
+                            CommonCardWithIntensity(modifier = Modifier
+                                .width(196.dp)
+                                .conditional(condition = idx == 0, ifTrue = {
+                                    focusRequester(focusRequester)
+                                })
+                                .padding(horizontal = 12.dp),
+                                imageUrl = item.image,
+                                title = item.name,
+                                timeText = item.duration,
+                                typeText = "Intensity",
+                                intensityLevel = item.intensity,
+                                onClick = {
+                                    onWorkoutSelect(item)
+                                })
+                        }
                     }
                 }
                 AnimatedVisibility(
@@ -212,14 +219,4 @@ private fun WorkoutDetailsPopup(
             }
         }
     }
-}
-
-@Composable
-private fun Loading(modifier: Modifier = Modifier) {
-    Text(text = "Loading...", modifier = modifier, textAlign = TextAlign.Center)
-}
-
-@Composable
-private fun Error(modifier: Modifier = Modifier) {
-    Text(text = "Wops, something went wrong.", modifier = modifier, textAlign = TextAlign.Center)
 }

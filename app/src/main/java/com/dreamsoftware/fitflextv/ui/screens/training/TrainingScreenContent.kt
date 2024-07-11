@@ -1,8 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,16 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
@@ -29,10 +22,10 @@ import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
+import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
+import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
 import com.dreamsoftware.fitflextv.ui.core.components.CommonOutlineButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTabRow
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.training.components.FilterSideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.components.SideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.components.SortSideMenu
@@ -101,9 +94,9 @@ private fun TrainingProgramList(
 
             item {
                 if (state.isLoading) {
-                    LoadingState()
+                    CommonLoadingState()
                 } else if(state.trainingPrograms.isEmpty()) {
-                    NoContentState()
+                    CommonNoContentState(messageRes = R.string.trainings_not_programs_available)
                 } else {
                     TvLazyHorizontalGrid(
                         modifier = Modifier
@@ -134,49 +127,6 @@ private fun TrainingProgramList(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-private fun LoadingState() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(400.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            color = MaterialTheme.colorScheme.primary,
-            strokeWidth = 4.dp
-        )
-    }
-}
-
-@Composable
-private fun NoContentState() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(400.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_info),
-                contentDescription = "",
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            CommonText(
-                titleRes = R.string.trainings_not_programs_available,
-                type = CommonTextTypeEnum.BODY_MEDIUM,
-                textAlign = TextAlign.Center,
-                textColor = MaterialTheme.colorScheme.onBackground
-            )
         }
     }
 }
