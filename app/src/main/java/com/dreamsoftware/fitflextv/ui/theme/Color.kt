@@ -31,7 +31,7 @@ val onSurface = Color(0xFFD5D8DC) // Light gray for text on greenish-gray surfac
 val surfaceVariant = Color(0xFF607D73) // Medium greenish-gray for variants
 val onSurfaceVariant = Color(0xFFE6EBE8) // Very light gray for text on greenish-gray variants
 
-val outline = Color(0xFF89938E) // Gray for outlines
+val outline = Color(0xFF00BFA5)
 val inverseOnSurface = Color(0xFF2E3E36) // Dark greenish-gray for text inverted on surface
 val inverseSurface = Color(0xFFECEFF1) // Light gray for inverted surface
 val shadowCarouselColor = Color(0x994B635B) // Semi-transparent black for shadows

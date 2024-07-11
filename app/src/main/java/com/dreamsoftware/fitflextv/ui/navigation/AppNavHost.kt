@@ -200,7 +200,7 @@ fun AppNavHost(
                     with(navController) {
                         TrainingDetailScreen(
                             args = args,
-                            onClickStart = {
+                            onOpenTrainingProgram = {
                                 navigate(Screens.VideoPlayer.route)
                             },
                             onBackPressed = {

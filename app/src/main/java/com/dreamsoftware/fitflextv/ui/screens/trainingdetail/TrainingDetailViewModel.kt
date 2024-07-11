@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
+import androidx.annotation.StringRes
+import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
@@ -13,6 +15,7 @@ import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.*
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -22,7 +25,7 @@ class TrainingDetailViewModel @Inject constructor(
     private val getWorkoutByIdUseCase: GetWorkoutByIdUseCase,
     private val getTrainingSeriesByIdUseCase: GetTrainingSeriesByIdUseCase,
     private val getChallengeByIdUseCase: GetChallengeByIdUseCase
-) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>() {
+) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>(), TrainingDetailScreenActionListener {
 
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 
@@ -75,9 +78,10 @@ class TrainingDetailViewModel @Inject constructor(
                     subtitle = "$instructorName | ${workoutType.value}",
                     title = name,
                     description = description,
+                    id = id,
                     itemsInfo = listOf(
-                        TrainingInfoItem("$duration min", "Duration"),
-                        TrainingInfoItem(intensity.value, "Intensity")
+                        TrainingInfoItem(info = "$duration min", labelRes = R.string.length),
+                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity)
                     ),
                     imageUrl = imageUrl
                 )
@@ -92,9 +96,10 @@ class TrainingDetailViewModel @Inject constructor(
                     subtitle = "$instructorName  |  ${workoutType.value}",
                     title = name,
                     description = description,
+                    id = id,
                     itemsInfo = listOf(
-                        TrainingInfoItem("$duration min", "Duration"),
-                        TrainingInfoItem(intensity.value, "Intensity")
+                        TrainingInfoItem(info = "$duration min", labelRes = R.string.length),
+                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity)
                     ),
                     imageUrl = imageUrl
                 )
@@ -109,11 +114,12 @@ class TrainingDetailViewModel @Inject constructor(
                     subtitle = "$instructorName  |  ${intensity.value}",
                     title = name,
                     description = description,
+                    id = id,
                     itemsInfo = listOf(
-                        TrainingInfoItem(numberOfWeeks.toString(), "Week"),
-                        TrainingInfoItem(numberOfClasses.toString(), "Classes"),
-                        TrainingInfoItem(intensity.value, "Intensity"),
-                        TrainingInfoItem(duration.toString(), "Minutes per day")
+                        TrainingInfoItem(info = numberOfWeeks.toString(), labelRes = R.string.week),
+                        TrainingInfoItem(info = numberOfClasses.toString(), labelRes = R.string.classes),
+                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity),
+                        TrainingInfoItem(info = duration, labelRes = R.string.classes)
                     ),
                     imageUrl = imageUrl
                 )
@@ -129,11 +135,12 @@ class TrainingDetailViewModel @Inject constructor(
                     title = name,
                     description = description,
                     imageUrl = imageUrl,
+                    id = id,
                     tabs = weaklyPlans.map { weaklyPlan -> weaklyPlan.first },
                     itemsInfo = listOf(
-                        TrainingInfoItem(numberOfDays.toString(), "Days"),
-                        TrainingInfoItem(intensity.value, "Intensity"),
-                        TrainingInfoItem(duration.toString(), "Minutes per day")
+                        TrainingInfoItem(info = numberOfDays.toString(), labelRes = R.string.days),
+                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity),
+                        TrainingInfoItem(info = duration, labelRes = R.string.minutes_per_day)
                     ),
                     weaklyPlans = weaklyPlans.map { weaklyPlan ->
                         mapOf(
@@ -154,16 +161,21 @@ class TrainingDetailViewModel @Inject constructor(
             }
         }
     }
+
+    override fun onTrainingProgramStarted() {
+        launchSideEffect(TrainingDetailSideEffects.OpenTrainingProgram(id = uiState.value.id))
+    }
 }
 
 data class TrainingDetailUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
     val trainingType: TrainingTypeEnum = TrainingTypeEnum.WORK_OUT,
-    val subtitle: String = "",
-    val title: String = "",
-    val description: String = "",
-    val imageUrl: String = "",
+    val subtitle: String = String.EMPTY,
+    val title: String = String.EMPTY,
+    val description: String = String.EMPTY,
+    val imageUrl: String = String.EMPTY,
+    val id: String = String.EMPTY,
     val itemsInfo: List<TrainingInfoItem> = listOf(),
     val tabs: List<String> = listOf(),
     val weaklyPlans: List<Map<String, List<ChallengeWorkoutItemUiState>>> = listOf(),
@@ -185,8 +197,8 @@ data class TrainingDetailUiState(
         val typeText: String,
     )
     data class TrainingInfoItem(
-        val info: String = "",
-        val label: String = ""
+        val info: String = String.EMPTY,
+        @StringRes val labelRes: Int
     )
 }
 
@@ -195,4 +207,6 @@ sealed class TrainingDetailPages {
     data object DetailTabs : TrainingDetailPages()
 }
 
-sealed interface TrainingDetailSideEffects: SideEffect
+sealed interface TrainingDetailSideEffects: SideEffect {
+    data class OpenTrainingProgram(val id: String): TrainingDetailSideEffects
+}

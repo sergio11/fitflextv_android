@@ -18,7 +18,7 @@ import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.Training
 @Composable
 internal fun TrainingDetailScreenContent(
     state: TrainingDetailUiState,
-    onClickStart: () -> Unit,
+    actionListener: TrainingDetailScreenActionListener
 ) {
     var isChallengeTabsVisible by remember { mutableStateOf(false) }
     Column(modifier = Modifier.fillMaxSize()) {
@@ -27,7 +27,7 @@ internal fun TrainingDetailScreenContent(
                 RoundedGradientImage(imageUrl = state.imageUrl)
                 TrainingEntityDetails(
                     state = state,
-                    onClickStart = onClickStart,
+                    onClickStart = actionListener::onTrainingProgramStarted,
                     onClickSecondaryButton = {},
                     onClickChallengesPlan = { isChallengeTabsVisible = true },
                     onClickRoutineFavourite = {}
