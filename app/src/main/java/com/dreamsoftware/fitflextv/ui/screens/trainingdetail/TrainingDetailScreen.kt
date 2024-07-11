@@ -14,7 +14,7 @@ data class TrainingDetailScreenArgs(
 fun TrainingDetailScreen(
     viewModel: TrainingDetailViewModel = hiltViewModel(),
     args: TrainingDetailScreenArgs,
-    onOpenTrainingProgram: (String) -> Unit,
+    onOpenTrainingProgram: (String, TrainingTypeEnum) -> Unit,
     onBackPressed: () -> Unit
 ) {
     CommonScreen(
@@ -23,7 +23,7 @@ fun TrainingDetailScreen(
         onInitialUiState = { TrainingDetailUiState() },
         onSideEffect = {
             when(it) {
-                is TrainingDetailSideEffects.OpenTrainingProgram -> onOpenTrainingProgram(it.id)
+                is TrainingDetailSideEffects.OpenTrainingProgram -> onOpenTrainingProgram(it.id, it.type)
             }
         },
         onInit = {

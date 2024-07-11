@@ -7,6 +7,7 @@ import androidx.navigation.navArgument
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreenArgs
 
 sealed class Screens(
@@ -28,7 +29,34 @@ sealed class Screens(
     data object Training: Screens(route = "training", name = "Training", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.fitness_center)
     data object Favorite: Screens(route = "favorite", name = "Favorite", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.favorite)
     data object Settings: Screens(route = "settings", name = "Settings", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.settings)
-    data object VideoPlayer: Screens(route = "video_player", name = "VideoPlayer")
+    data object VideoPlayer: Screens(route = "video_player/{type}/{id}", name = "VideoPlayer", arguments = listOf(
+        navArgument("type") {
+            type = NavType.StringType
+        },
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String, type: TrainingTypeEnum): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            ).replace(
+                oldValue = "{type}",
+                newValue = type.name
+            )
+
+        fun parseArgs(args: Bundle): VideoPlayerScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
+                    VideoPlayerScreenArgs(
+                        id = id,
+                        type = type
+                    )
+                }
+            }
+        }
+    }
     data object AudioPlayer: Screens(route = "audio_player", name = "AudioPlayer")
     data object TrainingDetail : Screens(route = "training_detail/{type}/{id}", name = "TrainingDetail", arguments = listOf(
         navArgument("type") {

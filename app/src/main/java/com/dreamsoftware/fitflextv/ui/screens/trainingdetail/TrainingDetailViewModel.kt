@@ -163,7 +163,12 @@ class TrainingDetailViewModel @Inject constructor(
     }
 
     override fun onTrainingProgramStarted() {
-        launchSideEffect(TrainingDetailSideEffects.OpenTrainingProgram(id = uiState.value.id))
+        with(uiState.value) {
+            launchSideEffect(TrainingDetailSideEffects.OpenTrainingProgram(
+                id = id,
+                type = trainingType
+            ))
+        }
     }
 }
 
@@ -208,5 +213,5 @@ sealed class TrainingDetailPages {
 }
 
 sealed interface TrainingDetailSideEffects: SideEffect {
-    data class OpenTrainingProgram(val id: String): TrainingDetailSideEffects
+    data class OpenTrainingProgram(val id: String, val type: TrainingTypeEnum): TrainingDetailSideEffects
 }

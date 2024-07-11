@@ -71,7 +71,10 @@ internal fun VideoPlayerOverlay(
             }
         }
 
-        Column {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
             AnimatedVisibility(
                 visible = controlsVisibility,
                 enter = slideInVertically { it } + fadeIn(),

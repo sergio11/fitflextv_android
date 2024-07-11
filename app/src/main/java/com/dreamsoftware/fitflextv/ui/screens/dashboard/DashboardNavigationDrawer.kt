@@ -46,59 +46,65 @@ fun DashboardNavigationDrawer(
                 )
             ),
             drawerContent = {
-                Column(
-                    Modifier
-                        .fillMaxHeight()
-                        .padding(BACKGROUND_CONTENT_PADDING)
-                        .selectableGroup(),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    screens.forEachIndexed { index, screen ->
-                        val selected: Boolean =
-                            currentDestination?.hierarchy?.any { it.route == screen.route } ?: false
-                        NavigationDrawerItem(
-                            colors = NavigationDrawerItemColors(
-                                containerColor = Color.Transparent,
-                                contentColor = onSurfaceVariant,
-                                inactiveContentColor = onSurfaceVariant,
-                                focusedContainerColor = onSurfaceVariant,
-                                focusedContentColor = inverseOnSurface,
-                                selectedContainerColor = primaryContainer,
-                                selectedContentColor = onSurfaceVariant,
-                                disabledContainerColor = onSurfaceVariant,
-                                disabledContentColor = onSurfaceVariant,
-                                disabledInactiveContentColor = onSurfaceVariant,
-                                focusedSelectedContainerColor = onSurfaceVariant,
-                                focusedSelectedContentColor = inverseOnSurface,
-                                pressedContentColor = onSurfaceVariant,
-                                pressedContainerColor = onSurfaceVariant,
-                                pressedSelectedContainerColor = onSurfaceVariant,
-                                pressedSelectedContentColor = onSurfaceVariant,
-                            ),
-                            modifier = Modifier.padding(bottom = BACKGROUND_CONTENT_PADDING),
-                            selected = selected,
-                            onClick = { onNavigateTo(screen) },
-                            content = { Text(screens[index].name ) },
-                            leadingContent = {
-                                Icon(
-                                    painter = painterResource(
-                                        id = screen.navigationDrawerIcon ?: R.drawable.home
-                                    ),
-                                    contentDescription = screen.name,
-                                    modifier = Modifier.size(24.dp),
-                                )
-                            }
-                        )
+                if(currentDestination?.route != Screens.VideoPlayer.route) {
+                    Column(
+                        Modifier
+                            .fillMaxHeight()
+                            .padding(BACKGROUND_CONTENT_PADDING)
+                            .selectableGroup(),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        screens.forEachIndexed { index, screen ->
+                            val selected: Boolean =
+                                currentDestination?.hierarchy?.any { it.route == screen.route } ?: false
+                            NavigationDrawerItem(
+                                colors = NavigationDrawerItemColors(
+                                    containerColor = Color.Transparent,
+                                    contentColor = onSurfaceVariant,
+                                    inactiveContentColor = onSurfaceVariant,
+                                    focusedContainerColor = onSurfaceVariant,
+                                    focusedContentColor = inverseOnSurface,
+                                    selectedContainerColor = primaryContainer,
+                                    selectedContentColor = onSurfaceVariant,
+                                    disabledContainerColor = onSurfaceVariant,
+                                    disabledContentColor = onSurfaceVariant,
+                                    disabledInactiveContentColor = onSurfaceVariant,
+                                    focusedSelectedContainerColor = onSurfaceVariant,
+                                    focusedSelectedContentColor = inverseOnSurface,
+                                    pressedContentColor = onPrimary,
+                                    pressedContainerColor = primary,
+                                    pressedSelectedContainerColor = onSurfaceVariant,
+                                    pressedSelectedContentColor = inverseOnSurface,
+                                ),
+                                modifier = Modifier.padding(bottom = BACKGROUND_CONTENT_PADDING),
+                                selected = selected,
+                                onClick = { onNavigateTo(screen) },
+                                content = { Text(screens[index].name ) },
+                                leadingContent = {
+                                    Icon(
+                                        painter = painterResource(
+                                            id = screen.navigationDrawerIcon ?: R.drawable.home
+                                        ),
+                                        contentDescription = screen.name,
+                                        modifier = Modifier.size(24.dp),
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             },
             modifier = Modifier
         ) {
-            Box(modifier = modifier
-                .background(background)
-                .padding(start = CLOSE_DRAWER_WIDTH + BACKGROUND_CONTENT_PADDING),
-                content = { content() }
-            )
+            if(currentDestination?.route != Screens.VideoPlayer.route) {
+                Box(modifier = modifier
+                    .background(background)
+                    .padding(start = CLOSE_DRAWER_WIDTH + BACKGROUND_CONTENT_PADDING),
+                    content = { content() }
+                )
+            } else {
+                content()
+            }
         }
     }
 }
