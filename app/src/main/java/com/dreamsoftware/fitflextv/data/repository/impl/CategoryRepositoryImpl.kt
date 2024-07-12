@@ -5,7 +5,6 @@ import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.FetchCategoriesException
-import com.dreamsoftware.fitflextv.domain.exception.FetchSessionsException
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
@@ -25,7 +24,7 @@ internal class CategoryRepositoryImpl(
                 .let(categoryMapper::mapInListToOutList)
                 .toList()
         } catch (ex: FetchRemoteCategoriesException) {
-            throw FetchSessionsException("An error occurred when fetching categories", ex)
+            throw FetchCategoriesException("An error occurred when fetching categories", ex)
         }
     }
 }

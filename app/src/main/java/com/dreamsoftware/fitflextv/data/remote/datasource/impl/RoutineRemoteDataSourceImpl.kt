@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
+import com.dreamsoftware.fitflextv.data.remote.exception.DataSourceException
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -32,7 +32,7 @@ internal class RoutineRemoteDataSourceImpl(
                     document.data ?: throw FetchRemoteRoutinesException("routines data is null")
                 )
             }
-        } catch (ex: FirebaseException) {
+        } catch (ex: DataSourceException) {
             throw ex
         } catch (ex: Exception) {
             throw FetchRemoteRoutinesException(
@@ -52,7 +52,7 @@ internal class RoutineRemoteDataSourceImpl(
             routineMapper.mapInToOut(
                 document.data ?: throw FetchRemoteRoutineByIdException("routine data is null")
             )
-        } catch (ex: FirebaseException) {
+        } catch (ex: DataSourceException) {
             throw ex
         } catch (ex: Exception) {
             throw FetchRemoteRoutineByIdException(

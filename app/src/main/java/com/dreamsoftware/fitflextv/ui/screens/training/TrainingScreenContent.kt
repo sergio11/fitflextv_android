@@ -94,9 +94,18 @@ private fun TrainingProgramList(
 
             item {
                 if (state.isLoading) {
-                    CommonLoadingState()
+                    CommonLoadingState(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(400.dp)
+                    )
                 } else if(state.trainingPrograms.isEmpty()) {
-                    CommonNoContentState(messageRes = R.string.trainings_not_programs_available)
+                    CommonNoContentState(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(400.dp),
+                        messageRes = R.string.trainings_not_programs_available
+                    )
                 } else {
                     TvLazyHorizontalGrid(
                         modifier = Modifier

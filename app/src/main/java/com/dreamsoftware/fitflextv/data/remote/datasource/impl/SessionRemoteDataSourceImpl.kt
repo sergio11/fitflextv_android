@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSessionsException
-import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
+import com.dreamsoftware.fitflextv.data.remote.exception.DataSourceException
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -31,7 +31,7 @@ internal class SessionRemoteDataSourceImpl(
                     document.data ?: throw FetchRemoteSessionsException("sessions data is null")
                 )
             }
-        } catch (ex: FirebaseException) {
+        } catch (ex: DataSourceException) {
             throw ex
         } catch (ex: Exception) {
             throw FetchRemoteSessionsException(

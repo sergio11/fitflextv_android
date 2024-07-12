@@ -19,12 +19,11 @@ import com.dreamsoftware.fitflextv.R
 
 @Composable
 fun CommonNoContentState(
+    modifier: Modifier,
     @StringRes messageRes: Int
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(400.dp),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         Column(

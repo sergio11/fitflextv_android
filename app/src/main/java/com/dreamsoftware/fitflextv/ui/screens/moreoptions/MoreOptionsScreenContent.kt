@@ -43,9 +43,9 @@ internal fun MoreOptionsScreenContent(
 
                     CommonCardDetails(
                         modifier = Modifier.constrainAs(trainingDetails) {},
-                        title = trainingDetailsBO?.title.orEmpty(),
-                        time = trainingDetailsBO.formatTimeAndTypeTraining(),
-                        description = trainingDetailsBO?.description.orEmpty()
+                        title = trainingProgram?.name.orEmpty(),
+                        time = trainingProgram.formatTimeAndTypeTraining(),
+                        description = trainingProgram?.description.orEmpty()
                     )
                     CommonBackRowSchema(
                         modifier = Modifier.constrainAs(backRowSchema) {

@@ -3,11 +3,8 @@ package com.dreamsoftware.fitflextv.ui.screens.training
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.domain.usecase.GetChallengesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetRoutinesUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetSeriesUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
@@ -17,10 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TrainingViewModel @Inject constructor(
     private val getInstructorsUseCase: GetInstructorsUseCase,
-    private val getWorkoutsUseCase: GetWorkoutsUseCase,
-    private val getRoutinesUseCase: GetRoutinesUseCase,
-    private val getSeriesUseCase: GetSeriesUseCase,
-    private val getChallengesUseCase: GetChallengesUseCase
+    private val getTrainingsByTypeUseCase: GetTrainingsByTypeUseCase
 ) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
     override fun onGetDefaultState(): TrainingUiState = with(FilterSideMenuVO()) {
@@ -38,12 +32,7 @@ class TrainingViewModel @Inject constructor(
     }
 
     fun fetchData() {
-        when(uiState.value.trainingTypeSelected) {
-            TrainingTypeEnum.WORK_OUT -> fetchWorkout()
-            TrainingTypeEnum.SERIES -> fetchSeries()
-            TrainingTypeEnum.CHALLENGES -> fetchChallenges()
-            TrainingTypeEnum.ROUTINE -> fetchRoutines()
-        }
+        fetchTrainings()
         fetchInstructors()
     }
 
@@ -88,20 +77,12 @@ class TrainingViewModel @Inject constructor(
         executeUseCase(useCase = getInstructorsUseCase, onSuccess = ::onGetInstructorsSuccessfully)
     }
 
-    private fun fetchWorkout() {
-        executeUseCase(useCase = getWorkoutsUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
-    }
-
-    private fun fetchRoutines() {
-        executeUseCase(useCase = getRoutinesUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
-    }
-
-    private fun fetchSeries() {
-        executeUseCase(useCase = getSeriesUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
-    }
-
-    private fun fetchChallenges() {
-        executeUseCase(useCase = getChallengesUseCase, onSuccess = ::onGetTrainingProgramsSuccessfully)
+    private fun fetchTrainings() {
+        executeUseCaseWithParams(
+            useCase = getTrainingsByTypeUseCase,
+            params = GetTrainingsByTypeUseCase.Params(uiState.value.trainingTypeSelected),
+            onSuccess = ::onGetTrainingProgramsSuccessfully
+        )
     }
 
     private fun onGetInstructorsSuccessfully(instructorList: List<String>) {

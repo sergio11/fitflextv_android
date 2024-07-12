@@ -3,29 +3,19 @@ package com.dreamsoftware.fitflextv.di
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
-import com.dreamsoftware.fitflextv.domain.repository.IRoutineRepository
-import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
-import com.dreamsoftware.fitflextv.domain.repository.ISessionRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.domain.repository.IWorkoutRepository
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetChallengesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetRoutineByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetRoutinesUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetSeriesByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetSeriesUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetSessionsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingSeriesByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
 import dagger.Module
@@ -49,15 +39,6 @@ class UseCasesModule {
 
     @Provides
     @ViewModelScoped
-    fun provideGetSessionsUseCase(
-        sessionRepository: ISessionRepository
-    ): GetSessionsUseCase =
-        GetSessionsUseCase(
-            sessionRepository = sessionRepository
-        )
-
-    @Provides
-    @ViewModelScoped
     fun provideGetCategoriesUseCase(
         categoryRepository: ICategoryRepository
     ): GetCategoriesUseCase =
@@ -76,6 +57,24 @@ class UseCasesModule {
 
     @Provides
     @ViewModelScoped
+    fun provideGetTrainingByIdUseCase(
+        trainingRepository: ITrainingRepository
+    ): GetTrainingByIdUseCase =
+        GetTrainingByIdUseCase(
+            trainingRepository = trainingRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetTrainingsByTypeUseCase(
+        trainingRepository: ITrainingRepository
+    ): GetTrainingsByTypeUseCase =
+        GetTrainingsByTypeUseCase(
+            trainingRepository = trainingRepository
+        )
+
+    @Provides
+    @ViewModelScoped
     fun provideGetInstructorsUseCase(
         instructorRepository: IInstructorRepository
     ): GetInstructorsUseCase =
@@ -83,14 +82,6 @@ class UseCasesModule {
             instructorRepository = instructorRepository
         )
 
-    @Provides
-    @ViewModelScoped
-    fun provideGetWorkoutsUseCaseUseCase(
-        workoutRepository: IWorkoutRepository
-    ): GetWorkoutsUseCase =
-        GetWorkoutsUseCase(
-            workoutRepository = workoutRepository
-        )
 
     @Provides
     @ViewModelScoped
@@ -101,58 +92,14 @@ class UseCasesModule {
             challengesRepository = challengesRepository
         )
 
-    @Provides
-    @ViewModelScoped
-    fun provideGetRoutineByIdUseCase(
-        routineRepository: IRoutineRepository
-    ): GetRoutineByIdUseCase =
-        GetRoutineByIdUseCase(
-            routineRepository = routineRepository
-        )
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetWorkoutByIdUseCase(
-        workoutRepository: IWorkoutRepository
-    ): GetWorkoutByIdUseCase =
-        GetWorkoutByIdUseCase(
-            workoutRepository = workoutRepository
-        )
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetTrainingSeriesByIdUseCase(
-        seriesRepository: ISeriesRepository
-    ): GetTrainingSeriesByIdUseCase =
-        GetTrainingSeriesByIdUseCase(
-            seriesRepository = seriesRepository
-        )
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetTrainingByIdUseCase(
-        trainingRepository: ITrainingRepository
-    ): GetTrainingByIdUseCase =
-        GetTrainingByIdUseCase(
-            trainingRepository = trainingRepository
-        )
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetFavoritesWorkoutsUseCase(
-        workoutRepository: IWorkoutRepository
-    ): GetFavoritesWorkoutsUseCase =
-        GetFavoritesWorkoutsUseCase(
-            workoutRepository = workoutRepository
-        )
 
     @Provides
     @ViewModelScoped
     fun provideGetSongByIdUseCase(
-        seriesRepository: ISeriesRepository
+        trainingRepository: ITrainingRepository
     ): GetSongByIdUseCase =
         GetSongByIdUseCase(
-            seriesRepository = seriesRepository
+            trainingRepository = trainingRepository
         )
 
     @Provides
@@ -165,23 +112,6 @@ class UseCasesModule {
     fun provideSignUpUseCase(): SignUpUseCase =
         SignUpUseCase()
 
-    @Provides
-    @ViewModelScoped
-    fun provideGetRoutinesUseCase(
-        routineRepository: IRoutineRepository
-    ): GetRoutinesUseCase =
-        GetRoutinesUseCase(
-            routineRepository = routineRepository
-        )
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetSeriesUseCase(
-        seriesRepository: ISeriesRepository
-    ): GetSeriesUseCase =
-        GetSeriesUseCase(
-            seriesRepository = seriesRepository
-        )
 
     @Provides
     @ViewModelScoped
@@ -194,10 +124,21 @@ class UseCasesModule {
 
     @Provides
     @ViewModelScoped
-    fun provideGetSeriesByIdUseCase(
-        seriesRepository: ISeriesRepository
-    ): GetSeriesByIdUseCase =
-        GetSeriesByIdUseCase(
-            seriesRepository = seriesRepository
+    fun provideGetFeaturedTrainingsUseCase(
+        trainingRepository: ITrainingRepository
+    ): GetFeaturedTrainingsUseCase =
+        GetFeaturedTrainingsUseCase(
+            trainingRepository = trainingRepository
         )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetFavoritesWorkoutsUseCase(
+        trainingRepository: ITrainingRepository
+    ): GetFavoritesWorkoutsUseCase =
+        GetFavoritesWorkoutsUseCase(
+            trainingRepository = trainingRepository
+        )
+
 }
