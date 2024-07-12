@@ -29,23 +29,19 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
-import com.dreamsoftware.fitflextv.ui.utils.getSecondaryButtonID
-import com.dreamsoftware.fitflextv.ui.utils.getSecondaryButtonIcon
 import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
-import com.dreamsoftware.fitflextv.ui.utils.isSecondaryButtonVisible
 
 @Composable
 fun TrainingEntityDetails(
     state: TrainingDetailUiState,
-    onClickStart: () -> Unit,
-    onClickSecondaryButton: () -> Unit,
-    onClickRoutineFavourite: () -> Unit,
-    onClickChallengesPlan: () -> Unit
+    onStartTrainingClicked: () -> Unit,
+    onMoreInfoClicked: () -> Unit,
+    onTrainingFavoriteClicked: () -> Unit,
+    onChallengesPlanClicked: () -> Unit
 ) {
     with(state) {
         val descriptionWidth = (LocalConfiguration.current.screenWidthDp / 2).dp
         val isChallenges = trainingType == TrainingTypeEnum.CHALLENGES
-        val isRoutine = trainingType == TrainingTypeEnum.ROUTINE
         val paddingBottom = when (trainingType) {
             TrainingTypeEnum.CHALLENGES -> 24.dp
             else -> 80.dp
@@ -90,26 +86,25 @@ fun TrainingEntityDetails(
                         modifier = Modifier.focusRequester(requester),
                         iconId = R.drawable.play_icon,
                         textId = trainingType.getStartButtonID(),
-                        onClick = onClickStart
+                        onClick = onStartTrainingClicked
                     )
-                    if (trainingType.isSecondaryButtonVisible())
-                        TrainingDetailsButton(
-                            iconId = trainingType.getSecondaryButtonIcon(),
-                            textId = trainingType.getSecondaryButtonID(),
-                            onClick = onClickSecondaryButton
-                        )
-                    if (isRoutine)
-                        RoutineFavouriteButton(
-                            isFavorite = isFavorite,
-                            onClick = onClickRoutineFavourite
-                        )
+                    TrainingDetailsButton(
+                        iconId = R.drawable.ic_info,
+                        textId = R.string.more_info,
+                        onClick = onMoreInfoClicked
+                    )
+                    FavouriteButton(
+                        isFavorite = isFavorite,
+                        onClick = onTrainingFavoriteClicked
+                    )
+
                 }
                 if (isChallenges)
                     ChallengesPlanButton(
                         modifier = Modifier.padding(top = 16.dp),
                         subtitle = stringResource(R.string.weekly_plan),
                         iconId = R.drawable.down_arrow_head_icon,
-                        onClick = onClickChallengesPlan
+                        onClick = onChallengesPlanClicked
                     )
             }
         }
@@ -164,7 +159,7 @@ private fun TrainingInfo(
 }
 
 @Composable
-private fun RoutineFavouriteButton(isFavorite: Boolean, onClick: () -> Unit) {
+private fun FavouriteButton(isFavorite: Boolean, onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
         colors = ButtonDefaults.colors(containerColor = Color.Transparent),

@@ -7,7 +7,8 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
 
 data class MoreOptionsScreenArgs(
-    val id: String
+    val id: String,
+    val type: TrainingTypeEnum
 )
 
 @Composable
@@ -26,7 +27,9 @@ fun MoreOptionsScreen(
 
         },
         onInit = {
-            fetchData(args.id, TrainingTypeEnum.WORK_OUT)
+            with(args) {
+                fetchData(id = id, type = type)
+            }
         }
     ) { uiState ->
         MoreOptionsScreenContent(
