@@ -27,10 +27,10 @@ internal fun TrainingDetailScreenContent(
                 RoundedGradientImage(imageUrl = state.imageUrl)
                 TrainingEntityDetails(
                     state = state,
-                    onClickStart = actionListener::onTrainingProgramStarted,
-                    onClickSecondaryButton = {},
-                    onClickChallengesPlan = { isChallengeTabsVisible = true },
-                    onClickRoutineFavourite = {}
+                    onStartTrainingClicked = actionListener::onTrainingProgramStarted,
+                    onMoreInfoClicked = actionListener::onTrainingProgramMoreInfoRequested,
+                    onChallengesPlanClicked = { isChallengeTabsVisible = true },
+                    onTrainingFavoriteClicked = {}
                 )
             }
         }

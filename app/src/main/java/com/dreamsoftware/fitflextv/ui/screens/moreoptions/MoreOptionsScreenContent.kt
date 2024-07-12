@@ -45,7 +45,8 @@ internal fun MoreOptionsScreenContent(
                         modifier = Modifier.constrainAs(trainingDetails) {},
                         title = trainingProgram?.name.orEmpty(),
                         time = trainingProgram.formatTimeAndTypeTraining(),
-                        description = trainingProgram?.description.orEmpty()
+                        description = trainingProgram?.description.orEmpty(),
+                        imageUrl = trainingProgram?.imageUrl.orEmpty()
                     )
                     CommonBackRowSchema(
                         modifier = Modifier.constrainAs(backRowSchema) {

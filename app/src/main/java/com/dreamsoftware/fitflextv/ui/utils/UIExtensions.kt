@@ -56,20 +56,3 @@ fun TrainingTypeEnum.getStartButtonID() = when (this) {
     TrainingTypeEnum.WORK_OUT -> R.string.start_workout
     TrainingTypeEnum.ROUTINE -> R.string.start_routine
 }
-
-fun TrainingTypeEnum.getSecondaryButtonID() = when (this) {
-    TrainingTypeEnum.CHALLENGES -> R.string.add_to_favorites
-    TrainingTypeEnum.SERIES -> R.string.recommend_schedule
-    else -> R.string.set_up_daily_reminder
-}
-
-fun TrainingTypeEnum.getSecondaryButtonIcon() = when (this) {
-    TrainingTypeEnum.CHALLENGES -> R.drawable.fav_icon
-    TrainingTypeEnum.SERIES -> R.drawable.message_icon
-    else -> R.drawable.bell_icon
-}
-
-fun TrainingTypeEnum.isSecondaryButtonVisible() = when (this) {
-    TrainingTypeEnum.WORK_OUT -> false
-    else -> true
-}

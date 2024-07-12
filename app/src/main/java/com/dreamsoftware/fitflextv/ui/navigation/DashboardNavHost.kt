@@ -29,7 +29,7 @@ fun DashboardNavHost(
                         //navigate(Screens.TrainingDetail.buildRoute(id))
                     },
                     onGoToCategory = { id ->
-                        navigate(Screens.MoreOptions.buildRoute(id))
+                        //navigate(Screens.MoreOptions.buildRoute(id))
                     }
                 )
             }
@@ -75,8 +75,11 @@ fun DashboardNavHost(
                 with(navController) {
                     TrainingDetailScreen(
                         args = args,
-                        onOpenTrainingProgram = { id, type ->
+                        onPlayingTrainingProgram = { id, type ->
                             navigate(Screens.VideoPlayer.buildRoute(id, type))
+                        },
+                        onOpenMoreDetails = { id, type ->
+                            navigate(Screens.MoreOptions.buildRoute(id, type))
                         },
                         onBackPressed = {
                             popBackStack()

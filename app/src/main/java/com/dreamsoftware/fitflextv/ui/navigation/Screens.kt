@@ -87,20 +87,31 @@ sealed class Screens(
         }
     }
 
-    data object MoreOptions : Screens(route = "more_options/{id}", name = "MoreOptions", arguments = listOf(
+    data object MoreOptions : Screens(route = "more_options/{type}/{id}", name = "MoreOptions", arguments = listOf(
+        navArgument("type") {
+            type = NavType.StringType
+        },
         navArgument("id") {
             type = NavType.StringType
         }
     )) {
-        fun buildRoute(id: String): String =
+        fun buildRoute(id: String, type: TrainingTypeEnum): String =
             route.replace(
                 oldValue = "{id}",
                 newValue = id
+            ).replace(
+                oldValue = "{type}",
+                newValue = type.name
             )
 
         fun parseArgs(args: Bundle): MoreOptionsScreenArgs? = with(args) {
-            getString("id")?.let {
-                MoreOptionsScreenArgs(id = it)
+            getString("id")?.let { id ->
+                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
+                    MoreOptionsScreenArgs(
+                        id = id,
+                        type = type
+                    )
+                }
             }
         }
     }
