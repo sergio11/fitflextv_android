@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsException
-import com.dreamsoftware.fitflextv.data.remote.exception.FirebaseException
+import com.dreamsoftware.fitflextv.data.remote.exception.DataSourceException
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -32,7 +32,7 @@ internal class WorkoutRemoteDataSourceImpl(
                     document.data ?: throw FetchRemoteWorkoutsException("workouts data is null")
                 )
             }
-        } catch (ex: FirebaseException) {
+        } catch (ex: DataSourceException) {
             throw ex
         } catch (ex: Exception) {
             throw FetchRemoteWorkoutsException(
@@ -52,7 +52,7 @@ internal class WorkoutRemoteDataSourceImpl(
             seriesMapper.mapInToOut(
                 document.data ?: throw FetchRemoteWorkoutByIdException("workout data is null")
             )
-        } catch (ex: FirebaseException) {
+        } catch (ex: DataSourceException) {
             throw ex
         } catch (ex: Exception) {
             throw FetchRemoteWorkoutByIdException(

@@ -3,160 +3,81 @@ package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 import androidx.annotation.StringRes
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
-import com.dreamsoftware.fitflextv.domain.model.RoutineBO
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
-import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetRoutineByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingSeriesByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
-import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.*
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.ChallengeWorkoutItemUiState
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.TrainingInfoItem
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class TrainingDetailViewModel @Inject constructor(
-    private val getRoutineByIdUseCase: GetRoutineByIdUseCase,
-    private val getWorkoutByIdUseCase: GetWorkoutByIdUseCase,
-    private val getTrainingSeriesByIdUseCase: GetTrainingSeriesByIdUseCase,
-    private val getChallengeByIdUseCase: GetChallengeByIdUseCase
+    private val getTrainingByIdUseCase: GetTrainingByIdUseCase
 ) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>(), TrainingDetailScreenActionListener {
 
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 
     fun fetchData(id: String, type: TrainingTypeEnum) {
         updateState { it.copy(trainingType = type) }
-        when (type) {
-            TrainingTypeEnum.CHALLENGES -> fetchChallengeById(id)
-            TrainingTypeEnum.SERIES -> fetchSeriesById(id)
-            TrainingTypeEnum.WORK_OUT -> fetchWorkoutById(id)
-            TrainingTypeEnum.ROUTINE -> fetchRoutineById(id)
-        }
-    }
-
-    private fun fetchRoutineById(id: String) {
         executeUseCaseWithParams(
-            useCase = getRoutineByIdUseCase,
-            params = GetRoutineByIdUseCase.Params(id),
-            onSuccess = ::onGetRoutineByIdSuccessfully
+            useCase = getTrainingByIdUseCase,
+            params = GetTrainingByIdUseCase.Params(id, type),
+            onSuccess = ::onGetTrainingProgramByIdSuccessfully
         )
     }
 
-    private fun fetchWorkoutById(id: String) {
-        executeUseCaseWithParams(
-            useCase = getWorkoutByIdUseCase,
-            params = GetWorkoutByIdUseCase.Params(id),
-            onSuccess = ::onGetWorkoutByIdSuccessfully
-        )
-    }
-
-    private fun fetchSeriesById(id: String) {
-        executeUseCaseWithParams(
-            useCase = getTrainingSeriesByIdUseCase,
-            params = GetTrainingSeriesByIdUseCase.Params(id),
-            onSuccess = ::onGetTrainingSeriesIdSuccessfully
-        )
-    }
-
-    private fun fetchChallengeById(id: String) {
-        executeUseCaseWithParams(
-            useCase = getChallengeByIdUseCase,
-            params = GetChallengeByIdUseCase.Params(id),
-            onSuccess = ::onGetChallengeByIdSuccessfully
-        )
-    }
-
-    private fun onGetRoutineByIdSuccessfully(routineBO: RoutineBO) {
+    private fun onGetTrainingProgramByIdSuccessfully(trainingProgramBO: ITrainingProgramBO) {
         updateState {
-            with(routineBO) {
+            with(trainingProgramBO) {
                 it.copy(
                     subtitle = "$instructorName | ${workoutType.value}",
                     title = name,
                     description = description,
                     id = id,
-                    itemsInfo = listOf(
-                        TrainingInfoItem(info = "$duration min", labelRes = R.string.length),
-                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity)
-                    ),
+                    tabs = if(this is ChallengeBO) {
+                        weaklyPlans.map { weaklyPlan -> weaklyPlan.first }
+                    } else {
+                        emptyList()
+                    },
+                    weaklyPlans = if(this is ChallengeBO) {
+                        weaklyPlans.map { weaklyPlan ->
+                            mapOf(
+                                Pair(
+                                    weaklyPlan.first,
+                                    weaklyPlan.second.map { workout ->
+                                        ChallengeWorkoutItemUiState(
+                                            id = workout.id,
+                                            imageUrl = workout.imageUrl,
+                                            title = workout.name,
+                                            time = workout.duration,
+                                            typeText = workout.intensity.level
+                                        )
+                                    })
+                            )
+                        }
+                    } else {
+                        emptyList()
+                    },
+                    itemsInfo = buildList {
+                        add(TrainingInfoItem(info = "$duration min", labelRes = R.string.length))
+                        add(TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity))
+                        when(this@with) {
+                            is SeriesBO -> {
+                                add(TrainingInfoItem(info = numberOfWeeks.toString(), labelRes = R.string.week))
+                                add(TrainingInfoItem(info = numberOfClasses.toString(), labelRes = R.string.classes))
+                            }
+                            is ChallengeBO -> {
+                                add(TrainingInfoItem(info = numberOfDays.toString(), labelRes = R.string.days))
+                            }
+                        }
+                    },
                     imageUrl = imageUrl
-                )
-            }
-        }
-    }
-
-    private fun onGetWorkoutByIdSuccessfully(workoutBO: WorkoutBO) {
-        updateState {
-            with(workoutBO) {
-                it.copy(
-                    subtitle = "$instructorName  |  ${workoutType.value}",
-                    title = name,
-                    description = description,
-                    id = id,
-                    itemsInfo = listOf(
-                        TrainingInfoItem(info = "$duration min", labelRes = R.string.length),
-                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity)
-                    ),
-                    imageUrl = imageUrl
-                )
-            }
-        }
-    }
-
-    private fun onGetTrainingSeriesIdSuccessfully(seriesBO: SeriesBO) {
-        updateState {
-            with(seriesBO) {
-                it.copy(
-                    subtitle = "$instructorName  |  ${intensity.value}",
-                    title = name,
-                    description = description,
-                    id = id,
-                    itemsInfo = listOf(
-                        TrainingInfoItem(info = numberOfWeeks.toString(), labelRes = R.string.week),
-                        TrainingInfoItem(info = numberOfClasses.toString(), labelRes = R.string.classes),
-                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity),
-                        TrainingInfoItem(info = duration, labelRes = R.string.classes)
-                    ),
-                    imageUrl = imageUrl
-                )
-            }
-        }
-    }
-
-    private fun onGetChallengeByIdSuccessfully(challengeBO: ChallengeBO) {
-        updateState {
-            with(challengeBO) {
-                it.copy(
-                    subtitle = "$instructorName  |  ${workoutType.value}",
-                    title = name,
-                    description = description,
-                    imageUrl = imageUrl,
-                    id = id,
-                    tabs = weaklyPlans.map { weaklyPlan -> weaklyPlan.first },
-                    itemsInfo = listOf(
-                        TrainingInfoItem(info = numberOfDays.toString(), labelRes = R.string.days),
-                        TrainingInfoItem(info = intensity.value, labelRes = R.string.intensity),
-                        TrainingInfoItem(info = duration, labelRes = R.string.minutes_per_day)
-                    ),
-                    weaklyPlans = weaklyPlans.map { weaklyPlan ->
-                        mapOf(
-                            Pair(
-                                weaklyPlan.first,
-                                weaklyPlan.second.map { workout ->
-                                    ChallengeWorkoutItemUiState(
-                                        id = workout.id,
-                                        imageUrl = workout.imageUrl,
-                                        title = workout.name,
-                                        time = workout.duration,
-                                        typeText = workout.intensity.level
-                                    )
-                                })
-                        )
-                    }
                 )
             }
         }

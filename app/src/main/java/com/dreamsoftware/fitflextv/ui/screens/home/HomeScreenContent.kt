@@ -16,7 +16,7 @@ import androidx.tv.material3.CarouselState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.ui.screens.home.components.Categories
-import com.dreamsoftware.fitflextv.ui.screens.home.components.Sessions
+import com.dreamsoftware.fitflextv.ui.screens.home.components.FeaturedTrainings
 import com.dreamsoftware.fitflextv.ui.screens.home.components.TrainingsRecommended
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -37,8 +37,8 @@ internal fun HomeScreenContent(
             contentPadding = PaddingValues(vertical = 40.dp)
         ) {
             item {
-                Sessions(
-                    sessions = sessions,
+                FeaturedTrainings(
+                    sessions = featuredTrainings,
                     padding = PaddingValues(horizontal = 32.dp),
                     onStartSessionCLick = onStartSessionPressed,
                     carouselState = carouselState,

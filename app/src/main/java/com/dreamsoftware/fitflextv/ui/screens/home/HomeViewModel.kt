@@ -1,10 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.home
 
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
-import com.dreamsoftware.fitflextv.domain.model.SessionBO
-import com.dreamsoftware.fitflextv.domain.model.TrainingBO
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetSessionsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
@@ -14,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getSessionsUseCase: GetSessionsUseCase,
+    private val getFeaturedTrainingsUseCase: GetFeaturedTrainingsUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getTrainingsRecommendedUseCase: GetTrainingsRecommendedUseCase
 ) : BaseViewModel<HomeUiState, HomeSideEffects>() {
@@ -22,13 +21,13 @@ class HomeViewModel @Inject constructor(
     override fun onGetDefaultState(): HomeUiState = HomeUiState()
 
     fun fetchData() {
-        fetchSessions()
+        fetchFeaturedTrainings()
         fetchCategories()
         fetchTrainingsRecommended()
     }
 
-    private fun fetchSessions() {
-        executeUseCase(useCase = getSessionsUseCase, onSuccess = ::onGetSessionsSuccessfully)
+    private fun fetchFeaturedTrainings() {
+        executeUseCase(useCase = getFeaturedTrainingsUseCase, onSuccess = ::onGetFeaturedTrainingsSuccessfully)
     }
 
     private fun fetchCategories() {
@@ -39,15 +38,15 @@ class HomeViewModel @Inject constructor(
         executeUseCase(useCase = getTrainingsRecommendedUseCase, onSuccess = ::onGetTrainingsRecommendedSuccessfully)
     }
 
-    private fun onGetSessionsSuccessfully(sessions: List<SessionBO>) {
-        updateState { it.copy(sessions = sessions) }
+    private fun onGetFeaturedTrainingsSuccessfully(trainings: List<ITrainingProgramBO>) {
+        updateState { it.copy(featuredTrainings = trainings) }
     }
 
     private fun onGetCategoriesSuccessfully(categories: List<CategoryBO>) {
         updateState { it.copy(categories = categories) }
     }
 
-    private fun onGetTrainingsRecommendedSuccessfully(trainingsRecommended: List<TrainingBO>) {
+    private fun onGetTrainingsRecommendedSuccessfully(trainingsRecommended: List<ITrainingProgramBO>) {
         updateState { it.copy(recommended = trainingsRecommended) }
     }
 }
@@ -56,8 +55,8 @@ data class HomeUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
     val categories: List<CategoryBO> = listOf(),
-    val sessions: List<SessionBO> = emptyList(),
-    val recommended: List<TrainingBO> = listOf()
+    val featuredTrainings: List<ITrainingProgramBO> = emptyList(),
+    val recommended: List<ITrainingProgramBO> = listOf()
 ): UiState<HomeUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): HomeUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)

@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.moreoptions
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
 
@@ -25,7 +26,7 @@ fun MoreOptionsScreen(
 
         },
         onInit = {
-            fetchData(args.id)
+            fetchData(args.id, TrainingTypeEnum.WORK_OUT)
         }
     ) { uiState ->
         MoreOptionsScreenContent(

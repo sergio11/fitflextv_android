@@ -11,11 +11,9 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 
 @Composable
-fun CommonLoadingState() {
+fun CommonLoadingState(modifier: Modifier) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(400.dp),
+        modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

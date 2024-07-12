@@ -2,10 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.player.video
 
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetRoutineByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetSeriesByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetWorkoutByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
@@ -15,51 +12,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class VideoPlayerViewModel @Inject constructor(
-    private val getWorkoutByIdUseCase: GetWorkoutByIdUseCase,
-    private val getRoutineByIdUseCase: GetRoutineByIdUseCase,
-    private val getSeriesByIdUseCase: GetSeriesByIdUseCase,
-    private val getChallengeByIdUseCase: GetChallengeByIdUseCase
+    private val getTrainingByIdUseCase: GetTrainingByIdUseCase
 ) : BaseViewModel<VideoPlayerUiState, VideoPlayerSideEffects>() {
 
     override fun onGetDefaultState(): VideoPlayerUiState = VideoPlayerUiState()
 
     fun fetchData(id: String, type: TrainingTypeEnum) {
-        when(type) {
-            TrainingTypeEnum.WORK_OUT -> fetchGetWorkoutById(id)
-            TrainingTypeEnum.SERIES -> fetchGetSeriesById(id)
-            TrainingTypeEnum.CHALLENGES -> fetchGetChallengeById(id)
-            TrainingTypeEnum.ROUTINE -> fetchGetRoutineById(id)
-        }
-    }
-
-    private fun fetchGetWorkoutById(id: String) {
         executeUseCaseWithParams(
-            useCase = getWorkoutByIdUseCase,
-            params = GetWorkoutByIdUseCase.Params(id),
-            onSuccess = ::onGetTrainingProgramByIdSuccessfully
-        )
-    }
-
-    private fun fetchGetRoutineById(id: String) {
-        executeUseCaseWithParams(
-            useCase = getRoutineByIdUseCase,
-            params = GetRoutineByIdUseCase.Params(id),
-            onSuccess = ::onGetTrainingProgramByIdSuccessfully
-        )
-    }
-
-    private fun fetchGetSeriesById(id: String) {
-        executeUseCaseWithParams(
-            useCase = getSeriesByIdUseCase,
-            params = GetSeriesByIdUseCase.Params(id),
-            onSuccess = ::onGetTrainingProgramByIdSuccessfully
-        )
-    }
-
-    private fun fetchGetChallengeById(id: String) {
-        executeUseCaseWithParams(
-            useCase = getChallengeByIdUseCase,
-            params = GetChallengeByIdUseCase.Params(id),
+            useCase = getTrainingByIdUseCase,
+            params = GetTrainingByIdUseCase.Params(id, type),
             onSuccess = ::onGetTrainingProgramByIdSuccessfully
         )
     }

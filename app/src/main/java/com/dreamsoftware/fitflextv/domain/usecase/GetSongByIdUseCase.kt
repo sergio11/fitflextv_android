@@ -1,14 +1,15 @@
 package com.dreamsoftware.fitflextv.domain.usecase
 
 import com.dreamsoftware.fitflextv.domain.model.SongBO
-import com.dreamsoftware.fitflextv.domain.repository.ISeriesRepository
+import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 
 class GetSongByIdUseCase(
-    private val seriesRepository: ISeriesRepository
+    private val trainingRepository: ITrainingRepository
 ) : BaseUseCaseWithParams<GetSongByIdUseCase.Params, SongBO>() {
     override suspend fun onExecuted(params: Params): SongBO =
-        seriesRepository.getSongById(params.id)
+        SongBO(String.EMPTY, String.EMPTY, String.EMPTY, String.EMPTY, String.EMPTY, String.EMPTY)
 
     data class Params(
         val id: String

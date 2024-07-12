@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +35,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
@@ -49,21 +47,19 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.ShapeDefaults
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.domain.model.SessionBO
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.screens.home.carouselSaver
-import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.theme.shadowCarouselColor
 import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-internal fun Sessions(
-    sessions: List<SessionBO>,
+internal fun FeaturedTrainings(
+    sessions: List<ITrainingProgramBO>,
     padding: PaddingValues,
     carouselState: CarouselState,
     onStartSessionCLick: (id: String) -> Unit,
@@ -110,10 +106,10 @@ internal fun Sessions(
             val session = sessions[index]
             CarouselItemBackground(
                 modifier = Modifier.fillMaxSize(),
-                session = session
+                trainingProgram = session
             )
             CarouselItemForeground(
-                session = session,
+                training = session,
                 isCarouselFocused = isCarouselFocused,
                 onCLickStartSession = { onStartSessionCLick(session.id) },
                 modifier = Modifier.align(Alignment.BottomStart)
@@ -149,7 +145,7 @@ private fun BoxScope.CarouselIndicator(
 
 @Composable
 private fun CarouselItemForeground(
-    session: SessionBO,
+    training: ITrainingProgramBO,
     onCLickStartSession: () -> Unit,
     modifier: Modifier = Modifier,
     isCarouselFocused: Boolean = false
@@ -164,21 +160,21 @@ private fun CarouselItemForeground(
             ) {
                 CommonText(
                     type = CommonTextTypeEnum.LABEL_MEDIUM,
-                    titleText = session.instructor,
+                    titleText = training.instructorName,
                     singleLine = true,
                     textColor = onSurfaceVariant
                 )
                 CommonText(
                     modifier = Modifier.padding(top = 4.dp),
                     type = CommonTextTypeEnum.HEADLINE_SMALL,
-                    titleText = session.title,
+                    titleText = training.name,
                     singleLine = true,
                     textColor = onSurface
                 )
                 CommonText(
                     modifier = Modifier.padding(top = 12.dp, bottom = 28.dp),
                     type = CommonTextTypeEnum.BODY_SMALL,
-                    titleText = session.description,
+                    titleText = training.description,
                     singleLine = true,
                     textColor = onSurfaceVariant,
                     maxLines = 2,
@@ -204,11 +200,11 @@ private fun CarouselItemForeground(
 }
 
 @Composable
-private fun CarouselItemBackground(session: SessionBO, modifier: Modifier = Modifier) {
+private fun CarouselItemBackground(trainingProgram: ITrainingProgramBO, modifier: Modifier = Modifier) {
     with(MaterialTheme.colorScheme) {
         var sizeCard by remember { mutableStateOf(Size.Zero) }
-        AsyncImage(model = session.imageUrl,
-            contentDescription = stringResource(id = R.string.image, session.title),
+        AsyncImage(model = trainingProgram.imageUrl,
+            contentDescription = stringResource(id = R.string.image, trainingProgram.name),
             modifier = modifier
                 .fillMaxSize()
                 .aspectRatio(21F / 9F)
@@ -243,29 +239,5 @@ private fun CarouselItemBackground(session: SessionBO, modifier: Modifier = Modi
                 },
             contentScale = ContentScale.Crop
         )
-    }
-}
-
-@OptIn(ExperimentalTvMaterial3Api::class)
-@Preview(widthDp = 1080)
-@Composable
-private fun SessionsPreview() {
-    val carouselState = rememberSaveable(saver = carouselSaver) { CarouselState(0) }
-    FitFlexTVTheme {
-        Sessions(sessions = listOf(
-            SessionBO(
-                id = "1",
-                instructor = "Danielle Orlando",
-                title = "Strengthen & lengthen pilates",
-                description = "This pilates workout is perfect for good balance between your overall strength and flexibility. Use your own body weight to strengthen and sculpt our muscles",
-                imageUrl = "https://cdn.muscleandstrength.com/sites/default/files/strong-brunette-doing-shoulder-press.jpg"
-            ), SessionBO(
-                id = "2",
-                instructor = "John Smith",
-                title = "Yoga Flow",
-                description = "Join us for a relaxing yoga flow session to unwind and improve flexibility. Suitable for all levels.",
-                imageUrl = "https://1.bp.blogspot.com/-06DVesUYzOQ/Xxff6Ysq8VI/AAAAAAAABJ0/HljMYwQN9iEOcuBIRrTmzVMiYQWekkvWgCLcBGAsYHQ/s640/vinyasa.jpg"
-            )
-        ), padding = PaddingValues(), carouselState = carouselState, onStartSessionCLick = {})
     }
 }

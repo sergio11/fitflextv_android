@@ -15,7 +15,7 @@ import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
 import androidx.tv.foundation.lazy.grid.items
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.domain.model.TrainingBO
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
@@ -23,7 +23,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 @Composable
 internal fun TrainingsRecommended(
     modifier: Modifier = Modifier,
-    state: List<TrainingBO>,
+    state: List<ITrainingProgramBO>,
     onClick: (String) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
@@ -47,9 +47,9 @@ internal fun TrainingsRecommended(
                 CommonCard(
                     modifier = modifier.width(196.dp),
                     imageUrl = training.imageUrl,
-                    title = training.title,
-                    timeText = training.time,
-                    typeText = training.instructor,
+                    title = training.name,
+                    timeText = training.duration,
+                    typeText = training.instructorName,
                     onClick = { onClick(training.id) }
                 )
             }

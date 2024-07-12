@@ -62,12 +62,15 @@ internal fun FavoritesScreenContent(
 ) {
     with(state) {
         if (isLoading) {
-            CommonLoadingState()
+            CommonLoadingState(modifier = Modifier.fillMaxSize())
         } else if(state.favoritesWorkouts.isEmpty()) {
-            CommonNoContentState(messageRes = R.string.favorites_not_workout_available)
+            CommonNoContentState(
+                modifier = Modifier.fillMaxSize(),
+                messageRes = R.string.favorites_not_workout_available
+            )
         }else {
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxSize()
             ) {
                 CommonText(
                     modifier = Modifier.padding(bottom = 8.dp, top = 56.dp, start = 32.dp, end = 32.dp),

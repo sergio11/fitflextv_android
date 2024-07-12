@@ -1,14 +1,14 @@
 package com.dreamsoftware.fitflextv.ui.utils
 
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.domain.model.TrainingBO
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import kotlin.time.Duration
 
 fun Number.padStartWith0(): String = this.toString().padStart(2, '0')
 
-fun TrainingBO?.formatTimeAndTypeTraining(): String =
-    this?.run { "$time | $type ••••" }.orEmpty()
+fun ITrainingProgramBO?.formatTimeAndTypeTraining(): String =
+    this?.run { "$duration | $intensity ••••" }.orEmpty()
 
 fun Duration.toVideoTextProgress() = toComponents { h, m, s, _ ->
     if (h > 0) {
