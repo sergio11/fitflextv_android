@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.core.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +21,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Border
 import androidx.tv.material3.Card
+import androidx.tv.material3.CardDefaults
+import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 
@@ -38,52 +42,68 @@ fun CommonCard(
     dividerColor: Color = Color.LightGray,
     cardAspectRatio: Float = 16f / 9f
 ) {
-    Column(
-        modifier = Modifier
-            .size(width = 196.dp, height = 158.25.dp)
-    ) {
-        Card(
-            onClick = onClick,
-            modifier = modifier
-                .aspectRatio(cardAspectRatio)
-                .background(Color.Transparent, RoundedCornerShape(16.dp))
-                .padding(bottom = 8.dp)
+    with(MaterialTheme.colorScheme) {
+        Column(
+            modifier = Modifier
+                .size(width = 196.dp, height = 158.25.dp)
         ) {
-            AsyncImage(
-                model = imageUrl, contentDescription = "Image",
-                modifier = Modifier
-                    .fillMaxSize()
-                    .height(110.25.dp)
-                    .aspectRatio(cardAspectRatio),
-                contentScale = ContentScale.Fit,
-                alignment = Alignment.Center,
-            )
-        }
-        Text(
-            text = title,
-            style = titleTextStyle
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+            Card(
+                onClick = onClick,
+                modifier = modifier
+                    .aspectRatio(cardAspectRatio)
+                    .background(Color.Transparent, RoundedCornerShape(16.dp))
+                    .padding(bottom = 8.dp),
+                border = CardDefaults.border(
+                    border = Border(
+                        border = BorderStroke(
+                            width = 2.dp,
+                            color = onPrimary
+                        )
+                    ),
+                    focusedBorder = Border(
+                        border = BorderStroke(
+                            width = 3.dp,
+                            color = border
+                        )
+                    )
+                ),
+            ) {
+                AsyncImage(
+                    model = imageUrl, contentDescription = "Image",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .height(110.25.dp)
+                        .aspectRatio(cardAspectRatio),
+                    contentScale = ContentScale.Crop,
+                    alignment = Alignment.Center,
+                )
+            }
             Text(
-                text = timeText,
-                style = timeTextStyle,
-                modifier = Modifier.padding(end = 4.dp)
+                text = title,
+                style = titleTextStyle
             )
-            Text(
-                modifier = Modifier
-                    .width(1.dp)
-                    .alpha(1f),
-                text = "|",
-                style = TextStyle(color = dividerColor),
-            )
-            Spacer(modifier = Modifier.width(2.dp))
-            Text(
-                text = typeText,
-                style = typeTextStyle,
-                modifier = Modifier.padding(start = 4.dp, end = 4.dp)
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = timeText,
+                    style = timeTextStyle,
+                    modifier = Modifier.padding(end = 4.dp)
+                )
+                Text(
+                    modifier = Modifier
+                        .width(1.dp)
+                        .alpha(1f),
+                    text = "|",
+                    style = TextStyle(color = dividerColor),
+                )
+                Spacer(modifier = Modifier.width(2.dp))
+                Text(
+                    text = typeText,
+                    style = typeTextStyle,
+                    modifier = Modifier.padding(start = 4.dp, end = 4.dp)
+                )
+            }
         }
     }
 }
