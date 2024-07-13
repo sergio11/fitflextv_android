@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 import androidx.annotation.StringRes
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
+import com.dreamsoftware.fitflextv.domain.model.ChallengeWeaklyPlansBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
@@ -41,7 +42,7 @@ class TrainingDetailViewModel @Inject constructor(
                     description = description,
                     id = id,
                     tabs = if(this is ChallengeBO) {
-                        weaklyPlans.map { weaklyPlan -> weaklyPlan.first }
+                        weaklyPlans.map(ChallengeWeaklyPlansBO::name)
                     } else {
                         emptyList()
                     },
@@ -49,15 +50,17 @@ class TrainingDetailViewModel @Inject constructor(
                         weaklyPlans.map { weaklyPlan ->
                             mapOf(
                                 Pair(
-                                    weaklyPlan.first,
-                                    weaklyPlan.second.map { workout ->
-                                        ChallengeWorkoutItemUiState(
-                                            id = workout.id,
-                                            imageUrl = workout.imageUrl,
-                                            title = workout.name,
-                                            time = workout.duration,
-                                            typeText = workout.intensity.level
-                                        )
+                                    weaklyPlan.name,
+                                    weaklyPlan.workouts.map { workout ->
+                                        with(workout) {
+                                            ChallengeWorkoutItemUiState(
+                                                id = id,
+                                                imageUrl = imageUrl,
+                                                title = name,
+                                                time = duration,
+                                                typeText = intensity.level
+                                            )
+                                        }
                                     })
                             )
                         }

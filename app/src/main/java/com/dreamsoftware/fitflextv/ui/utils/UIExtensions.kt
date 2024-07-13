@@ -3,6 +3,11 @@ package com.dreamsoftware.fitflextv.ui.utils
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 
 fun Number.padStartWith0(): String = this.toString().padStart(2, '0')
@@ -56,3 +61,15 @@ fun TrainingTypeEnum.getStartButtonID() = when (this) {
     TrainingTypeEnum.WORK_OUT -> R.string.start_workout
     TrainingTypeEnum.ROUTINE -> R.string.start_routine
 }
+
+suspend fun <T, R> List<T>.parallelMap(
+    context: CoroutineContext = Dispatchers.Default,
+    block: suspend (T) -> R
+): List<R> =
+    map { item ->
+        coroutineScope {
+            async(context) {
+                block(item)
+            }
+        }
+    }.awaitAll()

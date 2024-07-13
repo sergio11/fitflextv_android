@@ -13,6 +13,9 @@ interface IWorkoutRemoteDataSource {
     @Throws(FetchRemoteWorkoutByIdException::class)
     suspend fun getWorkoutById(id: String): WorkoutDTO
 
+    @Throws(FetchRemoteWorkoutByIdException::class)
+    suspend fun getWorkoutByIdList(idList: List<String>): List<WorkoutDTO>
+
     @Throws(FetchRemoteWorkoutByCategoryException::class)
     suspend fun getWorkoutByCategory(id: String): List<WorkoutDTO>
 }
