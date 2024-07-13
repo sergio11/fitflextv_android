@@ -3,8 +3,10 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.FetchCategoriesException
+import com.dreamsoftware.fitflextv.domain.exception.FetchCategoryByIdException
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
@@ -25,6 +27,17 @@ internal class CategoryRepositoryImpl(
                 .toList()
         } catch (ex: FetchRemoteCategoriesException) {
             throw FetchCategoriesException("An error occurred when fetching categories", ex)
+        }
+    }
+
+    @Throws(FetchCategoryByIdException::class)
+    override suspend fun getCategoryById(id: String): CategoryBO = safeExecute {
+        try {
+            categoryRemoteDataSource
+                .getCategoryById(id)
+                .let(categoryMapper::mapInToOut)
+        } catch (ex: FetchRemoteCategoryByIdException) {
+            throw FetchCategoryByIdException("An error occurred when fetching category by $id", ex)
         }
     }
 }

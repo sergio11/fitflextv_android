@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.domain.repository
 
+import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByCategoryException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByIdException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingsException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingsRecommendedException
@@ -16,4 +17,7 @@ interface ITrainingRepository {
 
     @Throws(FetchTrainingsRecommendedException::class)
     suspend fun getTrainingsRecommended(): Iterable<ITrainingProgramBO>
+
+    @Throws(FetchTrainingByCategoryException::class)
+    suspend fun getTrainingsByCategory(id: String): Iterable<ITrainingProgramBO>
 }
