@@ -53,6 +53,7 @@
     <!-- Category Detail -->
     <string name="category_detail_trainings_title" formatted="false">"%s" Trainings</string>
     <string name="category_detail_trainings_title_default">Trainings</string>
+    <string name="category_detail_no_trainings_available">No training programs available in this category. Please check back later or explore other categories.</string>
 
 
 
