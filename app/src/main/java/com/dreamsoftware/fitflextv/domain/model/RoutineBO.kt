@@ -13,6 +13,5 @@ data class RoutineBO(
     override val videoUrl: String,
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
-    override val language: LanguageEnum,
-    override val subtitleLanguage: SubtitleLanguageEnum
+    override val language: LanguageEnum
 ) : ITrainingProgramBO

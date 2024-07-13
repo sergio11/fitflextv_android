@@ -13,6 +13,5 @@ data class RoutineDTO(
     val videoUrl: String,
     val intensity: String,
     val releasedDate: Date,
-    val language: String,
-    val subtitleLanguage: String
+    val language: String
 )

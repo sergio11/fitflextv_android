@@ -14,5 +14,4 @@ interface ITrainingProgramBO {
     val language: LanguageEnum
     val videoUrl: String
     val duration: String
-    val subtitleLanguage: SubtitleLanguageEnum
 }

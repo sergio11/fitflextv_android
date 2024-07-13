@@ -16,5 +16,4 @@ data class SeriesBO(
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
     override val language: LanguageEnum,
-    override val subtitleLanguage: SubtitleLanguageEnum
 ) : ITrainingProgramBO
