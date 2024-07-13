@@ -56,10 +56,11 @@ class TrainingViewModel @Inject constructor(
         updateState {
             it.copy(
                 selectedTab = index,
+                trainingPrograms = emptyList(),
                 trainingTypeSelected = TrainingTypeEnum.entries[index]
             )
         }
-        fetchData()
+        fetchTrainings()
     }
 
     override fun onChangeFocusTab(index: Int) {

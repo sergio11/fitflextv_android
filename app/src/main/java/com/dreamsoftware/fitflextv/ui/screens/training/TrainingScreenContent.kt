@@ -1,5 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -106,7 +110,16 @@ private fun TrainingProgramList(
                             .height(400.dp),
                         messageRes = R.string.trainings_not_programs_available
                     )
-                } else {
+                }
+                AnimatedVisibility(
+                    visible = !state.isLoading && state.trainingPrograms.isNotEmpty(),
+                    enter = fadeIn(
+                        animationSpec = tween(800)
+                    ),
+                    exit = fadeOut(
+                        animationSpec = tween(800)
+                    ),
+                ) {
                     TvLazyHorizontalGrid(
                         modifier = Modifier
                             .fillMaxWidth()
