@@ -1,7 +1,11 @@
 package com.dreamsoftware.fitflextv.ui.screens.category
 
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
+import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.SeriesBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByCategoryUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
@@ -46,6 +50,20 @@ class CategoryDetailScreenViewModel @Inject constructor(
     private fun onGetCategoryDetailSuccessfully(category: CategoryBO) {
         updateState { it.copy(category = category) }
     }
+
+    override fun onTrainingProgramOpened(trainingProgram: ITrainingProgramBO) {
+        launchSideEffect(
+            CategoryDetailSideEffects.OpenTrainingProgramDetail(
+                id = trainingProgram.id,
+                type = when(trainingProgram) {
+                    is WorkoutBO -> TrainingTypeEnum.WORK_OUT
+                    is SeriesBO -> TrainingTypeEnum.SERIES
+                    is ChallengeBO -> TrainingTypeEnum.CHALLENGES
+                    else -> TrainingTypeEnum.ROUTINE
+                }
+            )
+        )
+    }
 }
 
 data class CategoryDetailUiState(
@@ -58,4 +76,6 @@ data class CategoryDetailUiState(
         copy(isLoading = isLoading, errorMessage = errorMessage)
 }
 
-sealed interface CategoryDetailSideEffects : SideEffect {}
+sealed interface CategoryDetailSideEffects : SideEffect {
+    data class OpenTrainingProgramDetail(val id: String, val type: TrainingTypeEnum): CategoryDetailSideEffects
+}

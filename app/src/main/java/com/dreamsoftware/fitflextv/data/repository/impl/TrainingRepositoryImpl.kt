@@ -84,9 +84,18 @@ internal class TrainingRepositoryImpl(
     @Throws(FetchTrainingByCategoryException::class)
     override suspend fun getTrainingsByCategory(id: String): Iterable<ITrainingProgramBO> = safeExecute {
         try {
-            val workoutDeferred = async(dispatcher) { workoutRemoteDataSource.getWorkoutByCategory(id).let(workoutMapper::mapInListToOutList) }
-            val seriesDeferred = async(dispatcher) { seriesRemoteDataSource.getSeriesByCategory(id).let(seriesMapper::mapInListToOutList) }
-            val routinesDeferred = async(dispatcher) { routineRemoteDataSource.getRoutineByCategory(id).let(routineMapper::mapInListToOutList) }
+            val workoutDeferred = async(dispatcher) {
+                runCatching { workoutRemoteDataSource.getWorkoutByCategory(id).let(workoutMapper::mapInListToOutList) }
+                    .getOrElse { emptyList() }
+            }
+            val seriesDeferred = async(dispatcher) {
+                runCatching { seriesRemoteDataSource.getSeriesByCategory(id).let(seriesMapper::mapInListToOutList) }
+                    .getOrElse { emptyList() }
+            }
+            val routinesDeferred = async(dispatcher) {
+                runCatching { routineRemoteDataSource.getRoutineByCategory(id).let(routineMapper::mapInListToOutList) }
+                    .getOrElse { emptyList() }
+            }
             workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await()
         } catch (ex: DataSourceException) {
             throw FetchTrainingByCategoryException("An error occurred when fetching the training", ex)

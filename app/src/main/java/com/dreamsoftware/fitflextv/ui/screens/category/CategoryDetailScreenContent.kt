@@ -34,7 +34,7 @@ internal fun CategoryDetailScreenContent(
         } else if(trainings.isEmpty()) {
             CommonNoContentState(
                 modifier = Modifier.fillMaxSize(),
-                messageRes = R.string.favorites_not_workout_available
+                messageRes = R.string.category_detail_no_trainings_available
             )
         } else {
             Column(
@@ -64,6 +64,9 @@ internal fun CategoryDetailScreenContent(
                                     focusRequester(focusRequester)
                                 })
                                 .padding(horizontal = 12.dp),
+                                onClick = {
+                                    actionListener.onTrainingProgramOpened(item)
+                                },
                                 imageUrl = item.imageUrl,
                                 title = item.name,
                                 timeText = item.duration,

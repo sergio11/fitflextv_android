@@ -58,9 +58,15 @@ fun DashboardNavHost(
         composable(Screens.CategoryDetail.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let(Screens.CategoryDetail::parseArgs)?.let { args ->
                 with(navController) {
-                    CategoryDetailScreen(args = args) {
-                        popBackStack()
-                    }
+                    CategoryDetailScreen(
+                        args = args,
+                        onOpenTrainingProgramDetail = {id, type ->
+                            navigate(Screens.TrainingDetail.buildRoute(id, type))
+                        },
+                        onBackPressed = {
+                            popBackStack()
+                        }
+                    )
                 }
             }
         }
