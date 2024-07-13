@@ -4,7 +4,6 @@ import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
-import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
@@ -25,8 +24,7 @@ internal class SeriesMapper : IOneSideMapper<SeriesDTO, SeriesBO> {
             videoUrl = videoUrl,
             intensity = enumValueOfOrDefault(intensity, IntensityEnum.EASY),
             releasedDate = releasedDate,
-            language = enumValueOfOrDefault(language, LanguageEnum.ENGLISH),
-            subtitleLanguage = enumValueOfOrDefault(subtitleLanguage, SubtitleLanguageEnum.ENGLISH)
+            language = enumValueOfOrDefault(language, LanguageEnum.ENGLISH)
         )
     }
 

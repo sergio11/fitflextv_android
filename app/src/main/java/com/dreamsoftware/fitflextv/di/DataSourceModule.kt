@@ -4,24 +4,20 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
-import com.dreamsoftware.fitflextv.data.remote.datasource.ISessionRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesRemoteDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SessionRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.WorkoutRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.SessionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
-import com.dreamsoftware.fitflextv.data.remote.mapper.SessionRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.WorkoutRemoteMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
@@ -74,15 +70,6 @@ class DataSourceModule {
     @Provides
     @Singleton
     fun provideCategoryRemoteMapper(): IOneSideMapper<Map<String, Any?>, CategoryDTO> = CategoryRemoteMapper()
-
-
-    /**
-     * Provides a singleton instance of SessionMapper.
-     * @return a new instance of SessionMapper.
-     */
-    @Provides
-    @Singleton
-    fun provideSessionRemoteMapper(): IOneSideMapper<Map<String, Any?>, SessionDTO> = SessionRemoteMapper()
 
     /**
      * Provides a singleton instance of WorkoutRemoteMapper.
@@ -158,18 +145,6 @@ class DataSourceModule {
     ): ICategoryRemoteDataSource = CategoryRemoteDataSourceImpl(
         firestore,
         categoryMapper,
-        dispatcher
-    )
-
-    @Provides
-    @Singleton
-    fun provideSessionRemoteDataSource(
-        sessionMapper: IOneSideMapper<Map<String, Any?>, SessionDTO>,
-        firestore: FirebaseFirestore,
-        @IoDispatcher dispatcher: CoroutineDispatcher
-    ): ISessionRemoteDataSource = SessionRemoteDataSourceImpl(
-        firestore,
-        sessionMapper,
         dispatcher
     )
 

@@ -4,7 +4,6 @@ import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryIm
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
-import com.dreamsoftware.fitflextv.domain.model.SubtitleLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
@@ -34,8 +33,7 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.EASY,
                 Date(),
-                LanguageEnum.ENGLISH,
-                SubtitleLanguageEnum.ENGLISH
+                LanguageEnum.ENGLISH
             ),
             ChallengeBO(
                 "2",
@@ -50,8 +48,7 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.HARD,
                 Date(),
-                LanguageEnum.ENGLISH,
-                SubtitleLanguageEnum.ENGLISH
+                LanguageEnum.ENGLISH
             ),
             ChallengeBO(
                 "3",
@@ -66,8 +63,7 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.MEDIUM,
                 Date(),
-                LanguageEnum.ENGLISH,
-                SubtitleLanguageEnum.ENGLISH
+                LanguageEnum.ENGLISH
             ),
             ChallengeBO(
                 "4",
@@ -82,8 +78,7 @@ internal class ChallengesRepositoryImpl(
                 generateWeeklyPlans(getWorkouts()),
                 IntensityEnum.MEDIUM,
                 Date(),
-                LanguageEnum.ENGLISH,
-                SubtitleLanguageEnum.ENGLISH
+                LanguageEnum.ENGLISH
             )
         )
 

@@ -18,9 +18,6 @@ class FetchRemoteSeriesByIdException(message: String? = null, cause: Throwable? 
 // Categories
 class FetchRemoteCategoriesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 
-// Sessions
-class FetchRemoteSessionsException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
-
 // Workout
 class FetchRemoteWorkoutsException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteWorkoutByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
