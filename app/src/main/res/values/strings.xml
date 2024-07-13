@@ -50,6 +50,11 @@
     <!-- Favorites -->
     <string name="favorites_not_workout_available">No favorite trainings available yet. Explore and add your favorites to get started on your fitness journey!</string>
 
+    <!-- Category Detail -->
+    <string name="category_detail_trainings_title" formatted="false">"%s" Trainings</string>
+    <string name="category_detail_trainings_title_default">Trainings</string>
+
+
 
     <string name="add_to_favorites">Add to favorites</string>
     <string name="start_workout">Let\'s Work Out!</string>

@@ -6,6 +6,7 @@ import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetChallengesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
@@ -13,6 +14,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByCategoryUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
@@ -141,4 +143,21 @@ class UseCasesModule {
             trainingRepository = trainingRepository
         )
 
+    @Provides
+    @ViewModelScoped
+    fun provideGetTrainingsByCategoryUseCase(
+        trainingRepository: ITrainingRepository
+    ): GetTrainingsByCategoryUseCase =
+        GetTrainingsByCategoryUseCase(
+            trainingRepository = trainingRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetCategoryByIdUseCase(
+        categoryRepository: ICategoryRepository
+    ): GetCategoryByIdUseCase =
+        GetCategoryByIdUseCase(
+            categoryRepository = categoryRepository
+        )
 }

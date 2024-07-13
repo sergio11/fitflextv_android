@@ -19,6 +19,7 @@ class FetchRemoteSeriesByCategoryException(message: String? = null, cause: Throw
 
 // Categories
 class FetchRemoteCategoriesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteCategoryByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 
 // Workout
 class FetchRemoteWorkoutsException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)

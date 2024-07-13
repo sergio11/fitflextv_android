@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreen
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreen
 import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreen
@@ -29,7 +30,7 @@ fun DashboardNavHost(
                         //navigate(Screens.TrainingDetail.buildRoute(id))
                     },
                     onGoToCategory = { id ->
-                        //navigate(Screens.MoreOptions.buildRoute(id))
+                        navigate(Screens.CategoryDetail.buildRoute(id))
                     }
                 )
             }
@@ -53,6 +54,17 @@ fun DashboardNavHost(
                 )
             }
         }
+
+        composable(Screens.CategoryDetail.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screens.CategoryDetail::parseArgs)?.let { args ->
+                with(navController) {
+                    CategoryDetailScreen(args = args) {
+                        popBackStack()
+                    }
+                }
+            }
+        }
+
         composable(Screens.VideoPlayer.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let(Screens.VideoPlayer::parseArgs)?.let { args ->
                 with(navController) {
