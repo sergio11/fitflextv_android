@@ -15,5 +15,6 @@ data class SeriesDTO(
     val videoUrl: String,
     val intensity: String,
     val releasedDate: Date,
-    val language: String
+    val language: String,
+    val category: String
 )
