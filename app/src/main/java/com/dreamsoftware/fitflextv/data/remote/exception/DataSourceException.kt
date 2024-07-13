@@ -17,6 +17,11 @@ class FetchRemoteSeriesException(message: String? = null, cause: Throwable? = nu
 class FetchRemoteSeriesByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteSeriesByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 
+// Challenges
+class FetchRemoteChallengesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteChallengesByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteChallengesByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+
 // Categories
 class FetchRemoteCategoriesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteCategoryByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)

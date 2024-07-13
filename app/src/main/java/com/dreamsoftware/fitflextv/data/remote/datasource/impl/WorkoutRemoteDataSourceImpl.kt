@@ -19,6 +19,7 @@ internal class WorkoutRemoteDataSourceImpl(
     private companion object {
         const val COLLECTION_NAME = "workouts"
         const val CATEGORY_FIELD = "category"
+        const val ID_FIELD = "uid"
     }
 
     @Throws(FetchRemoteWorkoutsException::class)
@@ -39,6 +40,20 @@ internal class WorkoutRemoteDataSourceImpl(
         )
     } catch (ex: Exception) {
         throw FetchRemoteWorkoutByIdException("An error occurred when trying to fetch the workout with ID $id", ex)
+    }
+
+    @Throws(FetchRemoteWorkoutByIdException::class)
+    override suspend fun getWorkoutByIdList(idList: List<String>): List<WorkoutDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereIn(ID_FIELD, idList)
+                    .get()
+            },
+            mapper = { data -> workoutMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchRemoteWorkoutByIdException("An error occurred when trying to fetch workouts by ID list", ex)
     }
 
     @Throws(FetchRemoteWorkoutByCategoryException::class)

@@ -1,14 +1,11 @@
 package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
-import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetChallengeByIdUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetChallengesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
@@ -84,17 +81,6 @@ class UseCasesModule {
             instructorRepository = instructorRepository
         )
 
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetChallengeByIdUseCase(
-        challengesRepository: IChallengesRepository
-    ): GetChallengeByIdUseCase =
-        GetChallengeByIdUseCase(
-            challengesRepository = challengesRepository
-        )
-
-
     @Provides
     @ViewModelScoped
     fun provideGetSongByIdUseCase(
@@ -114,15 +100,6 @@ class UseCasesModule {
     fun provideSignUpUseCase(): SignUpUseCase =
         SignUpUseCase()
 
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetChallengesUseCase(
-        challengesRepository: IChallengesRepository
-    ): GetChallengesUseCase =
-        GetChallengesUseCase(
-            challengesRepository = challengesRepository
-        )
 
     @Provides
     @ViewModelScoped

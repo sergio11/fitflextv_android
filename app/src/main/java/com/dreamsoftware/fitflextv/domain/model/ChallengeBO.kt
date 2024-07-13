@@ -11,9 +11,14 @@ data class ChallengeBO(
     override val imageUrl: String,
     override val duration: String,
     override val videoUrl: String,
-    val numberOfDays: Int,
-    val weaklyPlans: List<Pair<String, List<WorkoutBO>>>,
+    val numberOfDays: Long,
+    val weaklyPlans: List<ChallengeWeaklyPlansBO>,
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
     override val language: LanguageEnum
 ) : ITrainingProgramBO
+
+data class ChallengeWeaklyPlansBO(
+    val name: String,
+    val workouts: List<WorkoutBO>
+)

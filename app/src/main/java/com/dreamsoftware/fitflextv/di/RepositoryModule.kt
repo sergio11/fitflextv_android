@@ -1,28 +1,30 @@
 package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.repository.impl.CategoryRepositoryImpl
-import com.dreamsoftware.fitflextv.data.repository.impl.ChallengesRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.InstructorRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.TrainingRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.UserRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.mapper.CategoryMapper
+import com.dreamsoftware.fitflextv.data.repository.mapper.ChallengeMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.SeriesMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.WorkoutMapper
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
+import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
-import com.dreamsoftware.fitflextv.domain.repository.IChallengesRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
@@ -56,10 +58,9 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideChallengeRepository(
-        @IoDispatcher dispatcher: CoroutineDispatcher
-    ): IChallengesRepository =
-        ChallengesRepositoryImpl(dispatcher)
+    fun provideChallengeMapper(
+        workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>
+    ): IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO> = ChallengeMapper(workoutMapper)
 
     @Provides
     @Singleton
@@ -75,18 +76,22 @@ class RepositoryModule {
         routineRemoteDataSource: IRoutineRemoteDataSource,
         workoutRemoteDataSource: IWorkoutRemoteDataSource,
         seriesRemoteDataSource: ISeriesRemoteDataSource,
+        challengesRemoteDataSource: IChallengesRemoteDataSource,
         routineMapper: IOneSideMapper<RoutineDTO, RoutineBO>,
         workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>,
         seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
+        challengesMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ITrainingRepository =
         TrainingRepositoryImpl(
             routineRemoteDataSource,
             workoutRemoteDataSource,
             seriesRemoteDataSource,
+            challengesRemoteDataSource,
             routineMapper,
             workoutMapper,
             seriesMapper,
+            challengesMapper,
             dispatcher
         )
 
