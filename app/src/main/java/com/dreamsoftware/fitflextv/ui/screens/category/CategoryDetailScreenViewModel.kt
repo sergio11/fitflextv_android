@@ -1,16 +1,14 @@
 package com.dreamsoftware.fitflextv.ui.screens.category
 
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
-import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByCategoryUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -52,17 +50,14 @@ class CategoryDetailScreenViewModel @Inject constructor(
     }
 
     override fun onTrainingProgramOpened(trainingProgram: ITrainingProgramBO) {
-        launchSideEffect(
-            CategoryDetailSideEffects.OpenTrainingProgramDetail(
-                id = trainingProgram.id,
-                type = when(trainingProgram) {
-                    is WorkoutBO -> TrainingTypeEnum.WORK_OUT
-                    is SeriesBO -> TrainingTypeEnum.SERIES
-                    is ChallengeBO -> TrainingTypeEnum.CHALLENGES
-                    else -> TrainingTypeEnum.ROUTINE
-                }
+        with(trainingProgram) {
+            launchSideEffect(
+                CategoryDetailSideEffects.OpenTrainingProgramDetail(
+                    id = id,
+                    type = toTrainingType()
+                )
             )
-        )
+        }
     }
 }
 

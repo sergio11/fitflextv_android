@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedRoutinesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByCategoryException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesException
@@ -19,6 +20,7 @@ internal class RoutineRemoteDataSourceImpl(
     private companion object {
         const val COLLECTION_NAME = "routines"
         const val CATEGORY_FIELD = "category"
+        const val IS_FEATURED_FIELD = "isFeatured"
     }
 
     @Throws(FetchRemoteRoutinesException::class)
@@ -55,5 +57,19 @@ internal class RoutineRemoteDataSourceImpl(
         )
     } catch (ex: Exception) {
         throw FetchRemoteRoutineByCategoryException("An error occurred when trying to fetch routines by category", ex)
+    }
+
+    @Throws(FetchRemoteFeaturedRoutinesException::class)
+    override suspend fun getFeaturedRoutines(): List<RoutineDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_FEATURED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> routineMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchRemoteFeaturedRoutinesException("An error occurred when trying to fetch featured routines", ex)
     }
 }

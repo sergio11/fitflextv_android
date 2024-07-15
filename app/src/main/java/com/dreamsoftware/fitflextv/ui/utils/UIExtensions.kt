@@ -1,8 +1,11 @@
 package com.dreamsoftware.fitflextv.ui.utils
 
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -73,3 +76,11 @@ suspend fun <T, R> List<T>.parallelMap(
             }
         }
     }.awaitAll()
+
+fun ITrainingProgramBO.toTrainingType(): TrainingTypeEnum = when(this) {
+    is WorkoutBO -> TrainingTypeEnum.WORK_OUT
+    is SeriesBO -> TrainingTypeEnum.SERIES
+    is ChallengeBO -> TrainingTypeEnum.CHALLENGES
+    else -> TrainingTypeEnum.ROUTINE
+}
+

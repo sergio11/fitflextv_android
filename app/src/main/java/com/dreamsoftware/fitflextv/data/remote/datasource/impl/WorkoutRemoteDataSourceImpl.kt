@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsException
@@ -20,6 +21,7 @@ internal class WorkoutRemoteDataSourceImpl(
         const val COLLECTION_NAME = "workouts"
         const val CATEGORY_FIELD = "category"
         const val ID_FIELD = "uid"
+        const val IS_FEATURED_FIELD = "isFeatured"
     }
 
     @Throws(FetchRemoteWorkoutsException::class)
@@ -68,5 +70,19 @@ internal class WorkoutRemoteDataSourceImpl(
         )
     } catch (ex: Exception) {
         throw FetchRemoteWorkoutByCategoryException("An error occurred when trying to fetch workouts by category", ex)
+    }
+
+    @Throws(FetchRemoteFeaturedWorkoutsException::class)
+    override suspend fun getFeaturedWorkouts(): List<WorkoutDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_FEATURED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> workoutMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchRemoteFeaturedWorkoutsException("An error occurred when trying to fetch featured workouts", ex)
     }
 }

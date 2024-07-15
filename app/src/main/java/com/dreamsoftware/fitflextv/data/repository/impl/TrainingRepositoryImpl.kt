@@ -10,6 +10,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.DataSourceException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
+import com.dreamsoftware.fitflextv.domain.exception.FetchFeaturedTrainingsException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByCategoryException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByIdException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingsException
@@ -93,6 +94,39 @@ internal class TrainingRepositoryImpl(
     @Throws(FetchTrainingsRecommendedException::class)
     override suspend fun getTrainingsRecommended(): Iterable<ITrainingProgramBO> = safeExecute {
         emptyList()
+    }
+
+    @Throws(FetchFeaturedTrainingsException::class)
+    override suspend fun getFeaturedTrainings(): Iterable<ITrainingProgramBO> = safeExecute {
+        try {
+            val workoutDeferred = async(dispatcher) {
+                runCatching {
+                    workoutRemoteDataSource.getFeaturedWorkouts()
+                        .let(workoutMapper::mapInListToOutList)
+                }
+                    .getOrElse { emptyList() }
+            }
+            val seriesDeferred = async(dispatcher) {
+                runCatching {
+                    seriesRemoteDataSource.getFeaturedSeries()
+                        .let(seriesMapper::mapInListToOutList)
+                }
+                    .getOrElse { emptyList() }
+            }
+            val routinesDeferred = async(dispatcher) {
+                runCatching {
+                    routineRemoteDataSource.getFeaturedRoutines()
+                        .let(routineMapper::mapInListToOutList)
+                }
+                    .getOrElse { emptyList() }
+            }
+            workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await()
+        } catch (ex: DataSourceException) {
+            throw FetchFeaturedTrainingsException(
+                "An error occurred when fetching the featured training",
+                ex
+            )
+        }
     }
 
     @Throws(FetchTrainingByCategoryException::class)

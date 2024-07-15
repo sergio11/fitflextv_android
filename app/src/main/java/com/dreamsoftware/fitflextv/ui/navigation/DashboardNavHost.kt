@@ -26,11 +26,11 @@ fun DashboardNavHost(
         composable(Screens.Home.route) {
             with(navController) {
                 HomeScreen(
-                    onStartSession = { id ->
-                        //navigate(Screens.TrainingDetail.buildRoute(id))
-                    },
-                    onGoToCategory = { id ->
+                    onOpenTrainingCategory = { id ->
                         navigate(Screens.CategoryDetail.buildRoute(id))
+                    },
+                    onOpenTrainingProgram = {  id, type ->
+                        navigate(Screens.TrainingDetail.buildRoute(id, type))
                     }
                 )
             }

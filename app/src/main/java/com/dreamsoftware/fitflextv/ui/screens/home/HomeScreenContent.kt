@@ -24,8 +24,7 @@ import com.dreamsoftware.fitflextv.ui.screens.home.components.TrainingsRecommend
 internal fun HomeScreenContent(
     state: HomeUiState,
     carouselState: CarouselState,
-    onStartSessionPressed: (String) -> Unit,
-    onCategorySelected: (String) -> Unit,
+    actionListener: HomeScreenActionListener
 ) {
     with(state) {
         TvLazyColumn(
@@ -38,9 +37,9 @@ internal fun HomeScreenContent(
         ) {
             item {
                 FeaturedTrainings(
-                    sessions = featuredTrainings,
+                    trainings = featuredTrainings,
                     padding = PaddingValues(horizontal = 32.dp),
-                    onStartSessionCLick = onStartSessionPressed,
+                    onOpenTrainingProgram = actionListener::onOpenTrainingProgram,
                     carouselState = carouselState,
                     modifier = Modifier
                         .height(340.dp)
@@ -50,13 +49,13 @@ internal fun HomeScreenContent(
             item {
                 Categories(
                     categories = categories,
-                    onClick = onCategorySelected
+                    onClick = actionListener::onCategorySelected
                 )
             }
             item {
                 TrainingsRecommended(
                     state = state.recommended,
-                    onClick = onCategorySelected
+                    onClick = actionListener::onCategorySelected
                 )
             }
         }

@@ -8,5 +8,5 @@ class GetFeaturedTrainingsUseCase(
     private val trainingRepository: ITrainingRepository
 ) : BaseUseCase<List<ITrainingProgramBO>>() {
     override suspend fun onExecuted(): List<ITrainingProgramBO> =
-        trainingRepository.getTrainingsRecommended().toList()
+        trainingRepository.getFeaturedTrainings().toList()
 }

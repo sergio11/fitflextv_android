@@ -6,6 +6,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.tv.material3.CarouselState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -16,15 +17,18 @@ val carouselSaver =
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    onStartSession: (String) -> Unit,
-    onGoToCategory: (String) -> Unit,
+    onOpenTrainingCategory: (String) -> Unit,
+    onOpenTrainingProgram: (String, TrainingTypeEnum) -> Unit,
 ) {
     val carouselState = rememberSaveable(saver = carouselSaver) { CarouselState(0) }
     CommonScreen(
         viewModel = viewModel,
         onInitialUiState = { HomeUiState() },
         onSideEffect = {
-
+            when(it) {
+                is HomeSideEffects.OpenTrainingCategory -> onOpenTrainingCategory(it.categoryId)
+                is HomeSideEffects.OpenTrainingProgram -> onOpenTrainingProgram(it.id, it.type )
+            }
         },
         onInit = {
             fetchData()
@@ -33,12 +37,7 @@ fun HomeScreen(
         HomeScreenContent(
             state = uiState,
             carouselState = carouselState,
-            onStartSessionPressed = { id ->
-                onStartSession(id)
-            },
-            onCategorySelected = { id ->
-                onGoToCategory(id)
-            }
+            actionListener = viewModel
         )
     }
 }

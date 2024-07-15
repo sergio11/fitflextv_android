@@ -6,6 +6,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesException
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,6 +20,7 @@ internal class ChallengesRemoteDataSourceImpl(
     private companion object {
         const val COLLECTION_NAME = "challenges"
         const val CATEGORY_FIELD = "category"
+        const val IS_FEATURED_FIELD = "isFeatured"
     }
 
     @Throws(FetchRemoteChallengesException::class)
@@ -42,16 +44,30 @@ internal class ChallengesRemoteDataSourceImpl(
     }
 
     @Throws(FetchRemoteChallengesByCategoryException::class)
-    override suspend fun getChallengesByCategory(id: String): List<ChallengeDTO> = try {
+    override suspend fun getChallengesByCategory(categoryId: String): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = {
                 firebaseStore.collection(COLLECTION_NAME)
-                    .whereEqualTo(CATEGORY_FIELD, id)
+                    .whereEqualTo(CATEGORY_FIELD, categoryId)
                     .get()
             },
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
         throw FetchRemoteChallengesByCategoryException("An error occurred when trying to fetch challenges by category", ex)
+    }
+
+    @Throws(FetchRemoteFeaturedChallengesException::class)
+    override suspend fun getFeaturedChallenges(): List<ChallengeDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_FEATURED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> challengeMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchRemoteFeaturedChallengesException("An error occurred when trying to fetch featured challenges", ex)
     }
 }
