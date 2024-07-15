@@ -3,28 +3,31 @@ package com.dreamsoftware.fitflextv.data.remote.datasource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.PinVerificationRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileResponseDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteProfileException
-import com.dreamsoftware.fitflextv.data.remote.exception.DeleteRemoteProfileException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteProfilesException
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteProfileException
-import com.dreamsoftware.fitflextv.data.remote.exception.VerifyRemoteProfileException
-import kotlin.jvm.Throws
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteProfileExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.DeleteRemoteProfileExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteProfileByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteProfilesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteProfileExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.VerifyRemoteProfileExceptionRemote
 
 interface IProfilesRemoteDataSource {
 
-    @Throws(FetchRemoteProfilesException::class)
-    suspend fun getProfiles(): List<ProfileResponseDTO>
+    @Throws(FetchRemoteProfilesExceptionRemote::class)
+    suspend fun getProfilesByUser(userId: String): List<ProfileDTO>
 
-    @Throws(UpdateRemoteProfileException::class)
-    suspend fun updateProfile(profileId: String, data: UpdatedProfileRequestDTO): ProfileResponseDTO
+    @Throws(UpdateRemoteProfileExceptionRemote::class)
+    suspend fun updateProfile(profileId: String, data: UpdatedProfileRequestDTO): ProfileDTO
 
-    @Throws(DeleteRemoteProfileException::class)
+    @Throws(DeleteRemoteProfileExceptionRemote::class)
     suspend fun deleteProfile(profileId: String): Boolean
 
-    @Throws(CreateRemoteProfileException::class)
+    @Throws(CreateRemoteProfileExceptionRemote::class)
     suspend fun createProfile(data: CreateProfileRequestDTO): Boolean
 
-    @Throws(VerifyRemoteProfileException::class)
+    @Throws(VerifyRemoteProfileExceptionRemote::class)
     suspend fun verifyPin(profileId: String, data: PinVerificationRequestDTO): Boolean
+
+    @Throws(FetchRemoteProfileByIdExceptionRemote::class)
+    suspend fun getProfileById(profileId: String): ProfileDTO
 }

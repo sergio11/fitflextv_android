@@ -8,7 +8,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.DataSourceException
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoteDataSourceException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.FetchFeaturedTrainingsException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByCategoryException
@@ -60,7 +60,7 @@ internal class TrainingRepositoryImpl(
                     TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutines()
                         .let(routineMapper::mapInListToOutList)
                 }
-            } catch (ex: DataSourceException) {
+            } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingsException("An error occurred when fetching trainings", ex)
             }
         }
@@ -86,7 +86,7 @@ internal class TrainingRepositoryImpl(
                     TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutineById(id)
                         .let(routineMapper::mapInToOut)
                 }
-            } catch (ex: DataSourceException) {
+            } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingsException("An error occurred when fetching the training", ex)
             }
         }
@@ -121,7 +121,7 @@ internal class TrainingRepositoryImpl(
                     .getOrElse { emptyList() }
             }
             workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await()
-        } catch (ex: DataSourceException) {
+        } catch (ex: RemoteDataSourceException) {
             throw FetchFeaturedTrainingsException(
                 "An error occurred when fetching the featured training",
                 ex
@@ -166,7 +166,7 @@ internal class TrainingRepositoryImpl(
                         .getOrElse { emptyList() }
                 }
                 workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await() + challengesDeferred.await()
-            } catch (ex: DataSourceException) {
+            } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingByCategoryException(
                     "An error occurred when fetching the training",
                     ex

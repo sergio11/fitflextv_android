@@ -4,9 +4,9 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.SignInUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.SignUpUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.AuthException
-import com.dreamsoftware.fitflextv.data.remote.exception.SignInException
-import com.dreamsoftware.fitflextv.data.remote.exception.SignUpException
+import com.dreamsoftware.fitflextv.data.remote.exception.AuthExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.SignInExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.SignUpExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -21,28 +21,28 @@ internal class AuthRemoteDataSourceImpl(
 ) : IAuthRemoteDataSource {
 
 
-    @Throws(AuthException::class)
+    @Throws(AuthExceptionRemote::class)
     override suspend fun getCurrentAuthenticatedUser(): AuthUserDTO = withContext(Dispatchers.IO) {
         try {
             firebaseAuth.currentUser?.let { userAuthenticatedMapper.mapInToOut(it) } ?: throw IllegalStateException("Auth user cannot be null") // Return true if there is a current authenticated user
         } catch (ex: Exception) {
-            throw AuthException("An error occurred when trying to check auth state", ex) // Throw AuthException if an error occurs
+            throw AuthExceptionRemote("An error occurred when trying to check auth state", ex) // Throw AuthException if an error occurs
         }
     }
 
     /**
      * Gets the UID of the authenticated user.
      * @return the UID of the authenticated user.
-     * @throws AuthException if an error occurs or no user is authenticated.
+     * @throws AuthExceptionRemote if an error occurs or no user is authenticated.
      */
-    @Throws(AuthException::class)
+    @Throws(AuthExceptionRemote::class)
     override suspend fun getUserAuthenticatedUid(): String = withContext(Dispatchers.IO) {
-        firebaseAuth.currentUser?.uid ?: throw AuthException("An error occurred when trying to check auth state")
+        firebaseAuth.currentUser?.uid ?: throw AuthExceptionRemote("An error occurred when trying to check auth state")
         // Return the UID of the current authenticated user or throw AuthException if no user is authenticated
     }
 
 
-    @Throws(SignInException::class)
+    @Throws(SignInExceptionRemote::class)
     override suspend fun signIn(signInUserDTO: SignInUserDTO): AuthUserDTO =
         withContext(Dispatchers.IO) {
             try {
@@ -51,11 +51,11 @@ internal class AuthRemoteDataSourceImpl(
                     ?: throw IllegalStateException("Auth user cannot be null")
                 // Map the authenticated user to AuthUserDTO or throw an exception if the user is null
             } catch (ex: Exception) {
-                throw SignInException("Login failed", ex) // Throw SignInException if an error occurs during sign-in
+                throw SignInExceptionRemote("Login failed", ex) // Throw SignInException if an error occurs during sign-in
             }
         }
 
-    @Throws(SignUpException::class)
+    @Throws(SignUpExceptionRemote::class)
     override suspend fun signUp(signUpUserDTO: SignUpUserDTO): AuthUserDTO =
         withContext(Dispatchers.IO) {
             try {
@@ -64,20 +64,20 @@ internal class AuthRemoteDataSourceImpl(
                     ?: throw IllegalStateException("Auth user cannot be null")
                 // Map the newly created user to AuthUserDTO or throw an exception if the user is null
             } catch (ex: Exception) {
-                throw SignUpException("Sign up failed", ex) // Throw SignUpException if an error occurs during sign-up
+                throw SignUpExceptionRemote("Sign up failed", ex) // Throw SignUpException if an error occurs during sign-up
             }
         }
 
     /**
      * Signs out the currently authenticated user.
-     * @throws AuthException if an error occurs during the sign-out process.
+     * @throws AuthExceptionRemote if an error occurs during the sign-out process.
      */
-    @Throws(AuthException::class)
+    @Throws(AuthExceptionRemote::class)
     override suspend fun closeSession() = withContext(Dispatchers.IO) {
         try {
             firebaseAuth.signOut() // Sign out the current authenticated user
         } catch (ex: Exception) {
-            throw AuthException("Logout failed", ex) // Throw AuthException if an error occurs during sign-out
+            throw AuthExceptionRemote("Logout failed", ex) // Throw AuthException if an error occurs during sign-out
         }
     }
 }

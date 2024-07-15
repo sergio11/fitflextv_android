@@ -8,5 +8,5 @@ class GetUserProfilesUseCase(
     private val userRepository: IUserRepository
 ) : BaseUseCase<List<ProfileBO>>() {
     override suspend fun onExecuted(): List<ProfileBO> =
-        userRepository.getUserProfiles()
+        emptyList()
 }

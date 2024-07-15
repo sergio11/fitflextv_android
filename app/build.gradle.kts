@@ -120,6 +120,9 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
 
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.moshi.kotlin)
+
     implementation(libs.constraint.layout)
 
     // Baseline profile installer

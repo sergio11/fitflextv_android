@@ -1,14 +1,14 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdExceptionRemote
 
 interface ICategoryRemoteDataSource {
 
-    @Throws(FetchRemoteCategoriesException::class)
+    @Throws(FetchRemoteCategoriesExceptionRemote::class)
     suspend fun getCategories(): List<CategoryDTO>
 
-    @Throws(FetchRemoteCategoryByIdException::class)
+    @Throws(FetchRemoteCategoryByIdExceptionRemote::class)
     suspend fun getCategoryById(id: String): CategoryDTO
 }

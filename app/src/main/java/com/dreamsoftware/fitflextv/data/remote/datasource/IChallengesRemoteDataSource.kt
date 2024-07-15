@@ -1,22 +1,22 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesExceptionRemote
 
 interface IChallengesRemoteDataSource {
 
-    @Throws(FetchRemoteChallengesException::class)
+    @Throws(FetchRemoteChallengesExceptionRemote::class)
     suspend fun getChallenges(): List<ChallengeDTO>
 
-    @Throws(FetchRemoteChallengesByIdException::class)
+    @Throws(FetchRemoteChallengesByIdExceptionRemote::class)
     suspend fun getChallengeById(id: String): ChallengeDTO
 
-    @Throws(FetchRemoteChallengesByCategoryException::class)
+    @Throws(FetchRemoteChallengesByCategoryExceptionRemote::class)
     suspend fun getChallengesByCategory(categoryId: String): List<ChallengeDTO>
 
-    @Throws(FetchRemoteFeaturedChallengesException::class)
+    @Throws(FetchRemoteFeaturedChallengesExceptionRemote::class)
     suspend fun getFeaturedChallenges(): List<ChallengeDTO>
 }

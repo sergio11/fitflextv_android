@@ -1,25 +1,25 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsExceptionRemote
 
 interface IWorkoutRemoteDataSource {
 
-    @Throws(FetchRemoteWorkoutsException::class)
+    @Throws(FetchRemoteWorkoutsExceptionRemote::class)
     suspend fun getWorkouts(): List<WorkoutDTO>
 
-    @Throws(FetchRemoteWorkoutByIdException::class)
+    @Throws(FetchRemoteWorkoutByIdExceptionRemote::class)
     suspend fun getWorkoutById(id: String): WorkoutDTO
 
-    @Throws(FetchRemoteWorkoutByIdException::class)
+    @Throws(FetchRemoteWorkoutByIdExceptionRemote::class)
     suspend fun getWorkoutByIdList(idList: List<String>): List<WorkoutDTO>
 
-    @Throws(FetchRemoteWorkoutByCategoryException::class)
+    @Throws(FetchRemoteWorkoutByCategoryExceptionRemote::class)
     suspend fun getWorkoutByCategory(id: String): List<WorkoutDTO>
 
-    @Throws(FetchRemoteFeaturedWorkoutsException::class)
+    @Throws(FetchRemoteFeaturedWorkoutsExceptionRemote::class)
     suspend fun getFeaturedWorkouts(): List<WorkoutDTO>
 }
