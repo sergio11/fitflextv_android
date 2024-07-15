@@ -11,16 +11,19 @@ class SignUpException(message: String? = null, cause: Throwable? = null): DataSo
 class FetchRemoteRoutinesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteRoutineByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteRoutineByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteFeaturedRoutinesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 
 // Series
 class FetchRemoteSeriesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteSeriesByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteSeriesByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteFeaturedSeriesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 
 // Challenges
 class FetchRemoteChallengesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteChallengesByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteChallengesByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteFeaturedChallengesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 
 // Categories
 class FetchRemoteCategoriesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
@@ -30,3 +33,4 @@ class FetchRemoteCategoryByIdException(message: String? = null, cause: Throwable
 class FetchRemoteWorkoutsException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteWorkoutByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteWorkoutByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteFeaturedWorkoutsException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)

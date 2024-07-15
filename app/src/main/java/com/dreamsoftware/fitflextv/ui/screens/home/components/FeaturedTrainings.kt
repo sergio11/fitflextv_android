@@ -59,61 +59,64 @@ import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 internal fun FeaturedTrainings(
-    sessions: List<ITrainingProgramBO>,
+    trainings: List<ITrainingProgramBO>,
     padding: PaddingValues,
     carouselState: CarouselState,
-    onStartSessionCLick: (id: String) -> Unit,
+    onOpenTrainingProgram: (ITrainingProgramBO) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var isCarouselFocused by remember { mutableStateOf(false) }
-    Carousel(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(padding)
-            .conditional(isCarouselFocused, ifTrue = {
-                shadowBox(
-                    color = shadowCarouselColor,
-                    blurRadius = 40.dp,
-                    offset = DpOffset(0.dp, 8.dp),
+    CommonFocusRequester { focusRequester ->
+        Carousel(
+            modifier = modifier
+                .focusRequester(focusRequester)
+                .fillMaxSize()
+                .padding(padding)
+                .conditional(isCarouselFocused, ifTrue = {
+                    shadowBox(
+                        color = shadowCarouselColor,
+                        blurRadius = 40.dp,
+                        offset = DpOffset(0.dp, 8.dp),
+                        shape = MaterialTheme.shapes.extraLarge,
+                    )
+                })
+                .border(
+                    width = 3.dp,
+                    color = MaterialTheme.colorScheme.border.copy(alpha = if (isCarouselFocused) 1f else 0f),
                     shape = MaterialTheme.shapes.extraLarge,
                 )
-            })
-            .border(
-                width = 3.dp,
-                color = MaterialTheme.colorScheme.border.copy(alpha = if (isCarouselFocused) 1f else 0f),
-                shape = MaterialTheme.shapes.extraLarge,
-            )
-            .clip(MaterialTheme.shapes.extraLarge)
-            .onFocusChanged {
-                isCarouselFocused = it.hasFocus
+                .clip(MaterialTheme.shapes.extraLarge)
+                .onFocusChanged {
+                    isCarouselFocused = it.hasFocus
+                },
+            itemCount = trainings.size,
+            carouselState = carouselState,
+            carouselIndicator = {
+                CarouselIndicator(
+                    itemCount = trainings.size,
+                    activeItemIndex = carouselState.activeItemIndex
+                )
             },
-        itemCount = sessions.size,
-        carouselState = carouselState,
-        carouselIndicator = {
-            CarouselIndicator(
-                itemCount = sessions.size,
-                activeItemIndex = carouselState.activeItemIndex
+            contentTransformStartToEnd = fadeIn(tween(durationMillis = 1000)).togetherWith(
+                fadeOut(tween(durationMillis = 1000))
+            ),
+            contentTransformEndToStart = fadeIn(tween(durationMillis = 1000)).togetherWith(
+                fadeOut(tween(durationMillis = 1000))
             )
-        },
-        contentTransformStartToEnd = fadeIn(tween(durationMillis = 1000)).togetherWith(
-            fadeOut(tween(durationMillis = 1000))
-        ),
-        contentTransformEndToStart = fadeIn(tween(durationMillis = 1000)).togetherWith(
-            fadeOut(tween(durationMillis = 1000))
-        )
-    ) { index ->
-        Box(modifier = Modifier.fillMaxSize()) {
-            val session = sessions[index]
-            CarouselItemBackground(
-                modifier = Modifier.fillMaxSize(),
-                trainingProgram = session
-            )
-            CarouselItemForeground(
-                training = session,
-                isCarouselFocused = isCarouselFocused,
-                onCLickStartSession = { onStartSessionCLick(session.id) },
-                modifier = Modifier.align(Alignment.BottomStart)
-            )
+        ) { index ->
+            Box(modifier = Modifier.fillMaxSize()) {
+                val training = trainings[index]
+                CarouselItemBackground(
+                    modifier = Modifier.fillMaxSize(),
+                    trainingProgram = training
+                )
+                CarouselItemForeground(
+                    training = training,
+                    isCarouselFocused = isCarouselFocused,
+                    onOpenTrainingProgram = { onOpenTrainingProgram(training) },
+                    modifier = Modifier.align(Alignment.BottomStart)
+                )
+            }
         }
     }
 }
@@ -146,54 +149,51 @@ private fun BoxScope.CarouselIndicator(
 @Composable
 private fun CarouselItemForeground(
     training: ITrainingProgramBO,
-    onCLickStartSession: () -> Unit,
+    onOpenTrainingProgram: () -> Unit,
     modifier: Modifier = Modifier,
     isCarouselFocused: Boolean = false
 ) {
     with(MaterialTheme.colorScheme) {
-        CommonFocusRequester { focusRequester ->
-            Column(
-                modifier = modifier
-                    .padding(start = 34.dp, bottom = 32.dp)
-                    .width(360.dp),
-                verticalArrangement = Arrangement.Bottom
-            ) {
-                CommonText(
-                    type = CommonTextTypeEnum.LABEL_MEDIUM,
-                    titleText = training.instructorName,
-                    singleLine = true,
-                    textColor = onSurfaceVariant
+        Column(
+            modifier = modifier
+                .padding(start = 34.dp, bottom = 32.dp)
+                .width(360.dp),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            CommonText(
+                type = CommonTextTypeEnum.LABEL_MEDIUM,
+                titleText = training.instructorName,
+                singleLine = true,
+                textColor = onSurfaceVariant
+            )
+            CommonText(
+                modifier = Modifier.padding(top = 4.dp),
+                type = CommonTextTypeEnum.HEADLINE_SMALL,
+                titleText = training.name,
+                singleLine = true,
+                textColor = onSurface
+            )
+            CommonText(
+                modifier = Modifier.padding(top = 12.dp, bottom = 28.dp),
+                type = CommonTextTypeEnum.BODY_SMALL,
+                titleText = training.description,
+                singleLine = true,
+                textColor = onSurfaceVariant,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+            )
+            AnimatedVisibility(visible = isCarouselFocused) {
+                CommonFillButton(
+                    onClick = onOpenTrainingProgram,
+                    text = stringResource(id = R.string.start_session),
+                    icon = R.drawable.play_icon,
+                    iconTint = inverseOnSurface,
+                    buttonColor = ButtonDefaults.colors(
+                        containerColor = inverseSurface,
+                        contentColor = inverseOnSurface,
+                        focusedContentColor = inverseOnSurface,
+                    ),
                 )
-                CommonText(
-                    modifier = Modifier.padding(top = 4.dp),
-                    type = CommonTextTypeEnum.HEADLINE_SMALL,
-                    titleText = training.name,
-                    singleLine = true,
-                    textColor = onSurface
-                )
-                CommonText(
-                    modifier = Modifier.padding(top = 12.dp, bottom = 28.dp),
-                    type = CommonTextTypeEnum.BODY_SMALL,
-                    titleText = training.description,
-                    singleLine = true,
-                    textColor = onSurfaceVariant,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
-                AnimatedVisibility(visible = isCarouselFocused) {
-                    CommonFillButton(
-                        modifier = Modifier.focusRequester(focusRequester),
-                        onClick = onCLickStartSession,
-                        text = stringResource(id = R.string.start_session),
-                        icon = R.drawable.play_icon,
-                        iconTint = inverseOnSurface,
-                        buttonColor = ButtonDefaults.colors(
-                            containerColor = inverseSurface,
-                            contentColor = inverseOnSurface,
-                            focusedContentColor = inverseOnSurface,
-                        ),
-                    )
-                }
             }
         }
     }

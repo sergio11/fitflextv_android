@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsException
@@ -18,4 +19,7 @@ interface IWorkoutRemoteDataSource {
 
     @Throws(FetchRemoteWorkoutByCategoryException::class)
     suspend fun getWorkoutByCategory(id: String): List<WorkoutDTO>
+
+    @Throws(FetchRemoteFeaturedWorkoutsException::class)
+    suspend fun getFeaturedWorkouts(): List<WorkoutDTO>
 }

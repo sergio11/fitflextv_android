@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedSeriesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByCategoryException
@@ -19,6 +20,7 @@ internal class SeriesRemoteDataSourceImpl(
     private companion object {
         const val COLLECTION_NAME = "series"
         const val CATEGORY_FIELD = "category"
+        const val IS_FEATURED_FIELD = "isFeatured"
     }
 
     @Throws(FetchRemoteSeriesException::class)
@@ -55,5 +57,19 @@ internal class SeriesRemoteDataSourceImpl(
         )
     } catch (ex: Exception) {
         throw FetchRemoteSeriesByCategoryException("An error occurred when trying to fetch series by category", ex)
+    }
+
+    @Throws(FetchRemoteFeaturedSeriesException::class)
+    override suspend fun getFeaturedSeries(): List<SeriesDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_FEATURED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> seriesMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchRemoteSeriesByCategoryException("An error occurred when trying to fetch featured series", ex)
     }
 }
