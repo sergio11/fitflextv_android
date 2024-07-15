@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.repository.mapper
 
-import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 

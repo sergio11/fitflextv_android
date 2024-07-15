@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
-import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException

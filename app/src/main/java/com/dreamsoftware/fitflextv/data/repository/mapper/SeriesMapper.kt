@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.repository.mapper
 
-import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO

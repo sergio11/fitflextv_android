@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
-import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeWeaklyPlansDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeWeaklyPlansDTO
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import java.util.Date
 

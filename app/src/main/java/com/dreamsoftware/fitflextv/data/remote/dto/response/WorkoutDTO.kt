@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.data.remote.dto
+package com.dreamsoftware.fitflextv.data.remote.dto.response
 
 import java.util.Date
 

@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.data.repository.mapper
 
-import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeWeaklyPlansBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum

@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.profileselector
+package com.dreamsoftware.fitflextv.ui.screens.profiles
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

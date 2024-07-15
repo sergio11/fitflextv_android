@@ -1,7 +1,9 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
-import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.SignInUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.SignUpUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AuthException
 import com.dreamsoftware.fitflextv.data.remote.exception.SignInException
 import com.dreamsoftware.fitflextv.data.remote.exception.SignUpException
@@ -39,18 +41,12 @@ internal class AuthRemoteDataSourceImpl(
         // Return the UID of the current authenticated user or throw AuthException if no user is authenticated
     }
 
-    /**
-     * Signs in a user with the given email and password.
-     * @param email the email of the user.
-     * @param password the password of the user.
-     * @return an AuthUserDTO representing the authenticated user.
-     * @throws SignInException if an error occurs during the sign-in process.
-     */
+
     @Throws(SignInException::class)
-    override suspend fun signIn(email: String, password: String): AuthUserDTO =
+    override suspend fun signIn(signInUserDTO: SignInUserDTO): AuthUserDTO =
         withContext(Dispatchers.IO) {
             try {
-                firebaseAuth.signInWithEmailAndPassword(email, password)
+                firebaseAuth.signInWithEmailAndPassword(signInUserDTO.email, signInUserDTO.password)
                     .await()?.user?.let { userAuthenticatedMapper.mapInToOut(it) }
                     ?: throw IllegalStateException("Auth user cannot be null")
                 // Map the authenticated user to AuthUserDTO or throw an exception if the user is null
@@ -59,18 +55,11 @@ internal class AuthRemoteDataSourceImpl(
             }
         }
 
-    /**
-     * Signs up a new user with the given email and password.
-     * @param email the email of the new user.
-     * @param password the password of the new user.
-     * @return an AuthUserDTO representing the newly created user.
-     * @throws SignUpException if an error occurs during the sign-up process.
-     */
     @Throws(SignUpException::class)
-    override suspend fun signUp(email: String, password: String): AuthUserDTO =
+    override suspend fun signUp(signUpUserDTO: SignUpUserDTO): AuthUserDTO =
         withContext(Dispatchers.IO) {
             try {
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                firebaseAuth.createUserWithEmailAndPassword(signUpUserDTO.email, signUpUserDTO.password)
                     .await()?.user?.let { userAuthenticatedMapper.mapInToOut(it) }
                     ?: throw IllegalStateException("Auth user cannot be null")
                 // Map the newly created user to AuthUserDTO or throw an exception if the user is null

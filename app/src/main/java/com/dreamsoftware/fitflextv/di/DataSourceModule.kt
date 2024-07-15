@@ -3,25 +3,32 @@ package com.dreamsoftware.fitflextv.di
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.ChallengesRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.ProfilesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.WorkoutRemoteDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileResponseDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.ChallengeRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.CreateProfileRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.UpdateProfileRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.WorkoutRemoteMapper
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
@@ -90,6 +97,22 @@ class DataSourceModule {
     @Provides
     @Singleton
     fun provideChallengeRemoteMapper(): IOneSideMapper<Map<String, Any?>, ChallengeDTO> = ChallengeRemoteMapper()
+
+    /**
+     * Provides a singleton instance of CreateProfileRequestRemoteMapper.
+     * @return a new instance of CreateProfileRequestRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideCreateProfileRequestRemoteMapper(): IOneSideMapper<CreateProfileRequestDTO, Map<String, Any?>> = CreateProfileRequestRemoteMapper()
+
+    /**
+     * Provides a singleton instance of UpdateProfileRequestRemoteMapper.
+     * @return a new instance of UpdateProfileRequestRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideUpdateProfileRequestRemoteMapper(): IOneSideMapper<UpdatedProfileRequestDTO, Map<String, Any?>> = UpdateProfileRequestRemoteMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -181,6 +204,22 @@ class DataSourceModule {
     ): IChallengesRemoteDataSource = ChallengesRemoteDataSourceImpl(
         firestore,
         challengeMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideProfilesRemoteDataSource(
+        firebaseStore: FirebaseFirestore,
+        profilesMapper: IOneSideMapper<Map<String, Any?>, ProfileResponseDTO>,
+        createProfileRequestMapper: IOneSideMapper<CreateProfileRequestDTO, Map<String, Any?>>,
+        updateProfileRequestMapper: IOneSideMapper<UpdatedProfileRequestDTO, Map<String, Any?>>,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IProfilesRemoteDataSource = ProfilesRemoteDataSourceImpl(
+        firebaseStore,
+        profilesMapper,
+        createProfileRequestMapper,
+        updateProfileRequestMapper,
         dispatcher
     )
 }

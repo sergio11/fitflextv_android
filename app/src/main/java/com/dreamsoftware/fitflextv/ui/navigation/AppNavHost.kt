@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.dreamsoftware.fitflextv.ui.screens.onboarding.OnboardingScreen
-import com.dreamsoftware.fitflextv.ui.screens.profileselector.ProfileSelectorScreen
+import com.dreamsoftware.fitflextv.ui.screens.profiles.ProfileSelectorScreen
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreen
 import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreen
 import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo

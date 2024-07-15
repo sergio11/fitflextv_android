@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
-import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedSeriesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesException
