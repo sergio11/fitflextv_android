@@ -41,3 +41,8 @@ class UpdateRemoteProfileException(message: String? = null, cause: Throwable? = 
 class DeleteRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class CreateRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class VerifyRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+
+// Users
+class CreateRemoteUserDetailException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class UpdateRemoteUserDetailException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class FetchRemoteUserDetailException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
