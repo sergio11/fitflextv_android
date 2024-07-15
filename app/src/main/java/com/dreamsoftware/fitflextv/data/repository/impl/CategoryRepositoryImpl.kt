@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
-import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl

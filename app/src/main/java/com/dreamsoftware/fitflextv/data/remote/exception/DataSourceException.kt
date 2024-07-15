@@ -34,3 +34,10 @@ class FetchRemoteWorkoutsException(message: String? = null, cause: Throwable? = 
 class FetchRemoteWorkoutByIdException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteWorkoutByCategoryException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
 class FetchRemoteFeaturedWorkoutsException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+
+// Profiles
+class FetchRemoteProfilesException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class UpdateRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class DeleteRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class CreateRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)
+class VerifyRemoteProfileException(message: String? = null, cause: Throwable? = null): DataSourceException(message, cause)

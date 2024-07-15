@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.profileselector
+package com.dreamsoftware.fitflextv.ui.screens.profiles
 
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase

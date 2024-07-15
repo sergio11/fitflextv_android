@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
-import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import java.util.Date
 

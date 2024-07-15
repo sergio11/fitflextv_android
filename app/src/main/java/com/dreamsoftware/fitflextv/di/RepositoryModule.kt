@@ -5,11 +5,11 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataS
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
-import com.dreamsoftware.fitflextv.data.remote.dto.CategoryDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.RoutineDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.SeriesDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.repository.impl.CategoryRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.InstructorRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.TrainingRepositoryImpl

@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.profileselector
+package com.dreamsoftware.fitflextv.ui.screens.profiles
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

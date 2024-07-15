@@ -1,6 +1,8 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
-import com.dreamsoftware.fitflextv.data.remote.dto.AuthUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.SignInUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.SignUpUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AuthException
 import com.dreamsoftware.fitflextv.data.remote.exception.SignInException
 import com.dreamsoftware.fitflextv.data.remote.exception.SignUpException
@@ -23,25 +25,11 @@ interface IAuthRemoteDataSource {
     @Throws(AuthException::class)
     suspend fun getUserAuthenticatedUid(): String
 
-    /**
-     * Signs in a user with the given email and password.
-     * @param email the email of the user.
-     * @param password the password of the user.
-     * @return an AuthUserDTO representing the authenticated user.
-     * @throws SignInException if an error occurs during the sign-in process.
-     */
     @Throws(SignInException::class)
-    suspend fun signIn(email: String, password: String): AuthUserDTO
+    suspend fun signIn(signInUserDTO: SignInUserDTO): AuthUserDTO
 
-    /**
-     * Signs up a new user with the given email and password.
-     * @param email the email of the new user.
-     * @param password the password of the new user.
-     * @return an AuthUserDTO representing the newly created user.
-     * @throws SignUpException if an error occurs during the sign-up process.
-     */
     @Throws(SignUpException::class)
-    suspend fun signUp(email: String, password: String): AuthUserDTO
+    suspend fun signUp(signUpUserDTO: SignUpUserDTO): AuthUserDTO
 
     /**
      * Signs out the currently authenticated user.
