@@ -3,8 +3,8 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,17 +19,17 @@ internal class CategoryRemoteDataSourceImpl(
         const val COLLECTION_NAME = "categories"
     }
 
-    @Throws(FetchRemoteCategoriesException::class)
+    @Throws(FetchRemoteCategoriesExceptionRemote::class)
     override suspend fun getCategories(): List<CategoryDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).get() },
             mapper = { categoriesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteCategoriesException("An error occurred when trying to fetch categories", ex)
+        throw FetchRemoteCategoriesExceptionRemote("An error occurred when trying to fetch categories", ex)
     }
 
-    @Throws(FetchRemoteCategoryByIdException::class)
+    @Throws(FetchRemoteCategoryByIdExceptionRemote::class)
     override suspend fun getCategoryById(id: String): CategoryDTO = try {
         fetchSingleFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME)
@@ -38,6 +38,6 @@ internal class CategoryRemoteDataSourceImpl(
             mapper = { categoriesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteCategoriesException("An error occurred when trying to fetch categories", ex)
+        throw FetchRemoteCategoriesExceptionRemote("An error occurred when trying to fetch categories", ex)
     }
 }

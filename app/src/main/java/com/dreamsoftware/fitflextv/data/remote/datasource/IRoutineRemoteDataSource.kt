@@ -1,22 +1,22 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedRoutinesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByCategoryException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedRoutinesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByCategoryExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesExceptionRemote
 
 interface IRoutineRemoteDataSource {
 
-    @Throws(FetchRemoteRoutinesException::class)
+    @Throws(FetchRemoteRoutinesExceptionRemote::class)
     suspend fun getRoutines(): List<RoutineDTO>
 
-    @Throws(FetchRemoteRoutineByIdException::class)
+    @Throws(FetchRemoteRoutineByIdExceptionRemote::class)
     suspend fun getRoutineById(id: String): RoutineDTO
 
-    @Throws(FetchRemoteRoutineByCategoryException::class)
+    @Throws(FetchRemoteRoutineByCategoryExceptionRemote::class)
     suspend fun getRoutineByCategory(categoryId: String): List<RoutineDTO>
 
-    @Throws(FetchRemoteFeaturedRoutinesException::class)
+    @Throws(FetchRemoteFeaturedRoutinesExceptionRemote::class)
     suspend fun getFeaturedRoutines(): List<RoutineDTO>
 }

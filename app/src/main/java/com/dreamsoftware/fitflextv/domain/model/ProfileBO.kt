@@ -1,7 +1,9 @@
 package com.dreamsoftware.fitflextv.domain.model
 
 data class ProfileBO(
-    val id: String,
-    val name: String,
-    val avatar: String,
+    val uuid: String,
+    val alias: String,
+    val isAdmin: Boolean,
+    val isSecured: Boolean,
+    val avatarType: AvatarTypeEnum
 )

@@ -3,10 +3,10 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -23,27 +23,27 @@ internal class ChallengesRemoteDataSourceImpl(
         const val IS_FEATURED_FIELD = "isFeatured"
     }
 
-    @Throws(FetchRemoteChallengesException::class)
+    @Throws(FetchRemoteChallengesExceptionRemote::class)
     override suspend fun getChallenges(): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).get() },
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesException("An error occurred when trying to fetch challenges", ex)
+        throw FetchRemoteChallengesExceptionRemote("An error occurred when trying to fetch challenges", ex)
     }
 
-    @Throws(FetchRemoteChallengesByIdException::class)
+    @Throws(FetchRemoteChallengesByIdExceptionRemote::class)
     override suspend fun getChallengeById(id: String): ChallengeDTO = try {
         fetchSingleFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).document(id).get() },
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesByIdException("An error occurred when trying to fetch the challenge with ID $id", ex)
+        throw FetchRemoteChallengesByIdExceptionRemote("An error occurred when trying to fetch the challenge with ID $id", ex)
     }
 
-    @Throws(FetchRemoteChallengesByCategoryException::class)
+    @Throws(FetchRemoteChallengesByCategoryExceptionRemote::class)
     override suspend fun getChallengesByCategory(categoryId: String): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -54,10 +54,10 @@ internal class ChallengesRemoteDataSourceImpl(
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesByCategoryException("An error occurred when trying to fetch challenges by category", ex)
+        throw FetchRemoteChallengesByCategoryExceptionRemote("An error occurred when trying to fetch challenges by category", ex)
     }
 
-    @Throws(FetchRemoteFeaturedChallengesException::class)
+    @Throws(FetchRemoteFeaturedChallengesExceptionRemote::class)
     override suspend fun getFeaturedChallenges(): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -68,6 +68,6 @@ internal class ChallengesRemoteDataSourceImpl(
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteFeaturedChallengesException("An error occurred when trying to fetch featured challenges", ex)
+        throw FetchRemoteFeaturedChallengesExceptionRemote("An error occurred when trying to fetch featured challenges", ex)
     }
 }

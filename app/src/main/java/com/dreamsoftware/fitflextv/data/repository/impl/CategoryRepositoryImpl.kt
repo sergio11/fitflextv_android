@@ -2,8 +2,8 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdExceptionRemote
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.FetchCategoriesException
 import com.dreamsoftware.fitflextv.domain.exception.FetchCategoryByIdException
@@ -25,7 +25,7 @@ internal class CategoryRepositoryImpl(
                 .getCategories()
                 .let(categoryMapper::mapInListToOutList)
                 .toList()
-        } catch (ex: FetchRemoteCategoriesException) {
+        } catch (ex: FetchRemoteCategoriesExceptionRemote) {
             throw FetchCategoriesException("An error occurred when fetching categories", ex)
         }
     }
@@ -36,7 +36,7 @@ internal class CategoryRepositoryImpl(
             categoryRemoteDataSource
                 .getCategoryById(id)
                 .let(categoryMapper::mapInToOut)
-        } catch (ex: FetchRemoteCategoryByIdException) {
+        } catch (ex: FetchRemoteCategoryByIdExceptionRemote) {
             throw FetchCategoryByIdException("An error occurred when fetching category by $id", ex)
         }
     }

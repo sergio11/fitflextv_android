@@ -3,10 +3,10 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedWorkoutsExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByCategoryExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,27 +24,27 @@ internal class WorkoutRemoteDataSourceImpl(
         const val IS_FEATURED_FIELD = "isFeatured"
     }
 
-    @Throws(FetchRemoteWorkoutsException::class)
+    @Throws(FetchRemoteWorkoutsExceptionRemote::class)
     override suspend fun getWorkouts(): List<WorkoutDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).get() },
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutsException("An error occurred when trying to fetch workouts", ex)
+        throw FetchRemoteWorkoutsExceptionRemote("An error occurred when trying to fetch workouts", ex)
     }
 
-    @Throws(FetchRemoteWorkoutByIdException::class)
+    @Throws(FetchRemoteWorkoutByIdExceptionRemote::class)
     override suspend fun getWorkoutById(id: String): WorkoutDTO = try {
         fetchSingleFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).document(id).get() },
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutByIdException("An error occurred when trying to fetch the workout with ID $id", ex)
+        throw FetchRemoteWorkoutByIdExceptionRemote("An error occurred when trying to fetch the workout with ID $id", ex)
     }
 
-    @Throws(FetchRemoteWorkoutByIdException::class)
+    @Throws(FetchRemoteWorkoutByIdExceptionRemote::class)
     override suspend fun getWorkoutByIdList(idList: List<String>): List<WorkoutDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -55,10 +55,10 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutByIdException("An error occurred when trying to fetch workouts by ID list", ex)
+        throw FetchRemoteWorkoutByIdExceptionRemote("An error occurred when trying to fetch workouts by ID list", ex)
     }
 
-    @Throws(FetchRemoteWorkoutByCategoryException::class)
+    @Throws(FetchRemoteWorkoutByCategoryExceptionRemote::class)
     override suspend fun getWorkoutByCategory(id: String): List<WorkoutDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -69,10 +69,10 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutByCategoryException("An error occurred when trying to fetch workouts by category", ex)
+        throw FetchRemoteWorkoutByCategoryExceptionRemote("An error occurred when trying to fetch workouts by category", ex)
     }
 
-    @Throws(FetchRemoteFeaturedWorkoutsException::class)
+    @Throws(FetchRemoteFeaturedWorkoutsExceptionRemote::class)
     override suspend fun getFeaturedWorkouts(): List<WorkoutDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -83,6 +83,6 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteFeaturedWorkoutsException("An error occurred when trying to fetch featured workouts", ex)
+        throw FetchRemoteFeaturedWorkoutsExceptionRemote("An error occurred when trying to fetch featured workouts", ex)
     }
 }

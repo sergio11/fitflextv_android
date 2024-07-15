@@ -5,10 +5,10 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireS
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteUserDetailException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailException
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailException
+import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteUserDetailExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,7 +28,7 @@ internal class UserRemoteDataSourceImpl(
         const val COLLECTION_NAME = "users"
     }
 
-    @Throws(CreateRemoteUserDetailException::class)
+    @Throws(CreateRemoteUserDetailExceptionRemote::class)
     override suspend fun create(data: CreateUserDTO): UserResponseDTO = try {
         withContext(dispatcher) {
             val userData = createUserRequestMapper.mapInToOut(data)
@@ -40,17 +40,17 @@ internal class UserRemoteDataSourceImpl(
                 .document(data.uid)
                 .get()
                 .await()
-            usersMapper.mapInToOut(document.data ?: throw CreateRemoteUserDetailException("User data is null"))
+            usersMapper.mapInToOut(document.data ?: throw CreateRemoteUserDetailExceptionRemote("User data is null"))
         }
     } catch (ex: Exception) {
-        throw CreateRemoteUserDetailException("An error occurred when trying to create the user", ex)
+        throw CreateRemoteUserDetailExceptionRemote("An error occurred when trying to create the user", ex)
     }
 
-    @Throws(UpdateRemoteUserDetailException::class)
+    @Throws(UpdateRemoteUserDetailExceptionRemote::class)
     override suspend fun update(data: UpdatedUserRequestDTO): UserResponseDTO = try {
         withContext(dispatcher) {
             val updates = updatedUserRequestMapper.mapInToOut(data)
-            val uid = updates["uid"] as? String ?: throw UpdateRemoteUserDetailException("User ID is required")
+            val uid = updates["uid"] as? String ?: throw UpdateRemoteUserDetailExceptionRemote("User ID is required")
             firebaseStore.collection(COLLECTION_NAME)
                 .document(uid)
                 .update(updates)
@@ -59,13 +59,13 @@ internal class UserRemoteDataSourceImpl(
                 .document(uid)
                 .get()
                 .await()
-            usersMapper.mapInToOut(document.data ?: throw UpdateRemoteUserDetailException("User data is null"))
+            usersMapper.mapInToOut(document.data ?: throw UpdateRemoteUserDetailExceptionRemote("User data is null"))
         }
     } catch (ex: Exception) {
-        throw UpdateRemoteUserDetailException("An error occurred when trying to update the user", ex)
+        throw UpdateRemoteUserDetailExceptionRemote("An error occurred when trying to update the user", ex)
     }
 
-    @Throws(FetchRemoteUserDetailException::class)
+    @Throws(FetchRemoteUserDetailExceptionRemote::class)
     override suspend fun getDetailById(id: String): UserResponseDTO = try {
         fetchSingleFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME)
@@ -74,6 +74,6 @@ internal class UserRemoteDataSourceImpl(
             mapper = { usersMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByIdException("An error occurred when trying to fetch the users with ID $id", ex)
+        throw FetchRemoteRoutineByIdExceptionRemote("An error occurred when trying to fetch the users with ID $id", ex)
     }
 }

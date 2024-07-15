@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.profiles
 
+import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
@@ -35,9 +36,9 @@ class ProfileSelectorViewModel @Inject constructor(
 
     private fun ProfileBO.toProfileUiState() =
         ProfileVO(
-            id = id,
-            name = name,
-            avatar = avatar
+            id = uuid,
+            name = alias,
+            avatar = avatarType
         )
 }
 
@@ -56,7 +57,7 @@ data class ProfileSelectorUiState(
 data class ProfileVO(
     val id: String,
     val name: String,
-    val avatar: String,
+    val avatar: AvatarTypeEnum,
 )
 
 sealed interface ProfileSelectorSideEffects: SideEffect

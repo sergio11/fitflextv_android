@@ -13,3 +13,13 @@ class FetchFeaturedTrainingsException(message: String? = null, cause: Throwable?
 // Categories
 class FetchCategoriesException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchCategoryByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
+//Profiles
+class FetchProfilesByUserException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class UpdateProfileException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class DeleteProfileException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class CreateProfileException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class VerifyPinException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class SelectProfileException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class GetProfileByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class GetProfileSelectedException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

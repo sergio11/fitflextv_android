@@ -23,7 +23,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileResponseDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
@@ -243,7 +243,7 @@ class DataSourceModule {
     @Singleton
     fun provideProfilesRemoteDataSource(
         firebaseStore: FirebaseFirestore,
-        profilesMapper: IOneSideMapper<Map<String, Any?>, ProfileResponseDTO>,
+        profilesMapper: IOneSideMapper<Map<String, Any?>, ProfileDTO>,
         createProfileRequestMapper: IOneSideMapper<CreateProfileRequestDTO, Map<String, Any?>>,
         updateProfileRequestMapper: IOneSideMapper<UpdatedProfileRequestDTO, Map<String, Any?>>,
         @IoDispatcher dispatcher: CoroutineDispatcher
