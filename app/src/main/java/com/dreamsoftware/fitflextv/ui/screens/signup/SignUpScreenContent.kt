@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -32,6 +33,7 @@ import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFullScreenImage
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
@@ -207,29 +209,32 @@ private fun UserInfoFormColumn(
     onEmailChanged: (String) -> Unit
 ) {
     with(uiState) {
-        FormColumn(modifier = modifier) {
-            CommonTextField(
-                icon = Icons.Filled.Person,
-                value = firstName,
-                labelRes = R.string.sign_up_form_first_name_label_text,
-                errorMessage = firstNameError,
-                onValueChange = onFirstNameChanged
-            )
-            CommonTextField(
-                icon = Icons.Filled.PersonOutline,
-                value = lastName,
-                labelRes = R.string.sign_up_form_surname_label_text,
-                errorMessage = lastNameError,
-                onValueChange = onLastNameChanged
-            )
-            CommonTextField(
-                icon = Icons.Filled.Email,
-                value = email,
-                type = CommonTextFieldTypeEnum.EMAIL,
-                labelRes = R.string.sign_up_form_email_label_text,
-                errorMessage = emailError,
-                onValueChange = onEmailChanged
-            )
+        CommonFocusRequester { focusRequester ->
+            FormColumn(modifier = modifier) {
+                CommonTextField(
+                    modifier = Modifier.focusRequester(focusRequester),
+                    icon = Icons.Filled.Person,
+                    value = firstName,
+                    labelRes = R.string.sign_up_form_first_name_label_text,
+                    errorMessage = firstNameError,
+                    onValueChange = onFirstNameChanged
+                )
+                CommonTextField(
+                    icon = Icons.Filled.PersonOutline,
+                    value = lastName,
+                    labelRes = R.string.sign_up_form_surname_label_text,
+                    errorMessage = lastNameError,
+                    onValueChange = onLastNameChanged
+                )
+                CommonTextField(
+                    icon = Icons.Filled.Email,
+                    value = email,
+                    type = CommonTextFieldTypeEnum.EMAIL,
+                    labelRes = R.string.sign_up_form_email_label_text,
+                    errorMessage = emailError,
+                    onValueChange = onEmailChanged
+                )
+            }
         }
     }
 }

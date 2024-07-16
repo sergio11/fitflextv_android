@@ -88,7 +88,7 @@ private fun CommonDialogUI(
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_instructor),
+                    painter = painterResource(id = R.drawable.main_logo_inverse),
                     contentDescription = null, // decorative
                     modifier = Modifier
                         .padding(top = 10.dp)
