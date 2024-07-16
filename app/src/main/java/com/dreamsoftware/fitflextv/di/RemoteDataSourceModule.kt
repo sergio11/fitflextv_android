@@ -55,7 +55,7 @@ import javax.inject.Singleton
 // Dagger module for providing Firebase-related dependencies
 @Module
 @InstallIn(SingletonComponent::class)
-class DataSourceModule {
+class RemoteDataSourceModule {
 
     /**
      * Provides a singleton instance of UserAuthenticatedMapper.

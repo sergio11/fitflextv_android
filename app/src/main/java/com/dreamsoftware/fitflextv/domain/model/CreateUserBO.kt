@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.domain.model
 
-data class SaveUserBO(
+data class CreateUserBO(
     val username: String,
     val password: String,
     val email: String,
