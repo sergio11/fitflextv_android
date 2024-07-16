@@ -18,6 +18,7 @@ import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
 import com.dreamsoftware.fitflextv.domain.exception.UpdateUserDetailException
+import com.dreamsoftware.fitflextv.domain.exception.VerifySessionException
 import com.dreamsoftware.fitflextv.domain.model.CreateUserBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
@@ -62,6 +63,15 @@ internal class UserRepositoryImpl(
             authRemoteDataSource.closeSession()
         } catch (ex: AuthExceptionRemote) {
             throw SignOffException("An error occurred when trying to sign off user", ex)
+        }
+    }
+
+    @Throws(VerifySessionException::class)
+    override suspend fun hasSession(): Boolean = safeExecute {
+        try {
+            authRemoteDataSource.hasActiveSession()
+        } catch (ex: AuthExceptionRemote) {
+            throw SignOffException("An error occurred when trying to check auth state", ex)
         }
     }
 
