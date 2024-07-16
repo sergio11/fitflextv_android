@@ -23,3 +23,10 @@ class VerifyPinException(message: String? = null, cause: Throwable? = null): Dom
 class SelectProfileException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetProfileByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetProfileSelectedException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
+// Users
+class SignInException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class SignUpException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class SignOffException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class GetUserDetailException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class UpdateUserDetailException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

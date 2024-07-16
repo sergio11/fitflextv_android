@@ -73,7 +73,7 @@ internal class ProfilesRepositoryImpl(
             profilesRemoteDataSource
                 .deleteProfile(profileId)
         } catch (ex: DeleteRemoteProfileExceptionRemote) {
-            throw DeleteProfileException("An error occurred when deleting the profile", ex)
+            throw DeleteProfileException("An error occurred when deleting profile", ex)
         }
     }
 

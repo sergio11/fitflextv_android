@@ -1,6 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.signin
 
-import com.dreamsoftware.fitflextv.domain.model.AuthenticationBO
+import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
@@ -36,12 +36,12 @@ class SignInViewModel @Inject constructor(
         updateState { it.copy(password = newPassword,) }
     }
 
-    private fun onSignInSuccessfully(authenticationBO: AuthenticationBO) {
-        launchSideEffect(if(authenticationBO.profilesCount > 0) {
+    private fun onSignInSuccessfully(userDetail: UserDetailBO) {
+        /*launchSideEffect(if(authenticationBO.profilesCount > 0) {
             SignInSideEffects.ProfileSelectionRequired
         } else {
             SignInSideEffects.AuthenticationSuccessfully
-        })
+        })*/
     }
 
     private fun onMapExceptionToState(ex: Exception, uiState: SignInUiState) =
