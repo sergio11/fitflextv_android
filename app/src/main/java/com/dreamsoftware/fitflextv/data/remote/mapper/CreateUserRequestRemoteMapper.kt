@@ -6,7 +6,7 @@ import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 internal class CreateUserRequestRemoteMapper: IOneSideMapper<CreateUserDTO, Map<String, Any?>> {
 
     private companion object {
-        const val UID_KEY = "uid"
+        const val UUID_KEY = "uuid"
         const val EMAIL_KEY = "email"
         const val USERNAME_KEY = "username"
         const val FIRST_NAME_KEY = "firstName"
@@ -15,7 +15,7 @@ internal class CreateUserRequestRemoteMapper: IOneSideMapper<CreateUserDTO, Map<
 
     override fun mapInToOut(input: CreateUserDTO): Map<String, Any?> = with(input) {
         mapOf(
-            UID_KEY to uid,
+            UUID_KEY to uid,
             EMAIL_KEY to email,
             USERNAME_KEY to username,
             FIRST_NAME_KEY to firstName,

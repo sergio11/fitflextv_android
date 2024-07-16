@@ -68,4 +68,4 @@ sealed interface SignInSideEffects: SideEffect {
 }
 
 private const val DEMO_USER_EMAIL = "ssanchez@yopmail.com"
-private const val DEMO_USER_PASSWORD = "PasswOrd!11"
+private const val DEMO_USER_PASSWORD = "Passw0rd!11"
