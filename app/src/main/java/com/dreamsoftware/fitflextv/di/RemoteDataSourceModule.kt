@@ -32,6 +32,7 @@ import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.ChallengeRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateProfileRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateUserRequestRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.ProfileRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UpdateProfileRequestRemoteMapper
@@ -145,6 +146,14 @@ class RemoteDataSourceModule {
     @Provides
     @Singleton
     fun provideCreateUserRequestRemoteMapper(): IOneSideMapper<CreateUserDTO, Map<String, Any?>> = CreateUserRequestRemoteMapper()
+
+    /**
+     * Provides a singleton instance of ProfileRemoteMapper.
+     * @return a new instance of ProfileRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideProfileRemoteMapper(): IOneSideMapper<Map<String, Any?>, ProfileDTO> = ProfileRemoteMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.

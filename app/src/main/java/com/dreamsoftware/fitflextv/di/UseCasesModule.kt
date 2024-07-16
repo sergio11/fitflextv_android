@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
+import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
@@ -30,10 +31,12 @@ class UseCasesModule {
     @Provides
     @ViewModelScoped
     fun provideGetUserProfilesUseCase(
-        userRepository: IUserRepository
+        userRepository: IUserRepository,
+        profilesRepository: IProfilesRepository
     ): GetUserProfilesUseCase =
         GetUserProfilesUseCase(
-            userRepository = userRepository
+            userRepository = userRepository,
+            profilesRepository = profilesRepository
         )
 
     @Provides
@@ -92,13 +95,13 @@ class UseCasesModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSignInUseCase(): SignInUseCase =
-        SignInUseCase()
+    fun provideSignInUseCase(userRepository: IUserRepository): SignInUseCase =
+        SignInUseCase(userRepository = userRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideSignUpUseCase(): SignUpUseCase =
-        SignUpUseCase()
+    fun provideSignUpUseCase(userRepository: IUserRepository): SignUpUseCase =
+        SignUpUseCase(userRepository = userRepository)
 
 
     @Provides

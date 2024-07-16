@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.domain.repository
 
+import com.dreamsoftware.fitflextv.domain.exception.GetUserAuthenticatedUidException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserDetailException
 import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
@@ -23,6 +24,9 @@ interface IUserRepository {
 
     @Throws(GetUserDetailException::class)
     suspend fun getDetail(): UserDetailBO
+
+    @Throws(GetUserAuthenticatedUidException::class)
+    suspend fun getAuthenticatedUid(): String
 
     @Throws(UpdateUserDetailException::class)
     suspend fun updateDetail(data: UpdatedUserRequestBO): UserDetailBO
