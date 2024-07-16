@@ -28,6 +28,7 @@ class GetProfileSelectedException(message: String? = null, cause: Throwable? = n
 class SignInException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class SignUpException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class SignOffException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class VerifySessionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetUserDetailException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetUserAuthenticatedUidException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class UpdateUserDetailException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

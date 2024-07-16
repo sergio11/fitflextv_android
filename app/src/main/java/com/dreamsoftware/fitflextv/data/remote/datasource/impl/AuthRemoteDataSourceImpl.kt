@@ -22,9 +22,9 @@ internal class AuthRemoteDataSourceImpl(
 
 
     @Throws(AuthExceptionRemote::class)
-    override suspend fun getCurrentAuthenticatedUser(): AuthUserDTO = withContext(Dispatchers.IO) {
+    override suspend fun hasActiveSession(): Boolean = withContext(Dispatchers.IO) {
         try {
-            firebaseAuth.currentUser?.let { userAuthenticatedMapper.mapInToOut(it) } ?: throw IllegalStateException("Auth user cannot be null") // Return true if there is a current authenticated user
+            firebaseAuth.currentUser != null
         } catch (ex: Exception) {
             throw AuthExceptionRemote("An error occurred when trying to check auth state", ex) // Throw AuthException if an error occurs
         }

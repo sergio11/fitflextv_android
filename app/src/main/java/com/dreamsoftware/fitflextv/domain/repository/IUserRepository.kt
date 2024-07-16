@@ -6,6 +6,7 @@ import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
 import com.dreamsoftware.fitflextv.domain.exception.UpdateUserDetailException
+import com.dreamsoftware.fitflextv.domain.exception.VerifySessionException
 import com.dreamsoftware.fitflextv.domain.model.CreateUserBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
@@ -21,6 +22,9 @@ interface IUserRepository {
 
     @Throws(SignOffException::class)
     suspend fun signOff()
+
+    @Throws(VerifySessionException::class)
+    suspend fun hasSession(): Boolean
 
     @Throws(GetUserDetailException::class)
     suspend fun getDetail(): UserDetailBO

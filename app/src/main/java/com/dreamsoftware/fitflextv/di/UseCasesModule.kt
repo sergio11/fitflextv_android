@@ -10,14 +10,22 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetProfileSelectedUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByCategoryUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetUserDetailUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.VerifyPinUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.VerifyUserSessionUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -139,5 +147,83 @@ class UseCasesModule {
     ): GetCategoryByIdUseCase =
         GetCategoryByIdUseCase(
             categoryRepository = categoryRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetUserDetailUseCase(
+        userRepository: IUserRepository
+    ): GetUserDetailUseCase =
+        GetUserDetailUseCase(
+            userRepository = userRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetProfilesUseCase(
+        userRepository: IUserRepository,
+        profilesRepository: IProfilesRepository
+    ): GetProfilesUseCase =
+        GetProfilesUseCase(
+            userRepository = userRepository,
+            profilesRepository = profilesRepository
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideSelectProfileUseCase(
+        profilesRepository: IProfilesRepository
+    ): SelectProfileUseCase =
+        SelectProfileUseCase(
+            profilesRepository = profilesRepository
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetProfileSelectedUseCase(
+        userRepository: IUserRepository,
+        profilesRepository: IProfilesRepository
+    ): GetProfileSelectedUseCase =
+        GetProfileSelectedUseCase(
+            userRepository = userRepository,
+            profilesRepository = profilesRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetProfileByIdUseCase(
+        profilesRepository: IProfilesRepository
+    ): GetProfileByIdUseCase =
+        GetProfileByIdUseCase(
+            profilesRepository = profilesRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideSignOffUseCase(
+        userRepository: IUserRepository
+    ): SignOffUseCase =
+        SignOffUseCase(
+            userRepository = userRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideVerifyPinUseCase(
+        profilesRepository: IProfilesRepository
+    ): VerifyPinUseCase =
+        VerifyPinUseCase(
+            profilesRepository = profilesRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideVerifyUserSessionUseCase(
+        userRepository: IUserRepository
+    ): VerifyUserSessionUseCase =
+        VerifyUserSessionUseCase(
+            userRepository = userRepository
         )
 }

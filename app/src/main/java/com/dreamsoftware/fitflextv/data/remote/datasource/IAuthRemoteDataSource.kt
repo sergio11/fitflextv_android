@@ -15,7 +15,7 @@ interface IAuthRemoteDataSource {
 
 
     @Throws(AuthExceptionRemote::class)
-    suspend fun getCurrentAuthenticatedUser(): AuthUserDTO
+    suspend fun hasActiveSession(): Boolean
 
     /**
      * Gets the UID of the authenticated user.
