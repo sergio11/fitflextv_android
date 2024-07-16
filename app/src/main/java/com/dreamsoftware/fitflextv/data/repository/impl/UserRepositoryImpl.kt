@@ -12,6 +12,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailEx
 import com.dreamsoftware.fitflextv.data.remote.exception.SignInExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailExceptionRemote
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
+import com.dreamsoftware.fitflextv.domain.exception.GetUserAuthenticatedUidException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserDetailException
 import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
@@ -71,6 +72,15 @@ internal class UserRepositoryImpl(
                 .let(userDetailMapper::mapInToOut)
         } catch (ex: FetchRemoteUserDetailExceptionRemote) {
             throw GetUserDetailException("An error occurred when trying to get user detail", ex)
+        }
+    }
+
+    @Throws(GetUserAuthenticatedUidException::class)
+    override suspend fun getAuthenticatedUid(): String = safeExecute {
+        try {
+            authRemoteDataSource.getUserAuthenticatedUid()
+        } catch (ex: AuthExceptionRemote) {
+            throw GetUserAuthenticatedUidException("An error occurred when trying to get user auth uid", ex)
         }
     }
 
