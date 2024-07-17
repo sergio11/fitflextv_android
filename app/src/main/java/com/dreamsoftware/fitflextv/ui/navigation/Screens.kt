@@ -6,9 +6,11 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.profiles.secure.SecurePinScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreenArgs
 
 sealed class Screens(
@@ -26,6 +28,48 @@ sealed class Screens(
     data object Dashboard: Screens(route = "dashboard", name = "Dashboard")
     data object Subscription: Screens(route = "subscription", name = "Subscription")
     data object ProfileSelector: Screens(route = "profile_selector", name = "ProfileSelector")
+    data object ProfilesManagement: Screens(route = "profile_management", name = "ProfilesManagement")
+    data object AddProfile: Screens(route = "add_profile", name = "AddProfile")
+    data object EditProfile: Screens(route = "edit_profile/{id}", name = "EditProfile", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): VideoPlayerScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
+                    VideoPlayerScreenArgs(
+                        id = id,
+                        type = type
+                    )
+                }
+            }
+        }
+    }
+    data object UnlockProfile: Screens(route = "unlock_profile/{id}", name = "UnlockProfile", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): SecurePinScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                SecurePinScreenArgs(id)
+            }
+        }
+    }
+
     data object Home: Screens(route = "home", name = "Home", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.home)
     data object Training: Screens(route = "training", name = "Training", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.fitness_center)
     data object Favorite: Screens(route = "favorite", name = "Favorite", isNavigationDrawerItem = true, navigationDrawerIcon = R.drawable.favorite)
