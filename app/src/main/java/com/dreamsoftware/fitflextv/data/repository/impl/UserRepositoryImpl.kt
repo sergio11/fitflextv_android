@@ -19,7 +19,8 @@ import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
 import com.dreamsoftware.fitflextv.domain.exception.UpdateUserDetailException
 import com.dreamsoftware.fitflextv.domain.exception.VerifySessionException
-import com.dreamsoftware.fitflextv.domain.model.CreateUserBO
+import com.dreamsoftware.fitflextv.domain.model.SignInBO
+import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
@@ -31,14 +32,14 @@ internal class UserRepositoryImpl(
     private val authRemoteDataSource: IAuthRemoteDataSource,
     private val userDetailMapper: IOneSideMapper<UserResponseDTO, UserDetailBO>,
     private val updatedUserRequestMapper: IOneSideMapper<UpdatedUserRequestBO, UpdatedUserRequestDTO>,
-    private val createUserMapper: IOneSideMapper<CreateUserBO, CreateUserDTO>,
+    private val createUserMapper: IOneSideMapper<SignUpBO, CreateUserDTO>,
     dispatcher: CoroutineDispatcher
 ) : SupportRepositoryImpl(dispatcher), IUserRepository {
 
     @Throws(SignInException::class)
-    override suspend fun signIn(email: String, password: String): UserDetailBO = safeExecute {
+    override suspend fun signIn(data: SignInBO): UserDetailBO = safeExecute {
         try {
-            authRemoteDataSource.signIn(SignInUserDTO(email, password))
+            authRemoteDataSource.signIn(SignInUserDTO(data.email, data.password))
                 .let { userRemoteDataSource.getDetailById(it.uid) }
                 .let(userDetailMapper::mapInToOut)
         } catch (ex: SignInExceptionRemote) {
@@ -47,7 +48,7 @@ internal class UserRepositoryImpl(
     }
 
     @Throws(SignUpException::class)
-    override suspend fun signUp(user: CreateUserBO): UserDetailBO = safeExecute {
+    override suspend fun signUp(user: SignUpBO): UserDetailBO = safeExecute {
         try {
             authRemoteDataSource.signUp(SignUpUserDTO(user.email, user.password))
                 .let { userRemoteDataSource.create(createUserMapper.mapInToOut(user).copy(uid = it.uid)) }

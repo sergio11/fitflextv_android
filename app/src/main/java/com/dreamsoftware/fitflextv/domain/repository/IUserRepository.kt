@@ -7,7 +7,8 @@ import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
 import com.dreamsoftware.fitflextv.domain.exception.UpdateUserDetailException
 import com.dreamsoftware.fitflextv.domain.exception.VerifySessionException
-import com.dreamsoftware.fitflextv.domain.model.CreateUserBO
+import com.dreamsoftware.fitflextv.domain.model.SignInBO
+import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import kotlin.jvm.Throws
@@ -15,10 +16,10 @@ import kotlin.jvm.Throws
 interface IUserRepository {
 
     @Throws(SignInException::class)
-    suspend fun signIn(email: String, password: String): UserDetailBO
+    suspend fun signIn(data: SignInBO): UserDetailBO
 
     @Throws(SignUpException::class)
-    suspend fun signUp(user: CreateUserBO): UserDetailBO
+    suspend fun signUp(user: SignUpBO): UserDetailBO
 
     @Throws(SignOffException::class)
     suspend fun signOff()

@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.di
 
+import com.dreamsoftware.fitflextv.domain.model.SignInBO
+import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
@@ -26,6 +28,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyPinUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyUserSessionUseCase
+import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -103,13 +106,25 @@ class UseCasesModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSignInUseCase(userRepository: IUserRepository): SignInUseCase =
-        SignInUseCase(userRepository = userRepository)
+    fun provideSignInUseCase(
+        userRepository: IUserRepository,
+        validator: IBusinessEntityValidator<SignInBO>
+    ): SignInUseCase =
+        SignInUseCase(
+            userRepository = userRepository,
+            validator = validator
+        )
 
     @Provides
     @ViewModelScoped
-    fun provideSignUpUseCase(userRepository: IUserRepository): SignUpUseCase =
-        SignUpUseCase(userRepository = userRepository)
+    fun provideSignUpUseCase(
+        userRepository: IUserRepository,
+        validator: IBusinessEntityValidator<SignUpBO>
+    ): SignUpUseCase =
+        SignUpUseCase(
+            userRepository = userRepository,
+            validator = validator
+        )
 
 
     @Provides

@@ -21,3 +21,11 @@ annotation class MainImmediateDispatcher
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ApplicationScope
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SignUpScreenErrorMapper
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SignInScreenErrorMapper

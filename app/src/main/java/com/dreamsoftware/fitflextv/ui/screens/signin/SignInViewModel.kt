@@ -1,8 +1,10 @@
 package com.dreamsoftware.fitflextv.ui.screens.signin
 
+import com.dreamsoftware.fitflextv.di.SignInScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
@@ -12,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
+    @SignInScreenErrorMapper private val errorMapper: IErrorMapper
 ): BaseViewModel<SignInUiState, SignInSideEffects>() {
 
     override fun onGetDefaultState(): SignInUiState = SignInUiState()
@@ -46,7 +49,8 @@ class SignInViewModel @Inject constructor(
 
     private fun onMapExceptionToState(ex: Exception, uiState: SignInUiState) =
         uiState.copy(
-            errorMessage = null
+            isLoading = false,
+            errorMessage = errorMapper.mapToMessage(ex)
         )
 }
 

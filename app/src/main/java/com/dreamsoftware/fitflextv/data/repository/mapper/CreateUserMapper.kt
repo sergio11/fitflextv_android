@@ -1,13 +1,13 @@
 package com.dreamsoftware.fitflextv.data.repository.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
-import com.dreamsoftware.fitflextv.domain.model.CreateUserBO
+import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 
-internal class CreateUserMapper : IOneSideMapper<CreateUserBO, CreateUserDTO> {
+internal class CreateUserMapper : IOneSideMapper<SignUpBO, CreateUserDTO> {
 
-    override fun mapInToOut(input: CreateUserBO): CreateUserDTO = with(input) {
+    override fun mapInToOut(input: SignUpBO): CreateUserDTO = with(input) {
         CreateUserDTO(
             uid = String.EMPTY,
             email = email,
@@ -17,6 +17,6 @@ internal class CreateUserMapper : IOneSideMapper<CreateUserBO, CreateUserDTO> {
         )
     }
 
-    override fun mapInListToOutList(input: Iterable<CreateUserBO>): Iterable<CreateUserDTO> =
+    override fun mapInListToOutList(input: Iterable<SignUpBO>): Iterable<CreateUserDTO> =
         input.map(::mapInToOut)
 }
