@@ -1,13 +1,17 @@
 package com.dreamsoftware.fitflextv.di
 
 import android.content.Context
+import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.SignInBO
 import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
+import com.dreamsoftware.fitflextv.domain.validation.ICreateProfileRequestValidatorMessagesResolver
 import com.dreamsoftware.fitflextv.domain.validation.ISignInValidationMessagesResolver
 import com.dreamsoftware.fitflextv.domain.validation.ISignUpValidationMessagesResolver
+import com.dreamsoftware.fitflextv.domain.validation.impl.CreateProfileRequestValidatorImpl
 import com.dreamsoftware.fitflextv.domain.validation.impl.SignInValidatorImpl
 import com.dreamsoftware.fitflextv.domain.validation.impl.SignUpValidatorImpl
+import com.dreamsoftware.fitflextv.ui.validation.CreateProfileRequestValidatorMessagesResolverImpl
 import com.dreamsoftware.fitflextv.ui.validation.SignInValidationMessagesResolverImpl
 import com.dreamsoftware.fitflextv.ui.validation.SignUpValidationMessagesResolverImpl
 import dagger.Module
@@ -35,6 +39,12 @@ class ValidatorModule {
 
     @Provides
     @ViewModelScoped
+    fun provideCreateProfileRequestValidatorMessagesResolver(
+        @ApplicationContext context: Context
+    ): ICreateProfileRequestValidatorMessagesResolver = CreateProfileRequestValidatorMessagesResolverImpl(context)
+
+    @Provides
+    @ViewModelScoped
     fun provideSignUpValidator(
         messagesResolver: ISignUpValidationMessagesResolver
     ): IBusinessEntityValidator<SignUpBO> = SignUpValidatorImpl(messagesResolver)
@@ -44,4 +54,10 @@ class ValidatorModule {
     fun provideSignInValidator(
         messagesResolver: ISignInValidationMessagesResolver
     ): IBusinessEntityValidator<SignInBO> = SignInValidatorImpl(messagesResolver)
+
+    @Provides
+    @ViewModelScoped
+    fun provideCreateProfileRequestValidator(
+        messagesResolver: ICreateProfileRequestValidatorMessagesResolver
+    ): IBusinessEntityValidator<CreateProfileRequestBO> = CreateProfileRequestValidatorImpl(messagesResolver)
 }

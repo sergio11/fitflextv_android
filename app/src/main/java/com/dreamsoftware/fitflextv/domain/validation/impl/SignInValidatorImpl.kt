@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.domain.validation.impl
 
-import android.util.Patterns
+import com.dreamsoftware.fitflextv.domain.extensions.isEmailNotValid
+import com.dreamsoftware.fitflextv.domain.extensions.isPasswordNotValid
 import com.dreamsoftware.fitflextv.domain.model.SignInBO
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
 import com.dreamsoftware.fitflextv.domain.validation.ISignInValidationMessagesResolver
@@ -15,10 +16,10 @@ internal class SignInValidatorImpl(
 
     override fun validate(entity: SignInBO): Map<String, String> = buildMap {
         with(entity) {
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (email.isEmailNotValid()) {
                 put(SignInBO.FIELD_EMAIL, messagesResolver.getInvalidEmailMessage())
             }
-            if (password.length < MIN_PASSWORD_LENGTH) {
+            if (password.isPasswordNotValid()) {
                 put(SignInBO.FIELD_PASSWORD, messagesResolver.getShortPasswordMessage(MIN_PASSWORD_LENGTH))
             }
         }
