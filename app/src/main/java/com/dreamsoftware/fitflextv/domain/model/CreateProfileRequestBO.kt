@@ -6,4 +6,10 @@ data class CreateProfileRequestBO(
     val pin: Int?,
     val avatarType: AvatarTypeEnum,
     val userId: String
-)
+) {
+    companion object {
+        const val FIELD_ALIAS = "alias"
+        const val FIELD_PIN = "pin"
+        const val FIELD_USER_ID = "userId"
+    }
+}

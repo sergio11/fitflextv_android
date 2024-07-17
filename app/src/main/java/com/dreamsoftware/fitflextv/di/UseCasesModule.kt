@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.di
 
+import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.SignInBO
 import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
@@ -7,6 +8,7 @@ import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
+import com.dreamsoftware.fitflextv.domain.usecase.CreateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
@@ -240,5 +242,18 @@ class UseCasesModule {
     ): VerifyUserSessionUseCase =
         VerifyUserSessionUseCase(
             userRepository = userRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideCreateProfileUseCase(
+        userRepository: IUserRepository,
+        profilesRepository: IProfilesRepository,
+        validator: IBusinessEntityValidator<CreateProfileRequestBO>
+    ): CreateProfileUseCase =
+        CreateProfileUseCase(
+            userRepository = userRepository,
+            profilesRepository = profilesRepository,
+            validator = validator
         )
 }

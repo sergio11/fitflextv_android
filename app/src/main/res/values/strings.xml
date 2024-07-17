@@ -18,6 +18,8 @@
     <string name="invalid_email_message">Invalid email format.</string>
     <string name="short_password_message">Password must be at least %1$d characters long.</string>
     <string name="passwords_do_not_match_message">Passwords do not match.</string>
+    <string name="invalid_secure_pin_message">Invalid secure pin format.</string>
+    <string name="invalid_alias_message">You must provide an alias.</string>
 
     <!-- Onboarding -->
     <string name="onboarding_main_title_text">Welcome to FitFlexTV!</string>
