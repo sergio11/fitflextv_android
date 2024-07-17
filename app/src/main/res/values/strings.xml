@@ -10,6 +10,15 @@
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
 
+    <!-- Generic Error Messages -->
+    <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
+    <string name="generic_error_exception">An error occurred, please try again.</string>
+
+    <!-- Validation Messages -->
+    <string name="invalid_email_message">Invalid email format.</string>
+    <string name="short_password_message">Password must be at least %1$d characters long.</string>
+    <string name="passwords_do_not_match_message">Passwords do not match.</string>
+
     <!-- Onboarding -->
     <string name="onboarding_main_title_text">Welcome to FitFlexTV!</string>
     <string name="onboarding_secondary_title_text">Your Ultimate Fitness Journey Begins Here</string>

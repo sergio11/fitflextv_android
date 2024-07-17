@@ -41,7 +41,7 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.WorkoutMapper
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
-import com.dreamsoftware.fitflextv.domain.model.CreateUserBO
+import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
@@ -115,7 +115,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUpdatedCreateUserMapper(): IOneSideMapper<CreateUserBO, CreateUserDTO> = CreateUserMapper()
+    fun provideUpdatedCreateUserMapper(): IOneSideMapper<SignUpBO, CreateUserDTO> = CreateUserMapper()
 
     @Provides
     @Singleton
@@ -157,7 +157,7 @@ class RepositoryModule {
         authRemoteDataSource: IAuthRemoteDataSource,
         userDetailMapper: IOneSideMapper<UserResponseDTO, UserDetailBO>,
         updatedUserRequestMapper: IOneSideMapper<UpdatedUserRequestBO, UpdatedUserRequestDTO>,
-        createUserMapper: IOneSideMapper<CreateUserBO, CreateUserDTO>,
+        createUserMapper: IOneSideMapper<SignUpBO, CreateUserDTO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): IUserRepository =
         UserRepositoryImpl(
