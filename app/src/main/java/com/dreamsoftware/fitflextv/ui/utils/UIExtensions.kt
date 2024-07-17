@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.utils
 
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
@@ -84,3 +85,5 @@ fun ITrainingProgramBO.toTrainingType(): TrainingTypeEnum = when(this) {
     else -> TrainingTypeEnum.ROUTINE
 }
 
+
+fun AvatarTypeEnum.toDrawableResource(): Int = -1
