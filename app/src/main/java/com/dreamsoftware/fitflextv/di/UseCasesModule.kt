@@ -123,10 +123,12 @@ class UseCasesModule {
     @ViewModelScoped
     fun provideSignUpUseCase(
         userRepository: IUserRepository,
+        profilesRepository: IProfilesRepository,
         validator: IBusinessEntityValidator<SignUpBO>
     ): SignUpUseCase =
         SignUpUseCase(
             userRepository = userRepository,
+            profilesRepository = profilesRepository,
             validator = validator
         )
 
