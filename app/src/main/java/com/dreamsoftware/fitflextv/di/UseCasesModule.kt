@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.di
 import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.SignInBO
 import com.dreamsoftware.fitflextv.domain.model.SignUpBO
+import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
@@ -28,6 +29,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.UpdateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyPinUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyUserSessionUseCase
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
@@ -253,6 +255,18 @@ class UseCasesModule {
     ): CreateProfileUseCase =
         CreateProfileUseCase(
             userRepository = userRepository,
+            profilesRepository = profilesRepository,
+            validator = validator
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideUpdateProfileUseCase(
+        profilesRepository: IProfilesRepository,
+        validator:  IBusinessEntityValidator<UpdatedProfileRequestBO>
+    ): UpdateProfileUseCase =
+        UpdateProfileUseCase(
             profilesRepository = profilesRepository,
             validator = validator
         )

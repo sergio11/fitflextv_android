@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.dreamsoftware.fitflextv.ui.screens.profiles.management.ProfilesManagementScreen
+import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.secure.SecurePinScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.selector.ProfileSelectorScreen
 
@@ -34,14 +35,26 @@ fun ProfilesNavigation(
         }
 
         composable(Screens.AddProfile.route) {
-
+            SaveProfileScreen(
+                onBackPressed = {
+                    navController.navigateUp()
+                }
+            )
         }
 
         composable(Screens.EditProfile.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
                 Screens.EditProfile.parseArgs(args)?.let {
                     with(navController) {
+                        SaveProfileScreen(
+                            args = it,
+                            onGoToAdvanceConfiguration = {
 
+                            },
+                            onBackPressed = {
+                                navigateUp()
+                            },
+                        )
                     }
                 }
             }

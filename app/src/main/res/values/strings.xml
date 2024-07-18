@@ -55,6 +55,19 @@
     <string name="sign_up_form_password_label_text">Create a Password</string>
     <string name="sign_up_form_repeat_password_label_text">Repeat Password</string>
 
+    <!-- Save Profile -->
+    <string name="create_profile_main_title">Let\'s Create Your Profile!</string>
+    <string name="create_profile_secondary_title">Let\'s Personalize Your Profile and Make It Uniquely Yours</string>
+    <string name="edit_profile_main_title">Time to Edit Your Profile</string>
+    <string name="edit_profile_secondary_title">Update Your Information</string>
+    <string name="save_profile_form_avatar_label_text">Personalize your profile with a unique touch by selecting your avatar.</string>
+    <string name="save_profile_form_alias_label_text">Your Name</string>
+    <string name="save_profile_form_pin_label_text">Secret PIN</string>
+    <string name="save_profile_confirm_button_text">Save it, Champ!</string>
+    <string name="save_profile_cancel_button_text">Maybe Later</string>
+    <string name="save_profile_advance_configuration_button_text">Advance config</string>
+    <string name="save_profile_form_invalid_data_provided">Invalid data provided for the profile. Please check your inputs and try again.</string>
+
     <!-- Favorites -->
     <string name="favorites_screen_title">Favorites</string>
     <string name="favorites_not_workout_available">No favorite trainings available yet. Explore and add your favorites to get started on your fitness journey!</string>
