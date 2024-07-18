@@ -11,5 +11,6 @@ data class UserResponseDTO(
     // The first name of the user.
     val firstName: String,
     // The last name of the user.
-    val lastName: String
+    val lastName: String,
+    val profilesCount: Int
 )

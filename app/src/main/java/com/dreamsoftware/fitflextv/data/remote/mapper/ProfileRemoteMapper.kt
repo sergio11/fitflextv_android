@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.data.remote.mapper
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 
-internal class ProfileRemoteMapper: IOneSideMapper<Map<String, Any?>, ProfileDTO> {
+internal class ProfileRemoteMapper : IOneSideMapper<Map<String, Any?>, ProfileDTO> {
 
     private companion object {
         const val UUID_KEY = "uuid"
@@ -16,7 +16,7 @@ internal class ProfileRemoteMapper: IOneSideMapper<Map<String, Any?>, ProfileDTO
 
     override fun mapInToOut(input: Map<String, Any?>): ProfileDTO = with(input) {
         ProfileDTO(
-           uuid = get(UUID_KEY) as String,
+            uuid = get(UUID_KEY) as String,
             alias = get(ALIAS_KEY) as String,
             isAdmin = get(IS_ADMIN_KEY) as Boolean,
             isSecured = get(IS_SECURED_KEY) as Boolean,

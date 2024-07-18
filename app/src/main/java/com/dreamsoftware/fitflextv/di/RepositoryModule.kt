@@ -187,6 +187,7 @@ class RepositoryModule {
     @Singleton
     fun provideProfilesRepository(
         profilesRemoteDataSource: IProfilesRemoteDataSource,
+        userRemoteDataSource: IUserRemoteDataSource,
         profilesMapper: IOneSideMapper<ProfileDTO, ProfileBO>,
         createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
         updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
@@ -196,6 +197,7 @@ class RepositoryModule {
     ): IProfilesRepository =
         ProfilesRepositoryImpl(
             profilesRemoteDataSource,
+            userRemoteDataSource,
             profilesMapper,
             createProfileMapper,
             updateProfileMapper,
