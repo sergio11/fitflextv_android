@@ -17,6 +17,10 @@ class SignInViewModel @Inject constructor(
     @SignInScreenErrorMapper private val errorMapper: IErrorMapper
 ): BaseViewModel<SignInUiState, SignInSideEffects>() {
 
+    private companion object {
+        const val DEFAULT_PROFILES_COUNT = 1
+    }
+
     override fun onGetDefaultState(): SignInUiState = SignInUiState()
 
     fun onSignIn() {
@@ -39,12 +43,11 @@ class SignInViewModel @Inject constructor(
     }
 
     private fun onSignInSuccessfully(userDetail: UserDetailBO) {
-        /*launchSideEffect(if(authenticationBO.profilesCount > 0) {
+        launchSideEffect(if(userDetail.profilesCount > DEFAULT_PROFILES_COUNT) {
             SignInSideEffects.ProfileSelectionRequired
         } else {
             SignInSideEffects.AuthenticationSuccessfully
-        })*/
-        launchSideEffect(SignInSideEffects.AuthenticationSuccessfully)
+        })
     }
 
     private fun onMapExceptionToState(ex: Exception, uiState: SignInUiState) =

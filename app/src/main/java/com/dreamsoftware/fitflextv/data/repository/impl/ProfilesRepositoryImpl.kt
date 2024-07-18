@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 import com.dreamsoftware.fitflextv.data.preferences.datasource.IProfileSessionDataSource
 import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenceDTO
 import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.PinVerificationRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
@@ -33,6 +34,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 
 internal class ProfilesRepositoryImpl(
     private val profilesRemoteDataSource: IProfilesRemoteDataSource,
+    private val userRemoteDataSource: IUserRemoteDataSource,
     private val profilesMapper: IOneSideMapper<ProfileDTO, ProfileBO>,
     private val createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
     private val updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
@@ -70,8 +72,12 @@ internal class ProfilesRepositoryImpl(
     @Throws(DeleteProfileException::class)
     override suspend fun deleteProfile(profileId: String): Boolean = safeExecute {
         try {
-            profilesRemoteDataSource
-                .deleteProfile(profileId)
+            with(profilesRemoteDataSource) {
+                val profile = getProfileById(profileId)
+                deleteProfile(profileId).also {
+                    userRemoteDataSource.decrementProfilesCount(profile.userId)
+                }
+            }
         } catch (ex: DeleteRemoteProfileExceptionRemote) {
             throw DeleteProfileException("An error occurred when deleting profile", ex)
         }
@@ -81,7 +87,9 @@ internal class ProfilesRepositoryImpl(
     override suspend fun createProfile(data: CreateProfileRequestBO): Boolean = safeExecute {
         try {
             profilesRemoteDataSource
-                .createProfile(createProfileMapper.mapInToOut(data))
+                .createProfile(createProfileMapper.mapInToOut(data)).also {
+                    userRemoteDataSource.incrementProfilesCount(data.userId)
+                }
         } catch (ex: CreateRemoteProfileExceptionRemote) {
             throw CreateProfileException("An error occurred when creating profiles", ex)
         }

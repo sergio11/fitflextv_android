@@ -47,3 +47,4 @@ class FetchRemoteProfileByIdExceptionRemote(message: String? = null, cause: Thro
 class CreateRemoteUserDetailExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class UpdateRemoteUserDetailExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class FetchRemoteUserDetailExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class UpdateProfilesCountException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)

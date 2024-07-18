@@ -12,7 +12,8 @@ internal class UserDetailMapper : IOneSideMapper<UserResponseDTO, UserDetailBO> 
             username = username,
             email = email,
             firstName = firstName,
-            lastName = lastName
+            lastName = lastName,
+            profilesCount = profilesCount
         )
     }
 

@@ -8,8 +8,10 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteUserDetailExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfilesCountException
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
@@ -26,6 +28,7 @@ internal class UserRemoteDataSourceImpl(
 
     private companion object {
         const val COLLECTION_NAME = "users"
+        const val PROFILES_COUNT_FIELD = "profilesCount"
     }
 
     @Throws(CreateRemoteUserDetailExceptionRemote::class)
@@ -75,5 +78,38 @@ internal class UserRemoteDataSourceImpl(
         )
     } catch (ex: Exception) {
         throw FetchRemoteRoutineByIdExceptionRemote("An error occurred when trying to fetch the users with ID $id", ex)
+    }
+
+    @Throws(UpdateProfilesCountException::class)
+    override suspend fun updateProfilesCount(userId: String, profilesCount: Int): UserResponseDTO = withContext(dispatcher) {
+        try {
+            val document = firebaseStore.collection(COLLECTION_NAME).document(userId)
+            document.update(PROFILES_COUNT_FIELD, profilesCount).await()
+            getDetailById(userId)
+        } catch (ex: Exception) {
+            throw UpdateProfilesCountException("An error occurred when trying to update profiles count", ex)
+        }
+    }
+
+    @Throws(UpdateProfilesCountException::class)
+    override suspend fun incrementProfilesCount(userId: String): UserResponseDTO = withContext(dispatcher) {
+        try {
+            val document = firebaseStore.collection(COLLECTION_NAME).document(userId)
+            document.update(PROFILES_COUNT_FIELD, FieldValue.increment(1)).await()
+            getDetailById(userId)
+        } catch (ex: Exception) {
+            throw UpdateProfilesCountException("An error occurred when trying to increment profiles count", ex)
+        }
+    }
+
+    @Throws(UpdateProfilesCountException::class)
+    override suspend fun decrementProfilesCount(userId: String): UserResponseDTO = withContext(dispatcher) {
+        try {
+            val document = firebaseStore.collection(COLLECTION_NAME).document(userId)
+            document.update(PROFILES_COUNT_FIELD, FieldValue.increment(-1)).await()
+            getDetailById(userId)
+        } catch (ex: Exception) {
+            throw UpdateProfilesCountException("An error occurred when trying to decrement profiles count", ex)
+        }
     }
 }
