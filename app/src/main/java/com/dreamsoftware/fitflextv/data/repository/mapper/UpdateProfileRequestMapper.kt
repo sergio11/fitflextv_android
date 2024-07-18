@@ -10,7 +10,7 @@ internal class UpdateProfileRequestMapper : IOneSideMapper<UpdatedProfileRequest
         UpdatedProfileRequestDTO(
             alias = alias,
             pin = pin,
-            avatarType = avatarType
+            avatarType = avatarType?.name
         )
     }
 

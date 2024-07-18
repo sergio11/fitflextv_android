@@ -29,7 +29,7 @@ class CreateProfileUseCase(
         uid = UUID.randomUUID().toString(),
         pin = pin,
         alias = alias,
-        avatarType = AvatarTypeEnum.BOY,
+        avatarType = avatarType ?: AvatarTypeEnum.BOY,
         userId = userId
     )
 
