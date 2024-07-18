@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.di
 
 import android.content.Context
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
+import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreenSimpleErrorMapper
 import dagger.Module
@@ -30,4 +31,13 @@ class UiModule {
         @ApplicationContext context: Context
     ): IErrorMapper =
         SignInScreenSimpleErrorMapper(context = context)
+
+
+    @Provides
+    @ViewModelScoped
+    @SaveProfileScreenErrorMapper
+    fun provideSaveProfileScreenErrorMapper(
+        @ApplicationContext context: Context
+    ): IErrorMapper =
+        SaveProfileScreenSimpleErrorMapper(context = context)
 }

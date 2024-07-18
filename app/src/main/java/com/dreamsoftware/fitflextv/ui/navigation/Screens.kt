@@ -10,6 +10,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.secure.SecurePinScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreenArgs
 
@@ -41,14 +42,11 @@ sealed class Screens(
                 newValue = id
             )
 
-        fun parseArgs(args: Bundle): VideoPlayerScreenArgs? = with(args) {
+        fun parseArgs(args: Bundle): SaveProfileScreenArgs? = with(args) {
             getString("id")?.let { id ->
-                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
-                    VideoPlayerScreenArgs(
-                        id = id,
-                        type = type
-                    )
-                }
+                SaveProfileScreenArgs(
+                    profileId = id,
+                )
             }
         }
     }
