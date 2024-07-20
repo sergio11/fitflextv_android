@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.dashboard
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,15 +27,17 @@ import androidx.tv.material3.NavigationDrawerItem
 import androidx.tv.material3.NavigationDrawerItemColors
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
-
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 
 private val CLOSE_DRAWER_WIDTH = 80.dp
 private val BACKGROUND_CONTENT_PADDING = 12.dp
 
 data class NavigationDrawerItemModel(
-    @StringRes val nameRes: Int,
-    @DrawableRes val iconRes: Int,
-    val screen: Screen
+    @StringRes val nameRes: Int? = null,
+    val name: String? = null,
+    @DrawableRes val imageRes: Int,
+    val screen: Screen,
+    val isIcon: Boolean = true
 )
 
 @Composable
@@ -87,15 +90,24 @@ fun DashboardNavigationDrawer(
                                 modifier = Modifier.padding(bottom = BACKGROUND_CONTENT_PADDING),
                                 selected = selected,
                                 onClick = { onItemClicked(item) },
-                                content = { Text(stringResource(id = item.nameRes) ) },
+                                content = { Text( item.nameRes?.let { stringResource(id = it) } ?: item.name ?: String.EMPTY ) },
                                 leadingContent = {
-                                    Icon(
-                                        painter = painterResource(
-                                            id = item.iconRes
-                                        ),
-                                        contentDescription = stringResource(id = item.nameRes),
-                                        modifier = Modifier.size(24.dp),
-                                    )
+                                    val painterResource = painterResource(id = item.imageRes)
+                                    val contentDescription = item.nameRes?.let { stringResource(id = it) } ?: item.name ?: String.EMPTY
+                                    val imageSize = Modifier.size(24.dp)
+                                    if(item.isIcon) {
+                                        Icon(
+                                            painter = painterResource,
+                                            contentDescription = contentDescription,
+                                            modifier = imageSize,
+                                        )
+                                    } else {
+                                        Image(
+                                            painter = painterResource,
+                                            contentDescription = contentDescription,
+                                            modifier = imageSize,
+                                        )
+                                    }
                                 }
                             )
                         }
