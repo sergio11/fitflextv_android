@@ -48,3 +48,9 @@ class CreateRemoteUserDetailExceptionRemote(message: String? = null, cause: Thro
 class UpdateRemoteUserDetailExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class FetchRemoteUserDetailExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class UpdateProfilesCountException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+
+// Favorites
+class AddToFavoritesExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class RemoveFromFavoritesExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class GetFavoritesByUserExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class HasTrainingInFavoritesExceptionRemote(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)

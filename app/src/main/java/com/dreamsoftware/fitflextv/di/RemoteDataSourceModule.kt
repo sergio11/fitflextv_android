@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.di
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
@@ -11,11 +12,13 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.ChallengesRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.FavoritesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.ProfilesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.UserRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.WorkoutRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
@@ -23,15 +26,18 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.FavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.mapper.AddFavoriteTrainingRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.ChallengeRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateProfileRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateUserRequestRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.FavoriteTrainingRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.ProfileRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
@@ -155,6 +161,24 @@ class RemoteDataSourceModule {
     @Singleton
     fun provideProfileRemoteMapper(): IOneSideMapper<Map<String, Any?>, ProfileDTO> = ProfileRemoteMapper()
 
+
+    /**
+     * Provides a singleton instance of AddFavoriteTrainingRemoteMapper.
+     * @return a new instance of AddFavoriteTrainingRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideAddFavoriteTrainingRemoteMapper(): IOneSideMapper<AddFavoriteTrainingDTO, Map<String, Any?>> = AddFavoriteTrainingRemoteMapper()
+
+    /**
+     * Provides a singleton instance of FavoriteTrainingRemoteMapper.
+     * @return a new instance of FavoriteTrainingRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideFavoriteTrainingRemoteMapper(): IOneSideMapper<Map<String, Any?>, FavoriteTrainingDTO> = FavoriteTrainingRemoteMapper()
+
+
     /**
      * Provides a singleton instance of FirebaseAuth.
      * @return the default instance of FirebaseAuth.
@@ -277,6 +301,20 @@ class RemoteDataSourceModule {
         usersMapper,
         updatedUserRequestMapper,
         createUserRequestMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideFavoritesRemoteDataSource(
+        firebaseStore: FirebaseFirestore,
+        addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingDTO, Map<String, Any?>>,
+        favoriteMapper: IOneSideMapper<Map<String, Any?>, FavoriteTrainingDTO>,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IFavoritesRemoteDataSource = FavoritesRemoteDataSourceImpl(
+        firebaseStore,
+        addFavoriteMapper,
+        favoriteMapper,
         dispatcher
     )
 }
