@@ -11,7 +11,7 @@ import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     onGoToHome: () -> Unit,
-    onGoToProfileSelector: () -> Unit,
+    onGoToProfiles: () -> Unit,
     onGoToSignUp: () -> Unit,
     onBackPressed: () -> Unit,
 ) {
@@ -22,7 +22,7 @@ fun SignInScreen(
         onSideEffect = {
             when(it) {
                 SignInSideEffects.AuthenticationSuccessfully -> onGoToHome()
-                SignInSideEffects.ProfileSelectionRequired -> onGoToProfileSelector()
+                SignInSideEffects.ProfileSelectionRequired -> onGoToProfiles()
             }
         }
     ) { uiState ->
@@ -44,7 +44,7 @@ fun SignInScreenPrev() {
         SignInScreen(
             onGoToHome = {},
             onGoToSignUp = {},
-            onGoToProfileSelector = {},
+            onGoToProfiles = {},
             onBackPressed = {}
         )
     }

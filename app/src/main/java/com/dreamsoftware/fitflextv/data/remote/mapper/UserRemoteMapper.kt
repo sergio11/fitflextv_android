@@ -21,7 +21,7 @@ internal class UserRemoteMapper: IOneSideMapper<Map<String, Any?>, UserResponseD
             email = get(EMAIL_KEY) as String,
             firstName = get(FIRST_NAME_KEY) as String,
             lastName = get(LAST_NAME_KEY) as String,
-            profilesCount = get(PROFILES_COUNT_KEY) as Int
+            profilesCount = get(PROFILES_COUNT_KEY) as Long
         )
     }
 

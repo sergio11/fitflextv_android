@@ -14,10 +14,9 @@ import androidx.tv.material3.MaterialTheme
 fun CommonProfileGradientBox(content: @Composable BoxScope.() -> Unit) {
     with(MaterialTheme.colorScheme) {
         val gradient = Brush.radialGradient(
-            0.0f to primary,
-            0.33f to secondary,
-            0.66f to primary,
-            1.0f to onPrimary,
+            0.33f to primary,
+            0.66f to secondaryContainer,
+            1.0f to primaryContainer,
             radius = 1500.0f,
             tileMode = TileMode.Repeated
         )

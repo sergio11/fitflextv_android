@@ -12,7 +12,7 @@ internal class CreateUserRequestRemoteMapper: IOneSideMapper<CreateUserDTO, Map<
         const val FIRST_NAME_KEY = "firstName"
         const val LAST_NAME_KEY = "lastName"
         const val PROFILES_COUNT_KEY = "profilesCount"
-        const val DEFAULT_PROFILE_COUNT = 1
+        const val DEFAULT_PROFILE_COUNT = 0
     }
 
     override fun mapInToOut(input: CreateUserDTO): Map<String, Any?> = with(input) {

@@ -6,5 +6,5 @@ data class UserDetailBO(
     val email: String,
     val firstName: String,
     val lastName: String,
-    val profilesCount: Int
+    val profilesCount: Long
 )
