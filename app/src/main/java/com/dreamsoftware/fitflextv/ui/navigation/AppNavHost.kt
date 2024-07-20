@@ -33,8 +33,8 @@ fun AppNavHost(
             },
         builder = {
             navigationDrawerGraph(
-                onNavigateToRoot = {
-                    navController.navigateSingleTopTo(it.route)
+                onNavigateToProfiles = {
+                    navController.navigateSingleTopTo(Screen.Profiles.route)
                 }
             )
             composable(route = Screen.Onboarding.route) {

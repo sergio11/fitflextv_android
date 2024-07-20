@@ -21,6 +21,9 @@ fun DashboardScreen(
             when(it) {
                 is DashboardSideEffects.OpenScreen -> onNavigateToScreen(it.screen)
             }
+        },
+        onInit = {
+            fetchData()
         }
     ) { uiState ->
         DashboardScreenContent(
