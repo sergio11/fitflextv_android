@@ -1,29 +1,33 @@
 package com.dreamsoftware.fitflextv.ui.screens.dashboard
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import com.dreamsoftware.fitflextv.ui.navigation.DashboardNavHost
-import com.dreamsoftware.fitflextv.ui.navigation.Screens
+import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fitflextv.ui.navigation.Screen
 
 @Composable
 fun DashboardScreen(
+    viewModel: DashboardViewModel = hiltViewModel(),
     navController: NavHostController,
-    onNavigateTo: (Screens) -> Unit,
+    onNavigateToScreen: (Screen) -> Unit,
     currentDestination: NavDestination?
 ) {
-    DashboardNavigationDrawer(
-        modifier = Modifier,
-        onNavigateTo = onNavigateTo,
-        screens = listOf(
-            Screens.Home,
-            Screens.Training,
-            Screens.Favorite,
-            Screens.Settings
-        ),
-        currentDestination = currentDestination,
-    ) {
-        DashboardNavHost(navController)
+    CommonScreen(
+        viewModel = viewModel,
+        onInitialUiState = { DashboardUiState() },
+        onSideEffect = {
+            when(it) {
+                is DashboardSideEffects.OpenScreen -> onNavigateToScreen(it.screen)
+            }
+        }
+    ) { uiState ->
+        DashboardScreenContent(
+            uiState = uiState,
+            navController = navController,
+            actionListener = viewModel,
+            currentDestination = currentDestination
+        )
     }
 }
