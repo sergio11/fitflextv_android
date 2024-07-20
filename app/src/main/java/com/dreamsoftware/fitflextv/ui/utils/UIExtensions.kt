@@ -86,4 +86,10 @@ fun ITrainingProgramBO.toTrainingType(): TrainingTypeEnum = when(this) {
 }
 
 
-fun AvatarTypeEnum.toDrawableResource(): Int = -1
+fun AvatarTypeEnum.toDrawableResource(): Int =
+    when(this) {
+        AvatarTypeEnum.BOY -> R.drawable.profile_avatar_boy
+        AvatarTypeEnum.GIRL -> R.drawable.profile_avatar_girl
+        AvatarTypeEnum.WOMAN -> R.drawable.profile_avatar_woman
+        AvatarTypeEnum.MAN -> R.drawable.profile_avatar_man
+    }

@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.dreamsoftware.fitflextv.ui.screens.onboarding.OnboardingScreen
-import com.dreamsoftware.fitflextv.ui.screens.profiles.ProfileSelectorScreen
+import com.dreamsoftware.fitflextv.ui.screens.profiles.ProfilesScreen
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreen
 import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreen
 import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
@@ -55,8 +55,8 @@ fun AppNavHost(
                         onGoToHome = {
                             navigateSingleTopTo(Screens.Dashboard.route)
                         },
-                        onGoToProfileSelector = {
-                            navigateSingleTopTo(Screens.ProfileSelector.route)
+                        onGoToProfiles = {
+                            navigateSingleTopTo(Screens.Profiles.route)
                         },
                         onGoToSignUp = {
                             navigate(Screens.SignUp.route)
@@ -77,17 +77,12 @@ fun AppNavHost(
                 }
             }
 
-            composable(route = Screens.ProfileSelector.route) {
-                with(navController) {
-                    ProfileSelectorScreen(
-                        onGoToSignIn = {
-                            navigate(Screens.Subscription.route)
-                        },
-                        onGoToDashboard = {
-                            navigateSingleTopTo(Screens.Dashboard.route)
-                        }
-                    )
-                }
+            composable(route = Screens.Profiles.route) {
+                ProfilesScreen(
+                    onGoToHome = {
+                        navController.navigateSingleTopTo(Screens.Dashboard.route)
+                    }
+                )
             }
         }
     )

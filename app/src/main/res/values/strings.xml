@@ -55,19 +55,6 @@
     <string name="sign_up_form_password_label_text">Create a Password</string>
     <string name="sign_up_form_repeat_password_label_text">Repeat Password</string>
 
-    <!-- Save Profile -->
-    <string name="create_profile_main_title">Let\'s Create Your Profile!</string>
-    <string name="create_profile_secondary_title">Let\'s Personalize Your Profile and Make It Uniquely Yours</string>
-    <string name="edit_profile_main_title">Time to Edit Your Profile</string>
-    <string name="edit_profile_secondary_title">Update Your Information</string>
-    <string name="save_profile_form_avatar_label_text">Personalize your profile with a unique touch by selecting your avatar.</string>
-    <string name="save_profile_form_alias_label_text">Your Name</string>
-    <string name="save_profile_form_pin_label_text">Secret PIN</string>
-    <string name="save_profile_confirm_button_text">Save it, Champ!</string>
-    <string name="save_profile_cancel_button_text">Maybe Later</string>
-    <string name="save_profile_advance_configuration_button_text">Advance config</string>
-    <string name="save_profile_form_invalid_data_provided">Invalid data provided for the profile. Please check your inputs and try again.</string>
-
     <!-- Favorites -->
     <string name="favorites_screen_title">Favorites</string>
     <string name="favorites_not_workout_available">No favorite trainings available yet. Explore and add your favorites to get started on your fitness journey!</string>
@@ -80,24 +67,37 @@
     <string name="category_detail_trainings_title_default">Trainings</string>
     <string name="category_detail_no_trainings_available">No training programs available in this category. Please check back later or explore other categories.</string>
 
+    <!-- Save Profile -->
+    <string name="create_profile_main_title">Create Your New Profile!</string>
+    <string name="create_profile_secondary_title">Give a unique touch to your FitFlexTV experience.</string>
+    <string name="edit_profile_main_title">Edit Your Profile!</string>
+    <string name="edit_profile_secondary_title">Update your details and stay current.</string>
+    <string name="save_profile_form_avatar_label_text">Select Your Avatar</string>
+    <string name="save_profile_form_alias_label_text">Profile Alias</string>
+    <string name="save_profile_form_pin_label_text">Security PIN</string>
+    <string name="save_profile_confirm_button_text">Save Changes</string>
+    <string name="save_profile_cancel_button_text">Cancel</string>
+    <string name="save_profile_advance_configuration_button_text">Advanced Settings</string>
+    <string name="save_profile_form_invalid_data_provided">Invalid data provided. Please check your information.</string>
+
     <!-- Profile Selector -->
-    <string name="profile_selector_main_title">Who\'s Watching?</string>
-    <string name="profile_selector_secondary_title">Select a profile to personalize your TvNexa experience.</string>
-    <string name="profile_selector_add_profile_button_text">+ Add profile</string>
-    <string name="profile_selector_profile_management_button_text">Profile Control</string>
+    <string name="profile_selector_main_title">Select Your Profile</string>
+    <string name="profile_selector_secondary_title">Choose who you are today on FitFlexTV.</string>
+    <string name="profile_selector_add_profile_button_text">Add New Profile</string>
+    <string name="profile_selector_profile_management_button_text">Manage Profiles</string>
 
     <!-- Profile Management -->
-    <string name="profiles_management_main_title">Let\'s Manage Profiles!</string>
-    <string name="profiles_management_main_description">The perfect hub for your diverse profiles!</string>
-    <string name="profiles_management_form_confirm_button_text">All Set</string>
+    <string name="profiles_management_main_title">Profile Management</string>
+    <string name="profiles_management_main_description">Manage all your profiles from here.</string>
+    <string name="profiles_management_form_confirm_button_text">Confirm</string>
 
     <!-- Secure Pin -->
-    <string name="secure_pin_main_title">Oops! Profile Locked</string>
-    <string name="secure_pin_main_description">Looks like this profile is currently locked. Unlock it to dive in!</string>
-    <string name="secure_pin_form_label_text">Secure Pin</string>
+    <string name="secure_pin_main_title">Security PIN</string>
+    <string name="secure_pin_main_description">Protect your profile with a secure PIN.</string>
+    <string name="secure_pin_form_label_text">Enter Your PIN</string>
     <string name="secure_pin_info_profile_locked" formatted="false">You must enter the 6-digit PIN to unlock the %s profile.</string>
-    <string name="secure_pin_form_accept_button_text">Let\'s Go!</string>
-    <string name="secure_pin_form_cancel_button_text">Not Today</string>
+    <string name="secure_pin_form_accept_button_text">Accept</string>
+    <string name="secure_pin_form_cancel_button_text">Cancel</string>
 
     <string name="add_to_favorites">Add to favorites</string>
     <string name="start_workout">Let\'s Work Out!</string>

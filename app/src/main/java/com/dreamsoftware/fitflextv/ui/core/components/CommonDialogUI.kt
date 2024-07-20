@@ -4,11 +4,13 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.CardShape
@@ -46,17 +49,19 @@ fun CommonDialog(
     customContent: @Composable ColumnScope.() -> Unit = {}
 ) {
     if(isVisible) {
-        Dialog(onDismissRequest = onCancelClicked ?: {}) {
+        Dialog(
+            onDismissRequest = onCancelClicked ?: {}
+        ) {
             CommonDialogUI(
-                modifier,
-                titleRes?.let { stringResource(id = it) } ?: title,
-                descriptionRes?.let { stringResource(id = it) } ?: description,
-                cancelRes,
-                successRes,
-                onCancelClicked,
-                onAcceptClicked,
-                isAcceptEnabled,
-                customContent
+                modifier = modifier,
+                title = titleRes?.let { stringResource(id = it) } ?: title,
+                description = descriptionRes?.let { stringResource(id = it) } ?: description,
+                cancelRes = cancelRes,
+                successRes = successRes,
+                onCancelClicked = onCancelClicked,
+                onAcceptClicked = onAcceptClicked,
+                isAcceptEnabled = isAcceptEnabled,
+                customContent = customContent
             )
         }
     }
@@ -78,17 +83,16 @@ private fun CommonDialogUI(
         Card(
             onClick = { },
             modifier = modifier
-                .aspectRatio(16f / 9f)
                 .background(Color.Transparent, RoundedCornerShape(16.dp))
                 .padding(bottom = 8.dp),
         ) {
             Column(
-                modifier = modifier.background(surface),
+                modifier = modifier.background(inverseSurface),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.main_logo_inverse),
+                    painter = painterResource(id = R.drawable.main_logo),
                     contentDescription = null, // decorative
                     modifier = Modifier
                         .padding(top = 10.dp)
@@ -101,7 +105,7 @@ private fun CommonDialogUI(
                         modifier = Modifier
                             .fillMaxWidth(),
                         maxLines = 2,
-                        textColor = onSurface,
+                        textColor = inverseOnSurface,
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -111,7 +115,7 @@ private fun CommonDialogUI(
                             .fillMaxWidth(),
                         type = CommonTextTypeEnum.BODY_MEDIUM,
                         titleText = description,
-                        textColor = onSurface,
+                        textColor = inverseOnSurface,
                         textAlign = TextAlign.Center
                     )
                 }

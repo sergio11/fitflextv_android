@@ -15,8 +15,10 @@ fun ProfilesNavigation(
     navController: NavHostController,
     onGoToHome: () -> Unit
 ) {
-    NavHost(navController = navController, startDestination = Screens.ProfileSelector.route) {
-
+    NavHost(
+        navController = navController,
+        startDestination = Screens.ProfileSelector.route
+    ) {
         composable(Screens.ProfileSelector.route) {
             with(navController) {
                 ProfileSelectorScreen(

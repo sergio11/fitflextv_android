@@ -28,6 +28,7 @@ sealed class Screens(
     data object SignUp: Screens(route = "sign_up", name = "SignUp")
     data object Dashboard: Screens(route = "dashboard", name = "Dashboard")
     data object Subscription: Screens(route = "subscription", name = "Subscription")
+    data object Profiles: Screens(route = "profiles", name = "Profiles")
     data object ProfileSelector: Screens(route = "profile_selector", name = "ProfileSelector")
     data object ProfilesManagement: Screens(route = "profile_management", name = "ProfilesManagement")
     data object AddProfile: Screens(route = "add_profile", name = "AddProfile")

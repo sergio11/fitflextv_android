@@ -10,6 +10,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 
@@ -34,18 +35,11 @@ private fun DialogContent() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp)
-                .background(
-                    color = surface,
-                    shape = RoundedCornerShape(4.dp)
-                )
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .align(
-                        Alignment.Center
-                    ),
-                color = primary
+                    .align(Alignment.Center),
+                color = inverseOnSurface
             )
         }
     }
