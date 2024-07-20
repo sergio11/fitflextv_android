@@ -26,7 +26,7 @@ fun AppNavHost(
     NavHost(
         navController = navController,
         route = "root_host",
-        startDestination = Screens.Onboarding.route,
+        startDestination = Screen.Onboarding.route,
         modifier = Modifier
             .semantics {
                 testTagsAsResourceId = true
@@ -37,29 +37,29 @@ fun AppNavHost(
                     navController.navigateSingleTopTo(it.route)
                 }
             )
-            composable(route = Screens.Onboarding.route) {
+            composable(route = Screen.Onboarding.route) {
                 with(navController) {
                     OnboardingScreen(
                         onGoToSignIn = {
-                            navigate(Screens.SignIn.route)
+                            navigate(Screen.SignIn.route)
                         },
                         onGoToSignUp = {
-                            navigate(Screens.SignUp.route)
+                            navigate(Screen.SignUp.route)
                         }
                     )
                 }
             }
-            composable(route = Screens.SignIn.route) {
+            composable(route = Screen.SignIn.route) {
                 with(navController) {
                     SignInScreen(
                         onGoToHome = {
-                            navigateSingleTopTo(Screens.Dashboard.route)
+                            navigateSingleTopTo(Screen.Dashboard.route)
                         },
                         onGoToProfiles = {
-                            navigateSingleTopTo(Screens.Profiles.route)
+                            navigateSingleTopTo(Screen.Profiles.route)
                         },
                         onGoToSignUp = {
-                            navigate(Screens.SignUp.route)
+                            navigate(Screen.SignUp.route)
                         },
                         onBackPressed = {
                             popBackStack()
@@ -67,7 +67,7 @@ fun AppNavHost(
                     )
                 }
             }
-            composable(route = Screens.SignUp.route) {
+            composable(route = Screen.SignUp.route) {
                 with(navController) {
                     SignUpScreen(
                         onBackPressed = {
@@ -77,10 +77,10 @@ fun AppNavHost(
                 }
             }
 
-            composable(route = Screens.Profiles.route) {
+            composable(route = Screen.Profiles.route) {
                 ProfilesScreen(
                     onGoToHome = {
-                        navController.navigateSingleTopTo(Screens.Dashboard.route)
+                        navController.navigateSingleTopTo(Screen.Dashboard.route)
                     }
                 )
             }

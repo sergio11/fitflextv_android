@@ -21,47 +21,47 @@ fun DashboardNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.Home.route,
+        startDestination = Screen.Home.route,
     ) {
-        composable(Screens.Home.route) {
+        composable(Screen.Home.route) {
             with(navController) {
                 HomeScreen(
                     onOpenTrainingCategory = { id ->
-                        navigate(Screens.CategoryDetail.buildRoute(id))
+                        navigate(Screen.CategoryDetail.buildRoute(id))
                     },
                     onOpenTrainingProgram = {  id, type ->
-                        navigate(Screens.TrainingDetail.buildRoute(id, type))
+                        navigate(Screen.TrainingDetail.buildRoute(id, type))
                     }
                 )
             }
         }
-        composable(Screens.Training.route) {
+        composable(Screen.Training.route) {
             TrainingScreen(
                 onGoToTrainingProgramDetail = { id, type ->
-                    navController.navigate(Screens.TrainingDetail.buildRoute(id, type))
+                    navController.navigate(Screen.TrainingDetail.buildRoute(id, type))
                 }
             )
         }
-        composable(Screens.Favorite.route) {
+        composable(Screen.Favorite.route) {
             with(navController) {
                 FavoritesScreen(
                     onBackPressed = {
                         popBackStack()
                     },
                     onStartWorkout = {
-                        navigate(Screens.VideoPlayer.route)
+                        navigate(Screen.VideoPlayer.route)
                     }
                 )
             }
         }
 
-        composable(Screens.CategoryDetail.route) { navBackStackEntry ->
-            navBackStackEntry.arguments?.let(Screens.CategoryDetail::parseArgs)?.let { args ->
+        composable(Screen.CategoryDetail.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screen.CategoryDetail::parseArgs)?.let { args ->
                 with(navController) {
                     CategoryDetailScreen(
                         args = args,
                         onOpenTrainingProgramDetail = {id, type ->
-                            navigate(Screens.TrainingDetail.buildRoute(id, type))
+                            navigate(Screen.TrainingDetail.buildRoute(id, type))
                         },
                         onBackPressed = {
                             popBackStack()
@@ -71,8 +71,8 @@ fun DashboardNavHost(
             }
         }
 
-        composable(Screens.VideoPlayer.route) { navBackStackEntry ->
-            navBackStackEntry.arguments?.let(Screens.VideoPlayer::parseArgs)?.let { args ->
+        composable(Screen.VideoPlayer.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screen.VideoPlayer::parseArgs)?.let { args ->
                 with(navController) {
                     VideoPlayerScreen(args = args) {
                         popBackStack()
@@ -80,24 +80,24 @@ fun DashboardNavHost(
                 }
             }
         }
-        composable(Screens.AudioPlayer.route) {
+        composable(Screen.AudioPlayer.route) {
             AudioPlayerScreen {
                 navController.popBackStack()
             }
         }
-        composable(Screens.Settings.route) {
+        composable(Screen.Settings.route) {
             SettingsScreen()
         }
-        composable(Screens.TrainingDetail.route) { navBackStackEntry ->
-            navBackStackEntry.arguments?.let(Screens.TrainingDetail::parseArgs)?.let { args ->
+        composable(Screen.TrainingDetail.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screen.TrainingDetail::parseArgs)?.let { args ->
                 with(navController) {
                     TrainingDetailScreen(
                         args = args,
                         onPlayingTrainingProgram = { id, type ->
-                            navigate(Screens.VideoPlayer.buildRoute(id, type))
+                            navigate(Screen.VideoPlayer.buildRoute(id, type))
                         },
                         onOpenMoreDetails = { id, type ->
-                            navigate(Screens.MoreOptions.buildRoute(id, type))
+                            navigate(Screen.MoreOptions.buildRoute(id, type))
                         },
                         onBackPressed = {
                             popBackStack()
@@ -106,32 +106,32 @@ fun DashboardNavHost(
                 }
             }
         }
-        composable(Screens.MoreOptions.route) { navBackStackEntry ->
-            navBackStackEntry.arguments?.let(Screens.MoreOptions::parseArgs)?.let { args ->
+        composable(Screen.MoreOptions.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screen.MoreOptions::parseArgs)?.let { args ->
                 with(navController) {
                     MoreOptionsScreen(
                         args = args,
                         onStartClick = {
-                            navigate(Screens.AudioPlayer.route)
+                            navigate(Screen.AudioPlayer.route)
                         },
                         onBackPressed = {
                             popBackStack()
                         },
                         onFavouriteClick = {
-                            navigate(Screens.Favorite.route)
+                            navigate(Screen.Favorite.route)
                         }
                     )
                 }
             }
         }
-        composable(Screens.Subscription.route) {
+        composable(Screen.Subscription.route) {
             with(navController) {
                 SubscriptionScreen(
                     onSubscribeClick = {
-                        navigate(Screens.ProfileSelector.route)
+                        navigate(Screen.ProfileSelector.route)
                     },
                     onRestorePurchasesClick = {
-                        navigate(Screens.ProfileSelector.route)
+                        navigate(Screen.ProfileSelector.route)
                     }
                 )
             }

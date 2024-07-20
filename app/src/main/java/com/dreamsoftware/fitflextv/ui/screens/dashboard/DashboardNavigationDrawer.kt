@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.dashboard
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -22,19 +25,24 @@ import androidx.tv.material3.ModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawerItem
 import androidx.tv.material3.NavigationDrawerItemColors
 import androidx.tv.material3.Text
-import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.navigation.Screens
+import com.dreamsoftware.fitflextv.ui.navigation.Screen
 
 
 private val CLOSE_DRAWER_WIDTH = 80.dp
 private val BACKGROUND_CONTENT_PADDING = 12.dp
 
+data class NavigationDrawerItemModel(
+    @StringRes val nameRes: Int,
+    @DrawableRes val iconRes: Int,
+    val screen: Screen
+)
+
 @Composable
 fun DashboardNavigationDrawer(
     modifier: Modifier = Modifier,
     currentDestination: NavDestination?,
-    screens: List<Screens>,
-    onNavigateTo: (Screens) -> Unit,
+    items: List<NavigationDrawerItemModel>,
+    onItemClicked: (NavigationDrawerItemModel) -> Unit,
     content: @Composable () -> Unit,
 ) {
     with(MaterialTheme.colorScheme) {
@@ -46,7 +54,7 @@ fun DashboardNavigationDrawer(
                 )
             ),
             drawerContent = {
-                if(currentDestination?.route != Screens.VideoPlayer.route) {
+                if(currentDestination?.route != Screen.VideoPlayer.route) {
                     Column(
                         Modifier
                             .fillMaxHeight()
@@ -54,9 +62,9 @@ fun DashboardNavigationDrawer(
                             .selectableGroup(),
                         verticalArrangement = Arrangement.Center
                     ) {
-                        screens.forEachIndexed { index, screen ->
+                        items.forEach { item ->
                             val selected: Boolean =
-                                currentDestination?.hierarchy?.any { it.route == screen.route } ?: false
+                                currentDestination?.hierarchy?.any { it.route == item.screen.route } ?: false
                             NavigationDrawerItem(
                                 colors = NavigationDrawerItemColors(
                                     containerColor = Color.Transparent,
@@ -78,14 +86,14 @@ fun DashboardNavigationDrawer(
                                 ),
                                 modifier = Modifier.padding(bottom = BACKGROUND_CONTENT_PADDING),
                                 selected = selected,
-                                onClick = { onNavigateTo(screen) },
-                                content = { Text(screens[index].name ) },
+                                onClick = { onItemClicked(item) },
+                                content = { Text(stringResource(id = item.nameRes) ) },
                                 leadingContent = {
                                     Icon(
                                         painter = painterResource(
-                                            id = screen.navigationDrawerIcon ?: R.drawable.home
+                                            id = item.iconRes
                                         ),
-                                        contentDescription = screen.name,
+                                        contentDescription = stringResource(id = item.nameRes),
                                         modifier = Modifier.size(24.dp),
                                     )
                                 }
@@ -96,7 +104,7 @@ fun DashboardNavigationDrawer(
             },
             modifier = Modifier
         ) {
-            if(currentDestination?.route != Screens.VideoPlayer.route) {
+            if(currentDestination?.route != Screen.VideoPlayer.route) {
                 Box(modifier = modifier
                     .background(background)
                     .padding(start = CLOSE_DRAWER_WIDTH + BACKGROUND_CONTENT_PADDING),

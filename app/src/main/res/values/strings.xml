@@ -10,6 +10,12 @@
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
 
+    <!-- Dashboard items -->
+    <string name="dashboard_navigation_drawer_home_item_name">Home</string>
+    <string name="dashboard_navigation_drawer_training_item_name">Training</string>
+    <string name="dashboard_navigation_drawer_favorite_item_name">Favorite</string>
+    <string name="dashboard_navigation_drawer_settings_item_name">Settings</string>
+
     <!-- Generic Error Messages -->
     <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
     <string name="generic_error_exception">An error occurred, please try again.</string>

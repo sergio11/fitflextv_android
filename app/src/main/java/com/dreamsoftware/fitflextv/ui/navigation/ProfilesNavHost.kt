@@ -17,26 +17,26 @@ fun ProfilesNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.ProfileSelector.route
+        startDestination = Screen.ProfileSelector.route
     ) {
-        composable(Screens.ProfileSelector.route) {
+        composable(Screen.ProfileSelector.route) {
             with(navController) {
                 ProfileSelectorScreen(
                     onProfileSelected = onGoToHome,
                     onProfileLocked = {
-                        navigate(Screens.UnlockProfile.buildRoute(it))
+                        navigate(Screen.UnlockProfile.buildRoute(it))
                     },
                     onGoToAddProfile = {
-                        navigate(Screens.AddProfile.route)
+                        navigate(Screen.AddProfile.route)
                     },
                     onGoToProfileManagement = {
-                        navigate(Screens.ProfilesManagement.route)
+                        navigate(Screen.ProfilesManagement.route)
                     }
                 )
             }
         }
 
-        composable(Screens.AddProfile.route) {
+        composable(Screen.AddProfile.route) {
             SaveProfileScreen(
                 onBackPressed = {
                     navController.navigateUp()
@@ -44,9 +44,9 @@ fun ProfilesNavigation(
             )
         }
 
-        composable(Screens.EditProfile.route) { navBackStackEntry ->
+        composable(Screen.EditProfile.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
-                Screens.EditProfile.parseArgs(args)?.let {
+                Screen.EditProfile.parseArgs(args)?.let {
                     with(navController) {
                         SaveProfileScreen(
                             args = it,
@@ -63,9 +63,9 @@ fun ProfilesNavigation(
         }
 
 
-        composable(Screens.UnlockProfile.route) { navBackStackEntry ->
+        composable(Screen.UnlockProfile.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
-                Screens.UnlockProfile.parseArgs(args)?.let {
+                Screen.UnlockProfile.parseArgs(args)?.let {
                     SecurePinScreen(
                         args = it,
                         onGoToHome = onGoToHome,
@@ -77,11 +77,11 @@ fun ProfilesNavigation(
             }
         }
 
-        composable(Screens.ProfilesManagement.route) {
+        composable(Screen.ProfilesManagement.route) {
             with(navController) {
                 ProfilesManagementScreen(
                     onGoToEditProfile = {
-                        navigate(Screens.EditProfile.buildRoute(it))
+                        navigate(Screen.EditProfile.buildRoute(it))
                     },
                     onBackPressed = {
                         popBackStack()
