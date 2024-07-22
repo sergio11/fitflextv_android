@@ -88,3 +88,9 @@ We use Jetpack Compose for TV to:
 │   └── reducer
 ├── utils
 └── di
+
+data: Contains the data layer of the application, including repositories and data sources.domain: Contains the business logic of the application, including use cases and domain models.ui: Contains the presentation layer, including views, intents, states, and reducers.utils: Contains utility classes and extensions.di: Contains dependency injection setup.Why This Architecture? 🤔Scalability: The architecture is designed to scale with the addition of new features without significant changes to the existing codebase.Maintainability: With clear separation of concerns, each module can be developed and maintained independently.Testability: By keeping business logic in ViewModels and UseCases, and using repository patterns, the code is more testable, ensuring higher code quality.Reusability: Using Jetpack Compose for TV, the UI components are highly reusable, which accelerates the development process.Getting Started 🚀To get started with FitFlexTV:Clone the repository:git clone https://github.com/yourusername/FitFlexTV.gitOpen the project in Android Studio.Sync the project with Gradle files.Run the app on an emulator or a physical device.Contributing 
+
+🤝We welcome contributions from the community! Please fork the repository and submit a pull request with your changes.License 
+
+📄This project is licensed under the MIT License - see the LICENSE file for details.
