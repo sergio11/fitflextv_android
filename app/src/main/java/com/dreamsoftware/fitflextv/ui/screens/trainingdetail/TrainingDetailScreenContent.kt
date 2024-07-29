@@ -30,7 +30,7 @@ internal fun TrainingDetailScreenContent(
                     onStartTrainingClicked = actionListener::onTrainingProgramStarted,
                     onMoreInfoClicked = actionListener::onTrainingProgramMoreInfoRequested,
                     onChallengesPlanClicked = { isChallengeTabsVisible = true },
-                    onTrainingFavoriteClicked = {}
+                    onTrainingFavoriteClicked = actionListener::onTrainingFavoriteClicked
                 )
             }
         }

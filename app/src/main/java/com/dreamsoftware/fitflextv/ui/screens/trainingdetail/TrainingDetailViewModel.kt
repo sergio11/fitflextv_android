@@ -7,7 +7,10 @@ import com.dreamsoftware.fitflextv.domain.model.ChallengeWeaklyPlansBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.VerifyTrainingInFavoritesUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
@@ -19,7 +22,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TrainingDetailViewModel @Inject constructor(
-    private val getTrainingByIdUseCase: GetTrainingByIdUseCase
+    private val getTrainingByIdUseCase: GetTrainingByIdUseCase,
+    private val addFavoriteTrainingUseCase: AddFavoriteTrainingUseCase,
+    private val removeFavoriteTrainingUseCase: RemoveFavoriteTrainingUseCase,
+    private val verifyTrainingInFavoritesUseCase: VerifyTrainingInFavoritesUseCase
 ) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>(), TrainingDetailScreenActionListener {
 
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
@@ -27,10 +33,66 @@ class TrainingDetailViewModel @Inject constructor(
     fun fetchData(id: String, type: TrainingTypeEnum) {
         updateState { it.copy(trainingType = type) }
         executeUseCaseWithParams(
+            useCase = verifyTrainingInFavoritesUseCase,
+            params = VerifyTrainingInFavoritesUseCase.Params(trainingId = id),
+            onSuccess = ::onVerifyTrainingInFavoritesCompleted
+        )
+        executeUseCaseWithParams(
             useCase = getTrainingByIdUseCase,
             params = GetTrainingByIdUseCase.Params(id, type),
             onSuccess = ::onGetTrainingProgramByIdSuccessfully
         )
+    }
+
+    override fun onTrainingProgramStarted() {
+        with(uiState.value) {
+            launchSideEffect(TrainingDetailSideEffects.PlayingTrainingProgram(
+                id = id,
+                type = trainingType
+            ))
+        }
+    }
+
+    override fun onTrainingProgramMoreInfoRequested() {
+        with(uiState.value) {
+            launchSideEffect(TrainingDetailSideEffects.OpenMoreInfo(
+                id = id,
+                type = trainingType
+            ))
+        }
+    }
+
+    override fun onTrainingFavoriteClicked() {
+        with(uiState.value) {
+            if(isFavorite) {
+                executeUseCaseWithParams(
+                    useCase = removeFavoriteTrainingUseCase,
+                    params = RemoveFavoriteTrainingUseCase.Params(
+                        trainingId = id
+                    ),
+                    onSuccess = ::onChangeFavoriteTrainingCompleted
+                )
+            } else {
+                executeUseCaseWithParams(
+                    useCase = addFavoriteTrainingUseCase,
+                    params = AddFavoriteTrainingUseCase.Params(
+                        trainingId = id,
+                        trainingType = trainingType
+                    ),
+                    onSuccess = ::onChangeFavoriteTrainingCompleted
+                )
+            }
+        }
+    }
+
+    private fun onChangeFavoriteTrainingCompleted(isSuccess: Boolean) {
+        if(isSuccess) {
+            updateState { it.copy(isFavorite = !it.isFavorite) }
+        }
+    }
+
+    private fun onVerifyTrainingInFavoritesCompleted(isFavorite: Boolean) {
+        updateState { it.copy(isFavorite = isFavorite) }
     }
 
     private fun onGetTrainingProgramByIdSuccessfully(trainingProgramBO: ITrainingProgramBO) {
@@ -83,24 +145,6 @@ class TrainingDetailViewModel @Inject constructor(
                     imageUrl = imageUrl
                 )
             }
-        }
-    }
-
-    override fun onTrainingProgramStarted() {
-        with(uiState.value) {
-            launchSideEffect(TrainingDetailSideEffects.PlayingTrainingProgram(
-                id = id,
-                type = trainingType
-            ))
-        }
-    }
-
-    override fun onTrainingProgramMoreInfoRequested() {
-        with(uiState.value) {
-            launchSideEffect(TrainingDetailSideEffects.OpenMoreInfo(
-                id = id,
-                type = trainingType
-            ))
         }
     }
 }
