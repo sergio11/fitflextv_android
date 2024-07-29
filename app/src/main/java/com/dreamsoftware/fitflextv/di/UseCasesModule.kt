@@ -14,7 +14,6 @@ import com.dreamsoftware.fitflextv.domain.usecase.CreateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesTrainingsByUserUseCase
-import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
@@ -143,16 +142,6 @@ class UseCasesModule {
         trainingRepository: ITrainingRepository
     ): GetFeaturedTrainingsUseCase =
         GetFeaturedTrainingsUseCase(
-            trainingRepository = trainingRepository
-        )
-
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetFavoritesWorkoutsUseCase(
-        trainingRepository: ITrainingRepository
-    ): GetFavoritesWorkoutsUseCase =
-        GetFavoritesWorkoutsUseCase(
             trainingRepository = trainingRepository
         )
 

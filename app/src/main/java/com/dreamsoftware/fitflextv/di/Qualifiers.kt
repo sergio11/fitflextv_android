@@ -28,6 +28,10 @@ annotation class SignUpScreenErrorMapper
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
+annotation class FavoritesScreenErrorMapper
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
 annotation class SignInScreenErrorMapper
 
 @Qualifier
