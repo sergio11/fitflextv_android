@@ -1,20 +1,31 @@
 package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
+import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoteDataSourceException
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesExceptionRemote
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
+import com.dreamsoftware.fitflextv.domain.exception.AddFavoriteTrainingException
+import com.dreamsoftware.fitflextv.domain.exception.FetchFavoritesTrainingsByUserException
 import com.dreamsoftware.fitflextv.domain.exception.FetchFeaturedTrainingsException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByCategoryException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingByIdException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingsException
 import com.dreamsoftware.fitflextv.domain.exception.FetchTrainingsRecommendedException
+import com.dreamsoftware.fitflextv.domain.exception.RemoveFavoriteTrainingException
+import com.dreamsoftware.fitflextv.domain.exception.VerifyFavoriteTrainingException
+import com.dreamsoftware.fitflextv.domain.model.AddFavoriteTrainingBO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
@@ -24,6 +35,7 @@ import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.ui.utils.parallelMap
+import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 
@@ -32,9 +44,11 @@ internal class TrainingRepositoryImpl(
     private val workoutRemoteDataSource: IWorkoutRemoteDataSource,
     private val seriesRemoteDataSource: ISeriesRemoteDataSource,
     private val challengeRemoteDataSource: IChallengesRemoteDataSource,
+    private val favoritesRemoteDataSource: IFavoritesRemoteDataSource,
     private val routineMapper: IOneSideMapper<RoutineDTO, RoutineBO>,
     private val workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>,
     private val seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
+    private val addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO>,
     private val challengeMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
     private val dispatcher: CoroutineDispatcher
 ) : SupportRepositoryImpl(dispatcher), ITrainingRepository {
@@ -173,4 +187,64 @@ internal class TrainingRepositoryImpl(
                 )
             }
         }
+
+    @Throws(AddFavoriteTrainingException::class)
+    override suspend fun addFavoriteTraining(data: AddFavoriteTrainingBO): Boolean =
+        safeExecute {
+            try {
+                favoritesRemoteDataSource.addFavorite(addFavoriteMapper.mapInToOut(data))
+            } catch (ex: AddToFavoritesExceptionRemote) {
+                throw AddFavoriteTrainingException(
+                    "An error occurred when adding training to favorites",
+                    ex
+                )
+            }
+        }
+
+    @Throws(FetchFavoritesTrainingsByUserException::class)
+    override suspend fun getFavoritesTrainingsByUser(userId: String): List<ITrainingProgramBO> = safeExecute {
+        try {
+            favoritesRemoteDataSource.getFavoritesByUser(userId).parallelMap {
+                getTrainingById(
+                    id = it.trainingId,
+                    type = enumValueOfOrDefault(it.trainingType, TrainingTypeEnum.WORK_OUT)
+                )
+            }
+        } catch (ex: GetFavoritesByUserExceptionRemote) {
+            throw FetchFavoritesTrainingsByUserException(
+                "An error occurred when fetching favorites",
+                ex
+            )
+        }
+    }
+
+    @Throws(VerifyFavoriteTrainingException::class)
+    override suspend fun hasTrainingInFavorites(userId: String, trainingId: String): Boolean = safeExecute {
+        try {
+            favoritesRemoteDataSource.hasTrainingInFavorites(
+                userId = userId,
+                trainingId = trainingId
+            )
+        } catch (ex: HasTrainingInFavoritesExceptionRemote) {
+            throw VerifyFavoriteTrainingException(
+                "An error occurred when checking favorites",
+                ex
+            )
+        }
+    }
+
+    @Throws(RemoveFavoriteTrainingException::class)
+    override suspend fun removeFavoriteTraining(userId: String, trainingId: String): Boolean = safeExecute {
+        try {
+            favoritesRemoteDataSource.removeFavorite(
+                userId = userId,
+                trainingId = trainingId
+            )
+        } catch (ex: RemoveFromFavoritesExceptionRemote) {
+            throw RemoveFavoriteTrainingException(
+                "An error occurred when removing training from favorites",
+                ex
+            )
+        }
+    }
 }

@@ -11,6 +11,10 @@ class FetchTrainingByIdException(message: String? = null, cause: Throwable? = nu
 class FetchTrainingByCategoryException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchTrainingsRecommendedException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchFeaturedTrainingsException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class AddFavoriteTrainingException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class FetchFavoritesTrainingsByUserException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class RemoveFavoriteTrainingException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class VerifyFavoriteTrainingException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 
 // Categories
 class FetchCategoriesException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

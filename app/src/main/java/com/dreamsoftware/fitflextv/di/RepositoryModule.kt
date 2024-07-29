@@ -5,11 +5,13 @@ import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenc
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
@@ -27,6 +29,7 @@ import com.dreamsoftware.fitflextv.data.repository.impl.InstructorRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.ProfilesRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.TrainingRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.UserRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.mapper.AddFavoriteTrainingMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.CategoryMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.ChallengeMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.CreateProfileRequestMapper
@@ -38,6 +41,7 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.UpdateProfileRequestMa
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdatedUserRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UserDetailMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.WorkoutMapper
+import com.dreamsoftware.fitflextv.domain.model.AddFavoriteTrainingBO
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
@@ -119,6 +123,10 @@ class RepositoryModule {
 
     @Provides
     @Singleton
+    fun provideAddFavoriteTrainingMapper(): IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO> = AddFavoriteTrainingMapper()
+
+    @Provides
+    @Singleton
     fun provideInstructorRepository(
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): IInstructorRepository =
@@ -132,9 +140,11 @@ class RepositoryModule {
         workoutRemoteDataSource: IWorkoutRemoteDataSource,
         seriesRemoteDataSource: ISeriesRemoteDataSource,
         challengesRemoteDataSource: IChallengesRemoteDataSource,
+        favoritesRemoteDataSource: IFavoritesRemoteDataSource,
         routineMapper: IOneSideMapper<RoutineDTO, RoutineBO>,
         workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>,
         seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
+        addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO>,
         challengesMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ITrainingRepository =
@@ -143,9 +153,11 @@ class RepositoryModule {
             workoutRemoteDataSource,
             seriesRemoteDataSource,
             challengesRemoteDataSource,
+            favoritesRemoteDataSource,
             routineMapper,
             workoutMapper,
             seriesMapper,
+            addFavoriteMapper,
             challengesMapper,
             dispatcher
         )
