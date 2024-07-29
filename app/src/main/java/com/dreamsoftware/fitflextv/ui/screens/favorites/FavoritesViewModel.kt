@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.favorites
 import com.dreamsoftware.fitflextv.di.FavoritesScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesTrainingsByUserUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val getFavoritesTrainingsByUserUseCase: GetFavoritesTrainingsByUserUseCase,
+    private val removeFavoriteTrainingUseCase: RemoveFavoriteTrainingUseCase,
     @FavoritesScreenErrorMapper private val errorMapper: IErrorMapper,
 ) : BaseViewModel<FavoritesUiState, FavoritesSideEffects>(), FavoritesScreenActionListener {
 
@@ -34,8 +36,12 @@ class FavoritesViewModel @Inject constructor(
         updateState { it.copy(trainingProgramSelected = null) }
     }
 
-    override fun onTrainingProgramRemoved(id: String) {
-        updateState { it.copy(trainingProgramSelected = null) }
+    override fun onTrainingProgramRemovedFromFavorites(id: String) {
+        executeUseCaseWithParams(
+            useCase = removeFavoriteTrainingUseCase,
+            params = RemoveFavoriteTrainingUseCase.Params(trainingId = id),
+            onSuccess = ::onTrainingProgramRemovedFromFavoritesCompletedSuccessfully
+        )
     }
 
     override fun onDismissRequest() {
@@ -44,6 +50,15 @@ class FavoritesViewModel @Inject constructor(
 
     private fun onGetFavoritesWorkoutsSuccessfully(trainingProgramList: List<ITrainingProgramBO>) {
         updateState { it.copy(favoritesTrainings = trainingProgramList) }
+    }
+
+    private fun onTrainingProgramRemovedFromFavoritesCompletedSuccessfully(isRemoved: Boolean) {
+        if(isRemoved) {
+            updateState { it.copy(
+                favoritesTrainings = it.favoritesTrainings.filterNot { training -> training.id == it.trainingProgramSelected?.id },
+                trainingProgramSelected = null
+            ) }
+        }
     }
 
     private fun onMapExceptionToState(ex: Exception, uiState: FavoritesUiState) =

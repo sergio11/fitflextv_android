@@ -6,6 +6,6 @@ interface FavoritesScreenActionListener {
 
     fun onTrainingProgramSelected(trainingProgram: ITrainingProgramBO)
     fun onTrainingProgramStarted(id: String)
-    fun onTrainingProgramRemoved(id: String)
+    fun onTrainingProgramRemovedFromFavorites(id: String)
     fun onDismissRequest()
 }
