@@ -48,8 +48,8 @@ fun DashboardNavHost(
                     onBackPressed = {
                         popBackStack()
                     },
-                    onStartWorkout = {
-                        navigate(Screen.VideoPlayer.route)
+                    onOpenTrainingProgramDetail = { id, type ->
+                        navigate(Screen.TrainingDetail.buildRoute(id, type))
                     }
                 )
             }
