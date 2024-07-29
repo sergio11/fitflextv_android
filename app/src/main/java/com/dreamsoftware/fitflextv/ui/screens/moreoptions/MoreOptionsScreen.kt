@@ -5,7 +5,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
-
 data class MoreOptionsScreenArgs(
     val id: String,
     val type: TrainingTypeEnum
@@ -16,15 +15,17 @@ fun MoreOptionsScreen(
     viewModel: MoreOptionsViewModel = hiltViewModel(),
     args: MoreOptionsScreenArgs,
     onBackPressed: () -> Unit,
-    onStartClick: () -> Unit,
-    onFavouriteClick: () -> Unit,
+    onPlayTrainingProgram: (id: String, type: TrainingTypeEnum) -> Unit,
 ) {
     CommonScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { MoreOptionsUiState() },
         onSideEffect = {
-
+            when(it) {
+                MoreOptionsSideEffects.ExitFromMoreDetail -> onBackPressed()
+                is MoreOptionsSideEffects.PlayTrainingProgram -> onPlayTrainingProgram(it.id, it.type)
+            }
         },
         onInit = {
             with(args) {
@@ -34,9 +35,7 @@ fun MoreOptionsScreen(
     ) { uiState ->
         MoreOptionsScreenContent(
             state = uiState,
-            onBackPressed = onBackPressed,
-            onStartClick = onStartClick,
-            onFavouriteClick = onFavouriteClick
+            actionListener = viewModel
         )
     }
 }
