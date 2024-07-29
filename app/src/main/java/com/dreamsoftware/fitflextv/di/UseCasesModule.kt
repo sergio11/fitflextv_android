@@ -9,9 +9,11 @@ import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
+import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.CreateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesTrainingsByUserUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesWorkoutsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
@@ -25,12 +27,14 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserDetailUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.UpdateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyPinUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.VerifyTrainingInFavoritesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyUserSessionUseCase
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
 import dagger.Module
@@ -271,5 +275,51 @@ class UseCasesModule {
         UpdateProfileUseCase(
             profilesRepository = profilesRepository,
             validator = validator
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideAddFavoriteTrainingUseCase(
+        userRepository: IUserRepository,
+        trainingRepository: ITrainingRepository
+    ): AddFavoriteTrainingUseCase =
+        AddFavoriteTrainingUseCase(
+            userRepository = userRepository,
+            trainingRepository = trainingRepository
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetFavoritesTrainingsByUserUseCase(
+        userRepository: IUserRepository,
+        trainingRepository: ITrainingRepository
+    ): GetFavoritesTrainingsByUserUseCase =
+        GetFavoritesTrainingsByUserUseCase(
+            userRepository = userRepository,
+            trainingRepository = trainingRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideRemoveFavoriteTrainingUseCase(
+        userRepository: IUserRepository,
+        trainingRepository: ITrainingRepository
+    ): RemoveFavoriteTrainingUseCase =
+        RemoveFavoriteTrainingUseCase(
+            userRepository = userRepository,
+            trainingRepository = trainingRepository
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideVerifyTrainingInFavoritesUseCase(
+        userRepository: IUserRepository,
+        trainingRepository: ITrainingRepository
+    ): VerifyTrainingInFavoritesUseCase =
+        VerifyTrainingInFavoritesUseCase(
+            userRepository = userRepository,
+            trainingRepository = trainingRepository
         )
 }
