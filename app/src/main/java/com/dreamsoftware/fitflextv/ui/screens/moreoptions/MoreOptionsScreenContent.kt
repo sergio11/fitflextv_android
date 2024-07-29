@@ -19,9 +19,7 @@ import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndTypeTraining
 @Composable
 internal fun MoreOptionsScreenContent(
     state: MoreOptionsUiState,
-    onBackPressed: () -> Unit,
-    onStartClick: () -> Unit,
-    onFavouriteClick: () -> Unit,
+    actionListener: MoreOptionsScreenActionListener
 ) {
     with(state) {
         CommonFocusRequester { focusRequester ->
@@ -52,7 +50,7 @@ internal fun MoreOptionsScreenContent(
                         modifier = Modifier.constrainAs(backRowSchema) {
                             top.linkTo(trainingDetails.bottom, margin = 50.dp)
                         },
-                        onClickBack = onBackPressed
+                        onClickBack = actionListener::onBackPressed
                     )
                     CommonMoreOptionsButton(
                         modifier = Modifier.focusRequester(focusRequester).constrainAs(startButton) {
@@ -61,16 +59,24 @@ internal fun MoreOptionsScreenContent(
                         },
                         textRes = R.string.start_workout,
                         icon = R.drawable.ic_rounded_play,
-                        onClick = onStartClick
+                        onClick = actionListener::onTrainingProgramOpened
                     )
                     CommonMoreOptionsButton(
                         modifier = Modifier.constrainAs(favoritesButton) {
                             top.linkTo(startButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)
                         },
-                        textRes = R.string.add_to_favorites,
-                        icon = R.drawable.ic_outline_favorite,
-                        onClick = onFavouriteClick
+                        textRes = if(isFavorite) {
+                            R.string.remove_from_favorites
+                        } else {
+                            R.string.add_to_favorites
+                        },
+                        icon = if(isFavorite) {
+                            R.drawable.favorite
+                        } else {
+                            R.drawable.ic_outline_favorite
+                        },
+                        onClick = actionListener::onFavouriteClicked
                     )
                     CommonMoreOptionsButton(
                         modifier = Modifier.constrainAs(moreInfoButton) {

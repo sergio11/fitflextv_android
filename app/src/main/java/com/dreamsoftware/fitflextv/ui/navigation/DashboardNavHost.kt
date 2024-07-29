@@ -111,15 +111,12 @@ fun DashboardNavHost(
                 with(navController) {
                     MoreOptionsScreen(
                         args = args,
-                        onStartClick = {
-                            navigate(Screen.AudioPlayer.route)
+                        onPlayTrainingProgram = { id, type ->
+                            navigate(Screen.VideoPlayer.buildRoute(id, type))
                         },
                         onBackPressed = {
                             popBackStack()
                         },
-                        onFavouriteClick = {
-                            navigate(Screen.Favorite.route)
-                        }
                     )
                 }
             }
