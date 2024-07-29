@@ -110,10 +110,10 @@ internal fun FavoritesScreenContent(
                     ),
                 ) {
                     trainingProgramSelected?.let {
-                        WorkoutDetailsPopup(
+                        TrainingProgramDetailsPopup(
                             trainingProgram = it,
-                            onStartWorkout = actionListener::onTrainingProgramStarted,
-                            onRemoveWorkout = actionListener::onTrainingProgramRemoved,
+                            onStartTrainingProgram = actionListener::onTrainingProgramStarted,
+                            onRemoveFromFavorites = actionListener::onTrainingProgramRemovedFromFavorites,
                             onBackPressed = actionListener::onDismissRequest
                         )
                     }
@@ -124,10 +124,10 @@ internal fun FavoritesScreenContent(
 }
 
 @Composable
-private fun WorkoutDetailsPopup(
+private fun TrainingProgramDetailsPopup(
     trainingProgram: ITrainingProgramBO,
-    onStartWorkout: (id: String) -> Unit,
-    onRemoveWorkout: (id: String) -> Unit,
+    onStartTrainingProgram: (id: String) -> Unit,
+    onRemoveFromFavorites: (id: String) -> Unit,
     onBackPressed: () -> Unit
 ) {
     Dialog(onDismissRequest = onBackPressed) {
@@ -203,7 +203,7 @@ private fun WorkoutDetailsPopup(
                             .focusRequester(focusRequester)
                             .padding(bottom = 12.dp)
                     ) {
-                        onStartWorkout(trainingProgram.id)
+                        onStartTrainingProgram(trainingProgram.id)
                     }
                     CommonOutLinedButtonWithLeadingIcon(
                         text = "Remove from favorites",
@@ -212,7 +212,7 @@ private fun WorkoutDetailsPopup(
                             .fillMaxWidth()
                             .padding(bottom = 24.dp)
                     ) {
-                        onRemoveWorkout(trainingProgram.id)
+                        onRemoveFromFavorites(trainingProgram.id)
                     }
                 }
             }
