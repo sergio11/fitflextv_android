@@ -36,7 +36,7 @@ import androidx.tv.foundation.lazy.grid.itemsIndexed
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.domain.model.FavWorkout
+import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardWithIntensity
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
@@ -53,17 +53,13 @@ import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 
 @Composable
 internal fun FavoritesScreenContent(
-    modifier: Modifier = Modifier,
-    state: FavoritesUiState,
-    onStartWorkout: (id: String) -> Unit,
-    onRemoveWorkout: (id: String) -> Unit,
-    onWorkoutSelect: (FavWorkout) -> Unit,
-    onDismissRequest: () -> Unit,
+    uiState: FavoritesUiState,
+    actionListener: FavoritesScreenActionListener
 ) {
-    with(state) {
+    with(uiState) {
         if (isLoading) {
             CommonLoadingState(modifier = Modifier.fillMaxSize())
-        } else if(state.favoritesWorkouts.isEmpty()) {
+        } else if(favoritesTrainings.isEmpty()) {
             CommonNoContentState(
                 modifier = Modifier.fillMaxSize(),
                 messageRes = R.string.favorites_not_workout_available
@@ -82,30 +78,30 @@ internal fun FavoritesScreenContent(
                     TvLazyHorizontalGrid(
                         contentPadding = PaddingValues(horizontal = 46.dp),
                         rows = TvGridCells.Fixed(2),
-                        modifier = modifier
+                        modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 24.dp)
                     ) {
-                        itemsIndexed(items = favoritesWorkouts, key = { _, item -> item.id }) { idx, item ->
+                        itemsIndexed(items = favoritesTrainings, key = { _, item -> item.id }) { idx, item ->
                             CommonCardWithIntensity(modifier = Modifier
                                 .width(196.dp)
                                 .conditional(condition = idx == 0, ifTrue = {
                                     focusRequester(focusRequester)
                                 })
                                 .padding(horizontal = 12.dp),
-                                imageUrl = item.image,
+                                imageUrl = item.imageUrl,
                                 title = item.name,
                                 timeText = item.duration,
                                 typeText = "Intensity",
-                                intensityLevel = item.intensity,
+                                intensityLevel = item.intensity.ordinal,
                                 onClick = {
-                                    onWorkoutSelect(item)
+                                    actionListener.onTrainingProgramSelected(item)
                                 })
                         }
                     }
                 }
                 AnimatedVisibility(
-                    visible = selectedWorkoutItem != null,
+                    visible = trainingProgramSelected != null,
                     enter = fadeIn(
                         animationSpec = tween(300)
                     ),
@@ -113,12 +109,12 @@ internal fun FavoritesScreenContent(
                         animationSpec = tween(300)
                     ),
                 ) {
-                    selectedWorkoutItem?.let {
+                    trainingProgramSelected?.let {
                         WorkoutDetailsPopup(
-                            workout = it,
-                            onStartWorkout = onStartWorkout,
-                            onRemoveWorkout = onRemoveWorkout,
-                            onBackPressed = onDismissRequest
+                            trainingProgram = it,
+                            onStartWorkout = actionListener::onTrainingProgramStarted,
+                            onRemoveWorkout = actionListener::onTrainingProgramRemoved,
+                            onBackPressed = actionListener::onDismissRequest
                         )
                     }
                 }
@@ -129,7 +125,7 @@ internal fun FavoritesScreenContent(
 
 @Composable
 private fun WorkoutDetailsPopup(
-    workout: FavWorkout,
+    trainingProgram: ITrainingProgramBO,
     onStartWorkout: (id: String) -> Unit,
     onRemoveWorkout: (id: String) -> Unit,
     onBackPressed: () -> Unit
@@ -153,7 +149,7 @@ private fun WorkoutDetailsPopup(
                         .fillMaxWidth()
                         .fillMaxHeight(0.5f)
                         .alpha(0.88f),
-                    model = workout.image,
+                    model = trainingProgram.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
@@ -169,7 +165,7 @@ private fun WorkoutDetailsPopup(
                         type = CommonTextTypeEnum.HEADLINE_SMALL,
                         textColor = onSurface,
                         textAlign = TextAlign.Justify,
-                        titleText = workout.name,
+                        titleText = trainingProgram.name,
                         overflow = TextOverflow.Ellipsis,
                     )
                     Row(
@@ -182,16 +178,16 @@ private fun WorkoutDetailsPopup(
                         CommonText(
                             modifier = Modifier,
                             type = CommonTextTypeEnum.LABEL_MEDIUM,
-                            titleText = "${workout.duration} | Intensity ",
+                            titleText = "${trainingProgram.duration} | Intensity ",
                             textColor = onSurface,
                             overflow = TextOverflow.Ellipsis,
                             softWrap = true,
                             maxLines = 4
                         )
-                        repeat(workout.intensity) { Text(text = "•") }
+                        repeat(trainingProgram.intensity.ordinal) { Text(text = "•") }
                     }
                     CommonText(
-                        titleText = workout.description,
+                        titleText = trainingProgram.description,
                         modifier = Modifier.padding(bottom = 28.dp),
                         type = CommonTextTypeEnum.BODY_SMALL,
                         textColor = Color.LightGray,
@@ -207,7 +203,7 @@ private fun WorkoutDetailsPopup(
                             .focusRequester(focusRequester)
                             .padding(bottom = 12.dp)
                     ) {
-                        onStartWorkout(workout.id)
+                        onStartWorkout(trainingProgram.id)
                     }
                     CommonOutLinedButtonWithLeadingIcon(
                         text = "Remove from favorites",
@@ -216,7 +212,7 @@ private fun WorkoutDetailsPopup(
                             .fillMaxWidth()
                             .padding(bottom = 24.dp)
                     ) {
-                        onRemoveWorkout(workout.id)
+                        onRemoveWorkout(trainingProgram.id)
                     }
                 }
             }
