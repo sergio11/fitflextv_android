@@ -2,12 +2,14 @@ package com.dreamsoftware.fitflextv.ui.screens.favorites
 
 import com.dreamsoftware.fitflextv.di.FavoritesScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesTrainingsByUserUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -33,7 +35,13 @@ class FavoritesViewModel @Inject constructor(
     }
 
     override fun onTrainingProgramStarted(id: String) {
-        updateState { it.copy(trainingProgramSelected = null) }
+        uiState.value.trainingProgramSelected?.let { trainingProgramSelected ->
+            updateState { it.copy(trainingProgramSelected = null) }
+            launchSideEffect(FavoritesSideEffects.OpenTrainingProgramDetail(
+                id = trainingProgramSelected.id,
+                type = trainingProgramSelected.toTrainingType()
+            ))
+        }
     }
 
     override fun onTrainingProgramRemovedFromFavorites(id: String) {
@@ -78,4 +86,6 @@ data class FavoritesUiState(
         copy(isLoading = isLoading, errorMessage = errorMessage)
 }
 
-sealed interface FavoritesSideEffects: SideEffect
+sealed interface FavoritesSideEffects: SideEffect {
+    data class OpenTrainingProgramDetail(val id: String, val type: TrainingTypeEnum): FavoritesSideEffects
+}
