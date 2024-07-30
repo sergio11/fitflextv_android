@@ -14,6 +14,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
@@ -37,6 +38,7 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.CreateUserMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.ProfileMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.SeriesMapper
+import com.dreamsoftware.fitflextv.data.repository.mapper.TrainingFilterDataMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdateProfileRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdatedUserRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UserDetailMapper
@@ -49,6 +51,7 @@ import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
@@ -127,6 +130,10 @@ class RepositoryModule {
 
     @Provides
     @Singleton
+    fun provideTrainingFilterDataMapper(): IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO> = TrainingFilterDataMapper()
+
+    @Provides
+    @Singleton
     fun provideInstructorRepository(
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): IInstructorRepository =
@@ -146,6 +153,7 @@ class RepositoryModule {
         seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
         addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO>,
         challengesMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
+        trainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ITrainingRepository =
         TrainingRepositoryImpl(
@@ -158,6 +166,7 @@ class RepositoryModule {
             workoutMapper,
             seriesMapper,
             addFavoriteMapper,
+            trainingFilterDataMapper,
             challengesMapper,
             dispatcher
         )

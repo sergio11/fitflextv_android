@@ -6,6 +6,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
@@ -30,6 +31,7 @@ import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
@@ -49,35 +51,38 @@ internal class TrainingRepositoryImpl(
     private val workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>,
     private val seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
     private val addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO>,
+    private val trainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO>,
     private val challengeMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
     private val dispatcher: CoroutineDispatcher
 ) : SupportRepositoryImpl(dispatcher), ITrainingRepository {
 
     @Throws(FetchTrainingsException::class)
-    override suspend fun getTrainings(type: TrainingTypeEnum): Iterable<ITrainingProgramBO> =
+    override suspend fun getTrainings(data: TrainingFilterDataBO): Iterable<ITrainingProgramBO> = with(data) {
         safeExecute {
+            val filterDTO = trainingFilterDataMapper.mapInToOut(data)
             try {
                 when (type) {
-                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getWorkouts()
+                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getWorkouts(filterDTO)
                         .let(workoutMapper::mapInListToOutList)
 
-                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getSeries()
+                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getSeries(filterDTO)
                         .let(seriesMapper::mapInListToOutList)
 
-                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getChallenges()
+                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getChallenges(filterDTO)
                         .map {
                             challengeMapper.mapInToOut(it to it.weaklyPlans.parallelMap { weaklyPlan ->
                                 workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
                             }.flatten())
                         }
 
-                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutines()
+                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutines(filterDTO)
                         .let(routineMapper::mapInListToOutList)
                 }
             } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingsException("An error occurred when fetching trainings", ex)
             }
         }
+    }
 
     @Throws(FetchTrainingByIdException::class)
     override suspend fun getTrainingById(id: String, type: TrainingTypeEnum): ITrainingProgramBO =
