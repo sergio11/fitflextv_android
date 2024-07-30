@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.training.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -7,31 +8,29 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.items
-import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.MaterialTheme
+import androidx.tv.material3.RadioButton
+import androidx.tv.material3.RadioButtonDefaults
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
-import com.dreamsoftware.fitflextv.ui.screens.training.TrainingFilterVO
 
 @Composable
-internal fun FilterSideMenu(
+fun OptionsSideMenu(
     onDismissSideMenu: () -> Unit,
-    filtrationFields: List<TrainingFilterVO>,
-    onFieldClicked: (TrainingFilterVO) -> Unit
+    @StringRes titleRes: Int,
+    items: List<String>,
+    selectedIndex: Int,
+    onSelectedItem: (currentIndex: Int) -> Unit,
 ) {
     with(MaterialTheme.colorScheme) {
         TvLazyColumn(
@@ -46,46 +45,36 @@ internal fun FilterSideMenu(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(R.string.filters),
+                        text = stringResource(titleRes),
                         style = MaterialTheme.typography.headlineSmall,
                         color = onSurface
                     )
                     CommonFillButton(
-                        text = stringResource(R.string.clear),
+                        text = stringResource(R.string.reset),
                         onClick = onDismissSideMenu
                     )
                 }
             }
-            items(filtrationFields) { field ->
+            items(items.size) { index ->
                 ListItem(
+                    modifier = Modifier.padding(top = 16.dp),
                     selected = false,
-                    onClick = {
-                        onFieldClicked(field)
-                    },
-                    leadingContent = {
-                        Icon(
-                            painter = painterResource(id = field.icon),
-                            modifier = Modifier.size(ListItemDefaults.IconSize),
-                            contentDescription = "field icon"
-                        )
-                    },
+                    onClick = { onSelectedItem(index) },
                     trailingContent = {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            modifier = Modifier.size(ListItemDefaults.IconSize),
-                            contentDescription = "back icon"
+                        RadioButton(
+                            selected = selectedIndex == index,
+                            onClick = { /*TODO*/ },
+                            modifier = Modifier.size(ListItemDefaults.IconSizeDense),
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = inversePrimary,
+                                unselectedColor = border
+                            )
                         )
                     },
                     headlineContent = {
                         Text(
-                            text = stringResource(id = field.title),
+                            text = items[index],
                             style = MaterialTheme.typography.titleMedium
-                        )
-                    },
-                    supportingContent = {
-                        Text(
-                            text = field.description,
-                            style = MaterialTheme.typography.bodySmall
                         )
                     },
                     colors = ListItemDefaults.colors(

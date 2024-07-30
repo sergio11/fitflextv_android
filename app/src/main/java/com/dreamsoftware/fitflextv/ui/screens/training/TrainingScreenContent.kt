@@ -32,7 +32,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonOutlineButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTabRow
 import com.dreamsoftware.fitflextv.ui.screens.training.components.FilterSideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.components.SideMenu
-import com.dreamsoftware.fitflextv.ui.screens.training.components.SortSideMenu
+import com.dreamsoftware.fitflextv.ui.screens.training.components.OptionsSideMenu
 import com.dreamsoftware.fitflextv.ui.utils.conditional
 
 @Composable
@@ -41,23 +41,37 @@ internal fun TrainingScreenContent(
     actionListener: TrainingScreenActionListener
 ) {
     with(actionListener) {
-        SideMenu(onDismissSideMenu = ::onDismissSideMenu, isSideMenuExpended = state.isFilterExpended) {
-            FilterSideMenu(
-                onDismissSideMenu = ::onDismissSideMenu,
-                filtrationFields = state.filterItems
+        with(state) {
+            SideMenu(onDismissSideMenu = ::onDismissFilterSideMenu, isSideMenuExpended = isFilterExpended) {
+                FilterSideMenu(
+                    onDismissSideMenu = ::onDismissFilterSideMenu,
+                    filtrationFields = filterItems,
+                    onFieldClicked = ::onFilterFieldSelected
+                )
+            }
+            SideMenu(onDismissSideMenu = ::onDismissFieldFilterSideMenu, isSideMenuExpended = isFieldFilterSelected) {
+                OptionsSideMenu(
+                    onDismissSideMenu = ::onDismissFieldFilterSideMenu,
+                    selectedIndex = selectedSortItem,
+                    titleRes = R.string.sort_by,
+                    items = selectedTrainingFilterOptions,
+                    onSelectedItem = ::onSelectedSortedItem
+                )
+            }
+            SideMenu(onDismissSideMenu = ::onDismissSortSideMenu, isSideMenuExpended = isSortExpended) {
+                OptionsSideMenu(
+                    onDismissSideMenu = ::onDismissSortSideMenu,
+                    titleRes = R.string.sort_by,
+                    items = SortItem.entries.map { it.name },
+                    selectedIndex = selectedSortItem,
+                    onSelectedItem = ::onSelectedSortedItem
+                )
+            }
+            TrainingProgramList(
+                state = this,
+                actionListener = actionListener
             )
         }
-        SideMenu(onDismissSideMenu = ::onDismissSideMenu, isSideMenuExpended = state.isSortExpended) {
-            SortSideMenu(
-                onDismissSideMenu = ::onDismissSideMenu,
-                selectedIndex = state.selectedSortItem,
-                onSelectedItem = ::onSelectedSortedItem
-            )
-        }
-        TrainingProgramList(
-            state = state,
-            actionListener = actionListener
-        )
     }
 }
 
