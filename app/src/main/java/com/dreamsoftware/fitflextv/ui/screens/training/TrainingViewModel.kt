@@ -20,11 +20,39 @@ class TrainingViewModel @Inject constructor(
 
     override fun onGetDefaultState(): TrainingUiState = TrainingUiState(
         filterItems = listOf(
-            TrainingFilterVO.VideoLengthFilter,
-            TrainingFilterVO.ClassTypeFilter,
-            TrainingFilterVO.ClassLanguageFilter,
-            TrainingFilterVO.DifficultyFilter,
-            TrainingFilterVO.InstructorFilter
+            TrainingFilterVO(
+                type = FilterTypeEnum.VIDEO_LENGTH,
+                icon = R.drawable.length_ic,
+                title = R.string.length,
+                description = VideoLength.SHORT.value,
+                options = VideoLength.entries.map { it.value }
+            ),
+            TrainingFilterVO(
+                type = FilterTypeEnum.CLASS_TYPE,
+                icon = R.drawable.class_type_ic,
+                title = R.string.class_type,
+                description = ClassType.STRENGTH.value,
+                options = ClassType.entries.map { it.value }
+            ),
+            TrainingFilterVO(
+                type = FilterTypeEnum.CLASS_LANGUAGE,
+                icon = R.drawable.language_ic,
+                title = R.string.class_language,
+                description = ClassLanguage.ENGLISH.value,
+                options = ClassLanguage.entries.map { it.value }
+            ),
+            TrainingFilterVO(
+                type = FilterTypeEnum.DIFFICULTY,
+                icon = R.drawable.difficulty_ic,
+                title = R.string.difficulty,
+                description = Difficulty.BEGINNER.value,
+                options = Difficulty.entries.map { it.value }
+            ),
+            TrainingFilterVO(
+                type = FilterTypeEnum.INSTRUCTOR,
+                icon = R.drawable.person_ic,
+                title = R.string.instructor
+            )
         )
     )
 
@@ -53,16 +81,10 @@ class TrainingViewModel @Inject constructor(
         updateState { it.copy(isFieldFilterSelected = false) }
     }
 
-    override fun onFilterFieldSelected(field: TrainingFilterVO) {
+    override fun onFilterFieldSelected(trainingFilter: TrainingFilterVO) {
         updateState {
             it.copy(
-                selectedTrainingFilterOptions = when (field) {
-                    TrainingFilterVO.ClassLanguageFilter -> ClassLanguage.entries.map { entry -> entry.value }
-                    TrainingFilterVO.ClassTypeFilter -> ClassType.entries.map { entry -> entry.value }
-                    TrainingFilterVO.DifficultyFilter -> Difficulty.entries.map { entry -> entry.value }
-                    TrainingFilterVO.InstructorFilter -> emptyList()
-                    TrainingFilterVO.VideoLengthFilter -> VideoLength.entries.map { entry -> entry.value }
-                },
+                selectedTrainingFilter = trainingFilter,
                 isFieldFilterSelected = true
             )
         }
@@ -70,6 +92,33 @@ class TrainingViewModel @Inject constructor(
 
     override fun onSelectedSortedItem(currentIndex: Int) {
         updateState { it.copy(selectedSortItem = currentIndex) }
+    }
+
+    override fun onSelectedTrainingFilterOption(currentIndex: Int) {
+        updateState { it.copy(isFieldFilterSelected = false) }
+        uiState.value.selectedTrainingFilter?.let { filter ->
+            updateState {
+                it.copy(
+                    filterItems = it.filterItems.map { item ->
+                        if(item.type == filter.type) {
+                            item.copy(
+                                selectedOption = currentIndex,
+                                description = when(filter.type) {
+                                    FilterTypeEnum.VIDEO_LENGTH -> VideoLength.entries[currentIndex].value
+                                    FilterTypeEnum.CLASS_TYPE -> ClassType.entries[currentIndex].value
+                                    FilterTypeEnum.DIFFICULTY -> Difficulty.entries[currentIndex].value
+                                    FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguage.entries[currentIndex].value
+                                    FilterTypeEnum.INSTRUCTOR -> String.EMPTY
+                                }
+                            )
+                        } else {
+                            item
+                        }
+                    },
+                    selectedTrainingFilter = null
+                )
+            }
+        }
     }
 
     override fun onChangeSelectedTab(index: Int) {
@@ -137,7 +186,7 @@ data class TrainingUiState(
     val trainingPrograms: List<ITrainingProgramBO> = emptyList(),
     val filterItems: List<TrainingFilterVO> = emptyList(),
     val selectedSortItem: Int = 0,
-    val selectedTrainingFilterOptions: List<String> = emptyList(),
+    val selectedTrainingFilter: TrainingFilterVO? = null,
     val selectedTab: Int = 0,
     val tabsTitle: List<Int> = listOf(
         R.string.training_type_workout_name,
@@ -157,37 +206,17 @@ sealed interface TrainingSideEffects : SideEffect {
         TrainingSideEffects
 }
 
-sealed class TrainingFilterVO(
+data class TrainingFilterVO(
+    val type: FilterTypeEnum,
     val icon: Int,
     val title: Int,
     val description: String = String.EMPTY,
-) {
-    data object VideoLengthFilter : TrainingFilterVO(
-        icon = R.drawable.length_ic,
-        title = R.string.length,
-        description = VideoLength.SHORT.value
-    )
+    val selectedOption: Int = 0,
+    val options: List<String> = emptyList()
+)
 
-    data object ClassTypeFilter : TrainingFilterVO(
-        icon = R.drawable.class_type_ic,
-        title = R.string.class_type,
-        description = ClassType.STRENGTH.value
-    )
-
-    data object ClassLanguageFilter : TrainingFilterVO(
-        icon = R.drawable.language_ic,
-        title = R.string.class_language,
-        description = ClassLanguage.ENGLISH.value
-    )
-
-    data object DifficultyFilter : TrainingFilterVO(
-        icon = R.drawable.difficulty_ic,
-        title = R.string.difficulty,
-        description = Difficulty.BEGINNER.value
-    )
-
-    data object InstructorFilter :
-        TrainingFilterVO(icon = R.drawable.person_ic, title = R.string.instructor)
+enum class FilterTypeEnum {
+    VIDEO_LENGTH, CLASS_TYPE, DIFFICULTY, CLASS_LANGUAGE, INSTRUCTOR
 }
 
 enum class VideoLength(val value: String) {
