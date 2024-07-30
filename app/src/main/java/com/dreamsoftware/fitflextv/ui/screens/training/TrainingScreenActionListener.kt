@@ -4,7 +4,10 @@ interface TrainingScreenActionListener {
 
     fun onFilterClicked()
     fun onSortedClicked()
-    fun onDismissSideMenu()
+    fun onDismissSortSideMenu()
+    fun onDismissFilterSideMenu()
+    fun onDismissFieldFilterSideMenu()
+    fun onFilterFieldSelected(field: TrainingFilterVO)
     fun onSelectedSortedItem(currentIndex: Int)
     fun onChangeSelectedTab(index: Int)
     fun onChangeFocusTab(index: Int)
