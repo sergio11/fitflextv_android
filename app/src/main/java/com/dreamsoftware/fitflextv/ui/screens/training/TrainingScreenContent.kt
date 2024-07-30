@@ -50,13 +50,15 @@ internal fun TrainingScreenContent(
                 )
             }
             SideMenu(onDismissSideMenu = ::onDismissFieldFilterSideMenu, isSideMenuExpended = isFieldFilterSelected) {
-                OptionsSideMenu(
-                    onDismissSideMenu = ::onDismissFieldFilterSideMenu,
-                    selectedIndex = selectedSortItem,
-                    titleRes = R.string.sort_by,
-                    items = selectedTrainingFilterOptions,
-                    onSelectedItem = ::onSelectedSortedItem
-                )
+                selectedTrainingFilter?.run {
+                    OptionsSideMenu(
+                        onDismissSideMenu = ::onDismissFieldFilterSideMenu,
+                        selectedIndex = selectedOption,
+                        titleRes = title,
+                        items = options,
+                        onSelectedItem = ::onSelectedTrainingFilterOption
+                    )
+                }
             }
             SideMenu(onDismissSideMenu = ::onDismissSortSideMenu, isSideMenuExpended = isSortExpended) {
                 OptionsSideMenu(
