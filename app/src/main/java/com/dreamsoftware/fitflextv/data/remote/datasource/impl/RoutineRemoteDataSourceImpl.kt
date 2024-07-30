@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedRoutinesExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByCategoryExceptionRemote
@@ -24,7 +25,7 @@ internal class RoutineRemoteDataSourceImpl(
     }
 
     @Throws(FetchRemoteRoutinesExceptionRemote::class)
-    override suspend fun getRoutines(): List<RoutineDTO> = try {
+    override suspend fun getRoutines(filter: TrainingFilterDTO): List<RoutineDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).get() },
             mapper = { routineMapper.mapInToOut(it) }

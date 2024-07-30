@@ -11,12 +11,13 @@ import com.dreamsoftware.fitflextv.domain.exception.RemoveFavoriteTrainingExcept
 import com.dreamsoftware.fitflextv.domain.exception.VerifyFavoriteTrainingException
 import com.dreamsoftware.fitflextv.domain.model.AddFavoriteTrainingBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 
 interface ITrainingRepository {
 
     @Throws(FetchTrainingsException::class)
-    suspend fun getTrainings(type: TrainingTypeEnum): Iterable<ITrainingProgramBO>
+    suspend fun getTrainings(data: TrainingFilterDataBO): Iterable<ITrainingProgramBO>
 
     @Throws(FetchTrainingByIdException::class)
     suspend fun getTrainingById(id: String, type: TrainingTypeEnum): ITrainingProgramBO

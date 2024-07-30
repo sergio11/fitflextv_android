@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedSeriesExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdExceptionRemote
@@ -24,7 +25,7 @@ internal class SeriesRemoteDataSourceImpl(
     }
 
     @Throws(FetchRemoteSeriesExceptionRemote::class)
-    override suspend fun getSeries(): List<SeriesDTO> = try {
+    override suspend fun getSeries(filter: TrainingFilterDTO): List<SeriesDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).get() },
             mapper = { seriesMapper.mapInToOut(it) }

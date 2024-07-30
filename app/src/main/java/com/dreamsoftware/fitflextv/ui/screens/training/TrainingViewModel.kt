@@ -107,6 +107,21 @@ class TrainingViewModel @Inject constructor(
     override fun onSelectedTrainingFilterOption(currentIndex: Int) {
         updateState { it.copy(isFieldFilterSelected = false) }
         uiState.value.selectedTrainingFilter?.let { filter ->
+            when(filter.type) {
+                FilterTypeEnum.VIDEO_LENGTH -> {
+                    videoLength = VideoLengthEnum.entries[currentIndex]
+                }
+                FilterTypeEnum.CLASS_TYPE -> {
+                    classType = ClassTypeEnum.entries[currentIndex]
+                }
+                FilterTypeEnum.DIFFICULTY -> {
+                    difficulty = DifficultyEnum.entries[currentIndex]
+                }
+                FilterTypeEnum.CLASS_LANGUAGE -> {
+                    classLanguage = ClassLanguageEnum.entries[currentIndex]
+                }
+                FilterTypeEnum.INSTRUCTOR -> String.EMPTY
+            }
             updateState {
                 it.copy(
                     filterItems = it.filterItems.map { item ->
@@ -128,6 +143,7 @@ class TrainingViewModel @Inject constructor(
                     selectedTrainingFilter = null
                 )
             }
+            fetchTrainings()
         }
     }
 
