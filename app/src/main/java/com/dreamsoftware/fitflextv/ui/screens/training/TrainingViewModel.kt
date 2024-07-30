@@ -1,8 +1,12 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
+import com.dreamsoftware.fitflextv.domain.model.ClassTypeEnum
+import com.dreamsoftware.fitflextv.domain.model.DifficultyEnum
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
@@ -18,35 +22,41 @@ class TrainingViewModel @Inject constructor(
     private val getTrainingsByTypeUseCase: GetTrainingsByTypeUseCase
 ) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
+    private var instructor: String = String.EMPTY
+    private var videoLength: VideoLengthEnum = VideoLengthEnum.SHORT
+    private var classType: ClassTypeEnum = ClassTypeEnum.STRENGTH
+    private var difficulty: DifficultyEnum = DifficultyEnum.BEGINNER
+    private var classLanguage: ClassLanguageEnum = ClassLanguageEnum.ENGLISH
+
     override fun onGetDefaultState(): TrainingUiState = TrainingUiState(
         filterItems = listOf(
             TrainingFilterVO(
                 type = FilterTypeEnum.VIDEO_LENGTH,
                 icon = R.drawable.length_ic,
                 title = R.string.length,
-                description = VideoLength.SHORT.value,
-                options = VideoLength.entries.map { it.value }
+                description = VideoLengthEnum.SHORT.value,
+                options = VideoLengthEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.CLASS_TYPE,
                 icon = R.drawable.class_type_ic,
                 title = R.string.class_type,
-                description = ClassType.STRENGTH.value,
-                options = ClassType.entries.map { it.value }
+                description = ClassTypeEnum.STRENGTH.value,
+                options = ClassTypeEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.CLASS_LANGUAGE,
                 icon = R.drawable.language_ic,
                 title = R.string.class_language,
-                description = ClassLanguage.ENGLISH.value,
-                options = ClassLanguage.entries.map { it.value }
+                description = ClassLanguageEnum.ENGLISH.value,
+                options = ClassLanguageEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.DIFFICULTY,
                 icon = R.drawable.difficulty_ic,
                 title = R.string.difficulty,
-                description = Difficulty.BEGINNER.value,
-                options = Difficulty.entries.map { it.value }
+                description = DifficultyEnum.BEGINNER.value,
+                options = DifficultyEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.INSTRUCTOR,
@@ -104,10 +114,10 @@ class TrainingViewModel @Inject constructor(
                             item.copy(
                                 selectedOption = currentIndex,
                                 description = when(filter.type) {
-                                    FilterTypeEnum.VIDEO_LENGTH -> VideoLength.entries[currentIndex].value
-                                    FilterTypeEnum.CLASS_TYPE -> ClassType.entries[currentIndex].value
-                                    FilterTypeEnum.DIFFICULTY -> Difficulty.entries[currentIndex].value
-                                    FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguage.entries[currentIndex].value
+                                    FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.entries[currentIndex].value
+                                    FilterTypeEnum.CLASS_TYPE -> ClassTypeEnum.entries[currentIndex].value
+                                    FilterTypeEnum.DIFFICULTY -> DifficultyEnum.entries[currentIndex].value
+                                    FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.entries[currentIndex].value
                                     FilterTypeEnum.INSTRUCTOR -> String.EMPTY
                                 }
                             )
@@ -152,16 +162,22 @@ class TrainingViewModel @Inject constructor(
     private fun fetchTrainings() {
         executeUseCaseWithParams(
             useCase = getTrainingsByTypeUseCase,
-            params = GetTrainingsByTypeUseCase.Params(uiState.value.trainingTypeSelected),
+            params = GetTrainingsByTypeUseCase.Params(
+                type = uiState.value.trainingTypeSelected,
+                classLanguage = classLanguage,
+                classType = classType,
+                difficulty = difficulty,
+                videoLength = videoLength
+            ),
             onSuccess = ::onGetTrainingProgramsSuccessfully
         )
     }
 
     private fun onGetInstructorsSuccessfully(instructorList: List<String>) {
+        instructor = instructorList.first()
         updateState {
             it.copy(
                 instructorList = instructorList,
-                instructor = instructorList.first()
             )
         }
     }
@@ -177,11 +193,6 @@ data class TrainingUiState(
     val isFilterExpended: Boolean = false,
     val isFieldFilterSelected: Boolean = false,
     val isSortExpended: Boolean = false,
-    val instructor: String = String.EMPTY,
-    val videoLength: VideoLength = VideoLength.SHORT,
-    val classType: ClassType = ClassType.STRENGTH,
-    val difficulty: Difficulty = Difficulty.BEGINNER,
-    val classLanguage: ClassLanguage = ClassLanguage.ENGLISH,
     val instructorList: List<String> = emptyList(),
     val trainingPrograms: List<ITrainingProgramBO> = emptyList(),
     val filterItems: List<TrainingFilterVO> = emptyList(),
@@ -217,30 +228,6 @@ data class TrainingFilterVO(
 
 enum class FilterTypeEnum {
     VIDEO_LENGTH, CLASS_TYPE, DIFFICULTY, CLASS_LANGUAGE, INSTRUCTOR
-}
-
-enum class VideoLength(val value: String) {
-    SHORT("15-30 min"), MEDIUM("30-45 min"), LONG("45-60 min")
-}
-
-enum class ClassType(val value: String) {
-    STRENGTH("Strength")
-}
-
-enum class Difficulty(val value: String) {
-    BEGINNER("Beginner"), INTERMEDIATE("Intermediate"), ADVANCED("Advanced")
-}
-
-enum class ClassLanguage(val value: String) {
-    ENGLISH("English"),
-    SPANISH("Spanish"),
-    FRENCH("French"),
-    GERMAN("German"),
-    ITALIAN("Italian"),
-    RUSSIAN("Russian"),
-    JAPANESE("Japanese"),
-    CHINESE("Chinese"),
-    KOREAN("Korean")
 }
 
 enum class SortItem {
