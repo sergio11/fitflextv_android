@@ -4,5 +4,7 @@ data class TrainingFilterDTO(
     val classLanguage: String?,
     val workoutType: String?,
     val intensity: String?,
-    val videoLength: IntRange?
+    val videoLength: IntRange?,
+    val orderByReleasedDateDesc: Boolean = true,
+    val priorityFeatured: Boolean = false
 )

@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.domain.usecase
 import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
+import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
@@ -21,7 +22,8 @@ class GetTrainingsByTypeUseCase(
         classLanguage = classLanguage,
         workoutType = workoutType,
         intensity = intensity,
-        videoLength = videoLength
+        videoLength = videoLength,
+        sortType = sortType
     )
 
     data class Params(
@@ -29,6 +31,7 @@ class GetTrainingsByTypeUseCase(
         val classLanguage: ClassLanguageEnum,
         val workoutType: WorkoutTypeEnum,
         val intensity: IntensityEnum,
-        val videoLength: VideoLengthEnum
+        val videoLength: VideoLengthEnum,
+        val sortType: SortTypeEnum
     )
 }

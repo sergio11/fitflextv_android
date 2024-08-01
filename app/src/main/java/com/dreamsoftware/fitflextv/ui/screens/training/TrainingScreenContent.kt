@@ -24,6 +24,7 @@ import androidx.tv.foundation.lazy.grid.itemsIndexed
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
@@ -62,9 +63,9 @@ internal fun TrainingScreenContent(
             }
             SideMenu(onDismissSideMenu = ::onDismissSortSideMenu, isSideMenuExpended = isSortExpended) {
                 OptionsSideMenu(
-                    onDismissSideMenu = ::onDismissSortSideMenu,
+                    onDismissSideMenu = ::onSortCleared,
                     titleRes = R.string.sort_by,
-                    items = SortItem.entries.map { it.name },
+                    items = SortTypeEnum.entries.map { it.value },
                     selectedIndex = selectedSortItem,
                     onSelectedItem = ::onSelectedSortedItem
                 )
@@ -105,7 +106,7 @@ private fun TrainingProgramList(
                     CommonOutlineButton(text = "Filters", onClick = actionListener::onFilterClicked)
                     Spacer(modifier = Modifier.width(14.dp))
                     CommonOutlineButton(
-                        text = "Sort by: ${SortItem.entries[state.selectedSortItem]}",
+                        text = "Sort by: ${SortTypeEnum.entries[state.selectedSortItem].value}",
                         onClick = actionListener::onSortedClicked
                     )
                     Spacer(modifier = Modifier.width(58.dp))

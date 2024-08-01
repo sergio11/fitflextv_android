@@ -4,6 +4,7 @@ interface TrainingScreenActionListener {
 
     fun onFilterClicked()
     fun onSortedClicked()
+    fun onSortCleared()
     fun onDismissSortSideMenu()
     fun onDismissFilterSideMenu()
     fun onFilterCleared()
