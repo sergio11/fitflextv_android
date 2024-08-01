@@ -40,6 +40,10 @@ internal class WorkoutRemoteDataSourceImpl(
                     classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
                     intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
                     workoutType?.let { query = query.whereEqualTo(WORKOUT_TYPE, it) }
+                    videoLength?.let {
+                        query = query.whereGreaterThanOrEqualTo(DURATION, it.first.toString())
+                            .whereLessThanOrEqualTo(DURATION, it.last.toString())
+                    }
                     query.get()
                 }
             },

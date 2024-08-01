@@ -14,7 +14,7 @@ internal class TrainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, Tr
             classLanguage = classLanguage.takeIf { it != ClassLanguageEnum.NOT_SET }?.value,
             workoutType = workoutType.takeIf { it != WorkoutTypeEnum.NOT_SET }?.value,
             intensity = intensity.takeIf { it != IntensityEnum.NOT_SET }?.value,
-            videoLength = videoLength.takeIf { it != VideoLengthEnum.NOT_SET }?.value
+            videoLength = videoLength.takeIf { it != VideoLengthEnum.NOT_SET }?.range
         )
     }
 

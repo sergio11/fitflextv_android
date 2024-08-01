@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 internal class CategoryRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val categoriesMapper: IOneSideMapper<Map<String, Any?>, CategoryDTO>,
-    private val dispatcher: CoroutineDispatcher
+    dispatcher: CoroutineDispatcher
 ): SupportFireStoreDataSourceImpl(dispatcher), ICategoryRemoteDataSource {
 
     private companion object {
