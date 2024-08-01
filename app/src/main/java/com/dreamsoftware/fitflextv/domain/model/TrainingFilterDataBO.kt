@@ -4,6 +4,6 @@ data class TrainingFilterDataBO(
     val type: TrainingTypeEnum,
     val classLanguage: ClassLanguageEnum,
     val classType: ClassTypeEnum,
-    val difficulty: DifficultyEnum,
+    val intensity: IntensityEnum,
     val videoLength: VideoLengthEnum
 )

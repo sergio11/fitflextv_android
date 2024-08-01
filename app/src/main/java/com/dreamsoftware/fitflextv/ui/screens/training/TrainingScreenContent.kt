@@ -44,7 +44,7 @@ internal fun TrainingScreenContent(
         with(state) {
             SideMenu(onDismissSideMenu = ::onDismissFilterSideMenu, isSideMenuExpended = isFilterExpended) {
                 FilterSideMenu(
-                    onDismissSideMenu = ::onDismissFilterSideMenu,
+                    onClearFilters = ::onFilterCleared,
                     filtrationFields = filterItems,
                     onFieldClicked = ::onFilterFieldSelected
                 )

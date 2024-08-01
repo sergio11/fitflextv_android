@@ -10,24 +10,35 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesExcept
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByCategoryExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class SeriesRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val seriesMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO>,
     dispatcher: CoroutineDispatcher
-): SupportFireStoreDataSourceImpl(dispatcher), ISeriesRemoteDataSource {
+) : SupportFireStoreDataSourceImpl(dispatcher), ISeriesRemoteDataSource {
 
     private companion object {
         const val COLLECTION_NAME = "series"
         const val CATEGORY_FIELD = "category"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val LANGUAGE = "language"
+        const val DURATION = "duration"
+        const val INTENSITY = "intensity"
     }
 
     @Throws(FetchRemoteSeriesExceptionRemote::class)
     override suspend fun getSeries(filter: TrainingFilterDTO): List<SeriesDTO> = try {
         fetchListFromFireStore(
-            query = { firebaseStore.collection(COLLECTION_NAME).get() },
+            query = {
+                with(filter) {
+                    var query: Query = firebaseStore.collection(COLLECTION_NAME)
+                    classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
+                    intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
+                    query.get()
+                }
+            },
             mapper = { seriesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
@@ -37,13 +48,18 @@ internal class SeriesRemoteDataSourceImpl(
     @Throws(FetchRemoteSeriesByIdExceptionRemote::class)
     override suspend fun getSeriesById(id: String): SeriesDTO = try {
         fetchSingleFromFireStore(
-            query = { firebaseStore.collection(COLLECTION_NAME)
-                .document(id)
-                .get() },
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .document(id)
+                    .get()
+            },
             mapper = { seriesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesByIdExceptionRemote("An error occurred when trying to fetch the series with ID $id", ex)
+        throw FetchRemoteSeriesByIdExceptionRemote(
+            "An error occurred when trying to fetch the series with ID $id",
+            ex
+        )
     }
 
     @Throws(FetchRemoteSeriesByCategoryExceptionRemote::class)
@@ -57,7 +73,10 @@ internal class SeriesRemoteDataSourceImpl(
             mapper = { data -> seriesMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesByCategoryExceptionRemote("An error occurred when trying to fetch series by category", ex)
+        throw FetchRemoteSeriesByCategoryExceptionRemote(
+            "An error occurred when trying to fetch series by category",
+            ex
+        )
     }
 
     @Throws(FetchRemoteFeaturedSeriesExceptionRemote::class)
@@ -71,6 +90,9 @@ internal class SeriesRemoteDataSourceImpl(
             mapper = { data -> seriesMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesByCategoryExceptionRemote("An error occurred when trying to fetch featured series", ex)
+        throw FetchRemoteSeriesByCategoryExceptionRemote(
+            "An error occurred when trying to fetch featured series",
+            ex
+        )
     }
 }

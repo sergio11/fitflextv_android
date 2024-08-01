@@ -32,6 +32,10 @@ annotation class FavoritesScreenErrorMapper
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
+annotation class TrainingScreenErrorMapper
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
 annotation class SignInScreenErrorMapper
 
 @Qualifier

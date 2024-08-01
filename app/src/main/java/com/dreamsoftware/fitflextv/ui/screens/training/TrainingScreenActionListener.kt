@@ -6,6 +6,7 @@ interface TrainingScreenActionListener {
     fun onSortedClicked()
     fun onDismissSortSideMenu()
     fun onDismissFilterSideMenu()
+    fun onFilterCleared()
     fun onDismissFieldFilterSideMenu()
     fun onFilterFieldSelected(trainingFilter: TrainingFilterVO)
     fun onSelectedSortedItem(currentIndex: Int)

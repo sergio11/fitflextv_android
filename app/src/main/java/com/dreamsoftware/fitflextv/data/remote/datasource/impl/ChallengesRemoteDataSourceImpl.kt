@@ -10,6 +10,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesEx
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class ChallengesRemoteDataSourceImpl(
@@ -22,12 +23,22 @@ internal class ChallengesRemoteDataSourceImpl(
         const val COLLECTION_NAME = "challenges"
         const val CATEGORY_FIELD = "category"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val LANGUAGE = "language"
+        const val DURATION = "duration"
+        const val INTENSITY = "intensity"
     }
 
     @Throws(FetchRemoteChallengesExceptionRemote::class)
     override suspend fun getChallenges(filter: TrainingFilterDTO): List<ChallengeDTO> = try {
         fetchListFromFireStore(
-            query = { firebaseStore.collection(COLLECTION_NAME).get() },
+            query = {
+                with(filter) {
+                    var query: Query = firebaseStore.collection(COLLECTION_NAME)
+                    classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
+                    intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
+                    query.get()
+                }
+            },
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {

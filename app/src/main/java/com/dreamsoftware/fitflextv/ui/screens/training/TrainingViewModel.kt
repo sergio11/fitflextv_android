@@ -1,15 +1,17 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.di.FavoritesScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.ClassTypeEnum
-import com.dreamsoftware.fitflextv.domain.model.DifficultyEnum
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
@@ -19,14 +21,15 @@ import javax.inject.Inject
 @HiltViewModel
 class TrainingViewModel @Inject constructor(
     private val getInstructorsUseCase: GetInstructorsUseCase,
-    private val getTrainingsByTypeUseCase: GetTrainingsByTypeUseCase
+    private val getTrainingsByTypeUseCase: GetTrainingsByTypeUseCase,
+    @FavoritesScreenErrorMapper private val errorMapper: IErrorMapper,
 ) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
     private var instructor: String = String.EMPTY
-    private var videoLength: VideoLengthEnum = VideoLengthEnum.SHORT
-    private var classType: ClassTypeEnum = ClassTypeEnum.STRENGTH
-    private var difficulty: DifficultyEnum = DifficultyEnum.BEGINNER
-    private var classLanguage: ClassLanguageEnum = ClassLanguageEnum.ENGLISH
+    private var videoLength: VideoLengthEnum = VideoLengthEnum.NOT_SET
+    private var classType: ClassTypeEnum = ClassTypeEnum.NOT_SET
+    private var intensity: IntensityEnum = IntensityEnum.NOT_SET
+    private var classLanguage: ClassLanguageEnum = ClassLanguageEnum.NOT_SET
 
     override fun onGetDefaultState(): TrainingUiState = TrainingUiState(
         filterItems = listOf(
@@ -34,29 +37,29 @@ class TrainingViewModel @Inject constructor(
                 type = FilterTypeEnum.VIDEO_LENGTH,
                 icon = R.drawable.length_ic,
                 title = R.string.length,
-                description = VideoLengthEnum.SHORT.value,
+                description = VideoLengthEnum.NOT_SET.value,
                 options = VideoLengthEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.CLASS_TYPE,
                 icon = R.drawable.class_type_ic,
                 title = R.string.class_type,
-                description = ClassTypeEnum.STRENGTH.value,
+                description = ClassTypeEnum.NOT_SET.value,
                 options = ClassTypeEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.CLASS_LANGUAGE,
                 icon = R.drawable.language_ic,
                 title = R.string.class_language,
-                description = ClassLanguageEnum.ENGLISH.value,
+                description = ClassLanguageEnum.NOT_SET.value,
                 options = ClassLanguageEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.DIFFICULTY,
                 icon = R.drawable.difficulty_ic,
                 title = R.string.difficulty,
-                description = DifficultyEnum.BEGINNER.value,
-                options = DifficultyEnum.entries.map { it.value }
+                description = IntensityEnum.NOT_SET.value,
+                options = IntensityEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.INSTRUCTOR,
@@ -87,6 +90,31 @@ class TrainingViewModel @Inject constructor(
         updateState { it.copy(isFilterExpended = false) }
     }
 
+    override fun onFilterCleared() {
+        videoLength = VideoLengthEnum.NOT_SET
+        classType = ClassTypeEnum.NOT_SET
+        intensity = IntensityEnum.NOT_SET
+        classLanguage = ClassLanguageEnum.NOT_SET
+        updateState {
+            it.copy(
+                isFilterExpended = false,
+                filterItems = it.filterItems.map { item ->
+                    item.copy(
+                        selectedOption = 0,
+                        description = when(item.type) {
+                            FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.NOT_SET.value
+                            FilterTypeEnum.CLASS_TYPE -> ClassTypeEnum.NOT_SET.value
+                            FilterTypeEnum.DIFFICULTY -> IntensityEnum.NOT_SET.value
+                            FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.NOT_SET.value
+                            FilterTypeEnum.INSTRUCTOR -> String.EMPTY
+                        }
+                    )
+                }
+            )
+        }
+        fetchTrainings()
+    }
+
     override fun onDismissFieldFilterSideMenu() {
         updateState { it.copy(isFieldFilterSelected = false) }
     }
@@ -115,7 +143,7 @@ class TrainingViewModel @Inject constructor(
                     classType = ClassTypeEnum.entries[currentIndex]
                 }
                 FilterTypeEnum.DIFFICULTY -> {
-                    difficulty = DifficultyEnum.entries[currentIndex]
+                    intensity = IntensityEnum.entries[currentIndex]
                 }
                 FilterTypeEnum.CLASS_LANGUAGE -> {
                     classLanguage = ClassLanguageEnum.entries[currentIndex]
@@ -131,7 +159,7 @@ class TrainingViewModel @Inject constructor(
                                 description = when(filter.type) {
                                     FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.entries[currentIndex].value
                                     FilterTypeEnum.CLASS_TYPE -> ClassTypeEnum.entries[currentIndex].value
-                                    FilterTypeEnum.DIFFICULTY -> DifficultyEnum.entries[currentIndex].value
+                                    FilterTypeEnum.DIFFICULTY -> IntensityEnum.entries[currentIndex].value
                                     FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.entries[currentIndex].value
                                     FilterTypeEnum.INSTRUCTOR -> String.EMPTY
                                 }
@@ -182,10 +210,11 @@ class TrainingViewModel @Inject constructor(
                 type = uiState.value.trainingTypeSelected,
                 classLanguage = classLanguage,
                 classType = classType,
-                difficulty = difficulty,
+                intensity = intensity,
                 videoLength = videoLength
             ),
-            onSuccess = ::onGetTrainingProgramsSuccessfully
+            onSuccess = ::onGetTrainingProgramsSuccessfully,
+            onMapExceptionToState = ::onMapExceptionToState
         )
     }
 
@@ -201,6 +230,13 @@ class TrainingViewModel @Inject constructor(
     private fun onGetTrainingProgramsSuccessfully(trainingPrograms: List<ITrainingProgramBO>) {
         updateState { it.copy(trainingPrograms = trainingPrograms) }
     }
+
+    private fun onMapExceptionToState(ex: Exception, uiState: TrainingUiState) =
+        uiState.copy(
+            isLoading = false,
+            trainingPrograms = emptyList(),
+            errorMessage = errorMapper.mapToMessage(ex)
+        )
 }
 
 data class TrainingUiState(
