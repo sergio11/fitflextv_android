@@ -2,7 +2,9 @@
 
 <img width="auto" height="200px" align="left" src="doc/main_logo.png" />
 
-Welcome to **FitFlexTV**! This project is a home workout application designed to provide personalized workout plans and track your fitness progress, all from the comfort of your home. 💪
+This project is a home workout application designed to provide personalized workout plans and track your fitness progress, all from the comfort of your home. 💪
+
+**FitFlexTV** aims to make staying fit and healthy convenient and enjoyable, offering a variety of workouts tailored to your goals and preferences. With a user-friendly interface and comprehensive features, you can easily follow workout routines, monitor your progress, and stay motivated on your fitness journey.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
@@ -12,9 +14,13 @@ Welcome to **FitFlexTV**! This project is a home workout application designed to
   <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
 </p>
 
-## Purpose
+## Key Features ✨
 
-FitFlexTV aims to make fitness accessible to everyone by offering a comprehensive and user-friendly platform for home workouts. Whether you're a beginner or an advanced fitness enthusiast, FitFlexTV has something for you. 🏠🏃‍♂️
+- **Personalized Workout Plans**: Get customized workout routines that suit your fitness level and goals. 📝
+- **Progress Tracking**: Monitor your progress and achievements to stay motivated. 📊
+- **Secure Authentication**: Keep your data safe with Firebase Authentication. 🔒
+- **Real-time Data Sync**: Enjoy seamless data synchronization with Firebase Firestore. 🔄
+- **Media Storage**: Store and retrieve workout media using Firebase Storage. 🗄️
 
 ## Technologies Used 🛠️
 
