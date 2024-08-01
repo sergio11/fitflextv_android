@@ -4,5 +4,5 @@ data class TrainingFilterDTO(
     val classLanguage: String?,
     val workoutType: String?,
     val intensity: String?,
-    val videoLength: String?
+    val videoLength: IntRange?
 )

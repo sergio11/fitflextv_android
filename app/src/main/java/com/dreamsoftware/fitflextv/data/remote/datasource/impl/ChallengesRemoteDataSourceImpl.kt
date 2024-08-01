@@ -38,6 +38,11 @@ internal class ChallengesRemoteDataSourceImpl(
                     classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
                     intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
                     workoutType?.let { query = query.whereEqualTo(WORKOUT_TYPE, it) }
+                    videoLength?.let {
+                        query = query
+                            .whereGreaterThanOrEqualTo(DURATION, it.first)
+                            .whereLessThanOrEqualTo(DURATION, it.last)
+                    }
                     query.get()
                 }
             },
