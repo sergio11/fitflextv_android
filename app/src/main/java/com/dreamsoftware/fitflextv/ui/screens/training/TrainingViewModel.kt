@@ -3,11 +3,11 @@ package com.dreamsoftware.fitflextv.ui.screens.training
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.di.FavoritesScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
-import com.dreamsoftware.fitflextv.domain.model.ClassTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
+import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
@@ -27,7 +27,7 @@ class TrainingViewModel @Inject constructor(
 
     private var instructor: String = String.EMPTY
     private var videoLength: VideoLengthEnum = VideoLengthEnum.NOT_SET
-    private var classType: ClassTypeEnum = ClassTypeEnum.NOT_SET
+    private var workoutType: WorkoutTypeEnum = WorkoutTypeEnum.NOT_SET
     private var intensity: IntensityEnum = IntensityEnum.NOT_SET
     private var classLanguage: ClassLanguageEnum = ClassLanguageEnum.NOT_SET
 
@@ -44,8 +44,8 @@ class TrainingViewModel @Inject constructor(
                 type = FilterTypeEnum.CLASS_TYPE,
                 icon = R.drawable.class_type_ic,
                 title = R.string.class_type,
-                description = ClassTypeEnum.NOT_SET.value,
-                options = ClassTypeEnum.entries.map { it.value }
+                description = WorkoutTypeEnum.NOT_SET.value,
+                options = WorkoutTypeEnum.entries.map { it.value }
             ),
             TrainingFilterVO(
                 type = FilterTypeEnum.CLASS_LANGUAGE,
@@ -92,7 +92,7 @@ class TrainingViewModel @Inject constructor(
 
     override fun onFilterCleared() {
         videoLength = VideoLengthEnum.NOT_SET
-        classType = ClassTypeEnum.NOT_SET
+        workoutType = WorkoutTypeEnum.NOT_SET
         intensity = IntensityEnum.NOT_SET
         classLanguage = ClassLanguageEnum.NOT_SET
         updateState {
@@ -103,7 +103,7 @@ class TrainingViewModel @Inject constructor(
                         selectedOption = 0,
                         description = when(item.type) {
                             FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.NOT_SET.value
-                            FilterTypeEnum.CLASS_TYPE -> ClassTypeEnum.NOT_SET.value
+                            FilterTypeEnum.CLASS_TYPE -> WorkoutTypeEnum.NOT_SET.value
                             FilterTypeEnum.DIFFICULTY -> IntensityEnum.NOT_SET.value
                             FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.NOT_SET.value
                             FilterTypeEnum.INSTRUCTOR -> String.EMPTY
@@ -140,7 +140,7 @@ class TrainingViewModel @Inject constructor(
                     videoLength = VideoLengthEnum.entries[currentIndex]
                 }
                 FilterTypeEnum.CLASS_TYPE -> {
-                    classType = ClassTypeEnum.entries[currentIndex]
+                    workoutType = WorkoutTypeEnum.entries[currentIndex]
                 }
                 FilterTypeEnum.DIFFICULTY -> {
                     intensity = IntensityEnum.entries[currentIndex]
@@ -158,7 +158,7 @@ class TrainingViewModel @Inject constructor(
                                 selectedOption = currentIndex,
                                 description = when(filter.type) {
                                     FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.entries[currentIndex].value
-                                    FilterTypeEnum.CLASS_TYPE -> ClassTypeEnum.entries[currentIndex].value
+                                    FilterTypeEnum.CLASS_TYPE -> WorkoutTypeEnum.entries[currentIndex].value
                                     FilterTypeEnum.DIFFICULTY -> IntensityEnum.entries[currentIndex].value
                                     FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.entries[currentIndex].value
                                     FilterTypeEnum.INSTRUCTOR -> String.EMPTY
@@ -209,7 +209,7 @@ class TrainingViewModel @Inject constructor(
             params = GetTrainingsByTypeUseCase.Params(
                 type = uiState.value.trainingTypeSelected,
                 classLanguage = classLanguage,
-                classType = classType,
+                workoutType = workoutType,
                 intensity = intensity,
                 videoLength = videoLength
             ),

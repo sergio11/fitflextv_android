@@ -1,6 +1,5 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
-import android.util.Log
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
@@ -28,6 +27,8 @@ internal class WorkoutRemoteDataSourceImpl(
         const val LANGUAGE = "language"
         const val DURATION = "duration"
         const val INTENSITY = "intensity"
+        const val RELEASED_DATE = "releasedDate"
+        const val WORKOUT_TYPE = "workoutType"
     }
 
     @Throws(FetchRemoteWorkoutsExceptionRemote::class)
@@ -35,11 +36,10 @@ internal class WorkoutRemoteDataSourceImpl(
         fetchListFromFireStore(
             query = {
                 with(filter) {
-                    Log.d("ATV_FILTER_DATA", "getWorkouts classLanguage: $classLanguage")
-                    Log.d("ATV_FILTER_DATA", "getWorkouts intensity: $intensity")
                     var query: Query = firebaseStore.collection(COLLECTION_NAME)
                     classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
                     intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
+                    workoutType?.let { query = query.whereEqualTo(WORKOUT_TYPE, it) }
                     query.get()
                 }
             },

@@ -26,6 +26,7 @@ internal class SeriesRemoteDataSourceImpl(
         const val LANGUAGE = "language"
         const val DURATION = "duration"
         const val INTENSITY = "intensity"
+        const val WORKOUT_TYPE = "workoutType"
     }
 
     @Throws(FetchRemoteSeriesExceptionRemote::class)
@@ -36,6 +37,7 @@ internal class SeriesRemoteDataSourceImpl(
                     var query: Query = firebaseStore.collection(COLLECTION_NAME)
                     classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
                     intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
+                    workoutType?.let { query = query.whereEqualTo(WORKOUT_TYPE, it) }
                     query.get()
                 }
             },
