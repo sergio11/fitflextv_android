@@ -5,6 +5,7 @@ import com.dreamsoftware.fitflextv.di.FavoritesScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
+import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
@@ -30,6 +31,7 @@ class TrainingViewModel @Inject constructor(
     private var workoutType: WorkoutTypeEnum = WorkoutTypeEnum.NOT_SET
     private var intensity: IntensityEnum = IntensityEnum.NOT_SET
     private var classLanguage: ClassLanguageEnum = ClassLanguageEnum.NOT_SET
+    private var sortType: SortTypeEnum = SortTypeEnum.NOT_SET
 
     override fun onGetDefaultState(): TrainingUiState = TrainingUiState(
         filterItems = listOf(
@@ -82,6 +84,12 @@ class TrainingViewModel @Inject constructor(
         updateState { it.copy(isSortExpended = !it.isSortExpended) }
     }
 
+    override fun onSortCleared() {
+        sortType = SortTypeEnum.NOT_SET
+        updateState { it.copy(selectedSortItem = 0, isSortExpended = false) }
+        fetchTrainings()
+    }
+
     override fun onDismissSortSideMenu() {
         updateState { it.copy(isSortExpended = false) }
     }
@@ -129,7 +137,9 @@ class TrainingViewModel @Inject constructor(
     }
 
     override fun onSelectedSortedItem(currentIndex: Int) {
-        updateState { it.copy(selectedSortItem = currentIndex) }
+        sortType = SortTypeEnum.entries[currentIndex]
+        updateState { it.copy(selectedSortItem = currentIndex, isSortExpended = false) }
+        fetchTrainings()
     }
 
     override fun onSelectedTrainingFilterOption(currentIndex: Int) {
@@ -211,7 +221,8 @@ class TrainingViewModel @Inject constructor(
                 classLanguage = classLanguage,
                 workoutType = workoutType,
                 intensity = intensity,
-                videoLength = videoLength
+                videoLength = videoLength,
+                sortType = sortType
             ),
             onSuccess = ::onGetTrainingProgramsSuccessfully,
             onMapExceptionToState = ::onMapExceptionToState
@@ -280,8 +291,4 @@ data class TrainingFilterVO(
 
 enum class FilterTypeEnum {
     VIDEO_LENGTH, CLASS_TYPE, DIFFICULTY, CLASS_LANGUAGE, INSTRUCTOR
-}
-
-enum class SortItem {
-    Newest, Relevance, Oldest
 }

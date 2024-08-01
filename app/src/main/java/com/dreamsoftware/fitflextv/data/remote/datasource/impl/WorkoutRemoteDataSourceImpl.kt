@@ -44,6 +44,15 @@ internal class WorkoutRemoteDataSourceImpl(
                         query = query.whereGreaterThanOrEqualTo(DURATION, it.first.toString())
                             .whereLessThanOrEqualTo(DURATION, it.last.toString())
                     }
+                    // Apply sorting
+                    if (priorityFeatured) {
+                        query = query.orderBy(IS_FEATURED_FIELD, Query.Direction.DESCENDING)
+                    }
+                    query = if (orderByReleasedDateDesc) {
+                        query.orderBy(RELEASED_DATE, Query.Direction.DESCENDING)
+                    } else {
+                        query.orderBy(RELEASED_DATE, Query.Direction.ASCENDING)
+                    }
                     query.get()
                 }
             },

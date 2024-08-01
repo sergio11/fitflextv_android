@@ -26,6 +26,7 @@ internal class SeriesRemoteDataSourceImpl(
         const val LANGUAGE = "language"
         const val DURATION = "duration"
         const val INTENSITY = "intensity"
+        const val RELEASED_DATE = "releasedDate"
         const val WORKOUT_TYPE = "workoutType"
     }
 
@@ -42,6 +43,15 @@ internal class SeriesRemoteDataSourceImpl(
                         query = query
                             .whereGreaterThanOrEqualTo(DURATION, it.first)
                             .whereLessThanOrEqualTo(DURATION, it.last)
+                    }
+                    // Apply sorting
+                    if (priorityFeatured) {
+                        query = query.orderBy(IS_FEATURED_FIELD, Query.Direction.DESCENDING)
+                    }
+                    query = if (orderByReleasedDateDesc) {
+                        query.orderBy(RELEASED_DATE, Query.Direction.DESCENDING)
+                    } else {
+                        query.orderBy(RELEASED_DATE, Query.Direction.ASCENDING)
                     }
                     query.get()
                 }
