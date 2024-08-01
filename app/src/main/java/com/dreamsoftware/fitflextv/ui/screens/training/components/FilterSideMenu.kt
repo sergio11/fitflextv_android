@@ -29,7 +29,7 @@ import com.dreamsoftware.fitflextv.ui.screens.training.TrainingFilterVO
 
 @Composable
 internal fun FilterSideMenu(
-    onDismissSideMenu: () -> Unit,
+    onClearFilters: () -> Unit,
     filtrationFields: List<TrainingFilterVO>,
     onFieldClicked: (TrainingFilterVO) -> Unit
 ) {
@@ -52,7 +52,7 @@ internal fun FilterSideMenu(
                     )
                     CommonFillButton(
                         text = stringResource(R.string.clear),
-                        onClick = onDismissSideMenu
+                        onClick = onClearFilters
                     )
                 }
             }

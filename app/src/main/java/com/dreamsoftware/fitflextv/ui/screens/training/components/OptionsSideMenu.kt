@@ -63,7 +63,7 @@ fun OptionsSideMenu(
                     ListItem(
                         modifier = Modifier
                             .padding(top = 16.dp)
-                            .conditional(condition = index == 0, ifTrue = {
+                            .conditional(condition = index == selectedIndex, ifTrue = {
                                 focusRequester(focusRequester)
                             }),
                         selected = false,

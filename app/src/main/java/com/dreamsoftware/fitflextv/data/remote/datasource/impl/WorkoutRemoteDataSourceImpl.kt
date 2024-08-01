@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.data.remote.datasource.impl
 
+import android.util.Log
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
@@ -10,29 +11,45 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutByIdE
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteWorkoutsExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class WorkoutRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val workoutMapper: IOneSideMapper<Map<String, Any?>, WorkoutDTO>,
     dispatcher: CoroutineDispatcher
-): SupportFireStoreDataSourceImpl(dispatcher), IWorkoutRemoteDataSource {
+) : SupportFireStoreDataSourceImpl(dispatcher), IWorkoutRemoteDataSource {
 
     private companion object {
         const val COLLECTION_NAME = "workouts"
         const val CATEGORY_FIELD = "category"
         const val ID_FIELD = "uid"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val LANGUAGE = "language"
+        const val DURATION = "duration"
+        const val INTENSITY = "intensity"
     }
 
     @Throws(FetchRemoteWorkoutsExceptionRemote::class)
     override suspend fun getWorkouts(filter: TrainingFilterDTO): List<WorkoutDTO> = try {
         fetchListFromFireStore(
-            query = { firebaseStore.collection(COLLECTION_NAME).get() },
+            query = {
+                with(filter) {
+                    Log.d("ATV_FILTER_DATA", "getWorkouts classLanguage: $classLanguage")
+                    Log.d("ATV_FILTER_DATA", "getWorkouts intensity: $intensity")
+                    var query: Query = firebaseStore.collection(COLLECTION_NAME)
+                    classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
+                    intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
+                    query.get()
+                }
+            },
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutsExceptionRemote("An error occurred when trying to fetch workouts", ex)
+        throw FetchRemoteWorkoutsExceptionRemote(
+            "An error occurred when trying to fetch workouts",
+            ex
+        )
     }
 
     @Throws(FetchRemoteWorkoutByIdExceptionRemote::class)
@@ -42,7 +59,10 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutByIdExceptionRemote("An error occurred when trying to fetch the workout with ID $id", ex)
+        throw FetchRemoteWorkoutByIdExceptionRemote(
+            "An error occurred when trying to fetch the workout with ID $id",
+            ex
+        )
     }
 
     @Throws(FetchRemoteWorkoutByIdExceptionRemote::class)
@@ -56,7 +76,10 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutByIdExceptionRemote("An error occurred when trying to fetch workouts by ID list", ex)
+        throw FetchRemoteWorkoutByIdExceptionRemote(
+            "An error occurred when trying to fetch workouts by ID list",
+            ex
+        )
     }
 
     @Throws(FetchRemoteWorkoutByCategoryExceptionRemote::class)
@@ -70,7 +93,10 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteWorkoutByCategoryExceptionRemote("An error occurred when trying to fetch workouts by category", ex)
+        throw FetchRemoteWorkoutByCategoryExceptionRemote(
+            "An error occurred when trying to fetch workouts by category",
+            ex
+        )
     }
 
     @Throws(FetchRemoteFeaturedWorkoutsExceptionRemote::class)
@@ -84,6 +110,9 @@ internal class WorkoutRemoteDataSourceImpl(
             mapper = { data -> workoutMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteFeaturedWorkoutsExceptionRemote("An error occurred when trying to fetch featured workouts", ex)
+        throw FetchRemoteFeaturedWorkoutsExceptionRemote(
+            "An error occurred when trying to fetch featured workouts",
+            ex
+        )
     }
 }

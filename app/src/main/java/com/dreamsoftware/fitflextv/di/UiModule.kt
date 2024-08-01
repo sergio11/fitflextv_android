@@ -6,6 +6,7 @@ import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreenSimpleErr
 import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreenSimpleErrorMapper
+import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreenSimpleErrorMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,4 +49,12 @@ class UiModule {
         @ApplicationContext context: Context
     ): IErrorMapper =
         FavoritesScreenSimpleErrorMapper(context = context)
+
+    @Provides
+    @ViewModelScoped
+    @TrainingScreenErrorMapper
+    fun provideTrainingScreenSimpleErrorMapper(
+        @ApplicationContext context: Context
+    ): IErrorMapper =
+        TrainingScreenSimpleErrorMapper(context = context)
 }

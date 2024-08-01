@@ -10,40 +10,59 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdE
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesExceptionRemote
 import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class RoutineRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
     private val routineMapper: IOneSideMapper<Map<String, Any?>, RoutineDTO>,
     dispatcher: CoroutineDispatcher
-): SupportFireStoreDataSourceImpl(dispatcher), IRoutineRemoteDataSource {
+) : SupportFireStoreDataSourceImpl(dispatcher), IRoutineRemoteDataSource {
 
     private companion object {
         const val COLLECTION_NAME = "routines"
         const val CATEGORY_FIELD = "category"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val LANGUAGE = "language"
+        const val DURATION = "duration"
+        const val INTENSITY = "intensity"
     }
 
     @Throws(FetchRemoteRoutinesExceptionRemote::class)
     override suspend fun getRoutines(filter: TrainingFilterDTO): List<RoutineDTO> = try {
         fetchListFromFireStore(
-            query = { firebaseStore.collection(COLLECTION_NAME).get() },
+            query = {
+                with(filter) {
+                    var query: Query = firebaseStore.collection(COLLECTION_NAME)
+                    classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
+                    intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
+                    query.get()
+                }
+            },
             mapper = { routineMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutinesExceptionRemote("An error occurred when trying to fetch routines", ex)
+        throw FetchRemoteRoutinesExceptionRemote(
+            "An error occurred when trying to fetch routines",
+            ex
+        )
     }
 
     @Throws(FetchRemoteRoutineByIdExceptionRemote::class)
     override suspend fun getRoutineById(id: String): RoutineDTO = try {
-            fetchSingleFromFireStore(
-                query = { firebaseStore.collection(COLLECTION_NAME)
+        fetchSingleFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
                     .document(id)
-                    .get() },
-                mapper = { routineMapper.mapInToOut(it) }
-            )
+                    .get()
+            },
+            mapper = { routineMapper.mapInToOut(it) }
+        )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByIdExceptionRemote("An error occurred when trying to fetch the routine with ID $id", ex)
+        throw FetchRemoteRoutineByIdExceptionRemote(
+            "An error occurred when trying to fetch the routine with ID $id",
+            ex
+        )
     }
 
     @Throws(FetchRemoteRoutineByCategoryExceptionRemote::class)
@@ -57,7 +76,10 @@ internal class RoutineRemoteDataSourceImpl(
             mapper = { data -> routineMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByCategoryExceptionRemote("An error occurred when trying to fetch routines by category", ex)
+        throw FetchRemoteRoutineByCategoryExceptionRemote(
+            "An error occurred when trying to fetch routines by category",
+            ex
+        )
     }
 
     @Throws(FetchRemoteFeaturedRoutinesExceptionRemote::class)
@@ -71,6 +93,9 @@ internal class RoutineRemoteDataSourceImpl(
             mapper = { data -> routineMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteFeaturedRoutinesExceptionRemote("An error occurred when trying to fetch featured routines", ex)
+        throw FetchRemoteFeaturedRoutinesExceptionRemote(
+            "An error occurred when trying to fetch featured routines",
+            ex
+        )
     }
 }
