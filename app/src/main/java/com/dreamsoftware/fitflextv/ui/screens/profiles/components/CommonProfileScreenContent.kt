@@ -97,7 +97,6 @@ fun CommonProfileScreenContent(
             }
         }
     }
-
 }
 
 @Composable
