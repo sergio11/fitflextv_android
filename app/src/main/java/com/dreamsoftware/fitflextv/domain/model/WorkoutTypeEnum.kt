@@ -1,8 +1,6 @@
 package com.dreamsoftware.fitflextv.domain.model
 
-import com.dreamsoftware.fitflextv.utils.HasValue
-
-enum class WorkoutTypeEnum(override val value: String): HasValue {
+enum class WorkoutTypeEnum(val value: String) {
     NOT_SET("Not set"),
     YOGA("Yoga"),
     STRENGTH("Strength"),

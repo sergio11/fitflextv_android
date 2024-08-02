@@ -11,7 +11,7 @@ class VerifyTrainingInFavoritesUseCase(
 
     override suspend fun onExecuted(params: Params) = with(params) {
         trainingRepository.hasTrainingInFavorites(
-            userId = userRepository.getAuthenticatedUid(),
+            profileId = userRepository.getAuthenticatedUid(),
             trainingId = trainingId
         )
     }

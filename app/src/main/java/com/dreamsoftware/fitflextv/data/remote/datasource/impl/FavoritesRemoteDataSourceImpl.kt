@@ -33,7 +33,7 @@ internal class FavoritesRemoteDataSourceImpl(
     override suspend fun addFavorite(data: AddFavoriteTrainingDTO): Boolean = try {
             withContext(dispatcher) {
                 firebaseStore.collection(COLLECTION_NAME)
-                    .document(data.userId)
+                    .document(data.profileId)
                     .collection(SUB_COLLECTION_NAME)
                     .document(data.trainingId)
                     .set(addFavoriteMapper.mapInToOut(data), SetOptions.merge())
@@ -48,11 +48,11 @@ internal class FavoritesRemoteDataSourceImpl(
         }
 
     @Throws(GetFavoritesByUserExceptionRemote::class)
-    override suspend fun getFavoritesByUser(userId: String): List<FavoriteTrainingDTO> = try {
+    override suspend fun getFavoritesByUser(profileId: String): List<FavoriteTrainingDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore
                 .collection(COLLECTION_NAME)
-                .document(userId)
+                .document(profileId)
                 .collection(SUB_COLLECTION_NAME)
                 .get() },
             mapper = { favoriteMapper.mapInToOut(it) }
@@ -62,11 +62,11 @@ internal class FavoritesRemoteDataSourceImpl(
     }
 
     @Throws(HasTrainingInFavoritesExceptionRemote::class)
-    override suspend fun hasTrainingInFavorites(userId: String, trainingId: String): Boolean = try {
+    override suspend fun hasTrainingInFavorites(profileId: String, trainingId: String): Boolean = try {
         withContext(dispatcher) {
             val document = firebaseStore
                 .collection(COLLECTION_NAME)
-                .document(userId)
+                .document(profileId)
                 .collection(SUB_COLLECTION_NAME)
                 .document(trainingId)
                 .get()
@@ -78,11 +78,11 @@ internal class FavoritesRemoteDataSourceImpl(
     }
 
     @Throws(RemoveFromFavoritesExceptionRemote::class)
-    override suspend fun removeFavorite(userId: String, trainingId: String): Boolean = try {
+    override suspend fun removeFavorite(profileId: String, trainingId: String): Boolean = try {
         withContext(dispatcher) {
             firebaseStore
                 .collection(COLLECTION_NAME)
-                .document(userId)
+                .document(profileId)
                 .collection(SUB_COLLECTION_NAME)
                 .document(trainingId)
                 .delete()

@@ -8,7 +8,7 @@ internal class UpdateProfileRequestRemoteMapper: IOneSideMapper<UpdatedProfileRe
     private companion object {
         const val ALIAS_KEY = "alias"
         const val PIN_KEY = "pin"
-        const val AVATAR_KEY = "avatar_key"
+        const val AVATAR_KEY = "avatarType"
     }
 
     override fun mapInToOut(input: UpdatedProfileRequestDTO): Map<String, Any?> = with(input) {

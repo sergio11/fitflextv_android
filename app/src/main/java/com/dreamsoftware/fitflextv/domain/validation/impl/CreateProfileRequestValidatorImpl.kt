@@ -8,14 +8,14 @@ import com.dreamsoftware.fitflextv.domain.validation.ICreateProfileRequestValida
 
 internal class CreateProfileRequestValidatorImpl(
     private val messagesResolver: ICreateProfileRequestValidatorMessagesResolver
-): IBusinessEntityValidator<CreateProfileRequestBO> {
+) : IBusinessEntityValidator<CreateProfileRequestBO> {
 
     override fun validate(entity: CreateProfileRequestBO): Map<String, String> = buildMap {
         with(entity) {
-            if( pin != null && pin.isSecurePinNotValid()) {
+            if (pin != null && pin.isSecurePinNotValid()) {
                 put(CreateProfileRequestBO.FIELD_PIN, messagesResolver.getInvalidPinMessage())
             }
-            if(alias.isProfileAliasNotValid()) {
+            if (alias.isProfileAliasNotValid()) {
                 put(CreateProfileRequestBO.FIELD_ALIAS, messagesResolver.getInvalidAliasMessage())
             }
         }

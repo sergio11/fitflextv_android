@@ -270,10 +270,12 @@ class UseCasesModule {
     @ViewModelScoped
     fun provideAddFavoriteTrainingUseCase(
         userRepository: IUserRepository,
+        profileRepository: IProfilesRepository,
         trainingRepository: ITrainingRepository
     ): AddFavoriteTrainingUseCase =
         AddFavoriteTrainingUseCase(
             userRepository = userRepository,
+            profileRepository = profileRepository,
             trainingRepository = trainingRepository
         )
 
@@ -282,10 +284,12 @@ class UseCasesModule {
     @ViewModelScoped
     fun provideGetFavoritesTrainingsByUserUseCase(
         userRepository: IUserRepository,
+        profileRepository: IProfilesRepository,
         trainingRepository: ITrainingRepository
     ): GetFavoritesTrainingsByUserUseCase =
         GetFavoritesTrainingsByUserUseCase(
             userRepository = userRepository,
+            profileRepository = profileRepository,
             trainingRepository = trainingRepository
         )
 
