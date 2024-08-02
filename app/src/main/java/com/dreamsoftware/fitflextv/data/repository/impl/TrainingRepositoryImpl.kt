@@ -207,9 +207,9 @@ internal class TrainingRepositoryImpl(
         }
 
     @Throws(FetchFavoritesTrainingsByUserException::class)
-    override suspend fun getFavoritesTrainingsByUser(userId: String): List<ITrainingProgramBO> = safeExecute {
+    override suspend fun getFavoritesTrainingsByProfile(profileId: String): List<ITrainingProgramBO> = safeExecute {
         try {
-            favoritesRemoteDataSource.getFavoritesByUser(userId).parallelMap {
+            favoritesRemoteDataSource.getFavoritesByUser(profileId).parallelMap {
                 getTrainingById(
                     id = it.trainingId,
                     type = enumValueOfOrDefault(it.trainingType, TrainingTypeEnum.WORK_OUT)
@@ -224,10 +224,10 @@ internal class TrainingRepositoryImpl(
     }
 
     @Throws(VerifyFavoriteTrainingException::class)
-    override suspend fun hasTrainingInFavorites(userId: String, trainingId: String): Boolean = safeExecute {
+    override suspend fun hasTrainingInFavorites(profileId: String, trainingId: String): Boolean = safeExecute {
         try {
             favoritesRemoteDataSource.hasTrainingInFavorites(
-                userId = userId,
+                profileId = profileId,
                 trainingId = trainingId
             )
         } catch (ex: HasTrainingInFavoritesExceptionRemote) {
@@ -239,10 +239,10 @@ internal class TrainingRepositoryImpl(
     }
 
     @Throws(RemoveFavoriteTrainingException::class)
-    override suspend fun removeFavoriteTraining(userId: String, trainingId: String): Boolean = safeExecute {
+    override suspend fun removeFavoriteTraining(profileId: String, trainingId: String): Boolean = safeExecute {
         try {
             favoritesRemoteDataSource.removeFavorite(
-                userId = userId,
+                profileId = profileId,
                 trainingId = trainingId
             )
         } catch (ex: RemoveFromFavoritesExceptionRemote) {

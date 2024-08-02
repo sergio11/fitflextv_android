@@ -127,7 +127,7 @@ data class SaveProfileUiState(
     val aliasError: String = String.EMPTY,
     val securePin: String = String.EMPTY,
     val securePinError: String = String.EMPTY,
-    val avatarType: AvatarTypeEnum? = null
+    val avatarType: AvatarTypeEnum = AvatarTypeEnum.BOY
 ): UiState<SaveProfileUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): SaveProfileUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)

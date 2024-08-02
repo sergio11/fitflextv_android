@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -95,6 +96,7 @@ fun DashboardNavigationDrawer(
                                 currentDestination?.hierarchy?.any { it.route == item.screen.route } ?: false
                             val interactionSource = remember { MutableInteractionSource() }
                             val isFocused by interactionSource.collectIsFocusedAsState()
+                            val isPressed by interactionSource.collectIsPressedAsState()
                             NavigationDrawerItem(
                                 colors = NavigationDrawerItemColors(
                                     containerColor = Color.Transparent,
@@ -123,7 +125,9 @@ fun DashboardNavigationDrawer(
                                         type = CommonTextTypeEnum.TITLE_MEDIUM,
                                         titleRes = item.nameRes,
                                         titleText = item.name,
-                                        textColor = if(isFocused) {
+                                        textColor = if(isPressed) {
+                                            onPrimary
+                                        } else if(isFocused)  {
                                             inverseOnSurface
                                         } else {
                                             onPrimary

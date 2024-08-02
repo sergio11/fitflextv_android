@@ -13,11 +13,11 @@ interface IFavoritesRemoteDataSource {
     suspend fun addFavorite(data: AddFavoriteTrainingDTO): Boolean
 
     @Throws(GetFavoritesByUserExceptionRemote::class)
-    suspend fun getFavoritesByUser(userId: String): List<FavoriteTrainingDTO>
+    suspend fun getFavoritesByUser(profileId: String): List<FavoriteTrainingDTO>
 
     @Throws(HasTrainingInFavoritesExceptionRemote::class)
-    suspend fun hasTrainingInFavorites(userId: String, trainingId: String): Boolean
+    suspend fun hasTrainingInFavorites(profileId: String, trainingId: String): Boolean
 
     @Throws(RemoveFromFavoritesExceptionRemote::class)
-    suspend fun removeFavorite(userId: String, trainingId: String): Boolean
+    suspend fun removeFavorite(profileId: String, trainingId: String): Boolean
 }

@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
+import kotlin.enums.enumEntries
 
 sealed interface Result<out T> {
     data class Success<T>(val data: T) : Result<T>
@@ -19,15 +20,9 @@ fun <T> Flow<T>.asResult(): Flow<Result<T>> = map<T, Result<T>> {
     emit(Result.Error(it))
 }
 
-interface HasValue {
-    val value: String
-}
-
-inline fun <reified T : Enum<T>> enumValueOfOrDefault(value: String, default: T): T {
-    return enumValues<T>().find {
-        (it as? HasValue)?.value == value
-    } ?: default
-}
+@OptIn(ExperimentalStdlibApi::class)
+inline fun <reified T : Enum<T>> enumValueOfOrDefault(value: String, default: T): T =
+    enumEntries<T>().find { it.name == value } ?: default
 
 inline fun <T1 : Any, T2 : Any, R> combinedLet(value1: T1?, value2: T2?, block: (T1, T2) -> R): R? =
     if (value1 != null && value2 != null) {

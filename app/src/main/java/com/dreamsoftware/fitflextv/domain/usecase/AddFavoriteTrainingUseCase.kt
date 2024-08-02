@@ -2,22 +2,26 @@ package com.dreamsoftware.fitflextv.domain.usecase
 
 import com.dreamsoftware.fitflextv.domain.model.AddFavoriteTrainingBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 
 class AddFavoriteTrainingUseCase(
     private val userRepository: IUserRepository,
+    private val profileRepository: IProfilesRepository,
     private val trainingRepository: ITrainingRepository
-): BaseUseCaseWithParams<AddFavoriteTrainingUseCase.Params, Boolean>() {
+) : BaseUseCaseWithParams<AddFavoriteTrainingUseCase.Params, Boolean>() {
 
     override suspend fun onExecuted(params: Params) = with(params) {
-        toAddFavoriteTrainingBO(userRepository.getAuthenticatedUid())
+        val currentUserUid = userRepository.getAuthenticatedUid()
+        val profileSelected = profileRepository.getProfileSelectedByUser(currentUserUid)
+        toAddFavoriteTrainingBO(profileSelected.uuid)
             .let { trainingRepository.addFavoriteTraining(it) }
     }
 
-    private fun Params.toAddFavoriteTrainingBO(userId: String) = AddFavoriteTrainingBO(
-        userId = userId,
+    private fun Params.toAddFavoriteTrainingBO(profileId: String) = AddFavoriteTrainingBO(
+        profileId = profileId,
         trainingId = trainingId,
         trainingType = trainingType
     )

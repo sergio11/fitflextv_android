@@ -8,7 +8,7 @@ internal class AddFavoriteTrainingMapper : IOneSideMapper<AddFavoriteTrainingBO,
 
     override fun mapInToOut(input: AddFavoriteTrainingBO): AddFavoriteTrainingDTO = with(input) {
         AddFavoriteTrainingDTO(
-            userId = userId,
+            profileId = profileId,
             trainingId = trainingId,
             trainingType = trainingType.name
         )

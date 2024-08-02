@@ -11,7 +11,7 @@ class RemoveFavoriteTrainingUseCase(
 
     override suspend fun onExecuted(params: Params) = with(params) {
         trainingRepository.removeFavoriteTraining(
-            userId = userRepository.getAuthenticatedUid(),
+            profileId = userRepository.getAuthenticatedUid(),
             trainingId = trainingId
         )
     }

@@ -14,14 +14,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
@@ -34,7 +32,6 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.ScalableAvatar
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
-import kotlinx.coroutines.delay
 
 @Composable
 fun CommonProfileSelector(
@@ -58,7 +55,7 @@ fun CommonProfileSelector(
                         avatarRes = profile.avatarType.toDrawableResource(),
                         editMode = editMode,
                         modifier = Modifier
-                            .then(if (it == 1) Modifier.focusRequester(requester) else Modifier)
+                            .then(if (it == 0) Modifier.focusRequester(requester) else Modifier)
                             .onFocusChanged {
                                 selectedAvatar = profile.alias
                             },

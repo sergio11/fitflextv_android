@@ -35,11 +35,11 @@ interface ITrainingRepository {
     suspend fun addFavoriteTraining(data: AddFavoriteTrainingBO): Boolean
 
     @Throws(FetchFavoritesTrainingsByUserException::class)
-    suspend fun getFavoritesTrainingsByUser(userId: String): List<ITrainingProgramBO>
+    suspend fun getFavoritesTrainingsByProfile(profileId: String): List<ITrainingProgramBO>
 
     @Throws(VerifyFavoriteTrainingException::class)
-    suspend fun hasTrainingInFavorites(userId: String, trainingId: String): Boolean
+    suspend fun hasTrainingInFavorites(profileId: String, trainingId: String): Boolean
 
     @Throws(RemoveFavoriteTrainingException::class)
-    suspend fun removeFavoriteTraining(userId: String, trainingId: String): Boolean
+    suspend fun removeFavoriteTraining(profileId: String, trainingId: String): Boolean
 }
