@@ -30,19 +30,13 @@ import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
 @Composable
 fun SaveProfileScreenContent(
     uiState: SaveProfileUiState,
-    onAliasChanged: (String) -> Unit,
-    onPinChanged: (String) -> Unit,
-    onAvatarTypeChanged: (AvatarTypeEnum) -> Unit,
-    onSaveProfilePressed: () -> Unit,
-    onAdvanceConfigurationPressed: () -> Unit,
-    onCancelPressed: () -> Unit,
-    onErrorAccepted: () -> Unit
+    actionListener: SaveProfileScreenActionListener
 ) {
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
             error = errorMessage,
-            onErrorAccepted = onErrorAccepted,
+            onErrorAccepted = actionListener::onErrorAccepted,
             mainTitleRes = if(isEditMode) {
                 R.string.edit_profile_main_title
             } else {
@@ -60,9 +54,9 @@ fun SaveProfileScreenContent(
             } else {
                 null
             },
-            onPrimaryOptionPressed = onSaveProfilePressed,
-            onSecondaryOptionPressed = onCancelPressed,
-            onTertiaryOptionPressed = onAdvanceConfigurationPressed,
+            onPrimaryOptionPressed = actionListener::onSaveProfilePressed,
+            onSecondaryOptionPressed = actionListener::onCancelPressed,
+            onTertiaryOptionPressed = actionListener::onAdvanceConfigurationPressed,
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -71,16 +65,16 @@ fun SaveProfileScreenContent(
                 if(isEditMode) {
                     EditProfile(
                         uiState = uiState,
-                        onAliasChanged = onAliasChanged,
-                        onPinChanged = onPinChanged,
-                        onAvatarTypeChanged = onAvatarTypeChanged,
+                        onAliasChanged = actionListener::onAliasChanged,
+                        onPinChanged = actionListener::onPinChanged,
+                        onAvatarTypeChanged = actionListener::onAvatarTypeChanged,
                     )
                 } else {
                     CreateNewProfile(
                         uiState = uiState,
-                        onAliasChanged = onAliasChanged,
-                        onPinChanged = onPinChanged,
-                        onAvatarTypeChanged = onAvatarTypeChanged,
+                        onAliasChanged = actionListener::onAliasChanged,
+                        onPinChanged = actionListener::onPinChanged,
+                        onAvatarTypeChanged = actionListener::onAvatarTypeChanged,
                     )
                 }
             }

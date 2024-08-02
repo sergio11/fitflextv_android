@@ -21,22 +21,16 @@ fun SaveProfileScreen(
         onBackPressed = onBackPressed,
         onInitialUiState = { SaveProfileUiState() },
         onSideEffect = {
-            if(it is SaveProfileSideEffects.SaveProfileSuccessfully) {
-                onBackPressed()
+            when(it) {
+                SaveProfileSideEffects.CancelConfiguration -> onBackPressed()
+                is SaveProfileSideEffects.OpenAdvanceConfiguration -> onGoToAdvanceConfiguration(it.profileId)
+                SaveProfileSideEffects.SaveProfileSuccessfully -> onBackPressed()
             }
         }
     ) { uiState ->
         SaveProfileScreenContent(
             uiState = uiState,
-            onAliasChanged = ::onAliasChanged,
-            onPinChanged = ::onSecurePinChanged,
-            onSaveProfilePressed = ::onSaveProfile,
-            onAvatarTypeChanged = ::onAvatarTypeChanged,
-            onAdvanceConfigurationPressed = {
-                args?.profileId?.let(onGoToAdvanceConfiguration)
-            },
-            onCancelPressed = onBackPressed,
-            onErrorAccepted = ::onErrorAccepted
+            actionListener = viewModel
         )
     }
 }

@@ -10,7 +10,6 @@ import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
-import com.dreamsoftware.fitflextv.ui.screens.signin.SignInUiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,7 +20,7 @@ class SaveProfileViewModel @Inject constructor(
     private val createProfileUseCase: CreateProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
     @SaveProfileScreenErrorMapper private val errorMapper: IErrorMapper
-): BaseViewModel<SaveProfileUiState, SaveProfileSideEffects>() {
+): BaseViewModel<SaveProfileUiState, SaveProfileSideEffects>(), SaveProfileScreenActionListener {
 
     override fun onGetDefaultState(): SaveProfileUiState = SaveProfileUiState()
 
@@ -36,7 +35,13 @@ class SaveProfileViewModel @Inject constructor(
         )
     }
 
-    fun onSaveProfile() {
+    override fun onAvatarTypeChanged(avatarType: AvatarTypeEnum) {
+        updateState {
+            it.copy(avatarType = avatarType)
+        }
+    }
+
+    override fun onSaveProfilePressed() {
         with(uiState.value) {
             if(isEditMode) {
                 onUpdateProfile()
@@ -46,21 +51,23 @@ class SaveProfileViewModel @Inject constructor(
         }
     }
 
-    fun onAvatarTypeChanged(newAvatarType: AvatarTypeEnum) {
+    override fun onAdvanceConfigurationPressed() {
+        launchSideEffect(SaveProfileSideEffects.OpenAdvanceConfiguration(profileId))
+    }
+
+    override fun onCancelPressed() {
+        launchSideEffect(SaveProfileSideEffects.CancelConfiguration)
+    }
+
+    override fun onAliasChanged(alias: String) {
         updateState {
-            it.copy(avatarType = newAvatarType)
+            it.copy(alias = alias)
         }
     }
 
-    fun onAliasChanged(newAlias: String) {
+    override fun onPinChanged(pin: String) {
         updateState {
-            it.copy(alias = newAlias)
-        }
-    }
-
-    fun onSecurePinChanged(newSecurePin: String) {
-        updateState {
-            it.copy(securePin = newSecurePin)
+            it.copy(securePin = pin)
         }
     }
 
@@ -135,4 +142,6 @@ data class SaveProfileUiState(
 
 sealed interface SaveProfileSideEffects: SideEffect {
     data object SaveProfileSuccessfully: SaveProfileSideEffects
+    data class OpenAdvanceConfiguration(val profileId: String): SaveProfileSideEffects
+    data object CancelConfiguration: SaveProfileSideEffects
 }

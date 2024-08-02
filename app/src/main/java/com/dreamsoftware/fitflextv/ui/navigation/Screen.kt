@@ -9,6 +9,8 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.profiles.advance.ProfileAdvanceScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.profiles.delete.DeleteProfileScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.secure.SecurePinScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScreenArgs
@@ -43,6 +45,44 @@ sealed class Screen(
         fun parseArgs(args: Bundle): SaveProfileScreenArgs? = with(args) {
             getString("id")?.let { id ->
                 SaveProfileScreenArgs(
+                    profileId = id,
+                )
+            }
+        }
+    }
+    data object ProfileAdvance: Screen(route = "profile_advance/{id}", name = "ProfileAdvance", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): ProfileAdvanceScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                ProfileAdvanceScreenArgs(
+                    profileId = id,
+                )
+            }
+        }
+    }
+    data object DeleteProfile: Screen(route = "delete_profile/{id}", name = "DeleteProfile", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): DeleteProfileScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                DeleteProfileScreenArgs(
                     profileId = id,
                 )
             }

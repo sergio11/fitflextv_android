@@ -5,10 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.dreamsoftware.fitflextv.ui.screens.profiles.advance.ProfileAdvanceScreen
+import com.dreamsoftware.fitflextv.ui.screens.profiles.delete.DeleteProfileScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.management.ProfilesManagementScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.secure.SecurePinScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.selector.ProfileSelectorScreen
+import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
 
 @Composable
 fun ProfilesNavigation(
@@ -51,7 +54,7 @@ fun ProfilesNavigation(
                         SaveProfileScreen(
                             args = it,
                             onGoToAdvanceConfiguration = {
-
+                                navigate(Screen.ProfileAdvance.buildRoute(it))
                             },
                             onBackPressed = {
                                 navigateUp()
@@ -61,7 +64,6 @@ fun ProfilesNavigation(
                 }
             }
         }
-
 
         composable(Screen.UnlockProfile.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
@@ -87,6 +89,42 @@ fun ProfilesNavigation(
                         popBackStack()
                     }
                 )
+            }
+        }
+
+        composable(Screen.ProfileAdvance.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screen.ProfileAdvance.parseArgs(args)?.let {
+                    with(navController) {
+                        ProfileAdvanceScreen(
+                            args = it,
+                            onGoToDeleteProfile = {
+                                navigate(Screen.DeleteProfile.buildRoute(it))
+                            },
+                            onBackPressed = {
+                                popBackStack()
+                            }
+                        )
+                    }
+                }
+            }
+        }
+
+        composable(Screen.DeleteProfile.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screen.DeleteProfile.parseArgs(args)?.let {
+                    with(navController) {
+                        DeleteProfileScreen(
+                            args = it,
+                            onProfileDeletedSuccessfully = {
+                                navigateSingleTopTo(Screen.ProfileSelector.route)
+                            },
+                            onBackPressed = {
+                                popBackStack()
+                            }
+                        )
+                    }
+                }
             }
         }
     }
