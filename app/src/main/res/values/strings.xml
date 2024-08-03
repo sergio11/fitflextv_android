@@ -1,16 +1,20 @@
 <resources>
+    <!-- App Name -->
     <string name="app_name">FitFlexTV</string>
 
+    <!-- Generic Buttons -->
     <string name="dialog_generic_accept_button">Accept</string>
     <string name="dialog_generic_cancel_button">Cancel</string>
 
+    <!-- Progress Dialogs -->
     <string name="generic_progress_dialog_title">Loading…</string>
     <string name="generic_progress_dialog_description">Please wait a moment…</string>
 
+    <!-- Developer Credits -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
 
-    <!-- Dashboard items -->
+    <!-- Dashboard Items -->
     <string name="dashboard_navigation_drawer_home_item_name">Home</string>
     <string name="dashboard_navigation_drawer_training_item_name">Training</string>
     <string name="dashboard_navigation_drawer_favorite_item_name">Favorite</string>
@@ -37,7 +41,7 @@
     <string name="onboarding_exit_app_dialog_title">Leaving So Soon?</string>
     <string name="onboarding_exit_app_dialog_description">Are you sure you want to exit the app? We\'ll miss you!</string>
 
-    <!-- Sign in -->
+    <!-- Sign In -->
     <string name="sign_in_progress_dialog_title">Signing You In</string>
     <string name="sign_in_progress_dialog_description">Please wait a moment while we prepare your personalized fitness experience.</string>
     <string name="sign_in_do_not_have_account_yet_text">Don\'t have an account yet?</string>
@@ -49,7 +53,7 @@
     <string name="sign_in_form_password_label_text">Password</string>
     <string name="sign_in_main_button_text">Start Sweating!</string>
 
-    <!-- Sign up -->
+    <!-- Sign Up -->
     <string name="sign_up_progress_dialog_title">Creating Your Account</string>
     <string name="sign_up_progress_dialog_description">Hold tight while we set up your personalized fitness journey!</string>
     <string name="sign_up_main_title_text">Join the FitFlexTV Community</string>
@@ -121,6 +125,7 @@
     <string name="delete_profile_form_cancel_button_text">Cancel</string>
     <string name="delete_profile_explanation_text">Deleting a profile will remove all associated data permanently. Please proceed with caution.</string>
 
+    <!-- Generic Actions -->
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="start_workout">Let\'s Work Out!</string>
@@ -138,11 +143,10 @@
     <string name="set_up_daily_reminder">Set Up Daily Reminders</string>
     <string name="recommend_schedule">Get Your Recommended Schedule</string>
 
-
+    <!-- Miscellaneous -->
     <string name="to_go_back">Press Back</string>
     <string name="press">Press</string>
-
-    <string name="whos_working_out_today">Who’s Joining Today?</string>
+    <string name="whos_working_out_today">Who\'s Joining Today?</string>
     <string name="sign_in_with_a_different_user">Sign in as Someone New</string>
     <string name="length">Duration</string>
     <string name="_15_30_mins">15–30 Minutes</string>
@@ -163,6 +167,7 @@
     <string name="weekly_plan">Weekly Plan</string>
     <string name="challenge_details">Challenge Details</string>
 
+    <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="app_settings">App Settings</string>
     <string name="settings_units_preference_title">Units Preference</string>
@@ -174,7 +179,7 @@
     <string name="settings_about_app_title">About FitFlexTV</string>
     <string name="settings_about_app_content">FitFlexTV is a home workout application designed to provide personalized workout plans and track your fitness progress, all from the comfort of your home. 💪 Our app offers a variety of workout routines, ranging from short, high-intensity sessions to longer, more relaxed workouts, ensuring that there\'s something for everyone. Stay motivated, stay fit, and enjoy your fitness journey with FitFlexTV!</string>
 
-
+    <!-- Subscription -->
     <string name="month">Month</string>
     <string name="months">Months</string>
     <string name="month_subscription">Monthly Subscription</string>
@@ -186,10 +191,12 @@
     <string name="free_trail">Start Your 7-Day Free Trial</string>
     <string name="subscription_cancelled">Subscription Continues Until Cancelled</string>
 
+    <!-- Training Types -->
     <string name="training_type_workout_name">Workout</string>
     <string name="training_type_series_name">Series</string>
     <string name="training_type_challenges_name">Challenges</string>
     <string name="training_type_routines_name">Routines</string>
 
+    <!-- Miscellaneous -->
     <string name="no_text_value">--</string>
 </resources>
