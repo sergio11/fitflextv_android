@@ -17,8 +17,7 @@ class SecurePinViewModel @Inject constructor(
     private val verifyPinUseCase: VerifyPinUseCase,
     private val selectProfileUseCase: SelectProfileUseCase,
     private val getProfileByIdUseCase: GetProfileByIdUseCase
-): BaseViewModel<SecurePinUiState, SecurePinSideEffects>() {
-
+): BaseViewModel<SecurePinUiState, SecurePinSideEffects>(), SecurePinScreenActionListener {
 
     override fun onGetDefaultState(): SecurePinUiState = SecurePinUiState()
 
@@ -30,7 +29,13 @@ class SecurePinViewModel @Inject constructor(
         )
     }
 
-    fun onVerifyPin() {
+    override fun onUnlockPinChanged(unlockPin: String) {
+        updateState {
+            it.copy(unlockPin = unlockPin)
+        }
+    }
+
+    override fun onVerifyPressed() {
         with(uiState.value) {
             combinedLet(profileLocked, unlockPin.toIntOrNull()) { profile, pin ->
                 executeUseCaseWithParams(
@@ -44,10 +49,8 @@ class SecurePinViewModel @Inject constructor(
         }
     }
 
-    fun onUnlockPinChanged(unlockPin: String) {
-        updateState {
-            it.copy(unlockPin = unlockPin)
-        }
+    override fun onCancelPressed() {
+        launchSideEffect(SecurePinSideEffects.CancelVerification)
     }
 
     private fun onLoadProfileCompleted(profileBO: ProfileBO) {
@@ -83,4 +86,5 @@ data class SecurePinUiState(
 
 sealed interface SecurePinSideEffects: SideEffect {
     data object ProfileUnlockedSuccessfully: SecurePinSideEffects
+    data object CancelVerification: SecurePinSideEffects
 }

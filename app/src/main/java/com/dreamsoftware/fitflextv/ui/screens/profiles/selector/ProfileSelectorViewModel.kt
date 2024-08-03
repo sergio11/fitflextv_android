@@ -13,7 +13,8 @@ import javax.inject.Inject
 class ProfileSelectorViewModel @Inject constructor(
     private val getProfilesUseCase: GetProfilesUseCase,
     private val selectProfileUseCase: SelectProfileUseCase,
-): BaseViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>() {
+): BaseViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>(), ProfileSelectorScreenActionListener {
+
     override fun onGetDefaultState(): ProfileSelectorUiState = ProfileSelectorUiState()
 
     fun loadProfiles() {
@@ -23,16 +24,24 @@ class ProfileSelectorViewModel @Inject constructor(
         )
     }
 
-    fun onProfileSelected(profileBO: ProfileBO) {
-        val isProfileLocked = profileBO.isSecured
+    override fun onProfileSelected(profile: ProfileBO) {
+        val isProfileLocked = profile.isSecured
         updateState {
-            it.copy(profileSelected = profileBO)
+            it.copy(profileSelected = profile)
         }
         if(isProfileLocked) {
-            onProfileLocked(profileBO.uuid)
+            onProfileLocked(profile.uuid)
         } else {
-            selectProfile(profileBO)
+            selectProfile(profile)
         }
+    }
+
+    override fun onAddProfilePressed() {
+        launchSideEffect(ProfileSelectorSideEffects.AddNewProfile)
+    }
+
+    override fun onProfileManagementPressed() {
+        launchSideEffect(ProfileSelectorSideEffects.ConfigureProfiles)
     }
 
     private fun onLoadProfileSuccessfully(profiles: List<ProfileBO>) {
@@ -73,4 +82,6 @@ data class ProfileSelectorUiState(
 sealed interface ProfileSelectorSideEffects: SideEffect {
     data object ProfileSelected: ProfileSelectorSideEffects
     data class ProfileLocked(val profileId: String): ProfileSelectorSideEffects
+    data object AddNewProfile: ProfileSelectorSideEffects
+    data object ConfigureProfiles: ProfileSelectorSideEffects
 }
