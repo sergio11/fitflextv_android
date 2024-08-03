@@ -20,15 +20,14 @@ fun ProfileSelectorScreen(
             when(it) {
                 is ProfileSelectorSideEffects.ProfileLocked -> onProfileLocked(it.profileId)
                 ProfileSelectorSideEffects.ProfileSelected -> onProfileSelected()
+                ProfileSelectorSideEffects.AddNewProfile -> onGoToAddProfile()
+                ProfileSelectorSideEffects.ConfigureProfiles -> onGoToProfileManagement()
             }
         }
     ) { uiState ->
         ProfileSelectorContent(
             uiState = uiState,
-            onProfileSelected = ::onProfileSelected,
-            onAddProfilePressed = onGoToAddProfile,
-            onProfileManagementPressed = onGoToProfileManagement,
-            onErrorAccepted = ::onErrorAccepted
+            actionListener = viewModel
         )
     }
 }

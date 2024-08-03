@@ -17,17 +17,15 @@ fun SecurePinScreen(
         onBackPressed = onBackPressed,
         onInitialUiState = { SecurePinUiState() },
         onSideEffect = {
-            if(it is SecurePinSideEffects.ProfileUnlockedSuccessfully) {
-                onGoToHome()
+            when(it) {
+                SecurePinSideEffects.CancelVerification -> onBackPressed()
+                SecurePinSideEffects.ProfileUnlockedSuccessfully -> onGoToHome()
             }
         }
     ) { uiState ->
         SecurePinScreenContent(
             uiState = uiState,
-            onUnlockPinChanged = ::onUnlockPinChanged,
-            onVerifyPressed = ::onVerifyPin,
-            onCancelPressed = onBackPressed,
-            onErrorAccepted = ::onErrorAccepted
+            actionListener = viewModel
         )
     }
 }

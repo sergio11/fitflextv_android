@@ -18,10 +18,7 @@ import com.dreamsoftware.fitflextv.ui.screens.profiles.components.CommonProfileS
 @Composable
 fun SecurePinScreenContent(
     uiState: SecurePinUiState,
-    onUnlockPinChanged: (unlockPin: String) -> Unit,
-    onVerifyPressed: () -> Unit,
-    onCancelPressed: () -> Unit,
-    onErrorAccepted: () -> Unit
+    actionListener: SecurePinScreenActionListener
 ) {
     with(uiState) {
         CommonProfileScreenContent(
@@ -31,9 +28,9 @@ fun SecurePinScreenContent(
             secondaryTitleRes = R.string.secure_pin_main_description,
             primaryOptionTextRes = R.string.secure_pin_form_accept_button_text,
             secondaryOptionTextRes = R.string.secure_pin_form_cancel_button_text,
-            onPrimaryOptionPressed = onVerifyPressed,
-            onSecondaryOptionPressed = onCancelPressed,
-            onErrorAccepted = onErrorAccepted
+            onPrimaryOptionPressed = actionListener::onVerifyPressed,
+            onSecondaryOptionPressed = actionListener::onCancelPressed,
+            onErrorAccepted = actionListener::onErrorAccepted
         ) { mainFocusRequester ->
             CommonFocusRequester { focusRequester ->
                 CommonTextField(
@@ -46,7 +43,7 @@ fun SecurePinScreenContent(
                         mainFocusRequester.requestFocus()
                     },
                     labelRes = R.string.secure_pin_form_label_text,
-                    onValueChange = onUnlockPinChanged
+                    onValueChange = actionListener::onUnlockPinChanged
                 )
             }
             profileLocked?.let {
