@@ -13,7 +13,6 @@ internal class ProfileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenc
             uuid = uuid,
             alias = alias,
             isSecured = isSecured,
-            isAdmin = isAdmin,
             type = avatarType.name
         )
     }
@@ -26,7 +25,6 @@ internal class ProfileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenc
             uuid = uuid,
             alias = alias,
             isSecured = isSecured,
-            isAdmin = isAdmin,
             avatarType = enumValueOfOrDefault(type, AvatarTypeEnum.BOY)
         )
     }

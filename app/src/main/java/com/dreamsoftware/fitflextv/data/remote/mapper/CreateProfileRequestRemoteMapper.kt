@@ -8,7 +8,6 @@ internal class CreateProfileRequestRemoteMapper: IOneSideMapper<CreateProfileReq
     private companion object {
         const val UUID_KEY = "uuid"
         const val ALIAS_KEY = "alias"
-        const val IS_ADMIN_KEY = "isAdmin"
         const val IS_SECURED_KEY = "isSecured"
         const val PIN_KEY = "pin"
         const val AVATAR_TYPE_KEY = "avatarType"
@@ -22,8 +21,7 @@ internal class CreateProfileRequestRemoteMapper: IOneSideMapper<CreateProfileReq
             PIN_KEY to pin,
             AVATAR_TYPE_KEY to avatarType,
             USER_ID to userId,
-            IS_ADMIN_KEY to false,
-            IS_SECURED_KEY to false
+            IS_SECURED_KEY to true
         )
     }
 
