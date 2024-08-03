@@ -5,7 +5,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireS
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoryByIdExceptionRemote
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
 

@@ -28,8 +28,8 @@ import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
-import com.dreamsoftware.fitflextv.ui.utils.IMapper
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class ProfilesRepositoryImpl(

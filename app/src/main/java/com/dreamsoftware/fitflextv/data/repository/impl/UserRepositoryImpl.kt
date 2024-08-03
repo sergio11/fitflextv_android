@@ -24,7 +24,7 @@ import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class UserRepositoryImpl(

@@ -10,7 +10,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdE
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfilesCountException
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailExceptionRemote
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher

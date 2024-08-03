@@ -8,7 +8,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedSeri
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByCategoryExceptionRemote
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.CoroutineDispatcher

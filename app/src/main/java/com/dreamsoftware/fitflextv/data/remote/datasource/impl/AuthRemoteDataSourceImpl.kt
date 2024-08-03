@@ -7,7 +7,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AuthExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.SignInExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.SignUpExceptionRemote
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers

@@ -170,6 +170,7 @@
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="app_settings">App Settings</string>
+    <string name="about_settings">About</string>
     <string name="settings_units_preference_title">Units Preference</string>
     <string name="settings_language_title">Language</string>
     <string name="settings_video_resolution_title">Video Resolution</string>

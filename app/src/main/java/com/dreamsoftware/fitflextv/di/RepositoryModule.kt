@@ -61,8 +61,8 @@ import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.ui.utils.IMapper
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

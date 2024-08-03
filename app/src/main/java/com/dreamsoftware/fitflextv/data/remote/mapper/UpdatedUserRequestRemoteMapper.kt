@@ -1,9 +1,10 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
-internal class UpdatedUserRequestRemoteMapper: IOneSideMapper<UpdatedUserRequestDTO, Map<String, Any?>> {
+internal class UpdatedUserRequestRemoteMapper:
+    IOneSideMapper<UpdatedUserRequestDTO, Map<String, Any?>> {
 
     private companion object {
         const val USERNAME_KEY = "username"

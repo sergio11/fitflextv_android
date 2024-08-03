@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseUser
 
 internal class UserAuthenticatedRemoteMapper : IOneSideMapper<FirebaseUser, AuthUserDTO> {

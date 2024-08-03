@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.data.repository.mapper
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
 internal class CreateUserMapper : IOneSideMapper<SignUpBO, CreateUserDTO> {
 

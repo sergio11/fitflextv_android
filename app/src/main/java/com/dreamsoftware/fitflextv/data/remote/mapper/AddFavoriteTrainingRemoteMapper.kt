@@ -1,9 +1,10 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
-internal class AddFavoriteTrainingRemoteMapper: IOneSideMapper<AddFavoriteTrainingDTO, Map<String, Any?>> {
+internal class AddFavoriteTrainingRemoteMapper:
+    IOneSideMapper<AddFavoriteTrainingDTO, Map<String, Any?>> {
 
     private companion object {
         const val TRAINING_ID = "trainingId"

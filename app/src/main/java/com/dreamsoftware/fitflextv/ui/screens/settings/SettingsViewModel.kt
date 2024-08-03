@@ -2,16 +2,23 @@ package com.dreamsoftware.fitflextv.ui.screens.settings
 
 import androidx.annotation.StringRes
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.domain.model.AppLanguageEnum
+import com.dreamsoftware.fitflextv.domain.model.UnitsEnum
+import com.dreamsoftware.fitflextv.domain.model.VideoQualityEnum
+import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
-import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fitflextv.utils.AppEvent
+import com.dreamsoftware.fitflextv.utils.AppEventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor() :
-    BaseViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
+class SettingsViewModel @Inject constructor(
+    private val signOffUseCase: SignOffUseCase,
+    private val appEventBus: AppEventBus
+) : BaseViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
 
     override fun onGetDefaultState(): SettingsUiState = SettingsUiState(
         settingList = listOf(
@@ -19,18 +26,19 @@ class SettingsViewModel @Inject constructor() :
             ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
                 titleRes = R.string.settings_units_preference_title,
                 value = "Imperial",
-                possibleValues = listOf("Imperial", "Metric")
+                possibleValues = UnitsEnum.entries.map { it.value }
             ),
             ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
                 titleRes = R.string.settings_language_title,
                 value = "English (US)",
-                possibleValues = listOf("English (US)", "Spanish", "French")
+                possibleValues = AppLanguageEnum.entries.map { it.value }
             ),
             ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
                 titleRes = R.string.settings_video_resolution_title,
                 value = "Automatic up to 4k",
-                possibleValues = listOf("Automatic up to 4k", "1080p", "720p")
+                possibleValues = VideoQualityEnum.entries.map { it.value }
             ),
+            ISettingItemVO.SettingHeaderVO(titleRes = R.string.about_settings),
             ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
                 titleRes = R.string.settings_about_app_title,
                 valueRes = R.string.settings_about_app_content
@@ -40,7 +48,8 @@ class SettingsViewModel @Inject constructor() :
                 valueRes = R.string.settings_about_me_content
             ),
             ISettingItemVO.SettingActionVO(
-                titleRes = R.string.settings_close_session_title
+                titleRes = R.string.settings_close_session_title,
+                type = SettingActionTypeEnum.SIGN_OFF
             )
         )
     )
@@ -66,7 +75,27 @@ class SettingsViewModel @Inject constructor() :
     override fun onSettingItemSelected(setting: ISettingItemVO) {
         if(setting is ISettingItemVO.ISettingValueItemVO) {
             updateState { it.copy(settingSelected = setting) }
+        } else if(setting is ISettingItemVO.SettingActionVO) {
+            when(setting.type) {
+                SettingActionTypeEnum.SIGN_OFF -> onSignOff()
+            }
         }
+    }
+
+    private fun onSignOff() {
+        executeUseCase(
+            useCase = signOffUseCase,
+            onSuccess = {
+                onSignOffCompleted()
+            },
+            onFailed = {
+                onSignOffCompleted()
+            }
+        )
+    }
+
+    private fun onSignOffCompleted() {
+        appEventBus.send(AppEvent.SignOff)
     }
 }
 
@@ -99,12 +128,17 @@ sealed interface ISettingItemVO {
     }
 
     data class SettingActionVO(
-        @StringRes override val titleRes: Int
+        @StringRes override val titleRes: Int,
+        val type: SettingActionTypeEnum
     ) : ISettingItemVO
 
     data class SettingHeaderVO(
         @StringRes override val titleRes: Int
     ) : ISettingItemVO
+}
+
+enum class SettingActionTypeEnum {
+    SIGN_OFF
 }
 
 sealed interface SettingsSideEffects : SideEffect

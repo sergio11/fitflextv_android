@@ -46,7 +46,7 @@ import com.dreamsoftware.fitflextv.data.remote.mapper.UpdatedUserRequestRemoteMa
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.WorkoutRemoteMapper
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore

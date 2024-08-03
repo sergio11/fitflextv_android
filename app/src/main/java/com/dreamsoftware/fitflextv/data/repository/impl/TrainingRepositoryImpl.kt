@@ -35,7 +35,7 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.ui.utils.parallelMap
 import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
 import kotlinx.coroutines.CoroutineDispatcher
