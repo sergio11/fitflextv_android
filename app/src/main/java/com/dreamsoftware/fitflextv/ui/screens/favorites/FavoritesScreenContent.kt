@@ -157,7 +157,8 @@ private fun TrainingProgramDetailsPopup(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(surfaceVariant.copy(alpha = 0.35f))
-                        .padding(horizontal = 24.dp), horizontalAlignment = Alignment.Start
+                        .padding(horizontal = 24.dp),
+                    horizontalAlignment = Alignment.Start
                 ) {
                     Spacer(modifier = Modifier.fillMaxHeight(0.45f))
                     CommonText(
@@ -178,13 +179,12 @@ private fun TrainingProgramDetailsPopup(
                         CommonText(
                             modifier = Modifier,
                             type = CommonTextTypeEnum.LABEL_MEDIUM,
-                            titleText = "${trainingProgram.duration} | Intensity ",
+                            titleText = "${trainingProgram.duration} | ${trainingProgram.intensity.value} ",
                             textColor = onSurface,
                             overflow = TextOverflow.Ellipsis,
                             softWrap = true,
                             maxLines = 4
                         )
-                        repeat(trainingProgram.intensity.ordinal) { Text(text = "•") }
                     }
                     CommonText(
                         titleText = trainingProgram.description,

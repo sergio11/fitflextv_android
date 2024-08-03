@@ -156,10 +156,7 @@ private fun TrainingProgramList(
                                     title = training.name,
                                     timeText = training.duration,
                                     typeText = training.intensity.level,
-                                    onClick = { actionListener.onItemClicked(training.id) },
-                                    titleTextStyle = titleMedium,
-                                    timeTextStyle = labelMedium,
-                                    typeTextStyle = labelMedium,
+                                    onClick = { actionListener.onItemClicked(training.id) }
                                 )
                             }
                         }
