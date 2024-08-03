@@ -16,24 +16,31 @@ class SettingsViewModel @Inject constructor() :
     override fun onGetDefaultState(): SettingsUiState = SettingsUiState(
         settingList = listOf(
             ISettingItemVO.SettingHeaderVO(titleRes = R.string.app_settings),
-            ISettingItemVO.SettingValueVO(
+            ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
                 titleRes = R.string.settings_units_preference_title,
                 value = "Imperial",
                 possibleValues = listOf("Imperial", "Metric")
             ),
-            ISettingItemVO.SettingValueVO(
+            ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
                 titleRes = R.string.settings_language_title,
                 value = "English (US)",
                 possibleValues = listOf("English (US)", "Spanish", "French")
             ),
-            ISettingItemVO.SettingValueVO(
+            ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
                 titleRes = R.string.settings_video_resolution_title,
                 value = "Automatic up to 4k",
                 possibleValues = listOf("Automatic up to 4k", "1080p", "720p")
             ),
-            ISettingItemVO.SettingValueVO(
+            ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
                 titleRes = R.string.settings_about_app_title,
-                value = String.EMPTY
+                valueRes = R.string.settings_about_app_content
+            ),
+            ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
+                titleRes = R.string.settings_about_me_title,
+                valueRes = R.string.settings_about_me_content
+            ),
+            ISettingItemVO.SettingActionVO(
+                titleRes = R.string.settings_close_session_title
             )
         )
     )
@@ -42,12 +49,12 @@ class SettingsViewModel @Inject constructor() :
         uiState.value.settingSelected?.let { itemSelected ->
             updateState {
                 it.copy(
-                    settingList = it.settingList.filterIsInstance<ISettingItemVO.SettingValueVO>()
+                    settingList = it.settingList
                         .map { item ->
-                            if (item == itemSelected) {
-                                item.copy(value = value)
-                            } else {
-                                item
+                            when {
+                                item == itemSelected && item is ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO -> item.copy(value = value)
+                                item == itemSelected && item is ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO -> item.copy(value = value)
+                                else -> item
                             }
                         },
                     settingSelected = null
@@ -56,8 +63,10 @@ class SettingsViewModel @Inject constructor() :
         }
     }
 
-    override fun onSettingItemSelected(setting: ISettingItemVO.SettingValueVO) {
-        updateState { it.copy(settingSelected = setting) }
+    override fun onSettingItemSelected(setting: ISettingItemVO) {
+        if(setting is ISettingItemVO.ISettingValueItemVO) {
+            updateState { it.copy(settingSelected = setting) }
+        }
     }
 }
 
@@ -65,7 +74,7 @@ data class SettingsUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
     val settingList: List<ISettingItemVO> = emptyList(),
-    val settingSelected: ISettingItemVO.SettingValueVO? = null,
+    val settingSelected: ISettingItemVO.ISettingValueItemVO? = null,
 ) : UiState<SettingsUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): SettingsUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)
@@ -74,10 +83,23 @@ data class SettingsUiState(
 sealed interface ISettingItemVO {
     val titleRes: Int
 
-    data class SettingValueVO(
-        @StringRes override val titleRes: Int,
-        val value: String,
-        val possibleValues: List<String> = emptyList(),
+    sealed interface ISettingValueItemVO: ISettingItemVO {
+
+        data class SettingSingleValueVO(
+            @StringRes override val titleRes: Int,
+            val value: String? = null,
+            @StringRes val valueRes: Int? = null
+        ) : ISettingValueItemVO
+
+        data class SettingMultipleValuesVO(
+            @StringRes override val titleRes: Int,
+            val value: String,
+            val possibleValues: List<String> = emptyList(),
+        ) : ISettingValueItemVO
+    }
+
+    data class SettingActionVO(
+        @StringRes override val titleRes: Int
     ) : ISettingItemVO
 
     data class SettingHeaderVO(
