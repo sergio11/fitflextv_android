@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
 internal class UserRemoteMapper: IOneSideMapper<Map<String, Any?>, UserResponseDTO> {
 

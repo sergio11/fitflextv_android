@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeWeaklyPlansDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import java.util.Date
 
 @Suppress("UNCHECKED_CAST")

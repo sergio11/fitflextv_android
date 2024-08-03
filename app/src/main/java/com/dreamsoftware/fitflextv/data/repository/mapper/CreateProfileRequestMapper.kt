@@ -2,9 +2,10 @@ package com.dreamsoftware.fitflextv.data.repository.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
-internal class CreateProfileRequestMapper : IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO> {
+internal class CreateProfileRequestMapper :
+    IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO> {
 
     override fun mapInToOut(input: CreateProfileRequestBO): CreateProfileRequestDTO = with(input) {
         CreateProfileRequestDTO(

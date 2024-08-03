@@ -10,7 +10,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesExce
 import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesExceptionRemote
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesExceptionRemote
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.CoroutineDispatcher

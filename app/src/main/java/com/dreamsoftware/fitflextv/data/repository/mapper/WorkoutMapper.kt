@@ -5,7 +5,7 @@ import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
 
 internal class WorkoutMapper : IOneSideMapper<WorkoutDTO, WorkoutBO> {

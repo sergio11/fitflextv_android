@@ -25,7 +25,7 @@
             tools:targetApi="29" />
 
         <activity
-            android:name="com.dreamsoftware.fitflextv.MainActivity"
+            android:name="com.dreamsoftware.fitflextv.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

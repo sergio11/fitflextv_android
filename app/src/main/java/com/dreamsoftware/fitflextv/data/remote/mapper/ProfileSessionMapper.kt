@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.data.remote.mapper
 import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenceDTO
 import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
-import com.dreamsoftware.fitflextv.ui.utils.IMapper
+import com.dreamsoftware.fitflextv.utils.IMapper
 import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
 
 internal class ProfileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenceDTO> {

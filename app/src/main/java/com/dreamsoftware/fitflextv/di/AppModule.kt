@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.di
 
+import com.dreamsoftware.fitflextv.utils.AppEventBus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,4 +37,8 @@ object AppModule {
     fun providesCoroutineScope(
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
+
+    @Singleton
+    @Provides
+    fun provideAppEventBus() = AppEventBus()
 }

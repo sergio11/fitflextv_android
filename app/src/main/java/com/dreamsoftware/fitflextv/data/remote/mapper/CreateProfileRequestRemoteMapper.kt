@@ -1,9 +1,10 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
-internal class CreateProfileRequestRemoteMapper: IOneSideMapper<CreateProfileRequestDTO, Map<String, Any?>> {
+internal class CreateProfileRequestRemoteMapper:
+    IOneSideMapper<CreateProfileRequestDTO, Map<String, Any?>> {
 
     private companion object {
         const val UUID_KEY = "uuid"

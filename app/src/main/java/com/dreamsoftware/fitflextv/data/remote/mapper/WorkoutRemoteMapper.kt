@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import java.util.Date
 
 internal class WorkoutRemoteMapper: IOneSideMapper<Map<String, Any?>, WorkoutDTO> {

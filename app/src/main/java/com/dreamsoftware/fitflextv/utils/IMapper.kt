@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.utils
+package com.dreamsoftware.fitflextv.utils
 
 interface IMapper<IN, OUT> {
     fun mapInToOut(input: IN): OUT

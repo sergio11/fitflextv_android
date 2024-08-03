@@ -9,7 +9,7 @@ import com.dreamsoftware.fitflextv.domain.exception.FetchCategoriesException
 import com.dreamsoftware.fitflextv.domain.exception.FetchCategoryByIdException
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class CategoryRepositoryImpl(

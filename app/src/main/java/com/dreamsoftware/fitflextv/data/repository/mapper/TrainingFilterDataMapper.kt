@@ -7,7 +7,7 @@ import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
-import com.dreamsoftware.fitflextv.ui.utils.IOneSideMapper
+import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 
 internal class TrainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO> {
     override fun mapInToOut(input: TrainingFilterDataBO): TrainingFilterDTO = with(input) {
