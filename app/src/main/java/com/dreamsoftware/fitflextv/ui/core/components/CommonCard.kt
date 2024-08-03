@@ -36,10 +36,6 @@ fun CommonCard(
     title: String,
     timeText: String,
     typeText: String,
-    timeTextStyle: TextStyle = TextStyle(color = Color.LightGray),
-    typeTextStyle: TextStyle = TextStyle(color = Color.LightGray),
-    titleTextStyle: TextStyle = TextStyle(color = Color.White),
-    dividerColor: Color = Color.LightGray,
     cardAspectRatio: Float = 16f / 9f
 ) {
     with(MaterialTheme.colorScheme) {
@@ -78,30 +74,30 @@ fun CommonCard(
                     alignment = Alignment.Center,
                 )
             }
-            Text(
-                text = title,
-                style = titleTextStyle
+            CommonText(
+                type = CommonTextTypeEnum.LABEL_LARGE,
+                titleText = title
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = timeText,
-                    style = timeTextStyle,
-                    modifier = Modifier.padding(end = 4.dp)
+                CommonText(
+                    modifier = Modifier.padding(end = 4.dp),
+                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    titleText = timeText
                 )
                 Text(
                     modifier = Modifier
                         .width(1.dp)
                         .alpha(1f),
                     text = "|",
-                    style = TextStyle(color = dividerColor),
+                    style = TextStyle(color = Color.LightGray),
                 )
                 Spacer(modifier = Modifier.width(2.dp))
-                Text(
-                    text = typeText,
-                    style = typeTextStyle,
-                    modifier = Modifier.padding(start = 4.dp, end = 4.dp)
+                CommonText(
+                    modifier =  Modifier.padding(start = 4.dp, end = 4.dp),
+                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    titleText = typeText
                 )
             }
         }
