@@ -19,85 +19,101 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.items
-import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.foundation.lazy.list.itemsIndexed
 import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.surface
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
+import com.dreamsoftware.fitflextv.ui.utils.conditional
 
 @Composable
 fun SettingsScreenContent(
-    state: SettingsUIState,
-    selectedItem: MutableState<SettingsItemUIState?>,
-    updateSetting: (SettingsItemUIState) -> Unit = {}
+    uiState: SettingsUiState,
+    actionListener: SettingsScreenActionListener
 ) {
-    Row(Modifier.fillMaxSize().semantics { contentDescription = "Settings Screen" }) {
-        Column(
-            Modifier
-                .weight(1f)
-                .background(MaterialTheme.colorScheme.background),
-            horizontalAlignment = Alignment.Start
-        ){
-            Text(
-                text = stringResource(id = R.string.settings),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(top = 64.dp, start = 32.dp)
-            )
-
-            TvLazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(32.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+    with(uiState) {
+        with(MaterialTheme.colorScheme) {
+            Row(
+                Modifier
+                    .fillMaxSize()
+                    .semantics { contentDescription = "Settings Screen" }
             ) {
-                item {
-                    Text(
-                        text = stringResource(id = state.appSettings.first),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface,
+                Column(
+                    Modifier
+                        .weight(1f)
+                        .background(background),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    CommonText(
+                        titleRes = R.string.settings,
+                        type = CommonTextTypeEnum.TITLE_LARGE,
+                        textColor = onSurface,
+                        modifier = Modifier.padding(top = 64.dp, start = 32.dp)
                     )
-                }
-                items(state.appSettings.second) {
-                    SettingsItem(item = it, selectedItem = selectedItem, updateSetting = updateSetting)
+                    CommonFocusRequester { focusRequester ->
+                        TvLazyColumn(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPadding = PaddingValues(32.dp),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            itemsIndexed(settingList) { idx, item ->
+                                when (item) {
+                                    is ISettingItemVO.SettingHeaderVO -> {
+                                        CommonText(
+                                            titleRes = item.titleRes,
+                                            type = CommonTextTypeEnum.BODY_SMALL,
+                                            textColor = onSurface,
+                                        )
+                                    }
+
+                                    is ISettingItemVO.SettingValueVO -> {
+                                        SettingsItem(
+                                            modifier = Modifier.conditional(idx == 0, ifTrue = {
+                                                focusRequester(focusRequester)
+                                            }),
+                                            item = item,
+                                            actionListener = actionListener
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
-                item {
-                    Text(
-                        text = stringResource(id = state.personalSettings.first),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
+                AnimatedVisibility(
+                    visible = settingSelected != null,
+                    enter = slideInHorizontally(
+                        initialOffsetX = { it },
+                        animationSpec = tween(300)
+                    ),
+                    exit = slideOutHorizontally(
+                        targetOffsetX = { it },
+                        animationSpec = tween(300)
+                    ),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    settingSelected?.let {
+                        SettingsDetail(item = it, actionListener = actionListener)
+                    }
                 }
-                items(state.personalSettings.second) {
-                    SettingsItem(item = it, selectedItem = selectedItem, updateSetting = updateSetting)
-                }
-            }
-        }
-
-        AnimatedVisibility(
-            visible = selectedItem.value != null,
-            enter = slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300)),
-            exit = slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300)),
-            modifier = Modifier.weight(1f)
-        ) {
-            selectedItem.value?.let {
-                SettingsDetail(item = selectedItem.value!!, updateSetting = updateSetting)
             }
         }
     }
@@ -105,20 +121,20 @@ fun SettingsScreenContent(
 
 @Composable
 private fun SettingsItem(
-    item: SettingsItemUIState,
-    selectedItem: MutableState<SettingsItemUIState?>,
-    updateSetting: (SettingsItemUIState) -> Unit
+    modifier: Modifier = Modifier,
+    item: ISettingItemVO.SettingValueVO,
+    actionListener: SettingsScreenActionListener
 ) {
     ListItem(
+        modifier = modifier,
         selected = false,
         onClick = {
-            selectedItem.value = item
-            updateSetting(item)
+            actionListener.onSettingItemSelected(item)
         },
         leadingContent = {
-            Text(
-                text = item.title,
-                style = MaterialTheme.typography.titleMedium,
+            CommonText(
+                type = CommonTextTypeEnum.TITLE_MEDIUM,
+                titleRes = item.titleRes
             )
         },
         trailingContent = {
@@ -126,9 +142,9 @@ private fun SettingsItem(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = item.value,
-                    style = MaterialTheme.typography.titleMedium
+                CommonText(
+                    type = CommonTextTypeEnum.TITLE_MEDIUM,
+                    titleText = item.value
                 )
                 Icon(
                     Icons.Default.KeyboardArrowRight,
@@ -149,26 +165,23 @@ private fun SettingsItem(
 
 @Composable
 private fun SubSettingItem(
-    item: SettingsItemUIState,
-    selectedItem: MutableState<SettingsItemUIState?>,
-    updateSetting: (SettingsItemUIState) -> Unit
+    item: ISettingItemVO.SettingValueVO,
+    actionListener: SettingsScreenActionListener
 ) {
     item.possibleValues.forEach { subSetting ->
         ListItem(
             onClick = {
-                val updatedItem = item.copy(value = subSetting)
-                updateSetting(updatedItem)
-                selectedItem.value = updatedItem
+                actionListener.onSettingValueChanged(subSetting)
             },
-            selected = selectedItem.value?.value == subSetting,
+            selected = item.value == subSetting,
             leadingContent = {
-                Text(
-                    text = subSetting,
-                    style = MaterialTheme.typography.titleMedium,
+                CommonText(
+                    titleText = subSetting,
+                    type = CommonTextTypeEnum.TITLE_MEDIUM,
                 )
             },
             trailingContent = {
-                if (selectedItem.value?.value == subSetting) {
+                if (item.value == subSetting) {
                     Icon(
                         Icons.Default.CheckCircle,
                         modifier = Modifier.size(ListItemDefaults.IconSize),
@@ -187,10 +200,11 @@ private fun SubSettingItem(
         )
     }
 }
+
 @Composable
 private fun SettingsDetail(
-    item: SettingsItemUIState,
-    updateSetting: (SettingsItemUIState) -> Unit
+    item: ISettingItemVO.SettingValueVO,
+    actionListener: SettingsScreenActionListener
 ) {
     Column(
         Modifier
@@ -198,11 +212,11 @@ private fun SettingsDetail(
             .fillMaxHeight(),
         horizontalAlignment = Alignment.Start
     ) {
-        Text(
-            text = item.title,
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(top = 64.dp, start = 32.dp)
+        CommonText(
+            modifier = Modifier.padding(top = 64.dp, start = 32.dp),
+            type = CommonTextTypeEnum.TITLE_LARGE,
+            titleRes = item.titleRes,
+            textColor = MaterialTheme.colorScheme.onSurface
         )
         TvLazyColumn(
             modifier = Modifier.fillMaxWidth(),
@@ -211,9 +225,9 @@ private fun SettingsDetail(
         ) {
             items(listOf(item)) {
                 SubSettingItem(
-                    updateSetting = updateSetting,
                     item = item,
-                    selectedItem = remember { mutableStateOf(item) })
+                    actionListener = actionListener
+                )
             }
         }
     }

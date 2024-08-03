@@ -86,7 +86,11 @@ fun DashboardNavHost(
             }
         }
         composable(Screen.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(
+                onBackPressed = {
+                    navController.popBackStack()
+                }
+            )
         }
         composable(Screen.TrainingDetail.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let(Screen.TrainingDetail::parseArgs)?.let { args ->
