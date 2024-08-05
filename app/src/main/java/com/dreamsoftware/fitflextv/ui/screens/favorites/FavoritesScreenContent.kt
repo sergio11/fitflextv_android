@@ -5,6 +5,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +18,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,15 +37,16 @@ import androidx.compose.ui.window.Dialog
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
 import androidx.tv.foundation.lazy.grid.itemsIndexed
-import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardWithIntensity
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
 import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonOutLinedButtonWithLeadingIcon
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.onSurface
@@ -160,7 +165,7 @@ private fun TrainingProgramDetailsPopup(
                         .padding(horizontal = 24.dp),
                     horizontalAlignment = Alignment.Start
                 ) {
-                    Spacer(modifier = Modifier.fillMaxHeight(0.45f))
+                    Spacer(modifier = Modifier.fillMaxHeight(0.35f))
                     CommonText(
                         modifier = Modifier.padding(bottom = 8.dp),
                         type = CommonTextTypeEnum.HEADLINE_SMALL,
@@ -195,22 +200,24 @@ private fun TrainingProgramDetailsPopup(
                         softWrap = true,
                         maxLines = 4
                     )
-                    CommonOutLinedButtonWithLeadingIcon(
-                        text = "Start",
-                        icon = R.drawable.play_icon,
+                    CommonButton(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .focusRequester(focusRequester)
-                            .padding(bottom = 12.dp)
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp),
+                        type = CommonButtonTypeEnum.MEDIUM,
+                        style = CommonButtonStyleTypeEnum.NORMAL,
+                        text = "Start"
                     ) {
                         onStartTrainingProgram(trainingProgram.id)
                     }
-                    CommonOutLinedButtonWithLeadingIcon(
-                        text = "Remove from favorites",
-                        icon = R.drawable.icon_remove,
+                    CommonButton(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 24.dp)
+                            .padding(bottom = 12.dp),
+                        type = CommonButtonTypeEnum.MEDIUM,
+                        style = CommonButtonStyleTypeEnum.INVERSE,
+                        text = "Remove from favorites"
                     ) {
                         onRemoveFromFavorites(trainingProgram.id)
                     }
