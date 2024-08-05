@@ -8,6 +8,7 @@ import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.advance.ProfileAdvanceScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.delete.DeleteProfileScreenArgs
@@ -138,7 +139,34 @@ sealed class Screen(
             }
         }
     }
-    data object AudioPlayer: Screen(route = "audio_player", name = "AudioPlayer")
+    data object AudioPlayer: Screen(route = "audio_player/{type}/{id}", name = "AudioPlayer", arguments = listOf(
+        navArgument("type") {
+            type = NavType.StringType
+        },
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String, type: TrainingTypeEnum): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            ).replace(
+                oldValue = "{type}",
+                newValue = type.name
+            )
+
+        fun parseArgs(args: Bundle): AudioPlayerScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
+                    AudioPlayerScreenArgs(
+                        id = id,
+                        type = type
+                    )
+                }
+            }
+        }
+    }
     data object TrainingDetail : Screen(route = "training_detail/{type}/{id}", name = "TrainingDetail", arguments = listOf(
         navArgument("type") {
             type = NavType.StringType

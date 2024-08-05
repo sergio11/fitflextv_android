@@ -80,9 +80,13 @@ fun DashboardNavHost(
                 }
             }
         }
-        composable(Screen.AudioPlayer.route) {
-            AudioPlayerScreen {
-                navController.popBackStack()
+        composable(Screen.AudioPlayer.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screen.AudioPlayer::parseArgs)?.let { args ->
+                with(navController) {
+                    AudioPlayerScreen(args = args) {
+                        popBackStack()
+                    }
+                }
             }
         }
         composable(Screen.Settings.route) {
@@ -117,6 +121,9 @@ fun DashboardNavHost(
                         args = args,
                         onPlayTrainingProgram = { id, type ->
                             navigate(Screen.VideoPlayer.buildRoute(id, type))
+                        },
+                        onPlayMotivationalMusicTraining = { id, type ->
+                            navigate(Screen.AudioPlayer.buildRoute(id, type))
                         },
                         onBackPressed = {
                             popBackStack()

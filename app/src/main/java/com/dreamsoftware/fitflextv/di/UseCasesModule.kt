@@ -311,10 +311,12 @@ class UseCasesModule {
     @ViewModelScoped
     fun provideVerifyTrainingInFavoritesUseCase(
         userRepository: IUserRepository,
+        profileRepository: IProfilesRepository,
         trainingRepository: ITrainingRepository
     ): VerifyTrainingInFavoritesUseCase =
         VerifyTrainingInFavoritesUseCase(
             userRepository = userRepository,
+            profileRepository = profileRepository,
             trainingRepository = trainingRepository
         )
 

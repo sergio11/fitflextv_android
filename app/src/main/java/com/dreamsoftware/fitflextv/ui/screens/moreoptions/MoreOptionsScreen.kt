@@ -16,6 +16,7 @@ fun MoreOptionsScreen(
     args: MoreOptionsScreenArgs,
     onBackPressed: () -> Unit,
     onPlayTrainingProgram: (id: String, type: TrainingTypeEnum) -> Unit,
+    onPlayMotivationalMusicTraining: (id: String, type: TrainingTypeEnum) -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
@@ -25,6 +26,7 @@ fun MoreOptionsScreen(
             when(it) {
                 MoreOptionsSideEffects.ExitFromMoreDetail -> onBackPressed()
                 is MoreOptionsSideEffects.PlayTrainingProgram -> onPlayTrainingProgram(it.id, it.type)
+                is MoreOptionsSideEffects.PlayMotivationalMusicTraining -> onPlayMotivationalMusicTraining(it.id, it.type)
             }
         },
         onInit = {

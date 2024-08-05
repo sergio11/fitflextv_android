@@ -20,9 +20,6 @@ fun VideoPlayerScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { VideoPlayerUiState() },
-        onSideEffect = {
-
-        },
         onInit = {
             with(args) {
                 fetchData(id = id, type = type)
