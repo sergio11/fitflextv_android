@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AppViewModel @Inject constructor(
     private val appEventBus: AppEventBus
-): BaseViewModel<AppUiState, AppSideEffects>() {
+): BaseViewModel<AppUiState, AppSideEffects>(), IAppScreenActionListener {
 
     init {
         observeEvents()
@@ -40,6 +40,14 @@ class AppViewModel @Inject constructor(
             it.copy(hasNetworkConnectivity = newState)
         }
     }
+
+    override fun onOpenSettingsPressed() {
+        launchSideEffect(AppSideEffects.OpenSettings)
+    }
+
+    override fun onRestartAppPressed() {
+        launchSideEffect(AppSideEffects.RestartApp)
+    }
 }
 
 data class AppUiState(
@@ -54,4 +62,6 @@ data class AppUiState(
 sealed interface AppSideEffects: SideEffect {
     data object ComeFromStandby: AppSideEffects
     data object NoSessionActive: AppSideEffects
+    data object OpenSettings: AppSideEffects
+    data object RestartApp: AppSideEffects
 }
