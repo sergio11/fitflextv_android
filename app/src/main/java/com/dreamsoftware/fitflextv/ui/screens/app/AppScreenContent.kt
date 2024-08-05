@@ -16,14 +16,12 @@ import com.dreamsoftware.fitflextv.ui.theme.LocalNavigationProvider
 fun AppScreenContent(
     uiState: AppUiState,
     navController: NavHostController,
-    onOpenSettingsPressed: () -> Unit,
-    onRestartAppPressed: () -> Unit,
-    onErrorAccepted: () -> Unit,
+    actionListener: IAppScreenActionListener
 ) {
     with(uiState) {
         CommonScreenContent(
             error = errorMessage,
-            onErrorAccepted = onErrorAccepted
+            onErrorAccepted = actionListener::onErrorAccepted
         ) {
             Box {
                 CompositionLocalProvider(LocalNavigationProvider provides navController) {
@@ -32,8 +30,8 @@ fun AppScreenContent(
                     )
                     LostNetworkConnectivityDialog(
                         isVisible = !hasNetworkConnectivity,
-                        onOpenSettings = onOpenSettingsPressed,
-                        onRestartAppPressed = onRestartAppPressed
+                        onOpenSettings = actionListener::onOpenSettingsPressed,
+                        onRestartAppPressed = actionListener::onRestartAppPressed
                     )
                 }
             }

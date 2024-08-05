@@ -11,6 +11,8 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
+import com.dreamsoftware.fitflextv.ui.utils.openSystemSettings
+import com.dreamsoftware.fitflextv.ui.utils.restartApplication
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
@@ -19,30 +21,25 @@ fun AppScreen(
     viewModel: AppViewModel = hiltViewModel()
 ) {
     FitFlexTVTheme {
-        CommonScreen(
-            viewModel = viewModel,
-            onInitialUiState = { AppUiState() },
-            onSideEffect = {
-                with(navController) {
-                    val destination: String = when(it) {
-                        AppSideEffects.ComeFromStandby -> Screen.ProfileSelector.route
-                        AppSideEffects.NoSessionActive -> Screen.Onboarding.route
+        with(LocalContext.current) {
+            CommonScreen(
+                viewModel = viewModel,
+                onInitialUiState = { AppUiState() },
+                onSideEffect = {
+                    with(navController) {
+                        when(it) {
+                            AppSideEffects.ComeFromStandby -> navigateSingleTopTo(Screen.ProfileSelector.route)
+                            AppSideEffects.NoSessionActive -> navigateSingleTopTo(Screen.Onboarding.route)
+                            AppSideEffects.OpenSettings -> openSystemSettings()
+                            AppSideEffects.RestartApp -> restartApplication()
+                        }
                     }
-                    navigateSingleTopTo(destination)
                 }
-            }
-        ) {
-            with(LocalContext.current) {
+            ) {
                 AppScreenContent(
                     uiState = it,
                     navController = navController,
-                    onOpenSettingsPressed = {
-
-                    },
-                    onRestartAppPressed = {
-
-                    },
-                    onErrorAccepted = ::onErrorAccepted
+                    actionListener = viewModel
                 )
             }
         }

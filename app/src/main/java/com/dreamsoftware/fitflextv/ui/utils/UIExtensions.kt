@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.utils
 
+import android.content.Context
+import android.content.Intent
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
@@ -13,6 +15,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
+import android.provider.Settings
 
 fun Number.padStartWith0(): String = this.toString().padStart(2, '0')
 
@@ -93,3 +96,13 @@ fun AvatarTypeEnum.toDrawableResource(): Int =
         AvatarTypeEnum.WOMAN -> R.drawable.profile_avatar_woman
         AvatarTypeEnum.MAN -> R.drawable.profile_avatar_man
     }
+
+fun Context.restartApplication() {
+    packageManager.getLeanbackLaunchIntentForPackage(packageName)?.run {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    }?.let(::startActivity)
+}
+
+fun Context.openSystemSettings() {
+    startActivity(Intent(Settings.ACTION_SETTINGS))
+}
