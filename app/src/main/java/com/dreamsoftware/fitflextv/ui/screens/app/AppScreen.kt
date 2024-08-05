@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.app
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -10,6 +12,7 @@ import com.dreamsoftware.fitflextv.ui.navigation.Screen
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun AppScreen(
     navController: NavHostController = rememberNavController(),
