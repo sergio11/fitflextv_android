@@ -24,7 +24,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 internal fun TrainingsRecommended(
     modifier: Modifier = Modifier,
     state: List<ITrainingProgramBO>,
-    onClick: (String) -> Unit
+    onClick: (ITrainingProgramBO) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
         CommonText(
@@ -50,7 +50,7 @@ internal fun TrainingsRecommended(
                     title = training.name,
                     timeText = training.duration,
                     typeText = training.instructorName,
-                    onClick = { onClick(training.id) }
+                    onClick = { onClick(training) }
                 )
             }
         }

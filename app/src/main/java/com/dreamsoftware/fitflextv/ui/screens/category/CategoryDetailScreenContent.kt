@@ -31,7 +31,7 @@ internal fun CategoryDetailScreenContent(
     with(uiState) {
         if (isLoading) {
             CommonLoadingState(modifier = Modifier.fillMaxSize())
-        } else if(trainings.isEmpty()) {
+        } else if(category != null && trainings.isEmpty()) {
             CommonNoContentState(
                 modifier = Modifier.fillMaxSize(),
                 messageRes = R.string.category_detail_no_trainings_available
