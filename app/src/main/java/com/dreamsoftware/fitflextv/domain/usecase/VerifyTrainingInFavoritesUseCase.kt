@@ -1,17 +1,21 @@
 package com.dreamsoftware.fitflextv.domain.usecase
 
+import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 
 class VerifyTrainingInFavoritesUseCase(
     private val userRepository: IUserRepository,
+    private val profileRepository: IProfilesRepository,
     private val trainingRepository: ITrainingRepository
 ): BaseUseCaseWithParams<VerifyTrainingInFavoritesUseCase.Params, Boolean>() {
 
     override suspend fun onExecuted(params: Params) = with(params) {
+        val userUid = userRepository.getAuthenticatedUid()
+        val profileSelected = profileRepository.getProfileSelectedByUser(userUid)
         trainingRepository.hasTrainingInFavorites(
-            profileId = userRepository.getAuthenticatedUid(),
+            profileId = profileSelected.uuid,
             trainingId = trainingId
         )
     }

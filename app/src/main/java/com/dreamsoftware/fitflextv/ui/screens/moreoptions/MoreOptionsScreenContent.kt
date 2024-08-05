@@ -83,8 +83,9 @@ internal fun MoreOptionsScreenContent(
                             top.linkTo(favoritesButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)
                         },
-                        textRes = R.string.more_info,
-                        icon = R.drawable.ic_info
+                        textRes = R.string.play_motivational_music_button_text,
+                        icon = R.drawable.music_icon,
+                        onClick = actionListener::onPlayMotivationalMusic
                     )
                     CommonMoreOptionsButton(
                         modifier = Modifier.constrainAs(viewInstructorButton) {
