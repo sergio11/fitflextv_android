@@ -55,7 +55,7 @@ internal fun HomeScreenContent(
             item {
                 TrainingsRecommended(
                     state = state.recommended,
-                    onClick = actionListener::onCategorySelected
+                    onClick = actionListener::onOpenTrainingProgram
                 )
             }
         }

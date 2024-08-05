@@ -19,11 +19,21 @@ class CategoryDetailScreenViewModel @Inject constructor(
 ) : BaseViewModel<CategoryDetailUiState, CategoryDetailSideEffects>(), CategoryDetailActionListener {
 
     fun fetchData(id: String) {
-        fetchTrainingsByCategory(id)
         fetchCategoryDetail(id)
     }
 
     override fun onGetDefaultState(): CategoryDetailUiState = CategoryDetailUiState()
+
+    override fun onTrainingProgramOpened(trainingProgram: ITrainingProgramBO) {
+        with(trainingProgram) {
+            launchSideEffect(
+                CategoryDetailSideEffects.OpenTrainingProgramDetail(
+                    id = id,
+                    type = toTrainingType()
+                )
+            )
+        }
+    }
 
     private fun fetchTrainingsByCategory(id: String) {
         executeUseCaseWithParams(
@@ -47,17 +57,7 @@ class CategoryDetailScreenViewModel @Inject constructor(
 
     private fun onGetCategoryDetailSuccessfully(category: CategoryBO) {
         updateState { it.copy(category = category) }
-    }
-
-    override fun onTrainingProgramOpened(trainingProgram: ITrainingProgramBO) {
-        with(trainingProgram) {
-            launchSideEffect(
-                CategoryDetailSideEffects.OpenTrainingProgramDetail(
-                    id = id,
-                    type = toTrainingType()
-                )
-            )
-        }
+        fetchTrainingsByCategory(category.id)
     }
 }
 
