@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.dreamsoftware.fitflextv.ui.receiver.ScreenStateReceiver
 import com.dreamsoftware.fitflextv.ui.screens.app.AppScreen
 import com.dreamsoftware.fitflextv.utils.network.NetworkConnectivityMonitor
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
 
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         screenStateReceiver = ScreenStateReceiver.register(this)
         networkConnectivityMonitor.registerNetworkCallback()
