@@ -1,4 +1,15 @@
 <resources>
 
-    <style name="FitFlexTV" parent="Theme.AppCompat.DayNight.NoActionBar" />
+    <style name="Theme.FitFlexTV" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimationDuration">800</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_app_icon_inset</item>
+        <item name="postSplashScreenTheme">@style/Theme.FitFlexTV</item>
+        <!-- Status bar and Nav bar configs -->
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:navigationBarColor">@color/primary</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>
