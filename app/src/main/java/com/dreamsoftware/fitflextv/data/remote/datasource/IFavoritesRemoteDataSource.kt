@@ -2,22 +2,22 @@ package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.FavoriteTrainingDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesRemoteException
 
 interface IFavoritesRemoteDataSource {
 
-    @Throws(AddToFavoritesExceptionRemote::class)
+    @Throws(AddToFavoritesRemoteException::class)
     suspend fun addFavorite(data: AddFavoriteTrainingDTO): Boolean
 
-    @Throws(GetFavoritesByUserExceptionRemote::class)
+    @Throws(GetFavoritesByUserRemoteException::class)
     suspend fun getFavoritesByUser(profileId: String): List<FavoriteTrainingDTO>
 
-    @Throws(HasTrainingInFavoritesExceptionRemote::class)
+    @Throws(HasTrainingInFavoritesRemoteException::class)
     suspend fun hasTrainingInFavorites(profileId: String, trainingId: String): Boolean
 
-    @Throws(RemoveFromFavoritesExceptionRemote::class)
+    @Throws(RemoveFromFavoritesRemoteException::class)
     suspend fun removeFavorite(profileId: String, trainingId: String): Boolean
 }

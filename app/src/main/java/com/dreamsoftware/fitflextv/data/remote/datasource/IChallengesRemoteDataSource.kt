@@ -2,22 +2,26 @@ package com.dreamsoftware.fitflextv.data.remote.datasource
 
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesByCategoryRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesRecommendedRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchFeaturedChallengesRemoteException
 
 interface IChallengesRemoteDataSource {
 
-    @Throws(FetchRemoteChallengesExceptionRemote::class)
+    @Throws(FetchChallengesRemoteException::class)
     suspend fun getChallenges(filter: TrainingFilterDTO): List<ChallengeDTO>
 
-    @Throws(FetchRemoteChallengesByIdExceptionRemote::class)
+    @Throws(FetchChallengesByIdRemoteException::class)
     suspend fun getChallengeById(id: String): ChallengeDTO
 
-    @Throws(FetchRemoteChallengesByCategoryExceptionRemote::class)
+    @Throws(FetchChallengesByCategoryRemoteException::class)
     suspend fun getChallengesByCategory(categoryId: String): List<ChallengeDTO>
 
-    @Throws(FetchRemoteFeaturedChallengesExceptionRemote::class)
+    @Throws(FetchFeaturedChallengesRemoteException::class)
     suspend fun getFeaturedChallenges(): List<ChallengeDTO>
+
+    @Throws(FetchChallengesRecommendedRemoteException::class)
+    suspend fun getRecommendedChallenges(): List<ChallengeDTO>
 }

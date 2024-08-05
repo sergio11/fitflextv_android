@@ -11,11 +11,11 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoteDataSourceException
-import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.AddFavoriteTrainingException
 import com.dreamsoftware.fitflextv.domain.exception.FetchFavoritesTrainingsByUserException
@@ -112,7 +112,46 @@ internal class TrainingRepositoryImpl(
 
     @Throws(FetchTrainingsRecommendedException::class)
     override suspend fun getTrainingsRecommended(): Iterable<ITrainingProgramBO> = safeExecute {
-        emptyList()
+        try {
+            val workoutDeferred = async(dispatcher) {
+                runCatching {
+                    workoutRemoteDataSource.getRecommendedWorkouts()
+                        .let(workoutMapper::mapInListToOutList)
+                }
+                    .getOrElse { emptyList() }
+            }
+            val seriesDeferred = async(dispatcher) {
+                runCatching {
+                    seriesRemoteDataSource.getRecommendedSeries()
+                        .let(seriesMapper::mapInListToOutList)
+                }
+                    .getOrElse { emptyList() }
+            }
+            val challengesDeferred = async(dispatcher) {
+                runCatching {
+                    challengeRemoteDataSource.getRecommendedChallenges()
+                        .map {
+                            challengeMapper.mapInToOut(it to it.weaklyPlans.parallelMap { weaklyPlan ->
+                                workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
+                            }.flatten())
+                        }
+                }
+                    .getOrElse { emptyList() }
+            }
+            val routinesDeferred = async(dispatcher) {
+                runCatching {
+                    routineRemoteDataSource.getRecommendedRoutines()
+                        .let(routineMapper::mapInListToOutList)
+                }
+                    .getOrElse { emptyList() }
+            }
+            workoutDeferred.await() + seriesDeferred.await() + challengesDeferred.await() + routinesDeferred.await()
+        } catch (ex: RemoteDataSourceException) {
+            throw FetchTrainingsRecommendedException(
+                "An error occurred when fetching the recommended trainings",
+                ex
+            )
+        }
     }
 
     @Throws(FetchFeaturedTrainingsException::class)
@@ -198,7 +237,7 @@ internal class TrainingRepositoryImpl(
         safeExecute {
             try {
                 favoritesRemoteDataSource.addFavorite(addFavoriteMapper.mapInToOut(data))
-            } catch (ex: AddToFavoritesExceptionRemote) {
+            } catch (ex: AddToFavoritesRemoteException) {
                 throw AddFavoriteTrainingException(
                     "An error occurred when adding training to favorites",
                     ex
@@ -215,7 +254,7 @@ internal class TrainingRepositoryImpl(
                     type = enumValueOfOrDefault(it.trainingType, TrainingTypeEnum.WORK_OUT)
                 )
             }
-        } catch (ex: GetFavoritesByUserExceptionRemote) {
+        } catch (ex: GetFavoritesByUserRemoteException) {
             throw FetchFavoritesTrainingsByUserException(
                 "An error occurred when fetching favorites",
                 ex
@@ -230,7 +269,7 @@ internal class TrainingRepositoryImpl(
                 profileId = profileId,
                 trainingId = trainingId
             )
-        } catch (ex: HasTrainingInFavoritesExceptionRemote) {
+        } catch (ex: HasTrainingInFavoritesRemoteException) {
             throw VerifyFavoriteTrainingException(
                 "An error occurred when checking favorites",
                 ex
@@ -245,7 +284,7 @@ internal class TrainingRepositoryImpl(
                 profileId = profileId,
                 trainingId = trainingId
             )
-        } catch (ex: RemoveFromFavoritesExceptionRemote) {
+        } catch (ex: RemoveFromFavoritesRemoteException) {
             throw RemoveFavoriteTrainingException(
                 "An error occurred when removing training from favorites",
                 ex

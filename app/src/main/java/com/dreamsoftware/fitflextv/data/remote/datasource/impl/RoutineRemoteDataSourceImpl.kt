@@ -4,10 +4,11 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedRoutinesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByCategoryExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchFeaturedRoutinesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutineByCategoryRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutineByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutinesRecommendedRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutinesRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -23,6 +24,7 @@ internal class RoutineRemoteDataSourceImpl(
         const val COLLECTION_NAME = "routines"
         const val CATEGORY_FIELD = "category"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val IS_RECOMMENDED_FIELD = "isRecommended"
         const val LANGUAGE = "language"
         const val DURATION = "duration"
         const val INTENSITY = "intensity"
@@ -30,7 +32,7 @@ internal class RoutineRemoteDataSourceImpl(
         const val WORKOUT_TYPE = "workoutType"
     }
 
-    @Throws(FetchRemoteRoutinesExceptionRemote::class)
+    @Throws(FetchRoutinesRemoteException::class)
     override suspend fun getRoutines(filter: TrainingFilterDTO): List<RoutineDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -59,13 +61,13 @@ internal class RoutineRemoteDataSourceImpl(
             mapper = { routineMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutinesExceptionRemote(
+        throw FetchRoutinesRemoteException(
             "An error occurred when trying to fetch routines",
             ex
         )
     }
 
-    @Throws(FetchRemoteRoutineByIdExceptionRemote::class)
+    @Throws(FetchRoutineByIdRemoteException::class)
     override suspend fun getRoutineById(id: String): RoutineDTO = try {
         fetchSingleFromFireStore(
             query = {
@@ -76,13 +78,13 @@ internal class RoutineRemoteDataSourceImpl(
             mapper = { routineMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByIdExceptionRemote(
+        throw FetchRoutineByIdRemoteException(
             "An error occurred when trying to fetch the routine with ID $id",
             ex
         )
     }
 
-    @Throws(FetchRemoteRoutineByCategoryExceptionRemote::class)
+    @Throws(FetchRoutineByCategoryRemoteException::class)
     override suspend fun getRoutineByCategory(categoryId: String): List<RoutineDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -93,13 +95,13 @@ internal class RoutineRemoteDataSourceImpl(
             mapper = { data -> routineMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByCategoryExceptionRemote(
+        throw FetchRoutineByCategoryRemoteException(
             "An error occurred when trying to fetch routines by category",
             ex
         )
     }
 
-    @Throws(FetchRemoteFeaturedRoutinesExceptionRemote::class)
+    @Throws(FetchFeaturedRoutinesRemoteException::class)
     override suspend fun getFeaturedRoutines(): List<RoutineDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -110,8 +112,25 @@ internal class RoutineRemoteDataSourceImpl(
             mapper = { data -> routineMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteFeaturedRoutinesExceptionRemote(
+        throw FetchFeaturedRoutinesRemoteException(
             "An error occurred when trying to fetch featured routines",
+            ex
+        )
+    }
+
+    @Throws(FetchRoutinesRecommendedRemoteException::class)
+    override suspend fun getRecommendedRoutines(): List<RoutineDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_RECOMMENDED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> routineMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchRoutinesRecommendedRemoteException(
+            "An error occurred when trying to fetch recommended routines",
             ex
         )
     }

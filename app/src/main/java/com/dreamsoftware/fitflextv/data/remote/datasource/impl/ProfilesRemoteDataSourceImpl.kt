@@ -6,14 +6,14 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestD
 import com.dreamsoftware.fitflextv.data.remote.dto.request.PinVerificationRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.DeleteRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteProfileByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteProfilesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.VerifyRemoteProfileExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.CreateProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.DeleteProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchProfileByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchProfilesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutineByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.VerifyProfileRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
@@ -34,7 +34,7 @@ internal class ProfilesRemoteDataSourceImpl(
         const val USER_ID = "userId"
     }
 
-    @Throws(FetchRemoteProfilesExceptionRemote::class)
+    @Throws(FetchProfilesRemoteException::class)
     override suspend fun getProfilesByUser(userId: String): List<ProfileDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -46,10 +46,10 @@ internal class ProfilesRemoteDataSourceImpl(
             mapper = { data -> profilesMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesExceptionRemote("An error occurred when trying to fetch profiles", ex)
+        throw FetchChallengesRemoteException("An error occurred when trying to fetch profiles", ex)
     }
 
-    @Throws(UpdateRemoteProfileExceptionRemote::class)
+    @Throws(UpdateProfileRemoteException::class)
     override suspend fun updateProfile(
         profileId: String,
         data: UpdatedProfileRequestDTO
@@ -64,17 +64,17 @@ internal class ProfilesRemoteDataSourceImpl(
                 .get()
                 .await()
             profilesMapper.mapInToOut(
-                updatedDoc.data ?: throw UpdateRemoteProfileExceptionRemote("Profile data is null")
+                updatedDoc.data ?: throw UpdateProfileRemoteException("Profile data is null")
             )
         }
     } catch (ex: Exception) {
-        throw UpdateRemoteProfileExceptionRemote(
+        throw UpdateProfileRemoteException(
             "An error occurred when trying to update the profile with ID $profileId",
             ex
         )
     }
 
-    @Throws(DeleteRemoteProfileExceptionRemote::class)
+    @Throws(DeleteProfileRemoteException::class)
     override suspend fun deleteProfile(profileId: String): Boolean = try {
         withContext(dispatcher) {
             firebaseStore.collection(COLLECTION_NAME)
@@ -84,13 +84,13 @@ internal class ProfilesRemoteDataSourceImpl(
             true
         }
     } catch (ex: Exception) {
-        throw DeleteRemoteProfileExceptionRemote(
+        throw DeleteProfileRemoteException(
             "An error occurred when trying to delete the profile with ID $profileId",
             ex
         )
     }
 
-    @Throws(CreateRemoteProfileExceptionRemote::class)
+    @Throws(CreateProfileRemoteException::class)
     override suspend fun createProfile(data: CreateProfileRequestDTO): Boolean = try {
         withContext(dispatcher) {
             firebaseStore.collection(COLLECTION_NAME)
@@ -100,13 +100,13 @@ internal class ProfilesRemoteDataSourceImpl(
             true
         }
     } catch (ex: Exception) {
-        throw CreateRemoteProfileExceptionRemote(
+        throw CreateProfileRemoteException(
             "An error occurred when trying to create a new profile",
             ex
         )
     }
 
-    @Throws(VerifyRemoteProfileExceptionRemote::class)
+    @Throws(VerifyProfileRemoteException::class)
     override suspend fun verifyPin(profileId: String, data: PinVerificationRequestDTO): Boolean =
         try {
             withContext(dispatcher) {
@@ -118,13 +118,13 @@ internal class ProfilesRemoteDataSourceImpl(
                 storedPin != null && storedPin == data.pin.toLong()
             }
         } catch (ex: Exception) {
-            throw VerifyRemoteProfileExceptionRemote(
+            throw VerifyProfileRemoteException(
                 "An error occurred when trying to verify the pin for profile with ID $profileId",
                 ex
             )
         }
 
-    @Throws(FetchRemoteProfileByIdExceptionRemote::class)
+    @Throws(FetchProfileByIdRemoteException::class)
     override suspend fun getProfileById(profileId: String): ProfileDTO = try {
         fetchSingleFromFireStore(
             query = {
@@ -135,7 +135,7 @@ internal class ProfilesRemoteDataSourceImpl(
             mapper = { profilesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByIdExceptionRemote(
+        throw FetchRoutineByIdRemoteException(
             "An error occurred when trying to fetch the profile with ID $profileId",
             ex
         )

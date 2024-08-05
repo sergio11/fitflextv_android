@@ -7,10 +7,10 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.SignInUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.SignUpUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.AuthExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.SignInExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.AuthRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchUserDetailRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.SignInRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateUserDetailRemoteException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.GetUserAuthenticatedUidException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserDetailException
@@ -42,7 +42,7 @@ internal class UserRepositoryImpl(
             authRemoteDataSource.signIn(SignInUserDTO(data.email, data.password))
                 .let { userRemoteDataSource.getDetailById(it.uid) }
                 .let(userDetailMapper::mapInToOut)
-        } catch (ex: SignInExceptionRemote) {
+        } catch (ex: SignInRemoteException) {
             throw SignInException("An error occurred when trying to sign in user", ex)
         }
     }
@@ -53,7 +53,7 @@ internal class UserRepositoryImpl(
             authRemoteDataSource.signUp(SignUpUserDTO(user.email, user.password))
                 .let { userRemoteDataSource.create(createUserMapper.mapInToOut(user).copy(uid = it.uid)) }
                 .let(userDetailMapper::mapInToOut)
-        } catch (ex: SignInExceptionRemote) {
+        } catch (ex: SignInRemoteException) {
             throw SignInException("An error occurred when trying to sign in user", ex)
         }
     }
@@ -62,7 +62,7 @@ internal class UserRepositoryImpl(
     override suspend fun signOff() = safeExecute {
         try {
             authRemoteDataSource.closeSession()
-        } catch (ex: AuthExceptionRemote) {
+        } catch (ex: AuthRemoteException) {
             throw SignOffException("An error occurred when trying to sign off user", ex)
         }
     }
@@ -71,7 +71,7 @@ internal class UserRepositoryImpl(
     override suspend fun hasSession(): Boolean = safeExecute {
         try {
             authRemoteDataSource.hasActiveSession()
-        } catch (ex: AuthExceptionRemote) {
+        } catch (ex: AuthRemoteException) {
             throw SignOffException("An error occurred when trying to check auth state", ex)
         }
     }
@@ -81,7 +81,7 @@ internal class UserRepositoryImpl(
         try {
             userRemoteDataSource.getDetailById(authRemoteDataSource.getUserAuthenticatedUid())
                 .let(userDetailMapper::mapInToOut)
-        } catch (ex: FetchRemoteUserDetailExceptionRemote) {
+        } catch (ex: FetchUserDetailRemoteException) {
             throw GetUserDetailException("An error occurred when trying to get user detail", ex)
         }
     }
@@ -90,7 +90,7 @@ internal class UserRepositoryImpl(
     override suspend fun getAuthenticatedUid(): String = safeExecute {
         try {
             authRemoteDataSource.getUserAuthenticatedUid()
-        } catch (ex: AuthExceptionRemote) {
+        } catch (ex: AuthRemoteException) {
             throw GetUserAuthenticatedUidException("An error occurred when trying to get user auth uid", ex)
         }
     }
@@ -100,7 +100,7 @@ internal class UserRepositoryImpl(
         try {
             userRemoteDataSource.update(updatedUserRequestMapper.mapInToOut(data))
                 .let(userDetailMapper::mapInToOut)
-        } catch (ex: UpdateRemoteUserDetailExceptionRemote) {
+        } catch (ex: UpdateUserDetailRemoteException) {
             throw UpdateUserDetailException("An error occurred when trying to update user detail", ex)
         }
     }
