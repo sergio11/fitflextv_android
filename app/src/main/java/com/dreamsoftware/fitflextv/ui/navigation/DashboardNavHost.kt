@@ -90,11 +90,16 @@ fun DashboardNavHost(
             }
         }
         composable(Screen.Settings.route) {
-            SettingsScreen(
-                onBackPressed = {
-                    navController.popBackStack()
-                }
-            )
+            with(navController) {
+                SettingsScreen(
+                    onGoToSubscriptions = {
+                        navigate(Screen.Subscription.route)
+                    },
+                    onBackPressed = {
+                        popBackStack()
+                    }
+                )
+            }
         }
         composable(Screen.TrainingDetail.route) { navBackStackEntry ->
             navBackStackEntry.arguments?.let(Screen.TrainingDetail::parseArgs)?.let { args ->
@@ -134,14 +139,7 @@ fun DashboardNavHost(
         }
         composable(Screen.Subscription.route) {
             with(navController) {
-                SubscriptionScreen(
-                    onSubscribeClick = {
-                        navigate(Screen.ProfileSelector.route)
-                    },
-                    onRestorePurchasesClick = {
-                        navigate(Screen.ProfileSelector.route)
-                    }
-                )
+                SubscriptionScreen()
             }
         }
     }

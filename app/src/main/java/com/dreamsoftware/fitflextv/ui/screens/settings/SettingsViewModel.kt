@@ -50,6 +50,10 @@ class SettingsViewModel @Inject constructor(
             ISettingItemVO.SettingActionVO(
                 titleRes = R.string.settings_close_session_title,
                 type = SettingActionTypeEnum.SIGN_OFF
+            ),
+            ISettingItemVO.SettingActionVO(
+                titleRes = R.string.settings_subscriptions_title,
+                type = SettingActionTypeEnum.SUBSCRIPTIONS
             )
         )
     )
@@ -78,6 +82,7 @@ class SettingsViewModel @Inject constructor(
         } else if(setting is ISettingItemVO.SettingActionVO) {
             when(setting.type) {
                 SettingActionTypeEnum.SIGN_OFF -> onSignOff()
+                SettingActionTypeEnum.SUBSCRIPTIONS -> onOpenSubscriptions()
             }
         }
     }
@@ -96,6 +101,10 @@ class SettingsViewModel @Inject constructor(
 
     private fun onSignOffCompleted() {
         appEventBus.send(AppEvent.SignOff)
+    }
+
+    private fun onOpenSubscriptions() {
+        launchSideEffect(SettingsSideEffects.OpenSubscriptions)
     }
 }
 
@@ -138,7 +147,9 @@ sealed interface ISettingItemVO {
 }
 
 enum class SettingActionTypeEnum {
-    SIGN_OFF
+    SIGN_OFF, SUBSCRIPTIONS
 }
 
-sealed interface SettingsSideEffects : SideEffect
+sealed interface SettingsSideEffects : SideEffect {
+    data object OpenSubscriptions: SettingsSideEffects
+}

@@ -1,4 +1,4 @@
-package com.dreamsoftware.fitflextv.ui.screens.subscription.composable
+package com.dreamsoftware.fitflextv.ui.screens.subscription.components
 
 
 import androidx.compose.foundation.layout.Arrangement
@@ -11,55 +11,58 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.RadioButtonDefaults
-import androidx.tv.material3.Text
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 
 @Composable
 internal fun SubscriptionOption(
     modifier: Modifier = Modifier,
-    title: String = "",
-    description: String = "",
-    price: String = "",
+    title: String = String.EMPTY,
+    description: String = String.EMPTY,
+    price: String = String.EMPTY,
     isSelected: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp),
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+    with(MaterialTheme.colorScheme){
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp),
         ) {
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+            CommonText(
+                type = CommonTextTypeEnum.TITLE_MEDIUM,
+                titleText = title,
+                textColor = onSurface
             )
-            Text(
-                text = price,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            RadioButton(
-                modifier = Modifier.size(24.dp),
-                selected = isSelected,
-                onClick = { onClick() },
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = MaterialTheme.colorScheme.secondary,
-                    unselectedColor = MaterialTheme.colorScheme.border
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CommonText(
+                    titleText = description,
+                    type = CommonTextTypeEnum.BODY_SMALL,
+                    textColor = onSurface.copy(alpha = 0.8f)
                 )
-            )
+                CommonText(
+                    titleText = price,
+                    type = CommonTextTypeEnum.LABEL_LARGE,
+                    textColor = onSurface
+                )
+                RadioButton(
+                    modifier = Modifier.size(24.dp),
+                    selected = isSelected,
+                    onClick = { onClick() },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = secondary,
+                        unselectedColor = border
+                    )
+                )
+            }
         }
     }
 }
