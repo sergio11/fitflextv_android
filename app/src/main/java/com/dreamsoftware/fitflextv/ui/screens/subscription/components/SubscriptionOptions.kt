@@ -1,44 +1,43 @@
-package com.dreamsoftware.fitflextv.ui.screens.subscription.composable
+package com.dreamsoftware.fitflextv.ui.screens.subscription.components
 
-import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
+import com.dreamsoftware.fitflextv.ui.core.components.CommonText
+import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
+import com.dreamsoftware.fitflextv.ui.utils.formatPeriodTime
+import com.dreamsoftware.fitflextv.ui.utils.formatPeriodTimeAndPrice
 
 @Composable
 internal fun SubscriptionOptions(
     modifier: Modifier = Modifier,
-    subscriptionBOOptions: List<SubscriptionBO> = emptyList(),
-    formatPeriodTime: (String, Context) -> String,
-    formatPeriodTimeAndPrice: (String, String, Context) -> String,
-    selectedSubscriptionBO: SubscriptionBO,
+    subscriptionOptions: List<SubscriptionBO> = emptyList(),
+    selectedSubscription: SubscriptionBO?,
     updateSelectedSubscriptionOption: (SubscriptionBO) -> Unit
 ) {
     val context = LocalContext.current
     Column(
         modifier = modifier.width(412.dp),
     ) {
-        Text(
+        CommonText(
             modifier = Modifier.padding(bottom = 8.dp),
-            text = stringResource(R.string.our_plans),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurface
+            titleRes = R.string.our_plans,
+            type = CommonTextTypeEnum.LABEL_LARGE,
+            textColor = MaterialTheme.colorScheme.onSurface
         )
-        subscriptionBOOptions.forEach {
+        subscriptionOptions.forEach {
             SubscriptionOption(
-                title = formatPeriodTime(it.periodTime, context),
-                description = formatPeriodTimeAndPrice(it.periodTime, it.price, context),
+                title = it.formatPeriodTime(it.periodTime, context),
+                description = it.formatPeriodTimeAndPrice(it.periodTime, it.price, context),
                 price = it.price,
-                isSelected = selectedSubscriptionBO.price == it.price,
+                isSelected = selectedSubscription?.price == it.price,
                 onClick = { updateSelectedSubscriptionOption(it) }
             )
         }

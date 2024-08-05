@@ -1,73 +1,41 @@
 package com.dreamsoftware.fitflextv.ui.screens.subscription
 
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
-import com.dreamsoftware.fitflextv.utils.asResult
+import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
+import com.dreamsoftware.fitflextv.ui.core.SideEffect
+import com.dreamsoftware.fitflextv.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.dreamsoftware.fitflextv.utils.Result
 
 @HiltViewModel
 class SubscriptionViewModel @Inject constructor(
     private val iInstructorRepository: IInstructorRepository
-) : ViewModel() {
+) : BaseViewModel<SubscriptionUiState, SubscriptionSideEffects>(), ISubscriptionScreenActionListener {
 
-    private val _instructorImageState = MutableStateFlow("")
-    val instructorImageState: StateFlow<String> = _instructorImageState.asStateFlow()
+    override fun onGetDefaultState(): SubscriptionUiState = SubscriptionUiState()
 
-    private val _selectedSubscriptionBOOption = MutableStateFlow(
-        SubscriptionBO(
-            "",
-            ""
-        )
-    )
-    val selectedSubscriptionBOOption: StateFlow<SubscriptionBO> =
-        _selectedSubscriptionBOOption.asStateFlow()
+    override fun onSubscriptionOptionUpdated(subscription: SubscriptionBO) {
 
-    init {
-        viewModelScope.launch {
-            _instructorImageState.value = iInstructorRepository.getInstructorImageById(INSTRUCTOR_ID)
-        }
     }
 
-
-    val uiState: StateFlow<SubscriptionUiState> =
-        iInstructorRepository.getSubscriptionOptionsByInstructorId(INSTRUCTOR_ID)
-            .asResult()
-            .map {
-                when (it) {
-                    is Result.Loading -> SubscriptionUiState.Loading
-                    is Result.Error -> SubscriptionUiState.Error
-                    is Result.Success -> {
-                        SubscriptionUiState.Ready(
-                            subscriptionBOOptions = it.data
-                        ).also { state ->
-                            _selectedSubscriptionBOOption.value = state.subscriptionBOOptions.first()
-                        }
-                    }
-                }
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = SubscriptionUiState.Loading,
-            )
-
-
-    fun updateSelectedSubscriptionOption(subscriptionBOOption: SubscriptionBO) {
-        _selectedSubscriptionBOOption.value = subscriptionBOOption
+    override fun onSubscribe() {
     }
 
-    companion object {
-        private const val INSTRUCTOR_ID = "1"
+    override fun onRestorePurchases() {
+
     }
 }
+
+data class SubscriptionUiState(
+    override var isLoading: Boolean = false,
+    override var errorMessage: String? = null,
+    val subscriptionOptions: List<SubscriptionBO> = emptyList(),
+    val selectedSubscription: SubscriptionBO? = null
+): UiState<SubscriptionUiState>(isLoading, errorMessage) {
+    override fun copyState(isLoading: Boolean, errorMessage: String?): SubscriptionUiState =
+        copy(isLoading = isLoading, errorMessage = errorMessage)
+}
+
+sealed interface SubscriptionSideEffects: SideEffect

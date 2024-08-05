@@ -185,6 +185,7 @@
     <string name="settings_language_title">Language</string>
     <string name="settings_video_resolution_title">Video Resolution</string>
     <string name="settings_close_session_title">Sign off</string>
+    <string name="settings_subscriptions_title">Subscriptions</string>
     <string name="settings_about_me_title">About me</string>
     <string name="settings_about_me_content">Hello, I\'m Sergio Sánchez Sánchez an accomplished developer with over 9 years of experience, specializing in crafting exceptional mobile experiences. As a seasoned Android developer, I\'ve delivered a diverse portfolio of projects, demonstrating my commitment to building robust and user-friendly applications. Over the years, I\'ve honed my skills to navigate the ever-evolving Android ecosystem, consistently pushing the boundaries of what\'s possible.</string>
     <string name="settings_about_app_title">About FitFlexTV</string>

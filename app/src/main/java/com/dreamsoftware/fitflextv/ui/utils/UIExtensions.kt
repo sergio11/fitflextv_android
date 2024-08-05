@@ -16,6 +16,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 import android.provider.Settings
+import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 
 fun Number.padStartWith0(): String = this.toString().padStart(2, '0')
 
@@ -106,3 +107,15 @@ fun Context.restartApplication() {
 fun Context.openSystemSettings() {
     startActivity(Intent(Settings.ACTION_SETTINGS))
 }
+
+
+fun SubscriptionBO.formatPeriodTimeAndPrice(periodTime: String, price: String, context: Context): String =
+    "${context.getString(R.string.free_trail)} $price / ${
+        if (periodTime == "1")
+            "${context.getString(R.string.month)}.\n"
+        else
+            "$periodTime \n${context.getString(R.string.months)}."
+    }${context.getString(R.string.subscription_cancelled)}"
+
+fun SubscriptionBO.formatPeriodTime(periodTime: String, context: Context): String =
+    "$periodTime ${context.getString(R.string.month_subscription)}"

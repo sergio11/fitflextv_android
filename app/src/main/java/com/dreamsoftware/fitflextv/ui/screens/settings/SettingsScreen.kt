@@ -7,11 +7,17 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
+    onGoToSubscriptions: () -> Unit,
     onBackPressed: () -> Unit,
 ) {
     CommonScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
+        onSideEffect = {
+            when(it) {
+                SettingsSideEffects.OpenSubscriptions -> onGoToSubscriptions()
+            }
+        },
         onInitialUiState = { SettingsUiState() }
     ) { uiState ->
         SettingsScreenContent(
