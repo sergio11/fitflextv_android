@@ -171,6 +171,11 @@
     <string name="splash_main_title_text">Preparing Your FitFlexTV Experience!</string>
     <string name="splash_description_text">Hang tight while we set up your personalized fitness journey. This won\'t take long!</string>
 
+    <string name="generic_lost_network_connectivity_dialog_title">Network Connection Lost</string>
+    <string name="generic_lost_network_connectivity_dialog_description">It seems that your device has lost network connectivity. Please check your connection settings or restart the app.</string>
+    <string name="generic_lost_network_connectivity_dialog_open_settings_button_text">Open Settings</string>
+    <string name="generic_lost_network_connectivity_dialog_restart_app_button_text">Restart App</string>
+
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="app_settings">App Settings</string>
