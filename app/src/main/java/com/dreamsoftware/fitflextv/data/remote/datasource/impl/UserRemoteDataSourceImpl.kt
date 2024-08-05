@@ -5,11 +5,11 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireS
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteUserDetailExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutineByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteUserDetailExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfilesCountException
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteUserDetailExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.CreateUserDetailRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutineByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchUserDetailRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfilesCountRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateUserDetailRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,7 +31,7 @@ internal class UserRemoteDataSourceImpl(
         const val PROFILES_COUNT_FIELD = "profilesCount"
     }
 
-    @Throws(CreateRemoteUserDetailExceptionRemote::class)
+    @Throws(CreateUserDetailRemoteException::class)
     override suspend fun create(data: CreateUserDTO): UserResponseDTO = try {
         withContext(dispatcher) {
             val userData = createUserRequestMapper.mapInToOut(data)
@@ -43,17 +43,17 @@ internal class UserRemoteDataSourceImpl(
                 .document(data.uid)
                 .get()
                 .await()
-            usersMapper.mapInToOut(document.data ?: throw CreateRemoteUserDetailExceptionRemote("User data is null"))
+            usersMapper.mapInToOut(document.data ?: throw CreateUserDetailRemoteException("User data is null"))
         }
     } catch (ex: Exception) {
-        throw CreateRemoteUserDetailExceptionRemote("An error occurred when trying to create the user", ex)
+        throw CreateUserDetailRemoteException("An error occurred when trying to create the user", ex)
     }
 
-    @Throws(UpdateRemoteUserDetailExceptionRemote::class)
+    @Throws(UpdateUserDetailRemoteException::class)
     override suspend fun update(data: UpdatedUserRequestDTO): UserResponseDTO = try {
         withContext(dispatcher) {
             val updates = updatedUserRequestMapper.mapInToOut(data)
-            val uid = updates["uid"] as? String ?: throw UpdateRemoteUserDetailExceptionRemote("User ID is required")
+            val uid = updates["uid"] as? String ?: throw UpdateUserDetailRemoteException("User ID is required")
             firebaseStore.collection(COLLECTION_NAME)
                 .document(uid)
                 .update(updates)
@@ -62,13 +62,13 @@ internal class UserRemoteDataSourceImpl(
                 .document(uid)
                 .get()
                 .await()
-            usersMapper.mapInToOut(document.data ?: throw UpdateRemoteUserDetailExceptionRemote("User data is null"))
+            usersMapper.mapInToOut(document.data ?: throw UpdateUserDetailRemoteException("User data is null"))
         }
     } catch (ex: Exception) {
-        throw UpdateRemoteUserDetailExceptionRemote("An error occurred when trying to update the user", ex)
+        throw UpdateUserDetailRemoteException("An error occurred when trying to update the user", ex)
     }
 
-    @Throws(FetchRemoteUserDetailExceptionRemote::class)
+    @Throws(FetchUserDetailRemoteException::class)
     override suspend fun getDetailById(id: String): UserResponseDTO = try {
         fetchSingleFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME)
@@ -77,39 +77,39 @@ internal class UserRemoteDataSourceImpl(
             mapper = { usersMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutineByIdExceptionRemote("An error occurred when trying to fetch the users with ID $id", ex)
+        throw FetchRoutineByIdRemoteException("An error occurred when trying to fetch the users with ID $id", ex)
     }
 
-    @Throws(UpdateProfilesCountException::class)
+    @Throws(UpdateProfilesCountRemoteException::class)
     override suspend fun updateProfilesCount(userId: String, profilesCount: Int): UserResponseDTO = withContext(dispatcher) {
         try {
             val document = firebaseStore.collection(COLLECTION_NAME).document(userId)
             document.update(PROFILES_COUNT_FIELD, profilesCount).await()
             getDetailById(userId)
         } catch (ex: Exception) {
-            throw UpdateProfilesCountException("An error occurred when trying to update profiles count", ex)
+            throw UpdateProfilesCountRemoteException("An error occurred when trying to update profiles count", ex)
         }
     }
 
-    @Throws(UpdateProfilesCountException::class)
+    @Throws(UpdateProfilesCountRemoteException::class)
     override suspend fun incrementProfilesCount(userId: String): UserResponseDTO = withContext(dispatcher) {
         try {
             val document = firebaseStore.collection(COLLECTION_NAME).document(userId)
             document.update(PROFILES_COUNT_FIELD, FieldValue.increment(1)).await()
             getDetailById(userId)
         } catch (ex: Exception) {
-            throw UpdateProfilesCountException("An error occurred when trying to increment profiles count", ex)
+            throw UpdateProfilesCountRemoteException("An error occurred when trying to increment profiles count", ex)
         }
     }
 
-    @Throws(UpdateProfilesCountException::class)
+    @Throws(UpdateProfilesCountRemoteException::class)
     override suspend fun decrementProfilesCount(userId: String): UserResponseDTO = withContext(dispatcher) {
         try {
             val document = firebaseStore.collection(COLLECTION_NAME).document(userId)
             document.update(PROFILES_COUNT_FIELD, FieldValue.increment(-1)).await()
             getDetailById(userId)
         } catch (ex: Exception) {
-            throw UpdateProfilesCountException("An error occurred when trying to decrement profiles count", ex)
+            throw UpdateProfilesCountRemoteException("An error occurred when trying to decrement profiles count", ex)
         }
     }
 }

@@ -4,12 +4,12 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSo
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.FavoriteTrainingDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.DeleteRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteRoutinesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.DeleteProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutinesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -29,7 +29,7 @@ internal class FavoritesRemoteDataSourceImpl(
         const val SUB_COLLECTION_NAME = "trainings"
     }
 
-    @Throws(AddToFavoritesExceptionRemote::class)
+    @Throws(AddToFavoritesRemoteException::class)
     override suspend fun addFavorite(data: AddFavoriteTrainingDTO): Boolean = try {
             withContext(dispatcher) {
                 firebaseStore.collection(COLLECTION_NAME)
@@ -41,13 +41,13 @@ internal class FavoritesRemoteDataSourceImpl(
                 true
             }
         } catch (ex: Exception) {
-            throw AddToFavoritesExceptionRemote(
+            throw AddToFavoritesRemoteException(
                 "An error occurred when trying to add training to favorites",
                 ex
             )
         }
 
-    @Throws(GetFavoritesByUserExceptionRemote::class)
+    @Throws(GetFavoritesByUserRemoteException::class)
     override suspend fun getFavoritesByUser(profileId: String): List<FavoriteTrainingDTO> = try {
         fetchListFromFireStore(
             query = { firebaseStore
@@ -58,10 +58,10 @@ internal class FavoritesRemoteDataSourceImpl(
             mapper = { favoriteMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteRoutinesExceptionRemote("An error occurred when trying to fetch routines", ex)
+        throw FetchRoutinesRemoteException("An error occurred when trying to fetch routines", ex)
     }
 
-    @Throws(HasTrainingInFavoritesExceptionRemote::class)
+    @Throws(HasTrainingInFavoritesRemoteException::class)
     override suspend fun hasTrainingInFavorites(profileId: String, trainingId: String): Boolean = try {
         withContext(dispatcher) {
             val document = firebaseStore
@@ -74,10 +74,10 @@ internal class FavoritesRemoteDataSourceImpl(
             document.exists()
         }
     } catch (ex: Exception) {
-        throw HasTrainingInFavoritesExceptionRemote("An error occurred when trying to check favorites", ex)
+        throw HasTrainingInFavoritesRemoteException("An error occurred when trying to check favorites", ex)
     }
 
-    @Throws(RemoveFromFavoritesExceptionRemote::class)
+    @Throws(RemoveFromFavoritesRemoteException::class)
     override suspend fun removeFavorite(profileId: String, trainingId: String): Boolean = try {
         withContext(dispatcher) {
             firebaseStore
@@ -90,7 +90,7 @@ internal class FavoritesRemoteDataSourceImpl(
             true
         }
     } catch (ex: Exception) {
-        throw DeleteRemoteProfileExceptionRemote(
+        throw DeleteProfileRemoteException(
             "An error occurred when trying to remove training $trainingId from favorites",
             ex
         )

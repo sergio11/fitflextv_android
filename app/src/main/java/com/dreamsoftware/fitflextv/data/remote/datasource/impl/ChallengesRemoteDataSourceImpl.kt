@@ -4,10 +4,11 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataS
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByCategoryExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteChallengesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedChallengesExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesByCategoryRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesRecommendedRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchFeaturedChallengesRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -23,6 +24,7 @@ internal class ChallengesRemoteDataSourceImpl(
         const val COLLECTION_NAME = "challenges"
         const val CATEGORY_FIELD = "category"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val IS_RECOMMENDED_FIELD = "isRecommended"
         const val LANGUAGE = "language"
         const val DURATION = "duration"
         const val INTENSITY = "intensity"
@@ -30,7 +32,7 @@ internal class ChallengesRemoteDataSourceImpl(
         const val WORKOUT_TYPE = "workoutType"
     }
 
-    @Throws(FetchRemoteChallengesExceptionRemote::class)
+    @Throws(FetchChallengesRemoteException::class)
     override suspend fun getChallenges(filter: TrainingFilterDTO): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -59,20 +61,20 @@ internal class ChallengesRemoteDataSourceImpl(
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesExceptionRemote("An error occurred when trying to fetch challenges", ex)
+        throw FetchChallengesRemoteException("An error occurred when trying to fetch challenges", ex)
     }
 
-    @Throws(FetchRemoteChallengesByIdExceptionRemote::class)
+    @Throws(FetchChallengesByIdRemoteException::class)
     override suspend fun getChallengeById(id: String): ChallengeDTO = try {
         fetchSingleFromFireStore(
             query = { firebaseStore.collection(COLLECTION_NAME).document(id).get() },
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesByIdExceptionRemote("An error occurred when trying to fetch the challenge with ID $id", ex)
+        throw FetchChallengesByIdRemoteException("An error occurred when trying to fetch the challenge with ID $id", ex)
     }
 
-    @Throws(FetchRemoteChallengesByCategoryExceptionRemote::class)
+    @Throws(FetchChallengesByCategoryRemoteException::class)
     override suspend fun getChallengesByCategory(categoryId: String): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -83,10 +85,10 @@ internal class ChallengesRemoteDataSourceImpl(
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteChallengesByCategoryExceptionRemote("An error occurred when trying to fetch challenges by category", ex)
+        throw FetchChallengesByCategoryRemoteException("An error occurred when trying to fetch challenges by category", ex)
     }
 
-    @Throws(FetchRemoteFeaturedChallengesExceptionRemote::class)
+    @Throws(FetchFeaturedChallengesRemoteException::class)
     override suspend fun getFeaturedChallenges(): List<ChallengeDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -97,6 +99,23 @@ internal class ChallengesRemoteDataSourceImpl(
             mapper = { data -> challengeMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteFeaturedChallengesExceptionRemote("An error occurred when trying to fetch featured challenges", ex)
+        throw FetchFeaturedChallengesRemoteException("An error occurred when trying to fetch featured challenges", ex)
+    }
+
+    @Throws(FetchChallengesRecommendedRemoteException::class)
+    override suspend fun getRecommendedChallenges(): List<ChallengeDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_RECOMMENDED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> challengeMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchChallengesRecommendedRemoteException(
+            "An error occurred when trying to fetch recommended challenges",
+            ex
+        )
     }
 }

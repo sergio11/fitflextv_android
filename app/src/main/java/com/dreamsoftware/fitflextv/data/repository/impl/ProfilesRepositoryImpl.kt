@@ -8,12 +8,12 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestD
 import com.dreamsoftware.fitflextv.data.remote.dto.request.PinVerificationRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.CreateRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.DeleteRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteCategoriesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteProfileByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.UpdateRemoteProfileExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.VerifyRemoteProfileExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.CreateProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.DeleteProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchCategoriesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchProfileByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfileRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.VerifyProfileRemoteException
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.CreateProfileException
 import com.dreamsoftware.fitflextv.domain.exception.DeleteProfileException
@@ -50,7 +50,7 @@ internal class ProfilesRepositoryImpl(
                 .getProfilesByUser(userId)
                 .let(profilesMapper::mapInListToOutList)
                 .toList()
-        } catch (ex: FetchRemoteCategoriesExceptionRemote) {
+        } catch (ex: FetchCategoriesRemoteException) {
             throw FetchCategoriesException("An error occurred when fetching profiles", ex)
         }
     }
@@ -64,7 +64,7 @@ internal class ProfilesRepositoryImpl(
             profilesRemoteDataSource
                 .updateProfile(profileId, updateProfileMapper.mapInToOut(data))
                 .let(profilesMapper::mapInToOut)
-        } catch (ex: UpdateRemoteProfileExceptionRemote) {
+        } catch (ex: UpdateProfileRemoteException) {
             throw UpdateProfileException("An error occurred when updating profile", ex)
         }
     }
@@ -78,7 +78,7 @@ internal class ProfilesRepositoryImpl(
                     userRemoteDataSource.decrementProfilesCount(profile.userId)
                 }
             }
-        } catch (ex: DeleteRemoteProfileExceptionRemote) {
+        } catch (ex: DeleteProfileRemoteException) {
             throw DeleteProfileException("An error occurred when deleting profile", ex)
         }
     }
@@ -90,7 +90,7 @@ internal class ProfilesRepositoryImpl(
                 .createProfile(createProfileMapper.mapInToOut(data)).also {
                     userRemoteDataSource.incrementProfilesCount(data.userId)
                 }
-        } catch (ex: CreateRemoteProfileExceptionRemote) {
+        } catch (ex: CreateProfileRemoteException) {
             throw CreateProfileException("An error occurred when creating profiles", ex)
         }
     }
@@ -109,7 +109,7 @@ internal class ProfilesRepositoryImpl(
                         throw VerifyPinException("Pin verification failed for profile $profileId")
                     }
                 }
-        } catch (ex: VerifyRemoteProfileExceptionRemote) {
+        } catch (ex: VerifyProfileRemoteException) {
             throw VerifyPinException("An error occurred when verifying pin profile", ex)
         }
     }
@@ -120,7 +120,7 @@ internal class ProfilesRepositoryImpl(
             profilesRemoteDataSource
                 .getProfileById(profileId)
                 .let(profilesMapper::mapInToOut)
-        } catch (ex: FetchRemoteProfileByIdExceptionRemote) {
+        } catch (ex: FetchProfileByIdRemoteException) {
             throw GetProfileByIdException("An error occurred when getting profile by id", ex)
         }
     }

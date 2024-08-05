@@ -3,9 +3,9 @@ package com.dreamsoftware.fitflextv.data.remote.datasource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.SignInUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.SignUpUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.AuthExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.SignInExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.SignUpExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.AuthRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.SignInRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.SignUpRemoteException
 
 /**
  * Interface for authentication data source.
@@ -14,27 +14,27 @@ import com.dreamsoftware.fitflextv.data.remote.exception.SignUpExceptionRemote
 interface IAuthRemoteDataSource {
 
 
-    @Throws(AuthExceptionRemote::class)
+    @Throws(AuthRemoteException::class)
     suspend fun hasActiveSession(): Boolean
 
     /**
      * Gets the UID of the authenticated user.
      * @return the UID of the authenticated user.
-     * @throws AuthExceptionRemote if an error occurs or no user is authenticated.
+     * @throws AuthRemoteException if an error occurs or no user is authenticated.
      */
-    @Throws(AuthExceptionRemote::class)
+    @Throws(AuthRemoteException::class)
     suspend fun getUserAuthenticatedUid(): String
 
-    @Throws(SignInExceptionRemote::class)
+    @Throws(SignInRemoteException::class)
     suspend fun signIn(signInUserDTO: SignInUserDTO): AuthUserDTO
 
-    @Throws(SignUpExceptionRemote::class)
+    @Throws(SignUpRemoteException::class)
     suspend fun signUp(signUpUserDTO: SignUpUserDTO): AuthUserDTO
 
     /**
      * Signs out the currently authenticated user.
-     * @throws AuthExceptionRemote if an error occurs during the sign-out process.
+     * @throws AuthRemoteException if an error occurs during the sign-out process.
      */
-    @Throws(AuthExceptionRemote::class)
+    @Throws(AuthRemoteException::class)
     suspend fun closeSession()
 }

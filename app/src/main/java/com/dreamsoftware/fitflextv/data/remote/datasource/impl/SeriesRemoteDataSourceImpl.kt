@@ -4,10 +4,11 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSourc
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.core.SupportFireStoreDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteFeaturedSeriesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByIdExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesExceptionRemote
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRemoteSeriesByCategoryExceptionRemote
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchFeaturedSeriesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchSeriesByIdRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchSeriesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchSeriesByCategoryRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.FetchSeriesRecommendedRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -23,6 +24,7 @@ internal class SeriesRemoteDataSourceImpl(
         const val COLLECTION_NAME = "series"
         const val CATEGORY_FIELD = "category"
         const val IS_FEATURED_FIELD = "isFeatured"
+        const val IS_RECOMMENDED_FIELD = "isRecommended"
         const val LANGUAGE = "language"
         const val DURATION = "duration"
         const val INTENSITY = "intensity"
@@ -30,7 +32,7 @@ internal class SeriesRemoteDataSourceImpl(
         const val WORKOUT_TYPE = "workoutType"
     }
 
-    @Throws(FetchRemoteSeriesExceptionRemote::class)
+    @Throws(FetchSeriesRemoteException::class)
     override suspend fun getSeries(filter: TrainingFilterDTO): List<SeriesDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -59,10 +61,10 @@ internal class SeriesRemoteDataSourceImpl(
             mapper = { seriesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesExceptionRemote("An error occurred when trying to fetch series", ex)
+        throw FetchSeriesRemoteException("An error occurred when trying to fetch series", ex)
     }
 
-    @Throws(FetchRemoteSeriesByIdExceptionRemote::class)
+    @Throws(FetchSeriesByIdRemoteException::class)
     override suspend fun getSeriesById(id: String): SeriesDTO = try {
         fetchSingleFromFireStore(
             query = {
@@ -73,13 +75,13 @@ internal class SeriesRemoteDataSourceImpl(
             mapper = { seriesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesByIdExceptionRemote(
+        throw FetchSeriesByIdRemoteException(
             "An error occurred when trying to fetch the series with ID $id",
             ex
         )
     }
 
-    @Throws(FetchRemoteSeriesByCategoryExceptionRemote::class)
+    @Throws(FetchSeriesByCategoryRemoteException::class)
     override suspend fun getSeriesByCategory(categoryId: String): List<SeriesDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -90,13 +92,13 @@ internal class SeriesRemoteDataSourceImpl(
             mapper = { data -> seriesMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesByCategoryExceptionRemote(
+        throw FetchSeriesByCategoryRemoteException(
             "An error occurred when trying to fetch series by category",
             ex
         )
     }
 
-    @Throws(FetchRemoteFeaturedSeriesExceptionRemote::class)
+    @Throws(FetchFeaturedSeriesRemoteException::class)
     override suspend fun getFeaturedSeries(): List<SeriesDTO> = try {
         fetchListFromFireStore(
             query = {
@@ -107,8 +109,25 @@ internal class SeriesRemoteDataSourceImpl(
             mapper = { data -> seriesMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchRemoteSeriesByCategoryExceptionRemote(
+        throw FetchSeriesByCategoryRemoteException(
             "An error occurred when trying to fetch featured series",
+            ex
+        )
+    }
+
+    @Throws(FetchSeriesRecommendedRemoteException::class)
+    override suspend fun getRecommendedSeries(): List<SeriesDTO> = try {
+        fetchListFromFireStore(
+            query = {
+                firebaseStore.collection(COLLECTION_NAME)
+                    .whereEqualTo(IS_RECOMMENDED_FIELD, true)
+                    .get()
+            },
+            mapper = { data -> seriesMapper.mapInToOut(data) }
+        )
+    } catch (ex: Exception) {
+        throw FetchSeriesRecommendedRemoteException(
+            "An error occurred when trying to fetch recommended series",
             ex
         )
     }
