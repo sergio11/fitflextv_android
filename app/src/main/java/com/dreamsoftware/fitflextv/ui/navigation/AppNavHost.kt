@@ -14,6 +14,7 @@ import com.dreamsoftware.fitflextv.ui.screens.onboarding.OnboardingScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.ProfilesScreen
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreen
 import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreen
+import com.dreamsoftware.fitflextv.ui.screens.splash.SplashScreen
 import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
 import com.dreamsoftware.fitflextv.ui.utils.navigationDrawerGraph
 
@@ -26,7 +27,7 @@ fun AppNavHost(
     NavHost(
         navController = navController,
         route = "root_host",
-        startDestination = Screen.Onboarding.route,
+        startDestination = Screen.Splash.route,
         modifier = Modifier
             .semantics {
                 testTagsAsResourceId = true
@@ -37,6 +38,21 @@ fun AppNavHost(
                     navController.navigateSingleTopTo(Screen.Profiles.route)
                 }
             )
+            composable(route = Screen.Splash.route) {
+                with(navController) {
+                    SplashScreen(
+                        onGoToOnboarding = {
+                            navigateSingleTopTo(Screen.Onboarding.route)
+                        },
+                        onGoToHome = {
+                            navigateSingleTopTo(Screen.Dashboard.route)
+                        },
+                        onGoToProfileSelector = {
+                            navigateSingleTopTo(Screen.Profiles.route)
+                        }
+                    )
+                }
+            }
             composable(route = Screen.Onboarding.route) {
                 with(navController) {
                     OnboardingScreen(

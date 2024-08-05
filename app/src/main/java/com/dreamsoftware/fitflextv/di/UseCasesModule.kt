@@ -27,6 +27,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserDetailUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.HasMultiplesProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
@@ -323,4 +324,15 @@ class UseCasesModule {
         profileRepository: IProfilesRepository
     ): DeleteProfileUseCase =
         DeleteProfileUseCase(profileRepository = profileRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideHasMultiplesProfilesUseCase(
+        userRepository: IUserRepository,
+        profilesRepository: IProfilesRepository
+    ): HasMultiplesProfilesUseCase =
+        HasMultiplesProfilesUseCase(
+            userRepository = userRepository,
+            profilesRepository = profilesRepository
+        )
 }

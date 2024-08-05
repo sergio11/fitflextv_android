@@ -167,6 +167,10 @@
     <string name="weekly_plan">Weekly Plan</string>
     <string name="challenge_details">Challenge Details</string>
 
+    <!-- Splash -->
+    <string name="splash_main_title_text">Preparing Your FitFlexTV Experience!</string>
+    <string name="splash_description_text">Hang tight while we set up your personalized fitness journey. This won\'t take long!</string>
+
     <!-- Settings -->
     <string name="settings">Settings</string>
     <string name="app_settings">App Settings</string>
