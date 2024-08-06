@@ -14,7 +14,7 @@ internal class SubscriptionRemoteMapper: IOneSideMapper<Map<String, Any?>, Subsc
     override fun mapInToOut(input: Map<String, Any?>): SubscriptionDTO = with(input) {
         SubscriptionDTO(
             id = get(UID_KEY) as String,
-            periodTime = get(PERIOD_TIME_KEY) as Int,
+            periodTime = get(PERIOD_TIME_KEY) as String,
             price = get(PRICE_KEY) as String
         )
     }

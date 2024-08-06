@@ -9,6 +9,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSo
 import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.ISubscriptionsRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
@@ -22,12 +23,14 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.SubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.ProfileSessionMapper
 import com.dreamsoftware.fitflextv.data.repository.impl.CategoryRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.InstructorRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.ProfilesRepositoryImpl
+import com.dreamsoftware.fitflextv.data.repository.impl.SubscriptionsRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.TrainingRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.impl.UserRepositoryImpl
 import com.dreamsoftware.fitflextv.data.repository.mapper.AddFavoriteTrainingMapper
@@ -38,6 +41,7 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.CreateUserMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.ProfileMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.RoutineMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.SeriesMapper
+import com.dreamsoftware.fitflextv.data.repository.mapper.SubscriptionMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.TrainingFilterDataMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdateProfileRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdatedUserRequestMapper
@@ -51,6 +55,7 @@ import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.model.RoutineBO
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
+import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
@@ -59,6 +64,7 @@ import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.utils.IMapper
@@ -131,6 +137,10 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideTrainingFilterDataMapper(): IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO> = TrainingFilterDataMapper()
+
+    @Provides
+    @Singleton
+    fun provideSubscriptionMapper(): IOneSideMapper<SubscriptionDTO, SubscriptionBO> = SubscriptionMapper()
 
     @Provides
     @Singleton
@@ -224,6 +234,19 @@ class RepositoryModule {
             updateProfileMapper,
             profileSessionMapper,
             profileSessionDataSource,
+            dispatcher
+        )
+
+    @Provides
+    @Singleton
+    fun provideSubscriptionsRepository(
+        subscriptionsRemoteDataSource: ISubscriptionsRemoteDataSource,
+        subscriptionMapper: IOneSideMapper<SubscriptionDTO, SubscriptionBO>,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ISubscriptionsRepository =
+        SubscriptionsRepositoryImpl(
+            subscriptionsRemoteDataSource,
+            subscriptionMapper,
             dispatcher
         )
 }

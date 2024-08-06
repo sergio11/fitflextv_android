@@ -7,6 +7,7 @@ import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
+import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
@@ -21,6 +22,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileSelectedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetSubscriptionsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByCategoryUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
@@ -336,5 +338,14 @@ class UseCasesModule {
         HasMultiplesProfilesUseCase(
             userRepository = userRepository,
             profilesRepository = profilesRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetSubscriptionsUseCase(
+        subscriptionsRepository: ISubscriptionsRepository
+    ): GetSubscriptionsUseCase =
+        GetSubscriptionsUseCase(
+            subscriptionsRepository = subscriptionsRepository
         )
 }

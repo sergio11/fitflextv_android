@@ -9,8 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Card
+import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.RadioButtonDefaults
@@ -28,40 +31,46 @@ internal fun SubscriptionOption(
     isSelected: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    with(MaterialTheme.colorScheme){
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp),
+    with(MaterialTheme.colorScheme) {
+        Card(
+            modifier = modifier.fillMaxWidth(),
+            colors = CardDefaults.colors(Color.Transparent),
+            onClick = onClick,
         ) {
-            CommonText(
-                type = CommonTextTypeEnum.TITLE_MEDIUM,
-                titleText = title,
-                textColor = onSurface
-            )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(all = 10.dp)
             ) {
                 CommonText(
-                    titleText = description,
-                    type = CommonTextTypeEnum.BODY_SMALL,
-                    textColor = onSurface.copy(alpha = 0.8f)
-                )
-                CommonText(
-                    titleText = price,
-                    type = CommonTextTypeEnum.LABEL_LARGE,
+                    type = CommonTextTypeEnum.TITLE_MEDIUM,
+                    titleText = title,
                     textColor = onSurface
                 )
-                RadioButton(
-                    modifier = Modifier.size(24.dp),
-                    selected = isSelected,
-                    onClick = { onClick() },
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = secondary,
-                        unselectedColor = border
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    CommonText(
+                        titleText = description,
+                        type = CommonTextTypeEnum.BODY_SMALL,
+                        textColor = onSurface.copy(alpha = 0.8f)
                     )
-                )
+                    CommonText(
+                        titleText = price,
+                        type = CommonTextTypeEnum.LABEL_LARGE,
+                        textColor = onSurface
+                    )
+                    RadioButton(
+                        modifier = Modifier.size(24.dp),
+                        selected = isSelected,
+                        onClick = { onClick() },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = secondary,
+                            unselectedColor = border
+                        )
+                    )
+                }
             }
         }
     }

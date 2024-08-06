@@ -19,13 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.common.BrownieTvOutlineButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFilledButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.subscription.components.SubscriptionHeadline
 import com.dreamsoftware.fitflextv.ui.screens.subscription.components.SubscriptionOptions
 
@@ -61,21 +61,23 @@ fun SubscriptionScreenContent(
             ) {
                 SubscriptionHeadline()
                 SubscriptionOptions(
-                    subscriptionOptions = subscriptionOptions,
+                    subscriptionOptions = subscriptionList,
                     selectedSubscription = selectedSubscription,
                     updateSelectedSubscriptionOption = actionListener::onSubscriptionOptionUpdated
                 )
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    CommonFilledButton(
-                        modifier = Modifier.width(184.dp),
-                        buttonText = stringResource(R.string.subscribe_now),
+                    CommonButton(
+                        type = CommonButtonTypeEnum.LARGE,
+                        style = CommonButtonStyleTypeEnum.NORMAL,
+                        textRes = R.string.subscribe_now,
                         onClick = actionListener::onSubscribe
                     )
-                    BrownieTvOutlineButton(
-                        modifier = Modifier.width(184.dp),
-                        buttonText = stringResource(R.string.restore_purchases),
+                    CommonButton(
+                        type = CommonButtonTypeEnum.LARGE,
+                        style = CommonButtonStyleTypeEnum.INVERSE,
+                        textRes = R.string.restore_purchases,
                         onClick = actionListener::onRestorePurchases
                     )
                 }

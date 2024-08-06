@@ -10,7 +10,10 @@ fun SubscriptionScreen(
 ) {
     CommonScreen(
         viewModel = viewModel,
-        onInitialUiState = { SubscriptionUiState() }
+        onInitialUiState = { SubscriptionUiState() },
+        onInit = {
+            loadData()
+        }
     ) { uiState ->
         SubscriptionScreenContent(
             uiState = uiState,

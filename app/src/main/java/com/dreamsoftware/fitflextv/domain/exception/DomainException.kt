@@ -16,6 +16,9 @@ class FetchFavoritesTrainingsByUserException(message: String? = null, cause: Thr
 class RemoveFavoriteTrainingException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class VerifyFavoriteTrainingException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 
+// Subscriptions
+class FetchSubscriptionsException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
 // Categories
 class FetchCategoriesException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchCategoryByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
