@@ -9,6 +9,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSour
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISubscriptionsRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IUserSubscriptionsRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
@@ -19,8 +20,10 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteData
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SubscriptionsRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.UserRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.UserSubscriptionsRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.WorkoutRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.request.AddUserSubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequestDTO
@@ -34,8 +37,10 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.UserSubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.AddFavoriteTrainingRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.AddUserSubscriptionRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CategoryRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.ChallengeRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateProfileRequestRemoteMapper
@@ -49,6 +54,7 @@ import com.dreamsoftware.fitflextv.data.remote.mapper.UpdateProfileRequestRemote
 import com.dreamsoftware.fitflextv.data.remote.mapper.UpdatedUserRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserAuthenticatedRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.UserRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.UserSubscriptionsRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.WorkoutRemoteMapper
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.auth.FirebaseAuth
@@ -189,6 +195,22 @@ class RemoteDataSourceModule {
     @Provides
     @Singleton
     fun provideSubscriptionRemoteMapper(): IOneSideMapper<Map<String, Any?>, SubscriptionDTO> = SubscriptionRemoteMapper()
+
+    /**
+     * Provides a singleton instance of AddUserSubscriptionRemoteMapper.
+     * @return a new instance of AddUserSubscriptionRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideAddUserSubscriptionRemoteMapper(): IOneSideMapper<AddUserSubscriptionDTO, Map<String, Any?>> = AddUserSubscriptionRemoteMapper()
+
+    /**
+     * Provides a singleton instance of UserSubscriptionsRemoteMapper.
+     * @return a new instance of UserSubscriptionsRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideUserSubscriptionsRemoteMapper(): IOneSideMapper<Map<String, Any?>, UserSubscriptionDTO> = UserSubscriptionsRemoteMapper()
 
     /**
      * Provides a singleton instance of FirebaseAuth.
@@ -338,6 +360,20 @@ class RemoteDataSourceModule {
     ): ISubscriptionsRemoteDataSource = SubscriptionsRemoteDataSourceImpl(
         firebaseStore,
         subscriptionsMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideUserSubscriptionsRemoteDataSource(
+        firebaseStore: FirebaseFirestore,
+        userSubscriptionsMapper: IOneSideMapper<Map<String, Any?>, UserSubscriptionDTO>,
+        addSubscriptionMapper: IOneSideMapper<AddUserSubscriptionDTO, Map<String, Any?>>,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IUserSubscriptionsRemoteDataSource = UserSubscriptionsRemoteDataSourceImpl(
+        firebaseStore,
+        userSubscriptionsMapper,
+        addSubscriptionMapper,
         dispatcher
     )
 }
