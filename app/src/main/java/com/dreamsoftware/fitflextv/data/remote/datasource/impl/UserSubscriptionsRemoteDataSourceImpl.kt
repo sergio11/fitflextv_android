@@ -7,6 +7,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.UserSubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AddUserSubscriptionRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchUserSubscriptionRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoveUserSubscriptionRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.VerifyHasActiveSubscriptionRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -23,6 +24,7 @@ internal class UserSubscriptionsRemoteDataSourceImpl(
 
     private companion object {
         const val COLLECTION_NAME = "user_subscriptions"
+        const val VALID_UNTIL_KEY = "validUntil"
     }
 
     @Throws(FetchUserSubscriptionRemoteException::class)
@@ -38,6 +40,23 @@ internal class UserSubscriptionsRemoteDataSourceImpl(
         )
     } catch (ex: Exception) {
         throw FetchUserSubscriptionRemoteException("An error occurred when trying to fetch the user subscription", ex)
+    }
+
+    @Throws(VerifyHasActiveSubscriptionRemoteException::class)
+    override suspend fun hasActiveSubscription(userId: String): Boolean = try {
+        val document = firebaseStore
+            .collection(COLLECTION_NAME)
+            .document(userId)
+            .get()
+            .await()
+        document.takeIf { it.exists() }?.getLong(VALID_UNTIL_KEY)?.let { validUntil ->
+            validUntil > System.currentTimeMillis()
+        } ?: false
+    } catch (ex: Exception) {
+        throw VerifyHasActiveSubscriptionRemoteException(
+            "An error occurred when trying to verify active subscription for user $userId",
+            ex
+        )
     }
 
     @Throws(AddUserSubscriptionRemoteException::class)
