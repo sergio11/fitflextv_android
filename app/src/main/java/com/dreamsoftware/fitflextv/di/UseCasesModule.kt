@@ -29,6 +29,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserDetailUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.HasActiveSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.HasMultiplesProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
@@ -346,6 +347,17 @@ class UseCasesModule {
         subscriptionsRepository: ISubscriptionsRepository
     ): GetSubscriptionsUseCase =
         GetSubscriptionsUseCase(
+            subscriptionsRepository = subscriptionsRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideHasActiveSubscriptionUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository
+    ): HasActiveSubscriptionUseCase =
+        HasActiveSubscriptionUseCase(
+            userRepository = userRepository,
             subscriptionsRepository = subscriptionsRepository
         )
 }
