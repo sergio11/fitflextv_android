@@ -32,6 +32,9 @@ class FetchChallengesRecommendedRemoteException(message: String? = null, cause: 
 class FetchCategoriesRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class FetchCategoryByIdRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 
+// Subscriptions
+class FetchSubscriptionsRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+
 // Workout
 class FetchWorkoutsRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class FetchWorkoutByIdRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
