@@ -9,6 +9,7 @@ import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
+import com.dreamsoftware.fitflextv.domain.repository.ITrainingSongsRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.AddUserSubscriptionUseCase
@@ -113,10 +114,10 @@ class UseCasesModule {
     @Provides
     @ViewModelScoped
     fun provideGetSongByIdUseCase(
-        trainingRepository: ITrainingRepository
+        trainingSongRepository: ITrainingSongsRepository
     ): GetSongByIdUseCase =
         GetSongByIdUseCase(
-            trainingRepository = trainingRepository
+            trainingSongRepository = trainingSongRepository
         )
 
     @Provides

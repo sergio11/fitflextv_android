@@ -16,6 +16,7 @@ data class ChallengeDTO(
     val language: String,
     val numberOfDays: Long,
     val category: String,
+    val song: String,
     val weaklyPlans: List<ChallengeWeaklyPlansDTO>
 )
 

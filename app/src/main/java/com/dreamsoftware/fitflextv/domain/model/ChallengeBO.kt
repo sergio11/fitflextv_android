@@ -15,6 +15,7 @@ data class ChallengeBO(
     val weaklyPlans: List<ChallengeWeaklyPlansBO>,
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
+    override val song: String,
     override val language: LanguageEnum
 ) : ITrainingProgramBO
 

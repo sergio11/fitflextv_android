@@ -29,6 +29,7 @@ internal class ChallengeMapper(
             releasedDate = first.releasedDate,
             language = enumValueOfOrDefault(first.language, LanguageEnum.ENGLISH),
             numberOfDays = first.numberOfDays,
+            song = first.song,
             weaklyPlans = first.weaklyPlans.map { weaklyPlan ->
                 ChallengeWeaklyPlansBO(
                     name = weaklyPlan.name,

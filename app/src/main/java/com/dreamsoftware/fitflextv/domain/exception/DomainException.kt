@@ -22,9 +22,13 @@ class FetchUserSubscriptionException(message: String? = null, cause: Throwable? 
 class VerifyHasActiveSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class AddUserSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class RemoveUserSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
 // Categories
 class FetchCategoriesException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchCategoryByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
+// Songs
+class FetchTrainingSongsByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 
 //Profiles
 class FetchProfilesByUserException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

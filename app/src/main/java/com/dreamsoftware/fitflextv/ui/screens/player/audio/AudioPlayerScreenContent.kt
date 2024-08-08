@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -40,6 +41,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.components.AudioPlayerControlsIcon
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.components.AudioPlayerSeeker
 import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerTitle
@@ -116,7 +118,7 @@ internal fun AudioPlayerScreenContent(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                 descriptionModifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                 title = state.title,
-                description = "${state.author} • ${state.date}",
+                description = "${state.author} • ${state.description}",
                 titleStyle = MaterialTheme.typography.headlineMedium,
                 descriptionTextStyle = MaterialTheme.typography.bodyMedium,
             )
@@ -145,33 +147,36 @@ private fun AudioPlayerControls(
     isPlaying: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        AudioPlayerControlsIcon(icon = R.drawable.shuffle) {
-
-        }
-        AudioPlayerControlsIcon(icon = R.drawable.forrward_back) {
-            exoPlayer.seekBack()
-        }
-        AudioPlayerControlsIcon(
-            icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
-            buttonColor = MaterialTheme.colorScheme.onBackground,
-            size = 56.dp
+    CommonFocusRequester { focusRequester ->
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            if (isPlaying) {
-                exoPlayer.play()
-            } else {
-                exoPlayer.pause()
+            AudioPlayerControlsIcon(icon = R.drawable.shuffle) {
+
             }
-        }
-        AudioPlayerControlsIcon(icon = R.drawable.forrward) {
-            exoPlayer.seekForward()
-        }
-        AudioPlayerControlsIcon(icon = R.drawable.repeat) {
-            exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
+            AudioPlayerControlsIcon(icon = R.drawable.forrward_back) {
+                exoPlayer.seekBack()
+            }
+            AudioPlayerControlsIcon(
+                modifier = Modifier.focusRequester(focusRequester),
+                icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
+                buttonColor = MaterialTheme.colorScheme.onBackground,
+                size = 56.dp
+            ) {
+                if (isPlaying) {
+                    exoPlayer.play()
+                } else {
+                    exoPlayer.pause()
+                }
+            }
+            AudioPlayerControlsIcon(icon = R.drawable.forrward) {
+                exoPlayer.seekForward()
+            }
+            AudioPlayerControlsIcon(icon = R.drawable.repeat) {
+                exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ internal class WorkoutRemoteMapper: IOneSideMapper<Map<String, Any?>, WorkoutDTO
         const val RELEASE_DATE_KEY = "releasedDate"
         const val LANGUAGE_KEY = "language"
         const val CATEGORY_KEY = "category"
+        const val SONG_KEY = "songId"
     }
 
     override fun mapInToOut(input: Map<String, Any?>): WorkoutDTO = with(input) {
@@ -34,6 +35,7 @@ internal class WorkoutRemoteMapper: IOneSideMapper<Map<String, Any?>, WorkoutDTO
             intensity = get(INTENSITY_KEY) as String,
             releasedDate = Date(),
             language = get(LANGUAGE_KEY) as String,
+            song = get(SONG_KEY) as String,
             category = get(CATEGORY_KEY) as String
         )
     }

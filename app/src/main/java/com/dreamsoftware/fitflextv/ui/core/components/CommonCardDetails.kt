@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.core.components
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -36,6 +38,10 @@ fun CommonCardDetails(
                 contentDescription = "Image",
                 modifier =  Modifier
                     .size(width = 268.dp, height = 150.dp)
+                    .border(
+                        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
+                        shape = RoundedCornerShape(16.dp)
+                    )
                     .clip(RoundedCornerShape(16.dp)),
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,

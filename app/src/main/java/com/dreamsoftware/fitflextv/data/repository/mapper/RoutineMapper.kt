@@ -22,6 +22,7 @@ internal class RoutineMapper : IOneSideMapper<RoutineDTO, RoutineBO> {
             videoUrl = videoUrl,
             intensity = enumValueOfOrDefault(intensity, IntensityEnum.EASY),
             releasedDate = releasedDate,
+            song = song,
             language = enumValueOfOrDefault(language, LanguageEnum.ENGLISH)
         )
     }

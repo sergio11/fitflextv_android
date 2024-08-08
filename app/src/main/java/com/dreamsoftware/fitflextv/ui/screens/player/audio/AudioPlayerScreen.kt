@@ -6,8 +6,7 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 
 data class AudioPlayerScreenArgs(
-    val id: String,
-    val type: TrainingTypeEnum
+    val id: String
 )
 
 @Composable
@@ -20,11 +19,8 @@ fun AudioPlayerScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { AudioPlayerUiState() },
-        onSideEffect = {
-
-        },
         onInit = {
-            fetchData("1")
+            fetchData(args.id)
         }
     ) { uiState ->
         AudioPlayerScreenContent(state = uiState)

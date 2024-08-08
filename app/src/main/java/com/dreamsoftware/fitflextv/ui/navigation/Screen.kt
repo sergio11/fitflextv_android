@@ -139,31 +139,22 @@ sealed class Screen(
             }
         }
     }
-    data object AudioPlayer: Screen(route = "audio_player/{type}/{id}", name = "AudioPlayer", arguments = listOf(
-        navArgument("type") {
-            type = NavType.StringType
-        },
+    data object AudioPlayer: Screen(route = "audio_player/{id}", name = "AudioPlayer", arguments = listOf(
         navArgument("id") {
             type = NavType.StringType
         }
     )) {
-        fun buildRoute(id: String, type: TrainingTypeEnum): String =
+        fun buildRoute(id: String): String =
             route.replace(
                 oldValue = "{id}",
                 newValue = id
-            ).replace(
-                oldValue = "{type}",
-                newValue = type.name
             )
 
         fun parseArgs(args: Bundle): AudioPlayerScreenArgs? = with(args) {
             getString("id")?.let { id ->
-                getString("type")?.let(TrainingTypeEnum::valueOf)?.let { type ->
-                    AudioPlayerScreenArgs(
-                        id = id,
-                        type = type
-                    )
-                }
+                AudioPlayerScreenArgs(
+                    id = id
+                )
             }
         }
     }
