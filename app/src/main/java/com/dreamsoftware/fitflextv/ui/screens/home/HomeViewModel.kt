@@ -6,6 +6,7 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.HasActiveSubscriptionUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getFeaturedTrainingsUseCase: GetFeaturedTrainingsUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getTrainingsRecommendedUseCase: GetTrainingsRecommendedUseCase
+    private val getTrainingsRecommendedUseCase: GetTrainingsRecommendedUseCase,
+    private val hasActiveSubscriptionUseCase: HasActiveSubscriptionUseCase
 ) : BaseViewModel<HomeUiState, HomeSideEffects>(), HomeScreenActionListener {
 
     override fun onGetDefaultState(): HomeUiState = HomeUiState()
@@ -26,6 +28,7 @@ class HomeViewModel @Inject constructor(
         fetchFeaturedTrainings()
         fetchCategories()
         fetchTrainingsRecommended()
+        verifyHasActiveSubscription()
     }
 
     private fun fetchFeaturedTrainings() {
@@ -40,8 +43,18 @@ class HomeViewModel @Inject constructor(
         executeUseCase(useCase = getTrainingsRecommendedUseCase, onSuccess = ::onGetTrainingsRecommendedSuccessfully)
     }
 
+    private fun verifyHasActiveSubscription() {
+        executeUseCase(useCase = hasActiveSubscriptionUseCase, onSuccess = ::onVerifyHasActiveSubscriptionCompleted)
+    }
+
     private fun onGetFeaturedTrainingsSuccessfully(trainings: List<ITrainingProgramBO>) {
         updateState { it.copy(featuredTrainings = trainings) }
+    }
+
+    private fun onVerifyHasActiveSubscriptionCompleted(hasActiveSubscription: Boolean){
+        if(!hasActiveSubscription) {
+            launchSideEffect(HomeSideEffects.NoActivePremiumSubscription)
+        }
     }
 
     private fun onGetCategoriesSuccessfully(categories: List<CategoryBO>) {
@@ -80,4 +93,5 @@ data class HomeUiState(
 sealed interface HomeSideEffects: SideEffect {
     data class OpenTrainingProgram(val id: String, val type: TrainingTypeEnum): HomeSideEffects
     data class OpenTrainingCategory(val categoryId: String): HomeSideEffects
+    data object NoActivePremiumSubscription: HomeSideEffects
 }

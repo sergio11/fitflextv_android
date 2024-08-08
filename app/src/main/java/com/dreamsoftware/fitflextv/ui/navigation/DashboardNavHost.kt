@@ -29,6 +29,9 @@ fun DashboardNavHost(
                     onOpenTrainingCategory = { id ->
                         navigate(Screen.CategoryDetail.buildRoute(id))
                     },
+                    onGoToSubscriptions = {
+                        navigate(Screen.Subscription.route)
+                    },
                     onOpenTrainingProgram = {  id, type ->
                         navigate(Screen.TrainingDetail.buildRoute(id, type))
                     }
@@ -139,7 +142,11 @@ fun DashboardNavHost(
         }
         composable(Screen.Subscription.route) {
             with(navController) {
-                SubscriptionScreen()
+                SubscriptionScreen(
+                    onBackPressed = {
+                        popBackStack()
+                    }
+                )
             }
         }
     }
