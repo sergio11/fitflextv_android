@@ -71,7 +71,8 @@ fun DashboardNavigationDrawer(
                 )
             ),
             drawerContent = {
-                if(currentDestination?.route != Screen.VideoPlayer.route) {
+                if(currentDestination?.route != Screen.VideoPlayer.route &&
+                    currentDestination?.route != Screen.AudioPlayer.route) {
                     Column(
                         Modifier
                             .fillMaxHeight()
@@ -159,7 +160,8 @@ fun DashboardNavigationDrawer(
             },
             modifier = Modifier
         ) {
-            if(currentDestination?.route != Screen.VideoPlayer.route) {
+            if(currentDestination?.route != Screen.VideoPlayer.route &&
+                currentDestination?.route != Screen.AudioPlayer.route) {
                 Box(modifier = modifier
                     .background(background)
                     .padding(start = CLOSE_DRAWER_WIDTH + BACKGROUND_CONTENT_PADDING),

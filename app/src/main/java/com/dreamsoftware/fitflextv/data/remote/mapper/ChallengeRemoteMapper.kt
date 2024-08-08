@@ -19,6 +19,7 @@ internal class ChallengeRemoteMapper: IOneSideMapper<Map<String, Any?>, Challeng
         const val VIDEO_URL_KEY = "videoUrl"
         const val INTENSITY_KEY = "intensity"
         const val RELEASE_DATE_KEY = "releasedDate"
+        const val SONG_KEY = "songId"
         const val LANGUAGE_KEY = "language"
         const val CATEGORY_KEY = "category"
         const val NUMBER_OF_DAYS_KEY = "numberOfDays"
@@ -39,6 +40,7 @@ internal class ChallengeRemoteMapper: IOneSideMapper<Map<String, Any?>, Challeng
             releasedDate = Date(),
             language = get(LANGUAGE_KEY) as String,
             category = get(CATEGORY_KEY) as String,
+            song = get(SONG_KEY) as String,
             numberOfDays = get(NUMBER_OF_DAYS_KEY) as Long,
             weaklyPlans = mapWeaklyPlans(get(WEAKLY_PLANS_KEY) as Map<String, List<String>>)
         )

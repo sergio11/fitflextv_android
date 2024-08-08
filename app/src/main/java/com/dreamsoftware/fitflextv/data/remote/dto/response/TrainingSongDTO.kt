@@ -4,6 +4,7 @@ data class TrainingSongDTO(
     val id: String,
     val audioUrl: String,
     val title: String,
+    val description: String,
     val author: String,
-    val imageUrl: String?
+    val imageUrl: String
 )

@@ -13,5 +13,6 @@ data class WorkoutBO(
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
     override val language: LanguageEnum,
+    override val song: String,
     override val duration: String
 ) : ITrainingProgramBO

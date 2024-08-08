@@ -5,5 +5,5 @@ interface MoreOptionsScreenActionListener {
     fun onBackPressed()
     fun onTrainingProgramOpened()
     fun onFavouriteClicked()
-    fun onPlayMotivationalMusic()
+    fun onPlayTrainingSong()
 }

@@ -20,6 +20,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
         const val INTENSITY_KEY = "intensity"
         const val RELEASED_DATE_KEY = "releasedDate"
         const val LANGUAGE_KEY = "language"
+        const val SONG_KEY = "songId"
         const val CATEGORY_KEY = "category"
     }
 
@@ -38,6 +39,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
             intensity = get(INTENSITY_KEY) as String,
             releasedDate = Date(),
             language = get(LANGUAGE_KEY) as String,
+            song = get(SONG_KEY) as String,
             category = get(CATEGORY_KEY) as String
         )
     }

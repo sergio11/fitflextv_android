@@ -130,8 +130,8 @@ fun DashboardNavHost(
                         onPlayTrainingProgram = { id, type ->
                             navigate(Screen.VideoPlayer.buildRoute(id, type))
                         },
-                        onPlayMotivationalMusicTraining = { id, type ->
-                            navigate(Screen.AudioPlayer.buildRoute(id, type))
+                        onPlayTrainingSong = {
+                            navigate(Screen.AudioPlayer.buildRoute(it))
                         },
                         onBackPressed = {
                             popBackStack()

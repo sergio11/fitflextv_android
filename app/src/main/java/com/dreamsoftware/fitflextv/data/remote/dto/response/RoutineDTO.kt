@@ -14,5 +14,6 @@ data class RoutineDTO(
     val intensity: String,
     val releasedDate: Date,
     val language: String,
+    val song: String,
     val category: String
 )

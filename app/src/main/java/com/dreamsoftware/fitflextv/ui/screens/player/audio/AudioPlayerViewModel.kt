@@ -1,10 +1,11 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.audio
 
-import com.dreamsoftware.fitflextv.domain.model.SongBO
+import com.dreamsoftware.fitflextv.domain.model.TrainingSongBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -23,16 +24,16 @@ class AudioPlayerViewModel @Inject constructor(
         )
     }
 
-    private fun onGetSongByIdSuccessfully(songBO: SongBO) {
+    private fun onGetSongByIdSuccessfully(trainingSongBO: TrainingSongBO) {
         updateState {
-            with(songBO) {
+            with(trainingSongBO) {
                 it.copy(
                     title = title,
+                    description = description,
                     author = author,
                     audioUrl = audioUrl,
                     id = id,
                     imageUrl = imageUrl,
-                    date = createdDate,
                 )
             }
         }
@@ -42,12 +43,12 @@ class AudioPlayerViewModel @Inject constructor(
 data class AudioPlayerUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
-    val id: String = "",
-    val audioUrl: String = "",
-    val title: String = "",
-    val author: String = "",
-    val imageUrl: String? = null,
-    val date: String? = null,
+    val id: String = String.EMPTY,
+    val audioUrl: String = String.EMPTY,
+    val title: String = String.EMPTY,
+    val description: String = String.EMPTY,
+    val author: String = String.EMPTY,
+    val imageUrl: String = String.EMPTY,
 ): UiState<AudioPlayerUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): AudioPlayerUiState =
         copy(isLoading = isLoading, errorMessage = errorMessage)

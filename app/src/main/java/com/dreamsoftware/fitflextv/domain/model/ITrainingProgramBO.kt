@@ -13,5 +13,6 @@ interface ITrainingProgramBO {
     val releasedDate: Date
     val language: LanguageEnum
     val videoUrl: String
+    val song: String
     val duration: String
 }
