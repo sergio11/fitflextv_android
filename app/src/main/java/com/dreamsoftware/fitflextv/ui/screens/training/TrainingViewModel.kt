@@ -73,7 +73,6 @@ class TrainingViewModel @Inject constructor(
 
     fun fetchData() {
         fetchTrainings()
-        fetchInstructors()
     }
 
     override fun onFilterClicked() {
@@ -240,6 +239,7 @@ class TrainingViewModel @Inject constructor(
 
     private fun onGetTrainingProgramsSuccessfully(trainingPrograms: List<ITrainingProgramBO>) {
         updateState { it.copy(trainingPrograms = trainingPrograms) }
+        fetchInstructors()
     }
 
     private fun onMapExceptionToState(ex: Exception, uiState: TrainingUiState) =

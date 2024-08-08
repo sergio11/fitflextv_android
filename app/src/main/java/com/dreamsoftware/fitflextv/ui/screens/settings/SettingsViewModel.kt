@@ -81,10 +81,19 @@ class SettingsViewModel @Inject constructor(
             updateState { it.copy(settingSelected = setting) }
         } else if(setting is ISettingItemVO.SettingActionVO) {
             when(setting.type) {
-                SettingActionTypeEnum.SIGN_OFF -> onSignOff()
+                SettingActionTypeEnum.SIGN_OFF ->  updateState { it.copy(showSignOffDialog = true) }
                 SettingActionTypeEnum.SUBSCRIPTIONS -> onOpenSubscriptions()
             }
         }
+    }
+
+    override fun onSignOffConfirmed() {
+        updateState { it.copy(showSignOffDialog = false) }
+        onSignOff()
+    }
+
+    override fun onSignOffCancelled() {
+        updateState { it.copy(showSignOffDialog = false) }
     }
 
     private fun onSignOff() {
@@ -111,6 +120,7 @@ class SettingsViewModel @Inject constructor(
 data class SettingsUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
+    val showSignOffDialog: Boolean = false,
     val settingList: List<ISettingItemVO> = emptyList(),
     val settingSelected: ISettingItemVO.ISettingValueItemVO? = null,
 ) : UiState<SettingsUiState>(isLoading, errorMessage) {
