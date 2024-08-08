@@ -77,7 +77,12 @@ class SubscriptionViewModel @Inject constructor(
 
     private fun onSubscriptionRemoved(isRemoved: Boolean) {
         if(isRemoved) {
-            updateState { it.copy(hasActiveSubscription = false) }
+            updateState {
+                it.copy(
+                    hasActiveSubscription = false,
+                    selectedSubscription = null
+                )
+            }
         }
     }
 
