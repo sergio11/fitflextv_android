@@ -37,11 +37,12 @@ internal fun SubscriptionOptions(
             type = CommonTextTypeEnum.TITLE_MEDIUM,
             textColor = MaterialTheme.colorScheme.onSurface
         )
+        val idxSelected = selectedSubscription?.let { subscriptionOptions.indexOf(it) } ?: 0
         CommonFocusRequester { focusRequester ->
             subscriptionOptions.forEachIndexed { index, subscriptionBO ->
                 with(subscriptionBO) {
                     SubscriptionOption(
-                        modifier = Modifier.conditional(index == 0, ifTrue = {
+                        modifier = Modifier.conditional(index == idxSelected, ifTrue = {
                             focusRequester(focusRequester)
                         }),
                         title = formatPeriodTime(periodTime, context),

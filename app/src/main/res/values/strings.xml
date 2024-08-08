@@ -197,12 +197,13 @@
     <string name="month_subscription">Monthly Subscription</string>
     <string name="subscribe_now">Subscribe Now!</string>
     <string name="restore_purchases">Restore Purchases</string>
-    <string name="subscribe_to_premium">Unlock Premium Features</string>
-    <string name="subscribe_brief">Start Your Fitness Journey Today!</string>
+    <string name="subscribe_to_premium">Unlock Your Full Potential with Premium</string>
+    <string name="subscribe_brief">Take the First Step Towards a Stronger, Healthier You! Our Premium Membership offers exclusive access to advanced workouts, personalized training plans, and much more. Don\'t just dream it—achieve it!</string>
     <string name="our_plans">Explore Our Plans</string>
     <string name="free_trail">Start Your 7-Day Free Trial</string>
     <string name="subscription_cancelled">Subscription Continues Until Cancelled</string>
-
+    <string name="add_subscription_completed_dialog_title">Subscription Activated!</string>
+    <string name="add_subscription_completed_dialog_description">Congratulations! You’ve just unlocked a world of exclusive features and premium content. Get ready to elevate your fitness journey to the next level. Let’s do this!</string>
     <!-- Training Types -->
     <string name="training_type_workout_name">Workout</string>
     <string name="training_type_series_name">Series</string>

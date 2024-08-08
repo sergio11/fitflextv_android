@@ -26,6 +26,7 @@ import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonDialog
 import com.dreamsoftware.fitflextv.ui.screens.subscription.components.SubscriptionHeadline
 import com.dreamsoftware.fitflextv.ui.screens.subscription.components.SubscriptionOptions
 
@@ -35,6 +36,12 @@ fun SubscriptionScreenContent(
     actionListener: ISubscriptionScreenActionListener
 ) {
     with(uiState) {
+        CommonDialog(
+            isVisible = showSubscriptionAddedDialog,
+            titleRes = R.string.add_subscription_completed_dialog_title,
+            descriptionRes = R.string.add_subscription_completed_dialog_description,
+            onAcceptClicked = actionListener::onCompleted
+        )
         Row(
             modifier = Modifier
                 .fillMaxSize()

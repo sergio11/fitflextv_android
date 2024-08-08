@@ -19,6 +19,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onOpenTrainingCategory: (String) -> Unit,
     onOpenTrainingProgram: (String, TrainingTypeEnum) -> Unit,
+    onGoToSubscriptions: () -> Unit
 ) {
     val carouselState = rememberSaveable(saver = carouselSaver) { CarouselState(0) }
     CommonScreen(
@@ -28,6 +29,7 @@ fun HomeScreen(
             when(it) {
                 is HomeSideEffects.OpenTrainingCategory -> onOpenTrainingCategory(it.categoryId)
                 is HomeSideEffects.OpenTrainingProgram -> onOpenTrainingProgram(it.id, it.type )
+                HomeSideEffects.NoActivePremiumSubscription -> onGoToSubscriptions()
             }
         },
         onInit = {

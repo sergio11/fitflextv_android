@@ -6,4 +6,5 @@ interface ISubscriptionScreenActionListener {
     fun onSubscriptionOptionUpdated(subscription: SubscriptionBO)
     fun onSubscribe()
     fun onRestorePurchases()
+    fun onCompleted()
 }

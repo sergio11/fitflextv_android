@@ -18,6 +18,7 @@ class VerifyFavoriteTrainingException(message: String? = null, cause: Throwable?
 
 // Subscriptions
 class FetchSubscriptionsException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class FetchUserSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class VerifyHasActiveSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class AddUserSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class RemoveUserSubscriptionException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

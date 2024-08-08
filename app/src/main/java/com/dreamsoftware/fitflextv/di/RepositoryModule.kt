@@ -27,6 +27,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.UserSubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.data.remote.mapper.ProfileSessionMapper
 import com.dreamsoftware.fitflextv.data.repository.impl.CategoryRepositoryImpl
@@ -49,6 +50,7 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.TrainingFilterDataMapp
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdateProfileRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdatedUserRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UserDetailMapper
+import com.dreamsoftware.fitflextv.data.repository.mapper.UserSubscriptionMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.WorkoutMapper
 import com.dreamsoftware.fitflextv.domain.model.AddFavoriteTrainingBO
 import com.dreamsoftware.fitflextv.domain.model.AddUserSubscriptionBO
@@ -64,6 +66,7 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
+import com.dreamsoftware.fitflextv.domain.model.UserSubscriptionBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
@@ -149,6 +152,10 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideAddUserSubscriptionMapper(): IOneSideMapper<AddUserSubscriptionBO, AddUserSubscriptionDTO> = AddUserSubscriptionMapper()
+
+    @Provides
+    @Singleton
+    fun provideUserSubscriptionMapper():  IOneSideMapper<UserSubscriptionDTO, UserSubscriptionBO> = UserSubscriptionMapper()
 
     @Provides
     @Singleton
@@ -252,6 +259,7 @@ class RepositoryModule {
         subscriptionsRemoteDataSource: ISubscriptionsRemoteDataSource,
         subscriptionMapper: IOneSideMapper<SubscriptionDTO, SubscriptionBO>,
         addUserSubscriptionMapper: IOneSideMapper<AddUserSubscriptionBO, AddUserSubscriptionDTO>,
+        userSubscriptionMapper: IOneSideMapper<UserSubscriptionDTO, UserSubscriptionBO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ISubscriptionsRepository =
         SubscriptionsRepositoryImpl(
@@ -259,6 +267,7 @@ class RepositoryModule {
             subscriptionsRemoteDataSource,
             subscriptionMapper,
             addUserSubscriptionMapper,
+            userSubscriptionMapper,
             dispatcher
         )
 }

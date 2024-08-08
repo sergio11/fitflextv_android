@@ -4,6 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.ISubscriptionsRemoteDa
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserSubscriptionsRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddUserSubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SubscriptionDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.UserSubscriptionDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AddUserSubscriptionRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchSubscriptionsRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoveUserSubscriptionRemoteException
@@ -11,10 +12,12 @@ import com.dreamsoftware.fitflextv.data.remote.exception.VerifyHasActiveSubscrip
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.AddUserSubscriptionException
 import com.dreamsoftware.fitflextv.domain.exception.FetchSubscriptionsException
+import com.dreamsoftware.fitflextv.domain.exception.FetchUserSubscriptionException
 import com.dreamsoftware.fitflextv.domain.exception.RemoveUserSubscriptionException
 import com.dreamsoftware.fitflextv.domain.exception.VerifyHasActiveSubscriptionException
 import com.dreamsoftware.fitflextv.domain.model.AddUserSubscriptionBO
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
+import com.dreamsoftware.fitflextv.domain.model.UserSubscriptionBO
 import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,6 +27,7 @@ internal class SubscriptionsRepositoryImpl(
     private val subscriptionsRemoteDataSource: ISubscriptionsRemoteDataSource,
     private val subscriptionMapper: IOneSideMapper<SubscriptionDTO, SubscriptionBO>,
     private val addUserSubscriptionMapper: IOneSideMapper<AddUserSubscriptionBO, AddUserSubscriptionDTO>,
+    private val userSubscriptionMapper: IOneSideMapper<UserSubscriptionDTO, UserSubscriptionBO>,
     dispatcher: CoroutineDispatcher
 ): SupportRepositoryImpl(dispatcher), ISubscriptionsRepository {
 
@@ -36,6 +40,17 @@ internal class SubscriptionsRepositoryImpl(
                 .toList()
         } catch (ex: FetchSubscriptionsRemoteException) {
             throw FetchSubscriptionsException("An error occurred when fetching subscriptions", ex)
+        }
+    }
+
+    @Throws(FetchUserSubscriptionException::class)
+    override suspend fun getUserSubscription(userId: String): UserSubscriptionBO = safeExecute {
+        try {
+            userSubscriptionRemoteDataSource
+                .getUserSubscription(userId)
+                .let(userSubscriptionMapper::mapInToOut)
+        } catch (ex: FetchSubscriptionsRemoteException) {
+            throw FetchUserSubscriptionException("An error occurred when fetching user subscription", ex)
         }
     }
 

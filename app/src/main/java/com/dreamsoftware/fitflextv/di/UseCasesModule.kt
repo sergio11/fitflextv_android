@@ -11,6 +11,7 @@ import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.AddUserSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.CreateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.DeleteProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
@@ -29,9 +30,11 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserDetailUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserProfilesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.GetUserSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.HasActiveSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.HasMultiplesProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.RemoveUserSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
@@ -357,6 +360,41 @@ class UseCasesModule {
         subscriptionsRepository: ISubscriptionsRepository
     ): HasActiveSubscriptionUseCase =
         HasActiveSubscriptionUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideRemoveUserSubscriptionUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository
+    ): RemoveUserSubscriptionUseCase =
+        RemoveUserSubscriptionUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideAddUserSubscriptionUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository
+    ): AddUserSubscriptionUseCase =
+        AddUserSubscriptionUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository
+        )
+
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetUserSubscriptionUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository
+    ): GetUserSubscriptionUseCase =
+        GetUserSubscriptionUseCase(
             userRepository = userRepository,
             subscriptionsRepository = subscriptionsRepository
         )
