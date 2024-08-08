@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.data.remote.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserSubscriptionDTO
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
-import java.util.Date
+import com.google.firebase.Timestamp
 
 internal class UserSubscriptionsRemoteMapper: IOneSideMapper<Map<String, Any?>, UserSubscriptionDTO> {
 
@@ -19,8 +19,8 @@ internal class UserSubscriptionsRemoteMapper: IOneSideMapper<Map<String, Any?>, 
             id = get(UID_KEY) as String,
             subscriptionId = get(SUBSCRIPTION_KEY) as String,
             userId = get(USER_KEY) as String,
-            startAt = get(START_AT_KEY) as Date,
-            validUntil = get(VALID_UNTIL_KEY) as Date,
+            startAt = get(START_AT_KEY) as Timestamp,
+            validUntil = get(VALID_UNTIL_KEY) as Timestamp,
         )
     }
 

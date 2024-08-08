@@ -11,8 +11,8 @@ internal class UserSubscriptionMapper : IOneSideMapper<UserSubscriptionDTO, User
             id = id,
             subscriptionId = subscriptionId,
             userId = userId,
-            startAt = startAt,
-            validUntil = validUntil
+            startAt = startAt.toDate(),
+            validUntil = validUntil.toDate()
         )
     }
 

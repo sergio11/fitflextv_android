@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -73,7 +74,8 @@ fun SubscriptionScreenContent(
                     updateSelectedSubscriptionOption = actionListener::onSubscriptionOptionUpdated
                 )
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     CommonButton(
                         type = CommonButtonTypeEnum.LARGE,
@@ -81,12 +83,14 @@ fun SubscriptionScreenContent(
                         textRes = R.string.subscribe_now,
                         onClick = actionListener::onSubscribe
                     )
-                    CommonButton(
-                        type = CommonButtonTypeEnum.LARGE,
-                        style = CommonButtonStyleTypeEnum.INVERSE,
-                        textRes = R.string.restore_purchases,
-                        onClick = actionListener::onRestorePurchases
-                    )
+                    if(hasActiveSubscription) {
+                        CommonButton(
+                            type = CommonButtonTypeEnum.LARGE,
+                            style = CommonButtonStyleTypeEnum.INVERSE,
+                            textRes = R.string.restore_purchases,
+                            onClick = actionListener::onRestorePurchases
+                        )
+                    }
                 }
             }
         }
