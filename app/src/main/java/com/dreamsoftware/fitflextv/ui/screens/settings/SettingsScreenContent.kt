@@ -39,6 +39,7 @@ import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.ui.core.components.CommonDialog
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
@@ -52,6 +53,13 @@ fun SettingsScreenContent(
 ) {
     with(uiState) {
         with(MaterialTheme.colorScheme) {
+            CommonDialog(
+                isVisible = showSignOffDialog,
+                titleRes = R.string.settings_confirm_sign_off_dialog_title,
+                descriptionRes = R.string.settings_confirm_sign_off_dialog_description,
+                onAcceptClicked = actionListener::onSignOffConfirmed,
+                onCancelClicked = actionListener::onSignOffCancelled
+            )
             Row(
                 Modifier
                     .fillMaxSize()

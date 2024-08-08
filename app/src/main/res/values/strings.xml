@@ -190,7 +190,8 @@
     <string name="settings_about_me_content">Hello, I\'m Sergio Sánchez Sánchez an accomplished developer with over 9 years of experience, specializing in crafting exceptional mobile experiences. As a seasoned Android developer, I\'ve delivered a diverse portfolio of projects, demonstrating my commitment to building robust and user-friendly applications. Over the years, I\'ve honed my skills to navigate the ever-evolving Android ecosystem, consistently pushing the boundaries of what\'s possible.</string>
     <string name="settings_about_app_title">About FitFlexTV</string>
     <string name="settings_about_app_content">FitFlexTV is a home workout application designed to provide personalized workout plans and track your fitness progress, all from the comfort of your home. 💪 Our app offers a variety of workout routines, ranging from short, high-intensity sessions to longer, more relaxed workouts, ensuring that there\'s something for everyone. Stay motivated, stay fit, and enjoy your fitness journey with FitFlexTV!</string>
-
+    <string name="settings_confirm_sign_off_dialog_title">Ready to Say Goodbye?</string>
+    <string name="settings_confirm_sign_off_dialog_description">You\'re about to sign off. Are you sure you want to leave your fitness journey for now?</string>
     <!-- Subscription -->
     <string name="month">Month</string>
     <string name="months">Months</string>

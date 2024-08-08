@@ -2,12 +2,16 @@ package com.dreamsoftware.fitflextv.ui.core.components
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +31,8 @@ fun CommonMoreOptionsButton(
     onClick: () -> Unit = {}
 ) {
     with(MaterialTheme.colorScheme) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isFocused by interactionSource.collectIsFocusedAsState()
         Button(
             modifier = modifier.size(height = 50.dp, width = 292.dp),
             shape = ButtonDefaults.shape(shape = RoundedCornerShape(12.dp)),
@@ -38,7 +44,8 @@ fun CommonMoreOptionsButton(
             ),
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 15.dp),
             scale = ButtonDefaults.scale(scale = 1f, focusedScale = 1.1f),
-            onClick = onClick
+            onClick = onClick,
+            interactionSource = interactionSource
         ) {
             Icon(
                 modifier = Modifier.size(20.dp),
@@ -48,7 +55,12 @@ fun CommonMoreOptionsButton(
             Spacer(modifier = Modifier.width(12.dp))
             CommonText(
                 type = CommonTextTypeEnum.TITLE_MEDIUM,
-                titleRes = textRes
+                titleRes = textRes,
+                textColor = if(isFocused) {
+                    inverseOnSurface
+                } else {
+                    onSurface
+                }
             )
         }
     }
