@@ -40,7 +40,7 @@ class SubscriptionViewModel @Inject constructor(
                 useCase = addUserSubscriptionUseCase,
                 params = AddUserSubscriptionUseCase.Params(
                     subscriptionId = it.id,
-                    validUntil = 0L
+                    months = it.periodTime.toInt()
                 ),
                 onSuccess = ::onAddSubscriptionCompleted
             )
@@ -48,17 +48,36 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     override fun onRestorePurchases() {
-
+        executeUseCase(
+            useCase = removeUserSubscriptionUseCase,
+            onSuccess = ::onSubscriptionRemoved
+        )
     }
 
     override fun onCompleted() {
-        updateState { it.copy(showSubscriptionAddedDialog = false) }
+        updateState {
+            it.copy(
+                showSubscriptionAddedDialog = false,
+                hasActiveSubscription = true
+            )
+        }
         launchSideEffect(SubscriptionSideEffects.AddSubscriptionCompleted)
     }
 
     private fun onAddSubscriptionCompleted(isAdded: Boolean) {
         if(isAdded) {
-            updateState { it.copy(showSubscriptionAddedDialog = true) }
+            updateState {
+                it.copy(
+                    showSubscriptionAddedDialog = true,
+                    hasActiveSubscription = true
+                )
+            }
+        }
+    }
+
+    private fun onSubscriptionRemoved(isRemoved: Boolean) {
+        if(isRemoved) {
+            updateState { it.copy(hasActiveSubscription = false) }
         }
     }
 
@@ -71,7 +90,12 @@ class SubscriptionViewModel @Inject constructor(
     }
 
     private fun onGetUserSubscriptionCompleted(userSubscriptionBO: UserSubscriptionBO) {
-        updateState { it.copy(selectedSubscription = it.subscriptionList.find { sub -> sub.id == userSubscriptionBO.subscriptionId }) }
+        updateState {
+            it.copy(
+                selectedSubscription = it.subscriptionList.find { sub -> sub.id == userSubscriptionBO.subscriptionId },
+                hasActiveSubscription = true
+            )
+        }
     }
 }
 
@@ -79,6 +103,7 @@ data class SubscriptionUiState(
     override var isLoading: Boolean = false,
     override var errorMessage: String? = null,
     val showSubscriptionAddedDialog: Boolean = false,
+    val hasActiveSubscription: Boolean = false,
     val subscriptionList: List<SubscriptionBO> = emptyList(),
     val selectedSubscription: SubscriptionBO? = null
 ): UiState<SubscriptionUiState>(isLoading, errorMessage) {
