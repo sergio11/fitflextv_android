@@ -16,5 +16,6 @@ data class SeriesBO(
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
     override val song: String,
+    override val isPremium: Boolean,
     override val language: LanguageEnum,
 ) : ITrainingProgramBO

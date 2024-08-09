@@ -2,12 +2,14 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IInstructorsRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IWorkoutRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.TrainingFilterDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.InstructorDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
@@ -38,8 +40,8 @@ import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.ui.utils.parallelMap
 import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
+import com.dreamsoftware.fitflextv.utils.executeAsync
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.async
 
 internal class TrainingRepositoryImpl(
     private val routineRemoteDataSource: IRoutineRemoteDataSource,
@@ -47,12 +49,13 @@ internal class TrainingRepositoryImpl(
     private val seriesRemoteDataSource: ISeriesRemoteDataSource,
     private val challengeRemoteDataSource: IChallengesRemoteDataSource,
     private val favoritesRemoteDataSource: IFavoritesRemoteDataSource,
-    private val routineMapper: IOneSideMapper<RoutineDTO, RoutineBO>,
-    private val workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>,
-    private val seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
+    private val instructorRemoteDataSource: IInstructorsRemoteDataSource,
+    private val routineMapper: IOneSideMapper<Pair<RoutineDTO, InstructorDTO>, RoutineBO>,
+    private val workoutMapper: IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, WorkoutBO>,
+    private val seriesMapper: IOneSideMapper<Pair<SeriesDTO, InstructorDTO>, SeriesBO>,
     private val addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO>,
     private val trainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO>,
-    private val challengeMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
+    private val challengesMapper: IOneSideMapper<Triple<ChallengeDTO, List<WorkoutDTO>, InstructorDTO>, ChallengeBO>,
     private val dispatcher: CoroutineDispatcher
 ) : SupportRepositoryImpl(dispatcher), ITrainingRepository {
 
@@ -62,21 +65,10 @@ internal class TrainingRepositoryImpl(
             val filterDTO = trainingFilterDataMapper.mapInToOut(data)
             try {
                 when (type) {
-                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getWorkouts(filterDTO)
-                        .let(workoutMapper::mapInListToOutList)
-
-                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getSeries(filterDTO)
-                        .let(seriesMapper::mapInListToOutList)
-
-                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getChallenges(filterDTO)
-                        .map {
-                            challengeMapper.mapInToOut(it to it.weaklyPlans.parallelMap { weaklyPlan ->
-                                workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
-                            }.flatten())
-                        }
-
-                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutines(filterDTO)
-                        .let(routineMapper::mapInListToOutList)
+                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getWorkouts(filterDTO).workoutsToTrainingPrograms()
+                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getSeries(filterDTO).seriesToTrainingPrograms()
+                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getChallenges(filterDTO).challengesToTrainingPrograms()
+                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutines(filterDTO).routinesToTrainingPrograms()
                 }
             } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingsException("An error occurred when fetching trainings", ex)
@@ -89,21 +81,10 @@ internal class TrainingRepositoryImpl(
         safeExecute {
             try {
                 when (type) {
-                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getWorkoutById(id)
-                        .let(workoutMapper::mapInToOut)
-
-                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getSeriesById(id)
-                        .let(seriesMapper::mapInToOut)
-
-                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getChallengeById(id)
-                        .let {
-                            challengeMapper.mapInToOut(it to it.weaklyPlans.parallelMap { weaklyPlan ->
-                                workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
-                            }.flatten())
-                        }
-
-                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutineById(id)
-                        .let(routineMapper::mapInToOut)
+                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getWorkoutById(id).toTrainingProgram()
+                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getSeriesById(id).toTrainingProgram()
+                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getChallengeById(id).toTrainingProgram()
+                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getRoutineById(id).toTrainingProgram()
                 }
             } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingsException("An error occurred when fetching the training", ex)
@@ -113,38 +94,10 @@ internal class TrainingRepositoryImpl(
     @Throws(FetchTrainingsRecommendedException::class)
     override suspend fun getTrainingsRecommended(): Iterable<ITrainingProgramBO> = safeExecute {
         try {
-            val workoutDeferred = async(dispatcher) {
-                runCatching {
-                    workoutRemoteDataSource.getRecommendedWorkouts()
-                        .let(workoutMapper::mapInListToOutList)
-                }
-                    .getOrElse { emptyList() }
-            }
-            val seriesDeferred = async(dispatcher) {
-                runCatching {
-                    seriesRemoteDataSource.getRecommendedSeries()
-                        .let(seriesMapper::mapInListToOutList)
-                }
-                    .getOrElse { emptyList() }
-            }
-            val challengesDeferred = async(dispatcher) {
-                runCatching {
-                    challengeRemoteDataSource.getRecommendedChallenges()
-                        .map {
-                            challengeMapper.mapInToOut(it to it.weaklyPlans.parallelMap { weaklyPlan ->
-                                workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
-                            }.flatten())
-                        }
-                }
-                    .getOrElse { emptyList() }
-            }
-            val routinesDeferred = async(dispatcher) {
-                runCatching {
-                    routineRemoteDataSource.getRecommendedRoutines()
-                        .let(routineMapper::mapInListToOutList)
-                }
-                    .getOrElse { emptyList() }
-            }
+            val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getRecommendedWorkouts().workoutsToTrainingPrograms() }
+            val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getRecommendedSeries().seriesToTrainingPrograms() }
+            val challengesDeferred = executeAsync(dispatcher) { challengeRemoteDataSource.getRecommendedChallenges().challengesToTrainingPrograms() }
+            val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getRecommendedRoutines().routinesToTrainingPrograms() }
             workoutDeferred.await() + seriesDeferred.await() + challengesDeferred.await() + routinesDeferred.await()
         } catch (ex: RemoteDataSourceException) {
             throw FetchTrainingsRecommendedException(
@@ -157,27 +110,9 @@ internal class TrainingRepositoryImpl(
     @Throws(FetchFeaturedTrainingsException::class)
     override suspend fun getFeaturedTrainings(): Iterable<ITrainingProgramBO> = safeExecute {
         try {
-            val workoutDeferred = async(dispatcher) {
-                runCatching {
-                    workoutRemoteDataSource.getFeaturedWorkouts()
-                        .let(workoutMapper::mapInListToOutList)
-                }
-                    .getOrElse { emptyList() }
-            }
-            val seriesDeferred = async(dispatcher) {
-                runCatching {
-                    seriesRemoteDataSource.getFeaturedSeries()
-                        .let(seriesMapper::mapInListToOutList)
-                }
-                    .getOrElse { emptyList() }
-            }
-            val routinesDeferred = async(dispatcher) {
-                runCatching {
-                    routineRemoteDataSource.getFeaturedRoutines()
-                        .let(routineMapper::mapInListToOutList)
-                }
-                    .getOrElse { emptyList() }
-            }
+            val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getFeaturedWorkouts().workoutsToTrainingPrograms() }
+            val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getFeaturedSeries().seriesToTrainingPrograms() }
+            val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getFeaturedRoutines().routinesToTrainingPrograms() }
             workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await()
         } catch (ex: RemoteDataSourceException) {
             throw FetchFeaturedTrainingsException(
@@ -191,38 +126,10 @@ internal class TrainingRepositoryImpl(
     override suspend fun getTrainingsByCategory(id: String): Iterable<ITrainingProgramBO> =
         safeExecute {
             try {
-                val workoutDeferred = async(dispatcher) {
-                    runCatching {
-                        workoutRemoteDataSource.getWorkoutByCategory(id)
-                            .let(workoutMapper::mapInListToOutList)
-                    }
-                        .getOrElse { emptyList() }
-                }
-                val seriesDeferred = async(dispatcher) {
-                    runCatching {
-                        seriesRemoteDataSource.getSeriesByCategory(id)
-                            .let(seriesMapper::mapInListToOutList)
-                    }
-                        .getOrElse { emptyList() }
-                }
-                val challengesDeferred = async(dispatcher) {
-                    runCatching {
-                        challengeRemoteDataSource.getChallengesByCategory(id)
-                            .map {
-                                challengeMapper.mapInToOut(it to it.weaklyPlans.parallelMap { weaklyPlan ->
-                                    workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
-                                }.flatten())
-                            }
-                    }
-                        .getOrElse { emptyList() }
-                }
-                val routinesDeferred = async(dispatcher) {
-                    runCatching {
-                        routineRemoteDataSource.getRoutineByCategory(id)
-                            .let(routineMapper::mapInListToOutList)
-                    }
-                        .getOrElse { emptyList() }
-                }
+                val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getWorkoutByCategory(id).workoutsToTrainingPrograms() }
+                val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getSeriesByCategory(id).seriesToTrainingPrograms() }
+                val challengesDeferred = executeAsync(dispatcher) { challengeRemoteDataSource.getChallengesByCategory(id).challengesToTrainingPrograms() }
+                val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getRoutineByCategory(id).routinesToTrainingPrograms() }
                 workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await() + challengesDeferred.await()
             } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingByCategoryException(
@@ -291,4 +198,46 @@ internal class TrainingRepositoryImpl(
             )
         }
     }
+
+    private suspend fun WorkoutDTO.toTrainingProgram(): ITrainingProgramBO =
+        let { workout -> workout to instructorRemoteDataSource.getInstructorById(workout.instructor) }
+            .let(workoutMapper::mapInToOut)
+
+    private suspend fun SeriesDTO.toTrainingProgram(): ITrainingProgramBO =
+        let { series -> series to instructorRemoteDataSource.getInstructorById(series.instructor) }
+            .let(seriesMapper::mapInToOut)
+
+    private suspend fun ChallengeDTO.toTrainingProgram(): ITrainingProgramBO =
+        let { challenge ->
+            val instructor = instructorRemoteDataSource.getInstructorById(challenge.instructor)
+            val weaklyPlans = challenge.weaklyPlans.parallelMap { weaklyPlan ->
+                workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
+            }.flatten()
+            challengesMapper.mapInToOut(Triple(challenge, weaklyPlans, instructor))
+        }
+
+    private suspend fun RoutineDTO.toTrainingProgram(): ITrainingProgramBO =
+        let { routine -> routine to instructorRemoteDataSource.getInstructorById(routine.instructor) }
+            .let(routineMapper::mapInToOut)
+
+    private suspend fun List<WorkoutDTO>.workoutsToTrainingPrograms(): Iterable<ITrainingProgramBO> =
+        parallelMap { workout -> workout to instructorRemoteDataSource.getInstructorById(workout.instructor) }
+            .let(workoutMapper::mapInListToOutList)
+
+    private suspend fun List<SeriesDTO>.seriesToTrainingPrograms(): Iterable<ITrainingProgramBO> =
+        parallelMap { series -> series to instructorRemoteDataSource.getInstructorById(series.instructor) }
+            .let(seriesMapper::mapInListToOutList)
+
+    private suspend fun List<ChallengeDTO>.challengesToTrainingPrograms(): Iterable<ITrainingProgramBO> =
+        parallelMap { challenge ->
+            val instructor = instructorRemoteDataSource.getInstructorById(challenge.instructor)
+            val weaklyPlans = challenge.weaklyPlans.parallelMap { weaklyPlan ->
+                workoutRemoteDataSource.getWorkoutByIdList(weaklyPlan.workouts)
+            }.flatten()
+            challengesMapper.mapInToOut(Triple(challenge, weaklyPlans, instructor))
+        }
+
+    private suspend fun List<RoutineDTO>.routinesToTrainingPrograms(): Iterable<ITrainingProgramBO> =
+        parallelMap { series -> series to instructorRemoteDataSource.getInstructorById(series.instructor) }
+            .let(routineMapper::mapInListToOutList)
 }

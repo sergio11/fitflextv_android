@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.data.repository.mapper
 
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.InstructorDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.WorkoutDTO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeBO
 import com.dreamsoftware.fitflextv.domain.model.ChallengeWeaklyPlansBO
@@ -12,15 +13,15 @@ import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
 
 internal class ChallengeMapper(
-    private val workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>
-) : IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO> {
+    private val workoutMapper: IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, WorkoutBO>
+) : IOneSideMapper<Triple<ChallengeDTO, List<WorkoutDTO>, InstructorDTO>, ChallengeBO> {
 
-    override fun mapInToOut(input: Pair<ChallengeDTO, List<WorkoutDTO>>): ChallengeBO = with(input) {
+    override fun mapInToOut(input: Triple<ChallengeDTO, List<WorkoutDTO>, InstructorDTO>): ChallengeBO = with(input) {
         ChallengeBO(
             id = first.id,
             name = first.name,
             description = first.description,
-            instructorName = first.instructorName,
+            instructorName = third.name,
             workoutType = enumValueOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
             imageUrl = first.imageUrl,
             duration = first.duration,
@@ -30,17 +31,18 @@ internal class ChallengeMapper(
             language = enumValueOfOrDefault(first.language, LanguageEnum.ENGLISH),
             numberOfDays = first.numberOfDays,
             song = first.song,
+            isPremium = first.isPremium,
             weaklyPlans = first.weaklyPlans.map { weaklyPlan ->
                 ChallengeWeaklyPlansBO(
                     name = weaklyPlan.name,
                     workouts = weaklyPlan.workouts.mapNotNull {  workout ->
                         second.find { it.id == workout }
-                    }.map(workoutMapper::mapInToOut)
+                    }.map { it to third }.map(workoutMapper::mapInToOut)
                 )
             }
         )
     }
 
-    override fun mapInListToOutList(input: Iterable<Pair<ChallengeDTO, List<WorkoutDTO>>>): Iterable<ChallengeBO> =
+    override fun mapInListToOutList(input: Iterable<Triple<ChallengeDTO, List<WorkoutDTO>, InstructorDTO>>): Iterable<ChallengeBO> =
         input.map(::mapInToOut)
 }

@@ -12,7 +12,7 @@ internal class ChallengeRemoteMapper: IOneSideMapper<Map<String, Any?>, Challeng
         const val UID_KEY = "uid"
         const val NAME_KEY = "name"
         const val DESCRIPTION_KEY = "description"
-        const val INSTRUCTOR_NAME_KEY = "instructorName"
+        const val INSTRUCTOR_KEY = "instructor"
         const val WORKOUT_TYPE_KEY = "workoutType"
         const val IMAGE_URL_KEY = "imageUrl"
         const val DURATION_KEY = "duration"
@@ -20,6 +20,7 @@ internal class ChallengeRemoteMapper: IOneSideMapper<Map<String, Any?>, Challeng
         const val INTENSITY_KEY = "intensity"
         const val RELEASE_DATE_KEY = "releasedDate"
         const val SONG_KEY = "songId"
+        const val IS_PREMIUM_KEY = "isPremium"
         const val LANGUAGE_KEY = "language"
         const val CATEGORY_KEY = "category"
         const val NUMBER_OF_DAYS_KEY = "numberOfDays"
@@ -31,13 +32,14 @@ internal class ChallengeRemoteMapper: IOneSideMapper<Map<String, Any?>, Challeng
             id = get(UID_KEY) as String,
             name = get(NAME_KEY) as String,
             description = get(DESCRIPTION_KEY) as String,
-            instructorName = get(INSTRUCTOR_NAME_KEY) as String,
+            instructor = get(INSTRUCTOR_KEY) as String,
             workoutType = get(WORKOUT_TYPE_KEY) as String,
             imageUrl = get(IMAGE_URL_KEY) as String,
             duration = get(DURATION_KEY) as String,
             videoUrl = get(VIDEO_URL_KEY) as String,
             intensity = get(INTENSITY_KEY) as String,
             releasedDate = Date(),
+            isPremium = get(IS_PREMIUM_KEY) as Boolean,
             language = get(LANGUAGE_KEY) as String,
             category = get(CATEGORY_KEY) as String,
             song = get(SONG_KEY) as String,
