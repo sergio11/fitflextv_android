@@ -4,6 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSource
+import com.dreamsoftware.fitflextv.data.remote.datasource.IInstructorsRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IRoutineRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ISeriesRemoteDataSource
@@ -16,6 +17,7 @@ import com.dreamsoftware.fitflextv.data.remote.datasource.impl.AuthRemoteDataSou
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.CategoryRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.ChallengesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.FavoritesRemoteDataSourceImpl
+import com.dreamsoftware.fitflextv.data.remote.datasource.impl.InstructorsRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.ProfilesRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.RoutineRemoteDataSourceImpl
 import com.dreamsoftware.fitflextv.data.remote.datasource.impl.SeriesRemoteDataSourceImpl
@@ -34,6 +36,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.AuthUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.CategoryDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ChallengeDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.FavoriteTrainingDTO
+import com.dreamsoftware.fitflextv.data.remote.dto.response.InstructorDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.RoutineDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.SeriesDTO
@@ -49,6 +52,7 @@ import com.dreamsoftware.fitflextv.data.remote.mapper.ChallengeRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateProfileRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.CreateUserRequestRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.FavoriteTrainingRemoteMapper
+import com.dreamsoftware.fitflextv.data.remote.mapper.InstructorRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.ProfileRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.RoutineRemoteMapper
 import com.dreamsoftware.fitflextv.data.remote.mapper.SeriesRemoteMapper
@@ -224,6 +228,14 @@ class RemoteDataSourceModule {
     fun provideTrainingSongRemoteMapper(): IOneSideMapper<Map<String, Any?>, TrainingSongDTO> = TrainingSongRemoteMapper()
 
     /**
+     * Provides a singleton instance of InstructorRemoteMapper.
+     * @return a new instance of InstructorRemoteMapper.
+     */
+    @Provides
+    @Singleton
+    fun provideInstructorRemoteMapper(): IOneSideMapper<Map<String, Any?>, InstructorDTO> = InstructorRemoteMapper()
+
+    /**
      * Provides a singleton instance of FirebaseAuth.
      * @return the default instance of FirebaseAuth.
      */
@@ -396,6 +408,18 @@ class RemoteDataSourceModule {
     ): ITrainingSongsRemoteDataSource = TrainingSongsRemoteDataSourceImpl(
         firebaseStore,
         trainingSongsMapper,
+        dispatcher
+    )
+
+    @Provides
+    @Singleton
+    fun provideInstructorsRemoteDataSource(
+        firebaseStore: FirebaseFirestore,
+        instructorMapper: IOneSideMapper<Map<String, Any?>, InstructorDTO>,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): IInstructorsRemoteDataSource = InstructorsRemoteDataSourceImpl(
+        firebaseStore,
+        instructorMapper,
         dispatcher
     )
 }
