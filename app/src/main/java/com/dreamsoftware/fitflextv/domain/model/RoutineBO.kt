@@ -13,6 +13,7 @@ data class RoutineBO(
     override val videoUrl: String,
     override val intensity: IntensityEnum,
     override val releasedDate: Date,
+    override val isPremium: Boolean,
     override val song: String,
     override val language: LanguageEnum
 ) : ITrainingProgramBO

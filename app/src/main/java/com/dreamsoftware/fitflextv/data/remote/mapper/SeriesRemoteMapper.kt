@@ -10,7 +10,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
         const val UID_KEY = "uid"
         const val NAME_KEY = "name"
         const val DESCRIPTION_KEY = "description"
-        const val INSTRUCTOR_NAME_KEY = "instructorName"
+        const val INSTRUCTOR_KEY = "instructor"
         const val WORKOUT_TYPE_KEY = "workoutType"
         const val IMAGE_URL_KEY = "imageUrl"
         const val NUMBER_OF_WEEKS = "numberOfWeeks"
@@ -22,6 +22,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
         const val LANGUAGE_KEY = "language"
         const val SONG_KEY = "songId"
         const val CATEGORY_KEY = "category"
+        const val IS_PREMIUM_KEY = "isPremium"
     }
 
     override fun mapInToOut(input: Map<String, Any?>): SeriesDTO = with(input) {
@@ -29,7 +30,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
             id = get(UID_KEY) as String,
             name = get(NAME_KEY) as String,
             description = get(DESCRIPTION_KEY) as String,
-            instructorName = get(INSTRUCTOR_NAME_KEY) as String,
+            instructor = get(INSTRUCTOR_KEY) as String,
             workoutType = get(WORKOUT_TYPE_KEY) as String,
             imageUrl = get(IMAGE_URL_KEY) as String,
             numberOfWeeks = get(NUMBER_OF_WEEKS) as Long,
@@ -37,6 +38,7 @@ internal class SeriesRemoteMapper: IOneSideMapper<Map<String, Any?>, SeriesDTO> 
             duration = get(DURATION) as String,
             videoUrl = get(VIDEO_URL_KEY) as String,
             intensity = get(INTENSITY_KEY) as String,
+            isPremium = get(IS_PREMIUM_KEY) as Boolean,
             releasedDate = Date(),
             language = get(LANGUAGE_KEY) as String,
             song = get(SONG_KEY) as String,

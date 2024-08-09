@@ -99,7 +99,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRoutineMapper(): IOneSideMapper<RoutineDTO, RoutineBO> = RoutineMapper()
+    fun provideRoutineMapper(): IOneSideMapper<Pair<RoutineDTO, InstructorDTO>, RoutineBO> = RoutineMapper()
 
     @Provides
     @Singleton
@@ -107,17 +107,17 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideSeriesMapper(): IOneSideMapper<SeriesDTO, SeriesBO> = SeriesMapper()
+    fun provideSeriesMapper(): IOneSideMapper<Pair<SeriesDTO, InstructorDTO>, SeriesBO> = SeriesMapper()
 
     @Provides
     @Singleton
-    fun provideWorkoutMapper(): IOneSideMapper<WorkoutDTO, WorkoutBO> = WorkoutMapper()
+    fun provideWorkoutMapper(): IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, WorkoutBO> = WorkoutMapper()
 
     @Provides
     @Singleton
     fun provideChallengeMapper(
-        workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>
-    ): IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO> = ChallengeMapper(workoutMapper)
+        workoutMapper: IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, WorkoutBO>
+    ): IOneSideMapper<Triple<ChallengeDTO, List<WorkoutDTO>, InstructorDTO>, ChallengeBO> = ChallengeMapper(workoutMapper)
 
     @Provides
     @Singleton
@@ -197,12 +197,13 @@ class RepositoryModule {
         seriesRemoteDataSource: ISeriesRemoteDataSource,
         challengesRemoteDataSource: IChallengesRemoteDataSource,
         favoritesRemoteDataSource: IFavoritesRemoteDataSource,
-        routineMapper: IOneSideMapper<RoutineDTO, RoutineBO>,
-        workoutMapper: IOneSideMapper<WorkoutDTO, WorkoutBO>,
-        seriesMapper: IOneSideMapper<SeriesDTO, SeriesBO>,
+        instructorRemoteDataSource: IInstructorsRemoteDataSource,
+        routineMapper: IOneSideMapper<Pair<RoutineDTO, InstructorDTO>, RoutineBO>,
+        workoutMapper: IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, WorkoutBO>,
+        seriesMapper: IOneSideMapper<Pair<SeriesDTO, InstructorDTO>, SeriesBO>,
         addFavoriteMapper: IOneSideMapper<AddFavoriteTrainingBO, AddFavoriteTrainingDTO>,
-        challengesMapper: IOneSideMapper<Pair<ChallengeDTO, List<WorkoutDTO>>, ChallengeBO>,
         trainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, TrainingFilterDTO>,
+        challengesMapper: IOneSideMapper<Triple<ChallengeDTO, List<WorkoutDTO>, InstructorDTO>, ChallengeBO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ITrainingRepository =
         TrainingRepositoryImpl(
@@ -211,6 +212,7 @@ class RepositoryModule {
             seriesRemoteDataSource,
             challengesRemoteDataSource,
             favoritesRemoteDataSource,
+            instructorRemoteDataSource,
             routineMapper,
             workoutMapper,
             seriesMapper,

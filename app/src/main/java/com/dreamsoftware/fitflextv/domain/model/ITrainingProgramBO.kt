@@ -11,6 +11,7 @@ interface ITrainingProgramBO {
     val imageUrl: String
     val intensity: IntensityEnum
     val releasedDate: Date
+    val isPremium: Boolean
     val language: LanguageEnum
     val videoUrl: String
     val song: String
