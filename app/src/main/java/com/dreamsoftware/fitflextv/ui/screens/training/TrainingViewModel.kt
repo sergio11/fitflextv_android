@@ -4,6 +4,7 @@ import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.di.FavoritesScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
+import com.dreamsoftware.fitflextv.domain.model.InstructorBO
 import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
@@ -228,8 +229,8 @@ class TrainingViewModel @Inject constructor(
         )
     }
 
-    private fun onGetInstructorsSuccessfully(instructorList: List<String>) {
-        instructor = instructorList.first()
+    private fun onGetInstructorsSuccessfully(instructorList: List<InstructorBO>) {
+        instructor = instructorList.first().name
         updateState {
             it.copy(
                 instructorList = instructorList,
@@ -256,7 +257,7 @@ data class TrainingUiState(
     val isFilterExpended: Boolean = false,
     val isFieldFilterSelected: Boolean = false,
     val isSortExpended: Boolean = false,
-    val instructorList: List<String> = emptyList(),
+    val instructorList: List<InstructorBO> = emptyList(),
     val trainingPrograms: List<ITrainingProgramBO> = emptyList(),
     val filterItems: List<TrainingFilterVO> = emptyList(),
     val selectedSortItem: Int = 0,
