@@ -27,6 +27,10 @@ class RemoveUserSubscriptionException(message: String? = null, cause: Throwable?
 class FetchCategoriesException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchCategoryByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 
+// Instructors
+class FetchInstructorsException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class FetchInstructorByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+
 // Songs
 class FetchTrainingSongsByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 
