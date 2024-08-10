@@ -49,8 +49,8 @@ internal class UserSubscriptionsRemoteDataSourceImpl(
             .document(userId)
             .get()
             .await()
-        document.takeIf { it.exists() }?.getLong(VALID_UNTIL_KEY)?.let { validUntil ->
-            validUntil > System.currentTimeMillis()
+        document.takeIf { it.exists() }?.getTimestamp(VALID_UNTIL_KEY)?.let { validUntil ->
+            validUntil.toDate().time > System.currentTimeMillis()
         } ?: false
     } catch (ex: Exception) {
         throw VerifyHasActiveSubscriptionRemoteException(
