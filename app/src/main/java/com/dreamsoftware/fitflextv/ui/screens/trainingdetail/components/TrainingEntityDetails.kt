@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,10 +22,11 @@ import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.Icon
 import androidx.tv.material3.IconButton
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.OutlinedButton
-import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
@@ -46,93 +48,72 @@ fun TrainingEntityDetails(
             TrainingTypeEnum.CHALLENGES -> 24.dp
             else -> 80.dp
         }
-        CommonFocusRequester { requester ->
-            Column(
-                modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    CommonText(
-                        titleText = subtitle,
-                        type =  CommonTextTypeEnum.BODY_SMALL,
-                        textColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    CommonText(
-                        titleText = title,
-                        type = CommonTextTypeEnum.HEADLINE_LARGE,
-                        textColor = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-                CommonText(
-                    modifier = Modifier.width(descriptionWidth),
-                    titleText = description,
-                    type = CommonTextTypeEnum.BODY_LARGE,
-                    maxLines = 2,
-                    textColor = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Row(horizontalArrangement = Arrangement.spacedBy(48.dp)) {
-                    itemsInfo.forEach { item ->
-                        TrainingInfo(
-                            info = item.info,
-                            labelRes = item.labelRes
+        with(MaterialTheme.colorScheme) {
+            CommonFocusRequester { requester ->
+                Column(
+                    modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        CommonText(
+                            titleText = subtitle,
+                            type =  CommonTextTypeEnum.BODY_SMALL,
+                            textColor = onSurfaceVariant
+                        )
+                        CommonText(
+                            titleText = title,
+                            type = CommonTextTypeEnum.HEADLINE_LARGE,
+                            textColor = onSurface,
+                            textBold = true
                         )
                     }
+                    CommonText(
+                        modifier = Modifier.width(descriptionWidth),
+                        titleText = description,
+                        type = CommonTextTypeEnum.BODY_LARGE,
+                        maxLines = 2,
+                        textColor = onSurfaceVariant
+                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(48.dp)) {
+                        itemsInfo.forEach { item ->
+                            TrainingInfo(
+                                info = item.info,
+                                labelRes = item.labelRes
+                            )
+                        }
+                    }
+                    Row(
+                        modifier = Modifier.padding(top = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CommonButton(
+                            modifier = Modifier.focusRequester(requester),
+                            type = CommonButtonTypeEnum.LARGE,
+                            style = CommonButtonStyleTypeEnum.NORMAL,
+                            textRes = trainingType.getStartButtonID(),
+                            onClick = onStartTrainingClicked
+                        )
+                        CommonButton(
+                            type = CommonButtonTypeEnum.LARGE,
+                            style = CommonButtonStyleTypeEnum.INVERSE,
+                            textRes = R.string.more_info,
+                            onClick = onMoreInfoClicked
+                        )
+                        FavouriteButton(
+                            isFavorite = isFavorite,
+                            onClick = onTrainingFavoriteClicked
+                        )
+                    }
+                    if (isChallenges)
+                        ChallengesPlanButton(
+                            modifier = Modifier.padding(top = 16.dp),
+                            subtitle = stringResource(R.string.weekly_plan),
+                            iconId = R.drawable.down_arrow_head_icon,
+                            onClick = onChallengesPlanClicked
+                        )
                 }
-                Row(
-                    modifier = Modifier.padding(top = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    TrainingDetailsButton(
-                        modifier = Modifier.focusRequester(requester),
-                        iconId = R.drawable.play_icon,
-                        textId = trainingType.getStartButtonID(),
-                        onClick = onStartTrainingClicked
-                    )
-                    TrainingDetailsButton(
-                        iconId = R.drawable.ic_info,
-                        textId = R.string.more_info,
-                        onClick = onMoreInfoClicked
-                    )
-                    FavouriteButton(
-                        isFavorite = isFavorite,
-                        onClick = onTrainingFavoriteClicked
-                    )
-
-                }
-                if (isChallenges)
-                    ChallengesPlanButton(
-                        modifier = Modifier.padding(top = 16.dp),
-                        subtitle = stringResource(R.string.weekly_plan),
-                        iconId = R.drawable.down_arrow_head_icon,
-                        onClick = onChallengesPlanClicked
-                    )
             }
-        }
-    }
-}
-
-@Composable
-private fun TrainingDetailsButton(
-    modifier: Modifier = Modifier,
-    iconId: Int,
-    textId: Int,
-    onClick: () -> Unit
-) {
-    OutlinedButton(
-        modifier = modifier,
-        onClick = onClick,
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp)
-        ) {
-            Icon(
-                painter = painterResource(iconId),
-                contentDescription = null,
-            )
-            Text(
-                text = stringResource(textId)
-            )
         }
     }
 }
@@ -147,6 +128,7 @@ private fun TrainingInfo(
             CommonText(
                 type = CommonTextTypeEnum.BODY_LARGE,
                 titleText = info,
+                textBold = true,
                 textColor = onBackground
             )
             CommonText(
@@ -162,6 +144,7 @@ private fun TrainingInfo(
 private fun FavouriteButton(isFavorite: Boolean, onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
+        modifier = Modifier.size(50.dp),
         colors = ButtonDefaults.colors(containerColor = Color.Transparent),
         border = ButtonDefaults.border(
             border = Border(
