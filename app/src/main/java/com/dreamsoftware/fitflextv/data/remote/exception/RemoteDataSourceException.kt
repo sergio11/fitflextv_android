@@ -48,6 +48,13 @@ class AddUserSubscriptionRemoteException(message: String? = null, cause: Throwab
 class RemoveUserSubscriptionRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class VerifyHasActiveSubscriptionRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 
+// Trainings
+class FetchTrainingsRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class FetchTrainingByIdRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class FetchTrainingByCategoryRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class FetchFeaturedTrainingsRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+class FetchRecommendedTrainingsRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
+
 // Workout
 class FetchWorkoutsRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
 class FetchWorkoutByIdRemoteException(message: String? = null, cause: Throwable? = null): RemoteDataSourceException(message, cause)
