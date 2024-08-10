@@ -52,3 +52,4 @@ class VerifySessionException(message: String? = null, cause: Throwable? = null):
 class GetUserDetailException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetUserAuthenticatedUidException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class UpdateUserDetailException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
+class GetUserPreferencesException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)

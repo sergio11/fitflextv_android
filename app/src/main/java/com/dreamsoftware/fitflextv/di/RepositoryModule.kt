@@ -1,7 +1,9 @@
 package com.dreamsoftware.fitflextv.di
 
 import com.dreamsoftware.fitflextv.data.preferences.datasource.IProfileSessionDataSource
+import com.dreamsoftware.fitflextv.data.preferences.datasource.IUserPreferencesDataSource
 import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenceDTO
+import com.dreamsoftware.fitflextv.data.preferences.dto.UserPreferencesDTO
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.ICategoryRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IChallengesRemoteDataSource
@@ -57,6 +59,7 @@ import com.dreamsoftware.fitflextv.data.repository.mapper.TrainingSongMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdateProfileRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UpdatedUserRequestMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UserDetailMapper
+import com.dreamsoftware.fitflextv.data.repository.mapper.UserPreferencesMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.UserSubscriptionMapper
 import com.dreamsoftware.fitflextv.data.repository.mapper.WorkoutMapper
 import com.dreamsoftware.fitflextv.domain.model.AddFavoriteTrainingBO
@@ -75,6 +78,7 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingSongBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
+import com.dreamsoftware.fitflextv.domain.model.UserPreferenceBO
 import com.dreamsoftware.fitflextv.domain.model.UserSubscriptionBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
@@ -177,6 +181,10 @@ class RepositoryModule {
 
     @Provides
     @Singleton
+    fun provideUserPreferencesMapper(): IMapper<UserPreferencesDTO, UserPreferenceBO> = UserPreferencesMapper()
+
+    @Provides
+    @Singleton
     fun provideInstructorRepository(
         instructorsRemoteDataSource: IInstructorsRemoteDataSource,
         instructorMapper: IOneSideMapper<InstructorDTO, InstructorBO>,
@@ -227,15 +235,19 @@ class RepositoryModule {
     fun provideUserRepository(
         userRemoteDataSource: IUserRemoteDataSource,
         authRemoteDataSource: IAuthRemoteDataSource,
+        userPreferencesDataSource: IUserPreferencesDataSource,
         userDetailMapper: IOneSideMapper<UserResponseDTO, UserDetailBO>,
         updatedUserRequestMapper: IOneSideMapper<UpdatedUserRequestBO, UpdatedUserRequestDTO>,
+        userPreferencesMapper: IMapper<UserPreferencesDTO, UserPreferenceBO>,
         createUserMapper: IOneSideMapper<SignUpBO, CreateUserDTO>,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): IUserRepository =
         UserRepositoryImpl(
             userRemoteDataSource,
             authRemoteDataSource,
+            userPreferencesDataSource,
             userDetailMapper,
+            userPreferencesMapper,
             updatedUserRequestMapper,
             createUserMapper,
             dispatcher
