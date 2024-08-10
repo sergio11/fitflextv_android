@@ -18,7 +18,10 @@ fun SettingsScreen(
                 SettingsSideEffects.OpenSubscriptions -> onGoToSubscriptions()
             }
         },
-        onInitialUiState = { SettingsUiState() }
+        onInitialUiState = { SettingsUiState() },
+        onInit = {
+            fetchData()
+        }
     ) { uiState ->
         SettingsScreenContent(
             uiState = uiState,

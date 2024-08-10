@@ -10,7 +10,7 @@ import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
-import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
+import com.dreamsoftware.fitflextv.utils.enumNameOfOrDefault
 
 internal class ChallengeMapper(
     private val workoutMapper: IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, WorkoutBO>
@@ -22,13 +22,13 @@ internal class ChallengeMapper(
             name = first.name,
             description = first.description,
             instructorName = third.name,
-            workoutType = enumValueOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
+            workoutType = enumNameOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
             imageUrl = first.imageUrl,
             duration = first.duration,
             videoUrl = first.videoUrl,
-            intensity = enumValueOfOrDefault(first.intensity, IntensityEnum.EASY),
+            intensity = enumNameOfOrDefault(first.intensity, IntensityEnum.EASY),
             releasedDate = first.releasedDate,
-            language = enumValueOfOrDefault(first.language, LanguageEnum.ENGLISH),
+            language = enumNameOfOrDefault(first.language, LanguageEnum.ENGLISH),
             numberOfDays = first.numberOfDays,
             song = first.song,
             isPremium = first.isPremium,

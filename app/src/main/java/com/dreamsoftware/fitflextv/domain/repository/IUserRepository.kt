@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.domain.repository
 import com.dreamsoftware.fitflextv.domain.exception.GetUserAuthenticatedUidException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserDetailException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserPreferencesException
+import com.dreamsoftware.fitflextv.domain.exception.SaveUserPreferencesException
 import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
@@ -37,6 +38,9 @@ interface IUserRepository {
 
     @Throws(UpdateUserDetailException::class)
     suspend fun updateDetail(data: UpdatedUserRequestBO): UserDetailBO
+
+    @Throws(SaveUserPreferencesException::class)
+    suspend fun saveUserPreferences(data: UserPreferenceBO)
 
     @Throws(GetUserPreferencesException::class)
     suspend fun getUserPreferences(): UserPreferenceBO

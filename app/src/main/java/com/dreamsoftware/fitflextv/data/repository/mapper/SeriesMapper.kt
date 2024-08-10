@@ -7,7 +7,7 @@ import com.dreamsoftware.fitflextv.domain.model.LanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.SeriesBO
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
-import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
+import com.dreamsoftware.fitflextv.utils.enumNameOfOrDefault
 
 internal class SeriesMapper : IOneSideMapper<Pair<SeriesDTO, InstructorDTO>, SeriesBO> {
 
@@ -17,17 +17,17 @@ internal class SeriesMapper : IOneSideMapper<Pair<SeriesDTO, InstructorDTO>, Ser
             name = first.name,
             description = first.description,
             instructorName = second.name,
-            workoutType = enumValueOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
+            workoutType = enumNameOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
             imageUrl = first.imageUrl,
             numberOfWeeks = first.numberOfWeeks,
             numberOfClasses = first.numberOfClasses,
             duration = first.duration,
             videoUrl = first.videoUrl,
-            intensity = enumValueOfOrDefault(first.intensity, IntensityEnum.EASY),
+            intensity = enumNameOfOrDefault(first.intensity, IntensityEnum.EASY),
             releasedDate = first.releasedDate,
             song = first.song,
             isPremium = first.isPremium,
-            language = enumValueOfOrDefault(first.language, LanguageEnum.ENGLISH)
+            language = enumNameOfOrDefault(first.language, LanguageEnum.ENGLISH)
         )
     }
 

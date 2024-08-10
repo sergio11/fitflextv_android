@@ -37,6 +37,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.HasActiveSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.HasMultiplesProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveUserSubscriptionUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.SaveUserPreferencesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
@@ -407,6 +408,15 @@ class UseCasesModule {
         userRepository: IUserRepository
     ): GetUserPreferencesUseCase =
         GetUserPreferencesUseCase(
+            userRepository = userRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideSaveUserPreferencesUseCase(
+        userRepository: IUserRepository
+    ): SaveUserPreferencesUseCase =
+        SaveUserPreferencesUseCase(
             userRepository = userRepository
         )
 }

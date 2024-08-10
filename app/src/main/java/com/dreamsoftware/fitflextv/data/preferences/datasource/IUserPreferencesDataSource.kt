@@ -1,14 +1,14 @@
 package com.dreamsoftware.fitflextv.data.preferences.datasource
 
 import com.dreamsoftware.fitflextv.data.preferences.dto.UserPreferencesDTO
-import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesException
-import com.dreamsoftware.fitflextv.data.preferences.exception.SaveUserPreferencesException
+import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesLocalException
+import com.dreamsoftware.fitflextv.data.preferences.exception.SaveUserPreferencesLocalException
 
 interface IUserPreferencesDataSource {
 
-    @Throws(SaveUserPreferencesException::class)
+    @Throws(SaveUserPreferencesLocalException::class)
     suspend fun save(data: UserPreferencesDTO)
 
-    @Throws(FetchUserPreferencesException::class)
+    @Throws(FetchUserPreferencesLocalException::class)
     suspend fun get(): UserPreferencesDTO
 }
