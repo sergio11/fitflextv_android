@@ -6,8 +6,8 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.dreamsoftware.fitflextv.data.preferences.datasource.IUserPreferencesDataSource
 import com.dreamsoftware.fitflextv.data.preferences.dto.UserPreferencesDTO
-import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesException
-import com.dreamsoftware.fitflextv.data.preferences.exception.SaveUserPreferencesException
+import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesLocalException
+import com.dreamsoftware.fitflextv.data.preferences.exception.SaveUserPreferencesLocalException
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
@@ -25,7 +25,7 @@ internal class UserPreferencesDataSourceImpl(
         moshi.adapter(UserPreferencesDTO::class.java)
     }
 
-    @Throws(SaveUserPreferencesException::class)
+    @Throws(SaveUserPreferencesLocalException::class)
     override suspend fun save(data: UserPreferencesDTO) {
         val dataStoreKey = stringPreferencesKey(USER_PREFERENCES_KEY)
         dataStore.edit { pref ->
@@ -33,11 +33,11 @@ internal class UserPreferencesDataSourceImpl(
         }
     }
 
-    @Throws(FetchUserPreferencesException::class)
+    @Throws(FetchUserPreferencesLocalException::class)
     override suspend fun get(): UserPreferencesDTO {
         val dataStoreKey = stringPreferencesKey(USER_PREFERENCES_KEY)
         return dataStore.data
             .map { pref -> pref[dataStoreKey]?.let(userPreferencesPreferenceAdapter::fromJson) }
-            .firstOrNull() ?: throw FetchUserPreferencesException("user preferences not found")
+            .firstOrNull() ?: throw FetchUserPreferencesLocalException("user preferences not found")
     }
 }

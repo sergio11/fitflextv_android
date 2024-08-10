@@ -77,7 +77,7 @@ fun SettingsScreenContent(
                         textColor = onSurface,
                         modifier = Modifier.padding(top = 64.dp, start = 32.dp)
                     )
-                    CommonFocusRequester { focusRequester ->
+                    CommonFocusRequester(uiState) { focusRequester ->
                         TvLazyColumn(
                             modifier = Modifier.fillMaxWidth(),
                             contentPadding = PaddingValues(32.dp),

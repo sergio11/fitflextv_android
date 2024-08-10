@@ -2,7 +2,8 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.preferences.datasource.IUserPreferencesDataSource
 import com.dreamsoftware.fitflextv.data.preferences.dto.UserPreferencesDTO
-import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesException
+import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesLocalException
+import com.dreamsoftware.fitflextv.data.preferences.exception.SaveUserPreferencesLocalException
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
@@ -18,6 +19,7 @@ import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryIm
 import com.dreamsoftware.fitflextv.domain.exception.GetUserAuthenticatedUidException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserDetailException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserPreferencesException
+import com.dreamsoftware.fitflextv.domain.exception.SaveUserPreferencesException
 import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
@@ -113,12 +115,21 @@ internal class UserRepositoryImpl(
         }
     }
 
+    @Throws(SaveUserPreferencesException::class)
+    override suspend fun saveUserPreferences(data: UserPreferenceBO): Unit = safeExecute {
+        try {
+            userPreferencesDataSource.save(userPreferencesMapper.mapOutToIn(data))
+        } catch (ex: SaveUserPreferencesLocalException) {
+            throw SaveUserPreferencesException("An error occurred when trying to save user preferences", ex)
+        }
+    }
+
     @Throws(GetUserPreferencesException::class)
     override suspend fun getUserPreferences(): UserPreferenceBO = safeExecute {
         try {
             userPreferencesDataSource.get()
                 .let(userPreferencesMapper::mapInToOut)
-        } catch (ex: FetchUserPreferencesException) {
+        } catch (ex: FetchUserPreferencesLocalException) {
             throw GetUserPreferencesException("An error occurred when trying to fetch user preferences", ex)
         }
     }

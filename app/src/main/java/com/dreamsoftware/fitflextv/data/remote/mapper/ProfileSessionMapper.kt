@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenc
 import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.utils.IMapper
-import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
+import com.dreamsoftware.fitflextv.utils.enumNameOfOrDefault
 
 internal class ProfileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenceDTO> {
 
@@ -25,7 +25,7 @@ internal class ProfileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenc
             uuid = uuid,
             alias = alias,
             isSecured = isSecured,
-            avatarType = enumValueOfOrDefault(type, AvatarTypeEnum.BOY)
+            avatarType = enumNameOfOrDefault(type, AvatarTypeEnum.BOY)
         )
     }
 

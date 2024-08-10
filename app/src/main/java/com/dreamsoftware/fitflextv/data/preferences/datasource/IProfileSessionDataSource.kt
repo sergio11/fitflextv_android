@@ -1,8 +1,8 @@
 package com.dreamsoftware.fitflextv.data.preferences.datasource
 
 import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenceDTO
-import com.dreamsoftware.fitflextv.data.preferences.exception.FetchProfileSelectedPreferenceException
-import com.dreamsoftware.fitflextv.data.preferences.exception.SaveProfileSelectedPreferenceException
+import com.dreamsoftware.fitflextv.data.preferences.exception.FetchProfileSelectedPreferenceLocalException
+import com.dreamsoftware.fitflextv.data.preferences.exception.SaveProfileSelectedPreferenceLocalException
 import kotlin.jvm.Throws
 
 /**
@@ -14,13 +14,13 @@ interface IProfileSessionDataSource {
      * Saves the selected profile preference.
      * @param profile The profile selected preference DTO to be saved.
      */
-    @Throws(SaveProfileSelectedPreferenceException::class)
+    @Throws(SaveProfileSelectedPreferenceLocalException::class)
     suspend fun save(profile: ProfileSelectedPreferenceDTO)
 
     /**
      * Retrieves the selected profile preference.
      * @return The retrieved profile selected preference DTO.
      */
-    @Throws(FetchProfileSelectedPreferenceException::class)
+    @Throws(FetchProfileSelectedPreferenceLocalException::class)
     suspend fun get(): ProfileSelectedPreferenceDTO
 }

@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import com.dreamsoftware.fitflextv.data.preferences.datasource.IProfileSessionDataSource
 import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenceDTO
-import com.dreamsoftware.fitflextv.data.preferences.exception.FetchProfileSelectedPreferenceException
-import com.dreamsoftware.fitflextv.data.preferences.exception.SaveProfileSelectedPreferenceException
+import com.dreamsoftware.fitflextv.data.preferences.exception.FetchProfileSelectedPreferenceLocalException
+import com.dreamsoftware.fitflextv.data.preferences.exception.SaveProfileSelectedPreferenceLocalException
 import kotlin.jvm.Throws
 
 /**
@@ -35,7 +35,7 @@ internal class ProfileSessionDataSourceImpl(
      * Saves the selected profile preference.
      * @param profile The profile selected preference DTO to be saved.
      */
-    @Throws(SaveProfileSelectedPreferenceException::class)
+    @Throws(SaveProfileSelectedPreferenceLocalException::class)
     override suspend fun save(profile: ProfileSelectedPreferenceDTO) {
         val dataStoreKey = stringPreferencesKey(PROFILE_SELECTED_KEY)
         dataStore.edit { pref ->
@@ -47,11 +47,11 @@ internal class ProfileSessionDataSourceImpl(
      * Retrieves the selected profile preference.
      * @return The retrieved profile selected preference DTO.
      */
-    @Throws(FetchProfileSelectedPreferenceException::class)
+    @Throws(FetchProfileSelectedPreferenceLocalException::class)
     override suspend fun get(): ProfileSelectedPreferenceDTO {
         val dataStoreKey = stringPreferencesKey(PROFILE_SELECTED_KEY)
         return dataStore.data
             .map { pref -> pref[dataStoreKey]?.let(profileSelectedPreferenceAdapter::fromJson) }
-            .firstOrNull() ?: throw FetchProfileSelectedPreferenceException("profile not found")
+            .firstOrNull() ?: throw FetchProfileSelectedPreferenceLocalException("profile not found")
     }
 }

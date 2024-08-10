@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
-import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
+import com.dreamsoftware.fitflextv.utils.enumNameOfOrDefault
 
 internal class ProfileMapper : IOneSideMapper<ProfileDTO, ProfileBO> {
 
@@ -13,7 +13,7 @@ internal class ProfileMapper : IOneSideMapper<ProfileDTO, ProfileBO> {
             uuid = uuid,
             alias = alias,
             isSecured = isSecured,
-            avatarType = enumValueOfOrDefault(avatarType, AvatarTypeEnum.BOY)
+            avatarType = enumNameOfOrDefault(avatarType, AvatarTypeEnum.BOY)
         )
     }
 

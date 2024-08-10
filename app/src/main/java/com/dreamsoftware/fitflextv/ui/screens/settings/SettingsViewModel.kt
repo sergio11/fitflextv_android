@@ -4,7 +4,10 @@ import androidx.annotation.StringRes
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.AppLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.UnitsEnum
+import com.dreamsoftware.fitflextv.domain.model.UserPreferenceBO
 import com.dreamsoftware.fitflextv.domain.model.VideoQualityEnum
+import com.dreamsoftware.fitflextv.domain.usecase.GetUserPreferencesUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.SaveUserPreferencesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
@@ -17,45 +20,17 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val signOffUseCase: SignOffUseCase,
-    private val appEventBus: AppEventBus
+    private val appEventBus: AppEventBus,
+    private val getUserPreferencesUseCase: GetUserPreferencesUseCase,
+    private val saveUserPreferencesUseCase: SaveUserPreferencesUseCase
 ) : BaseViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
 
+    fun fetchData() {
+        executeUseCase(useCase = getUserPreferencesUseCase, onSuccess = ::onFetchUserPreferencesCompleted)
+    }
+
     override fun onGetDefaultState(): SettingsUiState = SettingsUiState(
-        settingList = listOf(
-            ISettingItemVO.SettingHeaderVO(titleRes = R.string.app_settings),
-            ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
-                titleRes = R.string.settings_units_preference_title,
-                value = "Imperial",
-                possibleValues = UnitsEnum.entries.map { it.value }
-            ),
-            ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
-                titleRes = R.string.settings_language_title,
-                value = "English (US)",
-                possibleValues = AppLanguageEnum.entries.map { it.value }
-            ),
-            ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
-                titleRes = R.string.settings_video_resolution_title,
-                value = "Automatic up to 4k",
-                possibleValues = VideoQualityEnum.entries.map { it.value }
-            ),
-            ISettingItemVO.SettingHeaderVO(titleRes = R.string.about_settings),
-            ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
-                titleRes = R.string.settings_about_app_title,
-                valueRes = R.string.settings_about_app_content
-            ),
-            ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
-                titleRes = R.string.settings_about_me_title,
-                valueRes = R.string.settings_about_me_content
-            ),
-            ISettingItemVO.SettingActionVO(
-                titleRes = R.string.settings_close_session_title,
-                type = SettingActionTypeEnum.SIGN_OFF
-            ),
-            ISettingItemVO.SettingActionVO(
-                titleRes = R.string.settings_subscriptions_title,
-                type = SettingActionTypeEnum.SUBSCRIPTIONS
-            )
-        )
+        settingList = onBuildSettingsList()
     )
 
     override fun onSettingValueChanged(value: String) {
@@ -73,6 +48,7 @@ class SettingsViewModel @Inject constructor(
                     settingSelected = null
                 )
             }
+            onSaveUserPreferences()
         }
     }
 
@@ -115,6 +91,63 @@ class SettingsViewModel @Inject constructor(
     private fun onOpenSubscriptions() {
         launchSideEffect(SettingsSideEffects.OpenSubscriptions)
     }
+
+    private fun onFetchUserPreferencesCompleted(userPreferences: UserPreferenceBO) {
+        updateState { it.copy(settingList = onBuildSettingsList(userPreferences)) }
+    }
+
+    private fun onSaveUserPreferences() {
+        uiState.value.settingList.filterIsInstance<ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO>()
+            .let { settings ->
+                executeUseCaseWithParams(
+                    useCase = saveUserPreferencesUseCase,
+                    params = SaveUserPreferencesUseCase.Params(
+                        units = settings.find { it.type == SettingTypeEnum.UNITS }?.value.orEmpty(),
+                        language = settings.find { it.type == SettingTypeEnum.APP_LANGUAGE }?.value.orEmpty(),
+                        videoQuality = settings.find { it.type == SettingTypeEnum.VIDEO_QUALITY }?.value.orEmpty()
+                    )
+                )
+            }
+    }
+
+    private fun onBuildSettingsList(userPreferences: UserPreferenceBO? = null) = listOf(
+        ISettingItemVO.SettingHeaderVO(titleRes = R.string.app_settings),
+        ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
+            titleRes = R.string.settings_units_preference_title,
+            value = userPreferences?.units?.value ?: UnitsEnum.METRIC.value,
+            type = SettingTypeEnum.UNITS,
+            possibleValues = UnitsEnum.entries.map { it.value }
+        ),
+        ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
+            titleRes = R.string.settings_language_title,
+            value = userPreferences?.language?.value ?: AppLanguageEnum.ENGLISH.value,
+            type = SettingTypeEnum.APP_LANGUAGE,
+            possibleValues = AppLanguageEnum.entries.map { it.value }
+        ),
+        ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO(
+            titleRes = R.string.settings_video_resolution_title,
+            value =  userPreferences?.videoQuality?.value ?: VideoQualityEnum.FULL_HD.value,
+            type = SettingTypeEnum.VIDEO_QUALITY,
+            possibleValues = VideoQualityEnum.entries.map { it.value }
+        ),
+        ISettingItemVO.SettingHeaderVO(titleRes = R.string.about_settings),
+        ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
+            titleRes = R.string.settings_about_app_title,
+            valueRes = R.string.settings_about_app_content
+        ),
+        ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO(
+            titleRes = R.string.settings_about_me_title,
+            valueRes = R.string.settings_about_me_content
+        ),
+        ISettingItemVO.SettingActionVO(
+            titleRes = R.string.settings_close_session_title,
+            type = SettingActionTypeEnum.SIGN_OFF
+        ),
+        ISettingItemVO.SettingActionVO(
+            titleRes = R.string.settings_subscriptions_title,
+            type = SettingActionTypeEnum.SUBSCRIPTIONS
+        )
+    )
 }
 
 data class SettingsUiState(
@@ -141,6 +174,7 @@ sealed interface ISettingItemVO {
 
         data class SettingMultipleValuesVO(
             @StringRes override val titleRes: Int,
+            val type: SettingTypeEnum,
             val value: String,
             val possibleValues: List<String> = emptyList(),
         ) : ISettingValueItemVO
@@ -148,12 +182,16 @@ sealed interface ISettingItemVO {
 
     data class SettingActionVO(
         @StringRes override val titleRes: Int,
-        val type: SettingActionTypeEnum
+        val type: SettingActionTypeEnum,
     ) : ISettingItemVO
 
     data class SettingHeaderVO(
-        @StringRes override val titleRes: Int
+        @StringRes override val titleRes: Int,
     ) : ISettingItemVO
+}
+
+enum class SettingTypeEnum {
+    UNITS, APP_LANGUAGE, VIDEO_QUALITY
 }
 
 enum class SettingActionTypeEnum {

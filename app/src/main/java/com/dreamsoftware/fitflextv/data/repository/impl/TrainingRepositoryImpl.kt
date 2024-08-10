@@ -39,7 +39,7 @@ import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.dreamsoftware.fitflextv.ui.utils.parallelMap
-import com.dreamsoftware.fitflextv.utils.enumValueOfOrDefault
+import com.dreamsoftware.fitflextv.utils.enumNameOfOrDefault
 import com.dreamsoftware.fitflextv.utils.executeAsync
 import kotlinx.coroutines.CoroutineDispatcher
 
@@ -158,7 +158,7 @@ internal class TrainingRepositoryImpl(
             favoritesRemoteDataSource.getFavoritesByUser(profileId).parallelMap {
                 getTrainingById(
                     id = it.trainingId,
-                    type = enumValueOfOrDefault(it.trainingType, TrainingTypeEnum.WORK_OUT)
+                    type = enumNameOfOrDefault(it.trainingType, TrainingTypeEnum.WORK_OUT)
                 )
             }
         } catch (ex: GetFavoritesByUserRemoteException) {
