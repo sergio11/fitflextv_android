@@ -5,3 +5,7 @@ open class PreferencesDataSourceException(message: String? = null, cause: Throwa
 // Profiles
 class SaveProfileSelectedPreferenceException(message: String? = null, cause: Throwable? = null): PreferencesDataSourceException(message, cause)
 class FetchProfileSelectedPreferenceException(message: String? = null, cause: Throwable? = null): PreferencesDataSourceException(message, cause)
+
+// User preferences
+class SaveUserPreferencesException(message: String? = null, cause: Throwable? = null): PreferencesDataSourceException(message, cause)
+class FetchUserPreferencesException(message: String? = null, cause: Throwable? = null): PreferencesDataSourceException(message, cause)

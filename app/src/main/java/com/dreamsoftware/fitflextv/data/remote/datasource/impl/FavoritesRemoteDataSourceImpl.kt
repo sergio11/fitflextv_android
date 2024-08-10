@@ -6,7 +6,6 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.AddFavoriteTrainingDT
 import com.dreamsoftware.fitflextv.data.remote.dto.response.FavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.DeleteProfileRemoteException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutinesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesRemoteException
@@ -58,7 +57,7 @@ internal class FavoritesRemoteDataSourceImpl(
             mapper = { favoriteMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRoutinesRemoteException("An error occurred when trying to fetch routines", ex)
+        throw GetFavoritesByUserRemoteException("An error occurred when trying to fetch favorite trainings", ex)
     }
 
     @Throws(HasTrainingInFavoritesRemoteException::class)

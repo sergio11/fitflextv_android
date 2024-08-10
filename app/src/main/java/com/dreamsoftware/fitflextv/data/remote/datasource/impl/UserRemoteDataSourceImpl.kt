@@ -6,7 +6,6 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.fitflextv.data.remote.dto.response.UserResponseDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.CreateUserDetailRemoteException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutineByIdRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchUserDetailRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfilesCountRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateUserDetailRemoteException
@@ -16,7 +15,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import kotlin.jvm.Throws
 
 internal class UserRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
@@ -77,7 +75,7 @@ internal class UserRemoteDataSourceImpl(
             mapper = { usersMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRoutineByIdRemoteException("An error occurred when trying to fetch the users with ID $id", ex)
+        throw FetchUserDetailRemoteException("An error occurred when trying to fetch the users with ID $id", ex)
     }
 
     @Throws(UpdateProfilesCountRemoteException::class)
