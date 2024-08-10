@@ -1,5 +1,8 @@
 package com.dreamsoftware.fitflextv.data.repository.impl
 
+import com.dreamsoftware.fitflextv.data.preferences.datasource.IUserPreferencesDataSource
+import com.dreamsoftware.fitflextv.data.preferences.dto.UserPreferencesDTO
+import com.dreamsoftware.fitflextv.data.preferences.exception.FetchUserPreferencesException
 import com.dreamsoftware.fitflextv.data.remote.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateUserDTO
@@ -14,6 +17,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.UpdateUserDetailRemoteE
 import com.dreamsoftware.fitflextv.data.repository.impl.core.SupportRepositoryImpl
 import com.dreamsoftware.fitflextv.domain.exception.GetUserAuthenticatedUidException
 import com.dreamsoftware.fitflextv.domain.exception.GetUserDetailException
+import com.dreamsoftware.fitflextv.domain.exception.GetUserPreferencesException
 import com.dreamsoftware.fitflextv.domain.exception.SignInException
 import com.dreamsoftware.fitflextv.domain.exception.SignOffException
 import com.dreamsoftware.fitflextv.domain.exception.SignUpException
@@ -23,14 +27,18 @@ import com.dreamsoftware.fitflextv.domain.model.SignInBO
 import com.dreamsoftware.fitflextv.domain.model.SignUpBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
+import com.dreamsoftware.fitflextv.domain.model.UserPreferenceBO
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
+import com.dreamsoftware.fitflextv.utils.IMapper
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import kotlinx.coroutines.CoroutineDispatcher
 
 internal class UserRepositoryImpl(
     private val userRemoteDataSource: IUserRemoteDataSource,
     private val authRemoteDataSource: IAuthRemoteDataSource,
+    private val userPreferencesDataSource: IUserPreferencesDataSource,
     private val userDetailMapper: IOneSideMapper<UserResponseDTO, UserDetailBO>,
+    private val userPreferencesMapper: IMapper<UserPreferencesDTO, UserPreferenceBO>,
     private val updatedUserRequestMapper: IOneSideMapper<UpdatedUserRequestBO, UpdatedUserRequestDTO>,
     private val createUserMapper: IOneSideMapper<SignUpBO, CreateUserDTO>,
     dispatcher: CoroutineDispatcher
@@ -102,6 +110,16 @@ internal class UserRepositoryImpl(
                 .let(userDetailMapper::mapInToOut)
         } catch (ex: UpdateUserDetailRemoteException) {
             throw UpdateUserDetailException("An error occurred when trying to update user detail", ex)
+        }
+    }
+
+    @Throws(GetUserPreferencesException::class)
+    override suspend fun getUserPreferences(): UserPreferenceBO = safeExecute {
+        try {
+            userPreferencesDataSource.get()
+                .let(userPreferencesMapper::mapInToOut)
+        } catch (ex: FetchUserPreferencesException) {
+            throw GetUserPreferencesException("An error occurred when trying to fetch user preferences", ex)
         }
     }
 }
