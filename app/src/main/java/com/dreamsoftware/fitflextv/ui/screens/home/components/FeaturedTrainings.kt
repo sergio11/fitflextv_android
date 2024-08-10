@@ -38,7 +38,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.Carousel
 import androidx.tv.material3.CarouselDefaults
 import androidx.tv.material3.CarouselState
@@ -48,7 +47,9 @@ import androidx.tv.material3.ShapeDefaults
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
@@ -183,16 +184,11 @@ private fun CarouselItemForeground(
                 overflow = TextOverflow.Ellipsis,
             )
             AnimatedVisibility(visible = isCarouselFocused) {
-                CommonFillButton(
-                    onClick = onOpenTrainingProgram,
-                    text = stringResource(id = R.string.start_session),
-                    icon = R.drawable.play_icon,
-                    iconTint = inverseOnSurface,
-                    buttonColor = ButtonDefaults.colors(
-                        containerColor = inverseSurface,
-                        contentColor = inverseOnSurface,
-                        focusedContentColor = inverseOnSurface,
-                    ),
+                CommonButton(
+                    type = CommonButtonTypeEnum.LARGE,
+                    style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                    textRes = R.string.start_session,
+                    onClick = onOpenTrainingProgram
                 )
             }
         }

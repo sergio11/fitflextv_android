@@ -2,7 +2,6 @@ package com.dreamsoftware.fitflextv.ui.screens.player.video
 
 import android.os.Build
 import androidx.annotation.OptIn
-import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,9 +33,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFillButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerTitle
 import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerControlsIcon
@@ -189,12 +184,6 @@ private fun VideoPlayerControls(
                     state = state,
                     isPlaying = isPlaying,
                 ) {}
-                CommonFillButton(
-                    text = stringResource(R.string.end_workout),
-                    textStyle = MaterialTheme.typography.titleMedium
-                        .copy(color = MaterialTheme.colorScheme.surface),
-                    onClick = {}
-                )
             }
         },
         videoSeeker = {
