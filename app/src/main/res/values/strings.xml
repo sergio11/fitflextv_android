@@ -162,11 +162,13 @@
     <string name="filters">Apply Filters</string>
     <string name="days">Days</string>
     <string name="week">Week</string>
+    <string name="filters_button">Filters</string>
     <string name="classes">Classes</string>
     <string name="intensity">Intensity</string>
     <string name="minutes_per_day">Minutes per Day</string>
     <string name="weekly_plan">Weekly Plan</string>
     <string name="challenge_details">Challenge Details</string>
+    <string name="no_instructor_set">Not set</string>
 
     <!-- Splash -->
     <string name="splash_main_title_text">Preparing Your FitFlexTV Experience!</string>

@@ -17,6 +17,7 @@ internal class TrainingFilterDataMapper: IOneSideMapper<TrainingFilterDataBO, Tr
             intensity = intensity.takeIf { it != IntensityEnum.NOT_SET }?.value,
             videoLength = videoLength.takeIf { it != VideoLengthEnum.NOT_SET }?.range,
             orderByReleasedDateDesc = sortType == SortTypeEnum.NEWEST || sortType == SortTypeEnum.NOT_SET,
+            instructor = instructor.takeIf { it.isNotBlank() },
             priorityFeatured = sortType == SortTypeEnum.RELEVANCE
         )
     }

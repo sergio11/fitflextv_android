@@ -6,5 +6,6 @@ data class TrainingFilterDataBO(
     val workoutType: WorkoutTypeEnum,
     val intensity: IntensityEnum,
     val videoLength: VideoLengthEnum,
-    val sortType: SortTypeEnum
+    val sortType: SortTypeEnum,
+    val instructor: String
 )

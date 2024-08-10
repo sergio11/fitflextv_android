@@ -31,6 +31,7 @@ internal class WorkoutRemoteDataSourceImpl(
         const val INTENSITY = "intensity"
         const val RELEASED_DATE = "releasedDate"
         const val WORKOUT_TYPE = "workoutType"
+        const val INSTRUCTOR = "instructor"
     }
 
     @Throws(FetchWorkoutsRemoteException::class)
@@ -42,6 +43,7 @@ internal class WorkoutRemoteDataSourceImpl(
                     classLanguage?.let { query = query.whereEqualTo(LANGUAGE, it) }
                     intensity?.let { query = query.whereEqualTo(INTENSITY, it) }
                     workoutType?.let { query = query.whereEqualTo(WORKOUT_TYPE, it) }
+                    instructor?.let { query = query.whereEqualTo(INSTRUCTOR, it) }
                     videoLength?.let {
                         query = query.whereGreaterThanOrEqualTo(DURATION, it.first.toString())
                             .whereLessThanOrEqualTo(DURATION, it.last.toString())
