@@ -16,7 +16,13 @@ import kotlinx.coroutines.coroutineScope
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 import android.provider.Settings
+import com.dreamsoftware.fitflextv.domain.model.ClassLanguageEnum
+import com.dreamsoftware.fitflextv.domain.model.IntensityEnum
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
+import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
+import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
+import com.dreamsoftware.fitflextv.ui.screens.training.FilterTypeEnum
+import com.dreamsoftware.fitflextv.ui.screens.training.TrainingFilterVO
 
 fun Number.padStartWith0(): String = this.toString().padStart(2, '0')
 
@@ -119,3 +125,16 @@ fun SubscriptionBO.formatPeriodTimeAndPrice(periodTime: String, price: String, c
 
 fun SubscriptionBO.formatPeriodTime(periodTime: String, context: Context): String =
     "$periodTime ${context.getString(R.string.month_subscription)}"
+
+fun List<TrainingFilterVO>.resetOptions() = map { item ->
+    item.copy(
+        selectedOption = 0,
+        description = when(item.type) {
+            FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.NOT_SET.value
+            FilterTypeEnum.CLASS_TYPE -> WorkoutTypeEnum.NOT_SET.value
+            FilterTypeEnum.DIFFICULTY -> IntensityEnum.NOT_SET.value
+            FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.NOT_SET.value
+            FilterTypeEnum.INSTRUCTOR -> String.EMPTY
+        }
+    )
+}

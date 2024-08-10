@@ -23,7 +23,8 @@ class GetTrainingsByTypeUseCase(
         workoutType = workoutType,
         intensity = intensity,
         videoLength = videoLength,
-        sortType = sortType
+        sortType = sortType,
+        instructor = instructor
     )
 
     data class Params(
@@ -32,6 +33,7 @@ class GetTrainingsByTypeUseCase(
         val workoutType: WorkoutTypeEnum,
         val intensity: IntensityEnum,
         val videoLength: VideoLengthEnum,
-        val sortType: SortTypeEnum
+        val sortType: SortTypeEnum,
+        val instructor: String
     )
 }

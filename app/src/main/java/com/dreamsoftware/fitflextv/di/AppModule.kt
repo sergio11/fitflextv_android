@@ -1,8 +1,11 @@
 package com.dreamsoftware.fitflextv.di
 
+import android.content.Context
+import com.dreamsoftware.fitflextv.utils.IApplicationAware
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -36,4 +39,9 @@ object AppModule {
     fun providesCoroutineScope(
         @DefaultDispatcher defaultDispatcher: CoroutineDispatcher
     ): CoroutineScope = CoroutineScope(SupervisorJob() + defaultDispatcher)
+
+    @Singleton
+    @Provides
+    fun provideApplicationAware(@ApplicationContext context: Context): IApplicationAware =
+        context as IApplicationAware
 }

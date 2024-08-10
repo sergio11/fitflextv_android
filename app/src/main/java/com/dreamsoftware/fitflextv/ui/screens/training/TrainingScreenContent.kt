@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
@@ -25,15 +26,17 @@ import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
 import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonOutlineButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTabRow
 import com.dreamsoftware.fitflextv.ui.screens.training.components.FilterSideMenu
-import com.dreamsoftware.fitflextv.ui.screens.training.components.SideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.components.OptionsSideMenu
+import com.dreamsoftware.fitflextv.ui.screens.training.components.SideMenu
 import com.dreamsoftware.fitflextv.ui.utils.conditional
 
 @Composable
@@ -83,7 +86,7 @@ private fun TrainingProgramList(
     state: TrainingUiState,
     actionListener: TrainingScreenActionListener
 ) {
-    CommonFocusRequester { focusRequester ->
+    CommonFocusRequester(state) { focusRequester ->
         TvLazyColumn(
             Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -103,10 +106,18 @@ private fun TrainingProgramList(
                         onFocus = actionListener::onChangeFocusTab,
                     )
                     Spacer(modifier = Modifier.weight(1F))
-                    CommonOutlineButton(text = "Filters", onClick = actionListener::onFilterClicked)
+                    CommonButton(
+                        type = CommonButtonTypeEnum.SMALL,
+                        style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                        textRes = R.string.filters_button,
+                        onClick = actionListener::onFilterClicked
+                    )
                     Spacer(modifier = Modifier.width(14.dp))
-                    CommonOutlineButton(
-                        text = "Sort by: ${SortTypeEnum.entries[state.selectedSortItem].value}",
+                    CommonButton(
+                        modifier = Modifier.width(130.dp),
+                        type = CommonButtonTypeEnum.SMALL,
+                        style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                        text = "${stringResource(id = R.string.sort_by)}: ${SortTypeEnum.entries[state.selectedSortItem].value}",
                         onClick = actionListener::onSortedClicked
                     )
                     Spacer(modifier = Modifier.width(58.dp))

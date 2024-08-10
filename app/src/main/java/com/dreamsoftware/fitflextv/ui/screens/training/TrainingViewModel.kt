@@ -17,6 +17,8 @@ import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.core.SideEffect
 import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fitflextv.ui.utils.resetOptions
+import com.dreamsoftware.fitflextv.utils.IApplicationAware
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -24,9 +26,11 @@ import javax.inject.Inject
 class TrainingViewModel @Inject constructor(
     private val getInstructorsUseCase: GetInstructorsUseCase,
     private val getTrainingsByTypeUseCase: GetTrainingsByTypeUseCase,
+    private val applicationAware: IApplicationAware,
     @FavoritesScreenErrorMapper private val errorMapper: IErrorMapper,
 ) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
+    private var instructors: List<InstructorBO> = emptyList()
     private var instructor: String = String.EMPTY
     private var videoLength: VideoLengthEnum = VideoLengthEnum.NOT_SET
     private var workoutType: WorkoutTypeEnum = WorkoutTypeEnum.NOT_SET
@@ -99,27 +103,7 @@ class TrainingViewModel @Inject constructor(
     }
 
     override fun onFilterCleared() {
-        videoLength = VideoLengthEnum.NOT_SET
-        workoutType = WorkoutTypeEnum.NOT_SET
-        intensity = IntensityEnum.NOT_SET
-        classLanguage = ClassLanguageEnum.NOT_SET
-        updateState {
-            it.copy(
-                isFilterExpended = false,
-                filterItems = it.filterItems.map { item ->
-                    item.copy(
-                        selectedOption = 0,
-                        description = when(item.type) {
-                            FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.NOT_SET.value
-                            FilterTypeEnum.CLASS_TYPE -> WorkoutTypeEnum.NOT_SET.value
-                            FilterTypeEnum.DIFFICULTY -> IntensityEnum.NOT_SET.value
-                            FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.NOT_SET.value
-                            FilterTypeEnum.INSTRUCTOR -> String.EMPTY
-                        }
-                    )
-                }
-            )
-        }
+        resetFilters()
         fetchTrainings()
     }
 
@@ -158,7 +142,9 @@ class TrainingViewModel @Inject constructor(
                 FilterTypeEnum.CLASS_LANGUAGE -> {
                     classLanguage = ClassLanguageEnum.entries[currentIndex]
                 }
-                FilterTypeEnum.INSTRUCTOR -> String.EMPTY
+                FilterTypeEnum.INSTRUCTOR -> {
+                    instructor = instructors.getOrNull(currentIndex)?.id.orEmpty()
+                }
             }
             updateState {
                 it.copy(
@@ -171,7 +157,7 @@ class TrainingViewModel @Inject constructor(
                                     FilterTypeEnum.CLASS_TYPE -> WorkoutTypeEnum.entries[currentIndex].value
                                     FilterTypeEnum.DIFFICULTY -> IntensityEnum.entries[currentIndex].value
                                     FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.entries[currentIndex].value
-                                    FilterTypeEnum.INSTRUCTOR -> String.EMPTY
+                                    FilterTypeEnum.INSTRUCTOR -> instructors.getOrNull(currentIndex)?.name.orEmpty()
                                 }
                             )
                         } else {
@@ -222,25 +208,38 @@ class TrainingViewModel @Inject constructor(
                 workoutType = workoutType,
                 intensity = intensity,
                 videoLength = videoLength,
-                sortType = sortType
+                sortType = sortType,
+                instructor = instructor
             ),
             onSuccess = ::onGetTrainingProgramsSuccessfully,
             onMapExceptionToState = ::onMapExceptionToState
         )
     }
 
-    private fun onGetInstructorsSuccessfully(instructorList: List<InstructorBO>) {
-        instructor = instructorList.first().name
-        updateState {
-            it.copy(
-                instructorList = instructorList,
-            )
+    private fun onGetTrainingProgramsSuccessfully(trainingPrograms: List<ITrainingProgramBO>) {
+        updateState { it.copy(trainingPrograms = trainingPrograms) }
+        if(instructors.isEmpty()) {
+            fetchInstructors()
         }
     }
 
-    private fun onGetTrainingProgramsSuccessfully(trainingPrograms: List<ITrainingProgramBO>) {
-        updateState { it.copy(trainingPrograms = trainingPrograms) }
-        fetchInstructors()
+    private fun onGetInstructorsSuccessfully(instructorList: List<InstructorBO>) {
+        instructors = instructorList
+        val noInstructorSet = applicationAware.getString(R.string.no_instructor_set)
+        updateState {
+            it.copy(
+                filterItems = it.filterItems.map { item ->
+                    if(item.type == FilterTypeEnum.INSTRUCTOR) {
+                        item.copy(
+                            options = instructorList.map(InstructorBO::name) + noInstructorSet,
+                            description = noInstructorSet
+                        )
+                    } else {
+                        item
+                    }
+                }
+            )
+        }
     }
 
     private fun onMapExceptionToState(ex: Exception, uiState: TrainingUiState) =
@@ -249,6 +248,20 @@ class TrainingViewModel @Inject constructor(
             trainingPrograms = emptyList(),
             errorMessage = errorMapper.mapToMessage(ex)
         )
+
+    private fun resetFilters() {
+        videoLength = VideoLengthEnum.NOT_SET
+        workoutType = WorkoutTypeEnum.NOT_SET
+        intensity = IntensityEnum.NOT_SET
+        classLanguage = ClassLanguageEnum.NOT_SET
+        instructor = String.EMPTY
+        updateState {
+            it.copy(
+                isFilterExpended = false,
+                filterItems = it.filterItems.resetOptions()
+            )
+        }
+    }
 }
 
 data class TrainingUiState(
@@ -257,7 +270,6 @@ data class TrainingUiState(
     val isFilterExpended: Boolean = false,
     val isFieldFilterSelected: Boolean = false,
     val isSortExpended: Boolean = false,
-    val instructorList: List<InstructorBO> = emptyList(),
     val trainingPrograms: List<ITrainingProgramBO> = emptyList(),
     val filterItems: List<TrainingFilterVO> = emptyList(),
     val selectedSortItem: Int = 0,
