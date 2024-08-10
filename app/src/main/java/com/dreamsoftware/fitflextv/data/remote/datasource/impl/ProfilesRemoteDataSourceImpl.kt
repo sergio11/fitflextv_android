@@ -8,10 +8,8 @@ import com.dreamsoftware.fitflextv.data.remote.dto.request.UpdatedProfileRequest
 import com.dreamsoftware.fitflextv.data.remote.dto.response.ProfileDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.CreateProfileRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.DeleteProfileRemoteException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchChallengesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchProfileByIdRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.FetchProfilesRemoteException
-import com.dreamsoftware.fitflextv.data.remote.exception.FetchRoutineByIdRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfileRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.VerifyProfileRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
@@ -19,7 +17,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import kotlin.jvm.Throws
 
 internal class ProfilesRemoteDataSourceImpl(
     private val firebaseStore: FirebaseFirestore,
@@ -46,7 +43,7 @@ internal class ProfilesRemoteDataSourceImpl(
             mapper = { data -> profilesMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
-        throw FetchChallengesRemoteException("An error occurred when trying to fetch profiles", ex)
+        throw FetchProfilesRemoteException("An error occurred when trying to fetch profiles", ex)
     }
 
     @Throws(UpdateProfileRemoteException::class)
@@ -135,7 +132,7 @@ internal class ProfilesRemoteDataSourceImpl(
             mapper = { profilesMapper.mapInToOut(it) }
         )
     } catch (ex: Exception) {
-        throw FetchRoutineByIdRemoteException(
+        throw FetchProfileByIdRemoteException(
             "An error occurred when trying to fetch the profile with ID $profileId",
             ex
         )
