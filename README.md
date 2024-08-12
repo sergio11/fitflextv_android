@@ -145,6 +145,10 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
 
 <p align="center">
+  <img src="doc/picture_28.png" />
+</p>
+
+<p align="center">
   <img src="doc/picture_1.png" />
 </p>
 
@@ -194,6 +198,36 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_10.png" />
 </p>
 
+### Trainings
+
+<p align="center">
+  <img src="doc/picture_22.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_23.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_24.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_25.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_26.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_27.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_29.png" />
+</p>
+
 ### Subscriptions
 
 <p align="center">
@@ -237,10 +271,10 @@ Once you've entered all the necessary information, click "Register," and you're 
 </p>
 
 ## Contribution
-Contributions to TvNexa Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
+Contributions to FitFlexTV Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
 
 ## Credits
-TvNexa is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
+FitFlexTV is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
 
 ## Acknowledgements 🙏
 
