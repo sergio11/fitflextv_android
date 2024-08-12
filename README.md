@@ -194,29 +194,55 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_10.png" />
 </p>
 
-## Project Structure 🗂️
+### Subscriptions
 
-```plaintext
-.
-├── data
-│   ├── model
-│   ├── repository
-│   └── source
-│       ├── local
-│       └── remote
-├── domain
-│   ├── model
-│   └── usecase
-├── ui
-│   ├── view
-│   ├── intent
-│   ├── state
-│   └── reducer
-├── utils
-└── di
+<p align="center">
+  <img src="doc/picture_19.png" />
+</p>
 
-data: Contains the data layer of the application, including repositories and data sources.domain: Contains the business logic of the application, including use cases and domain models.ui: Contains the presentation layer, including views, intents, states, and reducers.utils: Contains utility classes and extensions.di: Contains dependency injection setup.Why This Architecture? 🤔Scalability: The architecture is designed to scale with the addition of new features without significant changes to the existing codebase.Maintainability: With clear separation of concerns, each module can be developed and maintained independently.Testability: By keeping business logic in ViewModels and UseCases, and using repository patterns, the code is more testable, ensuring higher code quality.Reusability: Using Jetpack Compose for TV, the UI components are highly reusable, which accelerates the development process.Getting Started 🚀To get started with FitFlexTV:Clone the repository:git clone https://github.com/yourusername/FitFlexTV.gitOpen the project in Android Studio.Sync the project with Gradle files.Run the app on an emulator or a physical device.Contributing 
+<p align="center">
+  <img src="doc/picture_20.png" />
+</p>
 
-🤝We welcome contributions from the community! Please fork the repository and submit a pull request with your changes.License 
+<p align="center">
+  <img src="doc/picture_21.png" />
+</p>
 
-📄This project is licensed under the MIT License - see the LICENSE file for details.
+### Settings
+
+⚙️ Welcome to Settings!
+
+<p align="center">
+  <img src="doc/picture_13.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_14.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_15.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_16.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_17.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_18.png" />
+</p>
+
+## Contribution
+Contributions to TvNexa Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
+
+## Credits
+TvNexa is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
+
+## Acknowledgements 🙏
+
+We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
+<div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
