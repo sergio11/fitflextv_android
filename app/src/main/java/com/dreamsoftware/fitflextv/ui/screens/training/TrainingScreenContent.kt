@@ -114,7 +114,7 @@ private fun TrainingProgramList(
                     )
                     Spacer(modifier = Modifier.width(14.dp))
                     CommonButton(
-                        modifier = Modifier.width(130.dp),
+                        modifier = Modifier.width(140.dp),
                         type = CommonButtonTypeEnum.SMALL,
                         style = CommonButtonStyleTypeEnum.TRANSPARENT,
                         text = "${stringResource(id = R.string.sort_by)}: ${SortTypeEnum.entries[state.selectedSortItem].value}",
