@@ -145,6 +145,10 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
 
 <p align="center">
+  <img src="doc/picture_28.png" />
+</p>
+
+<p align="center">
   <img src="doc/picture_1.png" />
 </p>
 
@@ -192,6 +196,36 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 <p align="center">
   <img src="doc/picture_10.png" />
+</p>
+
+### Trainings
+
+<p align="center">
+  <img src="doc/picture_22.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_23.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_24.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_25.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_26.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_27.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_29.png" />
 </p>
 
 ### Subscriptions
