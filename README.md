@@ -28,6 +28,10 @@ Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committ
 
 At **FitFlexTV**, we believe that fitness should be as unique as you are. That’s why our app offers workout plans specifically tailored to your goals, preferences, and fitness level. Whether you're aiming to lose weight, build muscle, improve flexibility, or simply stay active, **FitFlexTV** has got you covered. From high-intensity interval training (HIIT) and strength sessions to yoga and stretching routines, there’s something for everyone. With easy-to-follow instructions and video demonstrations, even beginners can jump right in and start moving.
 
+<p align="center">
+  <img src="doc/picture_12.gif" />
+</p>
+
 But that's not all—**FitFlexTV** offers both **free workouts** just by signing up and **premium content** for those who want to take their training to the next level. Whether you choose to stay with the free content or unlock premium features with a subscription, you’ll have access to a wealth of workouts that you can do anytime, anywhere.
 
 ### 📊 Track Your Progress, Celebrate Your Success
