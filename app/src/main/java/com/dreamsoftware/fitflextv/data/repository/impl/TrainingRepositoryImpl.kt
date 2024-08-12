@@ -60,15 +60,15 @@ internal class TrainingRepositoryImpl(
 ) : SupportRepositoryImpl(dispatcher), ITrainingRepository {
 
     @Throws(FetchTrainingsException::class)
-    override suspend fun getTrainings(data: TrainingFilterDataBO): Iterable<ITrainingProgramBO> = with(data) {
+    override suspend fun getTrainings(data: TrainingFilterDataBO, includePremium: Boolean): Iterable<ITrainingProgramBO> = with(data) {
         safeExecute {
             val filterDTO = trainingFilterDataMapper.mapInToOut(data)
             try {
                 when (type) {
-                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getTrainings(filterDTO).workoutsToTrainingPrograms()
-                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getTrainings(filterDTO).seriesToTrainingPrograms()
-                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getTrainings(filterDTO).challengesToTrainingPrograms()
-                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getTrainings(filterDTO).routinesToTrainingPrograms()
+                    TrainingTypeEnum.WORK_OUT -> workoutRemoteDataSource.getTrainings(filterDTO, includePremium).workoutsToTrainingPrograms()
+                    TrainingTypeEnum.SERIES -> seriesRemoteDataSource.getTrainings(filterDTO, includePremium).seriesToTrainingPrograms()
+                    TrainingTypeEnum.CHALLENGES -> challengeRemoteDataSource.getTrainings(filterDTO, includePremium).challengesToTrainingPrograms()
+                    TrainingTypeEnum.ROUTINE -> routineRemoteDataSource.getTrainings(filterDTO, includePremium).routinesToTrainingPrograms()
                 }
             } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingsException("An error occurred when fetching trainings", ex)
@@ -92,12 +92,12 @@ internal class TrainingRepositoryImpl(
         }
 
     @Throws(FetchTrainingsRecommendedException::class)
-    override suspend fun getTrainingsRecommended(): Iterable<ITrainingProgramBO> = safeExecute {
+    override suspend fun getTrainingsRecommended(includePremium: Boolean): Iterable<ITrainingProgramBO> = safeExecute {
         try {
-            val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getRecommendedTrainings().workoutsToTrainingPrograms() }
-            val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getRecommendedTrainings().seriesToTrainingPrograms() }
-            val challengesDeferred = executeAsync(dispatcher) { challengeRemoteDataSource.getRecommendedTrainings().challengesToTrainingPrograms() }
-            val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getRecommendedTrainings().routinesToTrainingPrograms() }
+            val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getRecommendedTrainings(includePremium).workoutsToTrainingPrograms() }
+            val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getRecommendedTrainings(includePremium).seriesToTrainingPrograms() }
+            val challengesDeferred = executeAsync(dispatcher) { challengeRemoteDataSource.getRecommendedTrainings(includePremium).challengesToTrainingPrograms() }
+            val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getRecommendedTrainings(includePremium).routinesToTrainingPrograms() }
             workoutDeferred.await() + seriesDeferred.await() + challengesDeferred.await() + routinesDeferred.await()
         } catch (ex: RemoteDataSourceException) {
             throw FetchTrainingsRecommendedException(
@@ -108,11 +108,11 @@ internal class TrainingRepositoryImpl(
     }
 
     @Throws(FetchFeaturedTrainingsException::class)
-    override suspend fun getFeaturedTrainings(): Iterable<ITrainingProgramBO> = safeExecute {
+    override suspend fun getFeaturedTrainings(includePremium: Boolean): Iterable<ITrainingProgramBO> = safeExecute {
         try {
-            val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getFeaturedTrainings().workoutsToTrainingPrograms() }
-            val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getFeaturedTrainings().seriesToTrainingPrograms() }
-            val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getFeaturedTrainings().routinesToTrainingPrograms() }
+            val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getFeaturedTrainings(includePremium).workoutsToTrainingPrograms() }
+            val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getFeaturedTrainings(includePremium).seriesToTrainingPrograms() }
+            val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getFeaturedTrainings(includePremium).routinesToTrainingPrograms() }
             workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await()
         } catch (ex: RemoteDataSourceException) {
             throw FetchFeaturedTrainingsException(
@@ -123,13 +123,13 @@ internal class TrainingRepositoryImpl(
     }
 
     @Throws(FetchTrainingByCategoryException::class)
-    override suspend fun getTrainingsByCategory(id: String): Iterable<ITrainingProgramBO> =
+    override suspend fun getTrainingsByCategory(id: String, includePremium: Boolean): Iterable<ITrainingProgramBO> =
         safeExecute {
             try {
-                val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getTrainingByCategory(id).workoutsToTrainingPrograms() }
-                val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getTrainingByCategory(id).seriesToTrainingPrograms() }
-                val challengesDeferred = executeAsync(dispatcher) { challengeRemoteDataSource.getTrainingByCategory(id).challengesToTrainingPrograms() }
-                val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getTrainingByCategory(id).routinesToTrainingPrograms() }
+                val workoutDeferred = executeAsync(dispatcher) { workoutRemoteDataSource.getTrainingByCategory(id, includePremium).workoutsToTrainingPrograms() }
+                val seriesDeferred = executeAsync(dispatcher) { seriesRemoteDataSource.getTrainingByCategory(id, includePremium).seriesToTrainingPrograms() }
+                val challengesDeferred = executeAsync(dispatcher) { challengeRemoteDataSource.getTrainingByCategory(id, includePremium).challengesToTrainingPrograms() }
+                val routinesDeferred = executeAsync(dispatcher) { routineRemoteDataSource.getTrainingByCategory(id, includePremium).routinesToTrainingPrograms() }
                 workoutDeferred.await() + seriesDeferred.await() + routinesDeferred.await() + challengesDeferred.await()
             } catch (ex: RemoteDataSourceException) {
                 throw FetchTrainingByCategoryException(

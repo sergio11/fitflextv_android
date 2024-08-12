@@ -17,19 +17,19 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 interface ITrainingRepository {
 
     @Throws(FetchTrainingsException::class)
-    suspend fun getTrainings(data: TrainingFilterDataBO): Iterable<ITrainingProgramBO>
+    suspend fun getTrainings(data: TrainingFilterDataBO, includePremium: Boolean = false): Iterable<ITrainingProgramBO>
 
     @Throws(FetchTrainingByIdException::class)
     suspend fun getTrainingById(id: String, type: TrainingTypeEnum): ITrainingProgramBO
 
     @Throws(FetchTrainingsRecommendedException::class)
-    suspend fun getTrainingsRecommended(): Iterable<ITrainingProgramBO>
+    suspend fun getTrainingsRecommended(includePremium: Boolean = false): Iterable<ITrainingProgramBO>
 
     @Throws(FetchFeaturedTrainingsException::class)
-    suspend fun getFeaturedTrainings(): Iterable<ITrainingProgramBO>
+    suspend fun getFeaturedTrainings(includePremium: Boolean = false): Iterable<ITrainingProgramBO>
 
     @Throws(FetchTrainingByCategoryException::class)
-    suspend fun getTrainingsByCategory(id: String): Iterable<ITrainingProgramBO>
+    suspend fun getTrainingsByCategory(id: String, includePremium: Boolean = false): Iterable<ITrainingProgramBO>
 
     @Throws(AddFavoriteTrainingException::class)
     suspend fun addFavoriteTraining(data: AddFavoriteTrainingBO): Boolean
