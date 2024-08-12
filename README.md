@@ -14,6 +14,8 @@ This project is a home workout application designed to provide personalized work
   <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
 </p>
 
+## Overview 🌐
+
 ## Key Features ✨
 
 - **Personalized Workout Plans**: Get customized workout routines that suit your fitness level and goals. 📝
@@ -83,6 +85,10 @@ We use Jetpack Compose for TV to:
 ### Firebase Storage
 
 - **Media Storage**: Firebase Storage is used to store user profile images and other media files, ensuring fast and secure uploads and downloads.
+
+## App Screenshots
+
+Here are some screenshots from our app to give you a glimpse of its design and functionality.
 
 ## Project Structure 🗂️
 
