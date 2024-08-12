@@ -140,6 +140,60 @@ We use Jetpack Compose for TV to:
 
 Here are some screenshots from our app to give you a glimpse of its design and functionality.
 
+### Onboarding
+
+Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
+
+<p align="center">
+  <img src="doc/picture_1.png" />
+</p>
+
+### Sign In
+
+The user will be able to log in to **FitFlexTV** by providing their email and password. If they don't have an account, they can access the registration screen to create a new one. 🔐✉️🔑 If they don't have an account, they can access the registration screen to create a new one. 🆕
+
+<p align="center">
+  <img src="doc/picture_3.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_4.png" />
+</p>
+
+
+### Sign Up
+
+On this screen, you can create your account on **FitFlexTV**. Registering is quick, easy, and will open up a world of possibilities. Ready to get started?
+
+Simply fill out the required fields, such as your name, email address, and a secure password. Make sure to choose a password that's easy to remember but hard to guess to keep your account safe.
+
+Once you've entered all the necessary information, click "Register," and you're all set! You're now part of our community. You'll be able to access all the features and exclusive content we offer.
+
+<p align="center">
+  <img src="doc/picture_2.png" />
+</p>
+
+
+### Profiles
+
+<p align="center">
+  <img src="doc/picture_5.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_6.png" />
+</p>
+
+### Home
+
+<p align="center">
+  <img src="doc/picture_7.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_10.png" />
+</p>
+
 ## Project Structure 🗂️
 
 ```plaintext
