@@ -6,12 +6,6 @@ Welcome to **FitFlexTV** 🎉, your go-to fitness companion designed to make wor
 
 **FitFlexTV** is here to support you every step of the way on your fitness journey 🚀. Whether you’re just beginning your fitness adventure or looking to take your routine to the next level 🔝, our app is tailored to meet your individual needs. With a diverse selection of workouts 🏋️‍♀️, from high-energy HIIT sessions ⚡ to calming yoga routines 🧘‍♀️, you can find the perfect workout to match your mood and fitness goals.
 
-With **FitFlexTV**, you can access a range of workouts designed for various fitness levels and preferences 🌈. Our app offers both free and premium content 💎, ensuring there’s something for everyone. For a more personalized experience, you can explore workouts with specific music tracks 🎵 that enhance your focus and enjoyment.
-
-Stay motivated with features that keep you engaged and inspired 🌟. **FitFlexTV** allows you to mark your favorite workouts ❤️ for easy access and apply different filters 🔍 to find the perfect routine for your needs. Create and manage multiple profiles 👨‍👩‍👧‍👦 so that each member of your household can have their own tailored workout experience.
-
-The app also offers recommendations based on your fitness profile 🤖, helping you discover the best workouts suited to your goals. Whether you're looking to build strength 💪, improve flexibility 🤸‍♂️, or simply stay active 🚶‍♀️, **FitFlexTV** provides the tools you need to stay on track and make the most out of every workout.
-
 Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals 🎯. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
 
 <p align="center">
@@ -23,6 +17,12 @@ Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committ
 </p>
 
 ## Overview 🌐
+
+With **FitFlexTV**, you can access a range of workouts designed for various fitness levels and preferences 🌈. Our app offers both free and premium content 💎, ensuring there’s something for everyone. For a more personalized experience, you can explore workouts with specific music tracks 🎵 that enhance your focus and enjoyment.
+
+Stay motivated with features that keep you engaged and inspired 🌟. **FitFlexTV** allows you to mark your favorite workouts ❤️ for easy access and apply different filters 🔍 to find the perfect routine for your needs. Create and manage multiple profiles 👨‍👩‍👧‍👦 so that each member of your household can have their own tailored workout experience.
+
+The app also offers recommendations based on your fitness profile 🤖, helping you discover the best workouts suited to your goals. Whether you're looking to build strength 💪, improve flexibility 🤸‍♂️, or simply stay active 🚶‍♀️, **FitFlexTV** provides the tools you need to stay on track and make the most out of every workout.
 
 ### 💪 Tailored Workouts Just for You
 
@@ -194,29 +194,55 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_10.png" />
 </p>
 
-## Project Structure 🗂️
+### Subscriptions
 
-```plaintext
-.
-├── data
-│   ├── model
-│   ├── repository
-│   └── source
-│       ├── local
-│       └── remote
-├── domain
-│   ├── model
-│   └── usecase
-├── ui
-│   ├── view
-│   ├── intent
-│   ├── state
-│   └── reducer
-├── utils
-└── di
+<p align="center">
+  <img src="doc/picture_19.png" />
+</p>
 
-data: Contains the data layer of the application, including repositories and data sources.domain: Contains the business logic of the application, including use cases and domain models.ui: Contains the presentation layer, including views, intents, states, and reducers.utils: Contains utility classes and extensions.di: Contains dependency injection setup.Why This Architecture? 🤔Scalability: The architecture is designed to scale with the addition of new features without significant changes to the existing codebase.Maintainability: With clear separation of concerns, each module can be developed and maintained independently.Testability: By keeping business logic in ViewModels and UseCases, and using repository patterns, the code is more testable, ensuring higher code quality.Reusability: Using Jetpack Compose for TV, the UI components are highly reusable, which accelerates the development process.Getting Started 🚀To get started with FitFlexTV:Clone the repository:git clone https://github.com/yourusername/FitFlexTV.gitOpen the project in Android Studio.Sync the project with Gradle files.Run the app on an emulator or a physical device.Contributing 
+<p align="center">
+  <img src="doc/picture_20.png" />
+</p>
 
-🤝We welcome contributions from the community! Please fork the repository and submit a pull request with your changes.License 
+<p align="center">
+  <img src="doc/picture_21.png" />
+</p>
 
-📄This project is licensed under the MIT License - see the LICENSE file for details.
+### Settings
+
+⚙️ Welcome to Settings!
+
+<p align="center">
+  <img src="doc/picture_13.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_14.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_15.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_16.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_17.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_18.png" />
+</p>
+
+## Contribution
+Contributions to TvNexa Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
+
+## Credits
+TvNexa is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
+
+## Acknowledgements 🙏
+
+We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
+<div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
