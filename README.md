@@ -58,6 +58,10 @@ We understand that staying motivated can be challenging, especially when life ge
 
 **FitFlexTV** isn’t just another fitness app—it’s your partner in health and wellness. It’s here to help you stay committed, overcome obstacles, and achieve your full potential. With **FitFlexTV**, every step of your fitness journey is supported, from your very first workout to reaching your ultimate goals. So why wait? Take the first step towards a healthier, happier you with **FitFlexTV** today. Your body, mind, and soul will thank you!
 
+<p align="center">
+  <img src="doc/picture_8.png" />
+</p>
+
 ## Key Features ✨
 
 - **Personalized Workout Plans**: Get customized workout routines that suit your fitness level and goals. 📝
