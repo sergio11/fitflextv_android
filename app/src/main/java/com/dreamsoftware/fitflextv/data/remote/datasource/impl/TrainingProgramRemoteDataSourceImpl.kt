@@ -31,10 +31,11 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
         const val RELEASED_DATE = "releasedDate"
         const val WORKOUT_TYPE = "workoutType"
         const val INSTRUCTOR = "instructor"
+        const val IS_PREMIUM = "isPremium"
     }
 
     @Throws(FetchTrainingsRemoteException::class)
-    override suspend fun getTrainings(filter: TrainingFilterDTO): List<T> = try {
+    override suspend fun getTrainings(filter: TrainingFilterDTO, includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
                 with(filter) {
@@ -56,6 +57,7 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
                     } else {
                         query.orderBy(RELEASED_DATE, Query.Direction.ASCENDING)
                     }
+                    query.whereEqualTo(IS_PREMIUM, includePremium)
                     query.get()
                 }
             },
@@ -71,7 +73,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     @Throws(FetchTrainingByIdRemoteException::class)
     override suspend fun getTrainingById(id: String): T = try {
         fetchSingleFromFireStore(
-            query = { firebaseStore.collection(collectionName).document(id).get() },
+            query = {
+                firebaseStore
+                    .collection(collectionName)
+                    .document(id)
+                    .get()
+            },
             mapper = { data -> dataMapper.mapInToOut(data) }
         )
     } catch (ex: Exception) {
@@ -82,11 +89,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     }
 
     @Throws(FetchTrainingByIdRemoteException::class)
-    override suspend fun getTrainingByIdList(idList: List<String>): List<T> = try {
+    override suspend fun getTrainingByIdList(idList: List<String>, includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
                 firebaseStore.collection(collectionName)
                     .whereIn(ID_FIELD, idList)
+                    .whereEqualTo(IS_PREMIUM, includePremium)
                     .get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
@@ -99,11 +107,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     }
 
     @Throws(FetchTrainingByCategoryRemoteException::class)
-    override suspend fun getTrainingByCategory(id: String): List<T> = try {
+    override suspend fun getTrainingByCategory(id: String, includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
                 firebaseStore.collection(collectionName)
                     .whereEqualTo(CATEGORY_FIELD, id)
+                    .whereEqualTo(IS_PREMIUM, includePremium)
                     .get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
@@ -116,11 +125,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     }
 
     @Throws(FetchFeaturedTrainingsRemoteException::class)
-    override suspend fun getFeaturedTrainings(): List<T> = try {
+    override suspend fun getFeaturedTrainings(includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
                 firebaseStore.collection(collectionName)
                     .whereEqualTo(IS_FEATURED_FIELD, true)
+                    .whereEqualTo(IS_PREMIUM, includePremium)
                     .get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
@@ -133,11 +143,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     }
 
     @Throws(FetchRecommendedTrainingsRemoteException::class)
-    override suspend fun getRecommendedTrainings(): List<T> = try {
+    override suspend fun getRecommendedTrainings(includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
                 firebaseStore.collection(collectionName)
                     .whereEqualTo(IS_RECOMMENDED_FIELD, true)
+                    .whereEqualTo(IS_PREMIUM, includePremium)
                     .get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
