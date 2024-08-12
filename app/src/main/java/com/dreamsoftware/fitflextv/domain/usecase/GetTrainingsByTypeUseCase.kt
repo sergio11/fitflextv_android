@@ -8,14 +8,25 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingFilterDataBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
+import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
+import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 
 class GetTrainingsByTypeUseCase(
+    private val userRepository: IUserRepository,
+    private val subscriptionsRepository: ISubscriptionsRepository,
     private val trainingRepository: ITrainingRepository
 ) : BaseUseCaseWithParams<GetTrainingsByTypeUseCase.Params, List<ITrainingProgramBO>>() {
-    override suspend fun onExecuted(params: Params): List<ITrainingProgramBO> =
-        trainingRepository.getTrainings(params.toTrainingFilterData()).toList()
+
+    override suspend fun onExecuted(params: Params): List<ITrainingProgramBO> {
+        val userUid = userRepository.getAuthenticatedUid()
+        val hasActiveSubscription = subscriptionsRepository.hasActiveSubscription(userUid)
+        return trainingRepository.getTrainings(
+            data = params.toTrainingFilterData(),
+            includePremium = hasActiveSubscription
+        ).toList()
+    }
 
     private fun Params.toTrainingFilterData() = TrainingFilterDataBO(
         type = type,

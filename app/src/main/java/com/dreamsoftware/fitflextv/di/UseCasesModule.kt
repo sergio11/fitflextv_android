@@ -80,9 +80,13 @@ class UseCasesModule {
     @Provides
     @ViewModelScoped
     fun provideGetTrainingsRecommendedUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository,
         trainingRepository: ITrainingRepository
     ): GetTrainingsRecommendedUseCase =
         GetTrainingsRecommendedUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository,
             trainingRepository = trainingRepository
         )
 
@@ -98,9 +102,13 @@ class UseCasesModule {
     @Provides
     @ViewModelScoped
     fun provideGetTrainingsByTypeUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository,
         trainingRepository: ITrainingRepository
     ): GetTrainingsByTypeUseCase =
         GetTrainingsByTypeUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository,
             trainingRepository = trainingRepository
         )
 
@@ -150,18 +158,26 @@ class UseCasesModule {
     @Provides
     @ViewModelScoped
     fun provideGetFeaturedTrainingsUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository,
         trainingRepository: ITrainingRepository
     ): GetFeaturedTrainingsUseCase =
         GetFeaturedTrainingsUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository,
             trainingRepository = trainingRepository
         )
 
     @Provides
     @ViewModelScoped
     fun provideGetTrainingsByCategoryUseCase(
+        userRepository: IUserRepository,
+        subscriptionsRepository: ISubscriptionsRepository,
         trainingRepository: ITrainingRepository
     ): GetTrainingsByCategoryUseCase =
         GetTrainingsByCategoryUseCase(
+            userRepository = userRepository,
+            subscriptionsRepository = subscriptionsRepository,
             trainingRepository = trainingRepository
         )
 

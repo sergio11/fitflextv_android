@@ -57,7 +57,9 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
                     } else {
                         query.orderBy(RELEASED_DATE, Query.Direction.ASCENDING)
                     }
-                    query.whereEqualTo(IS_PREMIUM, includePremium)
+                    if(!includePremium) {
+                        query.whereEqualTo(IS_PREMIUM, false)
+                    }
                     query.get()
                 }
             },
@@ -92,10 +94,13 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     override suspend fun getTrainingByIdList(idList: List<String>, includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
-                firebaseStore.collection(collectionName)
+                val query = firebaseStore
+                    .collection(collectionName)
                     .whereIn(ID_FIELD, idList)
-                    .whereEqualTo(IS_PREMIUM, includePremium)
-                    .get()
+                if(!includePremium) {
+                    query.whereEqualTo(IS_PREMIUM, false)
+                }
+                query.get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
         )
@@ -110,10 +115,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     override suspend fun getTrainingByCategory(id: String, includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
-                firebaseStore.collection(collectionName)
+                val query = firebaseStore.collection(collectionName)
                     .whereEqualTo(CATEGORY_FIELD, id)
-                    .whereEqualTo(IS_PREMIUM, includePremium)
-                    .get()
+                if(!includePremium) {
+                    query.whereEqualTo(IS_PREMIUM, false)
+                }
+                query.get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
         )
@@ -128,10 +135,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     override suspend fun getFeaturedTrainings(includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
-                firebaseStore.collection(collectionName)
+                val query = firebaseStore.collection(collectionName)
                     .whereEqualTo(IS_FEATURED_FIELD, true)
-                    .whereEqualTo(IS_PREMIUM, includePremium)
-                    .get()
+                if(!includePremium) {
+                    query.whereEqualTo(IS_PREMIUM, false)
+                }
+                query.get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
         )
@@ -146,10 +155,12 @@ internal abstract class TrainingProgramRemoteDataSourceImpl<out T>(
     override suspend fun getRecommendedTrainings(includePremium: Boolean): List<T> = try {
         fetchListFromFireStore(
             query = {
-                firebaseStore.collection(collectionName)
+                val query = firebaseStore.collection(collectionName)
                     .whereEqualTo(IS_RECOMMENDED_FIELD, true)
-                    .whereEqualTo(IS_PREMIUM, includePremium)
-                    .get()
+                if(!includePremium) {
+                    query.whereEqualTo(IS_PREMIUM, false)
+                }
+                query.get()
             },
             mapper = { data -> dataMapper.mapInToOut(data) }
         )
