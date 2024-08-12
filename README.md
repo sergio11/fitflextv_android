@@ -28,6 +28,10 @@ Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committ
 
 At **FitFlexTV**, we believe that fitness should be as unique as you are. That’s why our app offers workout plans specifically tailored to your goals, preferences, and fitness level. Whether you're aiming to lose weight, build muscle, improve flexibility, or simply stay active, **FitFlexTV** has got you covered. From high-intensity interval training (HIIT) and strength sessions to yoga and stretching routines, there’s something for everyone. With easy-to-follow instructions and video demonstrations, even beginners can jump right in and start moving.
 
+<p align="center">
+  <img src="doc/picture_12.gif" />
+</p>
+
 But that's not all—**FitFlexTV** offers both **free workouts** just by signing up and **premium content** for those who want to take their training to the next level. Whether you choose to stay with the free content or unlock premium features with a subscription, you’ll have access to a wealth of workouts that you can do anytime, anywhere.
 
 ### 📊 Track Your Progress, Celebrate Your Success
@@ -135,6 +139,60 @@ We use Jetpack Compose for TV to:
 ## App Screenshots
 
 Here are some screenshots from our app to give you a glimpse of its design and functionality.
+
+### Onboarding
+
+Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
+
+<p align="center">
+  <img src="doc/picture_1.png" />
+</p>
+
+### Sign In
+
+The user will be able to log in to **FitFlexTV** by providing their email and password. If they don't have an account, they can access the registration screen to create a new one. 🔐✉️🔑 If they don't have an account, they can access the registration screen to create a new one. 🆕
+
+<p align="center">
+  <img src="doc/picture_3.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_4.png" />
+</p>
+
+
+### Sign Up
+
+On this screen, you can create your account on **FitFlexTV**. Registering is quick, easy, and will open up a world of possibilities. Ready to get started?
+
+Simply fill out the required fields, such as your name, email address, and a secure password. Make sure to choose a password that's easy to remember but hard to guess to keep your account safe.
+
+Once you've entered all the necessary information, click "Register," and you're all set! You're now part of our community. You'll be able to access all the features and exclusive content we offer.
+
+<p align="center">
+  <img src="doc/picture_2.png" />
+</p>
+
+
+### Profiles
+
+<p align="center">
+  <img src="doc/picture_5.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_6.png" />
+</p>
+
+### Home
+
+<p align="center">
+  <img src="doc/picture_7.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_10.png" />
+</p>
 
 ## Project Structure 🗂️
 
