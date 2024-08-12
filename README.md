@@ -2,17 +2,17 @@
 
 <img width="auto" height="200px" align="left" src="doc/main_logo.png" />
 
-Welcome to **FitFlexTV**, your go-to fitness companion designed to make working out from home as easy and enjoyable as possible. In today’s busy world, fitting in a workout can be a challenge. That’s why **FitFlexTV** brings the fitness studio to your Smart TV, so you can exercise right from your living room without any hassle. 📺
+Welcome to **FitFlexTV** 🎉, your go-to fitness companion designed to make working out from home as easy and enjoyable as possible. In today’s busy world 🕒, fitting in a workout can be a challenge. That’s why **FitFlexTV** brings the fitness studio to your Smart TV 📺, so you can exercise right from your living room without any hassle.
 
-**FitFlexTV** is here to support you every step of the way on your fitness journey. Whether you’re just beginning your fitness adventure or looking to take your routine to the next level, our app is tailored to meet your individual needs. With a diverse selection of workouts, from high-energy HIIT sessions to calming yoga routines, you can find the perfect workout to match your mood and fitness goals.
+**FitFlexTV** is here to support you every step of the way on your fitness journey 🚀. Whether you’re just beginning your fitness adventure or looking to take your routine to the next level 🔝, our app is tailored to meet your individual needs. With a diverse selection of workouts 🏋️‍♀️, from high-energy HIIT sessions ⚡ to calming yoga routines 🧘‍♀️, you can find the perfect workout to match your mood and fitness goals.
 
-With **FitFlexTV**, you can access a range of workouts designed for various fitness levels and preferences. Our app offers both free and premium content, ensuring there’s something for everyone. For a more personalized experience, you can explore workouts with specific music tracks that enhance your focus and enjoyment.
+With **FitFlexTV**, you can access a range of workouts designed for various fitness levels and preferences 🌈. Our app offers both free and premium content 💎, ensuring there’s something for everyone. For a more personalized experience, you can explore workouts with specific music tracks 🎵 that enhance your focus and enjoyment.
 
-Stay motivated with features that keep you engaged and inspired. **FitFlexTV** allows you to mark your favorite workouts for easy access and apply different filters to find the perfect routine for your needs. Create and manage multiple profiles so that each member of your household can have their own tailored workout experience.
+Stay motivated with features that keep you engaged and inspired 🌟. **FitFlexTV** allows you to mark your favorite workouts ❤️ for easy access and apply different filters 🔍 to find the perfect routine for your needs. Create and manage multiple profiles 👨‍👩‍👧‍👦 so that each member of your household can have their own tailored workout experience.
 
-The app also offers recommendations based on your fitness profile, helping you discover the best workouts suited to your goals. Whether you're looking to build strength, improve flexibility, or simply stay active, **FitFlexTV** provides the tools you need to stay on track and make the most out of every workout.
+The app also offers recommendations based on your fitness profile 🤖, helping you discover the best workouts suited to your goals. Whether you're looking to build strength 💪, improve flexibility 🤸‍♂️, or simply stay active 🚶‍♀️, **FitFlexTV** provides the tools you need to stay on track and make the most out of every workout.
 
-Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
+Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals 🎯. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
