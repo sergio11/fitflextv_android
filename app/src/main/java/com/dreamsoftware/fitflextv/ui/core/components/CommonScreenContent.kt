@@ -36,9 +36,9 @@ fun CommonScreenContent(
                 }
             }
         }
-
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             content()

@@ -14,6 +14,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonBackRowSchema
 import com.dreamsoftware.fitflextv.ui.core.components.CommonCardDetails
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonMoreOptionsButton
+import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndTypeTraining
 
 @Composable
@@ -22,7 +23,9 @@ internal fun MoreOptionsScreenContent(
     actionListener: MoreOptionsScreenActionListener
 ) {
     with(state) {
-        CommonFocusRequester { focusRequester ->
+        CommonScreenContent(
+            onErrorAccepted = actionListener::onErrorAccepted
+        ) {
             Row(
                 modifier = Modifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -52,26 +55,31 @@ internal fun MoreOptionsScreenContent(
                         },
                         onClickBack = actionListener::onBackPressed
                     )
-                    CommonMoreOptionsButton(
-                        modifier = Modifier.focusRequester(focusRequester).constrainAs(startButton) {
-                            top.linkTo(trainingDetails.top)
-                            start.linkTo(trainingDetails.end, margin = 164.dp)
-                        },
-                        textRes = R.string.start_workout,
-                        icon = R.drawable.ic_rounded_play,
-                        onClick = actionListener::onTrainingProgramOpened
-                    )
+                    CommonFocusRequester { focusRequester ->
+                        CommonMoreOptionsButton(
+                            modifier = Modifier
+                                .focusRequester(focusRequester)
+                                .constrainAs(startButton) {
+                                    top.linkTo(trainingDetails.top)
+                                    start.linkTo(trainingDetails.end, margin = 164.dp)
+                                },
+                            textRes = R.string.start_workout,
+                            icon = R.drawable.ic_rounded_play,
+                            onClick = actionListener::onTrainingProgramOpened
+                        )
+                    }
+
                     CommonMoreOptionsButton(
                         modifier = Modifier.constrainAs(favoritesButton) {
                             top.linkTo(startButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)
                         },
-                        textRes = if(isFavorite) {
+                        textRes = if (isFavorite) {
                             R.string.remove_from_favorites
                         } else {
                             R.string.add_to_favorites
                         },
-                        icon = if(isFavorite) {
+                        icon = if (isFavorite) {
                             R.drawable.favorite
                         } else {
                             R.drawable.ic_outline_favorite

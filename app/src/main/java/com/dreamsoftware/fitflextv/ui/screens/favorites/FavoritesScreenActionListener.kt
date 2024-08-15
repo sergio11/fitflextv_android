@@ -8,4 +8,5 @@ interface FavoritesScreenActionListener {
     fun onTrainingProgramStarted(id: String)
     fun onTrainingProgramRemovedFromFavorites(id: String)
     fun onDismissRequest()
+    fun onErrorAccepted()
 }

@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -17,8 +18,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -40,6 +44,7 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import kotlinx.coroutines.delay
 
 private val CLOSE_DRAWER_WIDTH = 80.dp
 private val BACKGROUND_CONTENT_PADDING = 12.dp
@@ -61,28 +66,44 @@ fun DashboardNavigationDrawer(
     content: @Composable () -> Unit,
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+    var shouldShowDrawer by remember { mutableStateOf(true) }
+    var isDrawerOpen by remember { mutableStateOf(false) }
+    // Define the routes that should hide the drawer
+    val hiddenDrawerRoutes = listOf(Screen.VideoPlayer.route, Screen.AudioPlayer.route)
+    // Effect to manage drawer visibility based on currentDestination
+    LaunchedEffect(currentDestination) {
+        // Set flag to show drawer after a delay
+        shouldShowDrawer = false
+        delay(700L)
+        shouldShowDrawer = true
+    }
+
+    // Monitor drawer state changes
+    LaunchedEffect(drawerState.currentValue) {
+        isDrawerOpen = drawerState.currentValue == DrawerValue.Open
+    }
+
     with(MaterialTheme.colorScheme) {
         ModalNavigationDrawer(
             drawerState = drawerState,
             scrimBrush = Brush.horizontalGradient(
                 listOf(
                     background,
-                    Color.Transparent
+                    onPrimary.copy(alpha = 0.3f)
                 )
             ),
             drawerContent = {
-                if(currentDestination?.route != Screen.VideoPlayer.route &&
-                    currentDestination?.route != Screen.AudioPlayer.route) {
+                if (shouldShowDrawer && currentDestination?.route !in hiddenDrawerRoutes) {
                     Column(
                         Modifier
                             .fillMaxHeight()
-                            .padding(BACKGROUND_CONTENT_PADDING)
+                            .padding(horizontal = 8.dp)
                             .background(background)
                             .selectableGroup(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        if(drawerState.currentValue == DrawerValue.Open) {
+                        if (isDrawerOpen) {
                             Image(
                                 painter = painterResource(id = R.drawable.main_logo_inverse),
                                 contentDescription = null,
@@ -118,28 +139,30 @@ fun DashboardNavigationDrawer(
                                     pressedSelectedContentColor = inverseOnSurface,
                                 ),
                                 interactionSource = interactionSource,
-                                modifier = Modifier.padding(bottom = BACKGROUND_CONTENT_PADDING, end = 8.dp),
+                                modifier = Modifier.padding(bottom = 16.dp, end = 8.dp),
                                 selected = selected,
                                 onClick = { onItemClicked(item) },
                                 content = {
-                                    CommonText(
-                                        type = CommonTextTypeEnum.TITLE_MEDIUM,
-                                        titleRes = item.nameRes,
-                                        titleText = item.name,
-                                        textColor = if(isPressed) {
-                                            onPrimary
-                                        } else if(isFocused)  {
-                                            inverseOnSurface
-                                        } else {
-                                            onPrimary
-                                        }
-                                    )
+                                    if (isDrawerOpen) {
+                                        CommonText(
+                                            type = CommonTextTypeEnum.TITLE_MEDIUM,
+                                            titleRes = item.nameRes,
+                                            titleText = item.name,
+                                            textColor = if (isPressed) {
+                                                onPrimary
+                                            } else if (isFocused) {
+                                                inverseOnSurface
+                                            } else {
+                                                onPrimary
+                                            }
+                                        )
+                                    }
                                 },
                                 leadingContent = {
                                     val painterResource = painterResource(id = item.imageRes)
-                                    val contentDescription = item.nameRes?.let { stringResource(id = it) } ?: item.name ?: String.EMPTY
+                                    val contentDescription = item.nameRes?.let { stringResource(id = it) } ?: item.name ?: ""
                                     val imageSize = Modifier.size(24.dp)
-                                    if(item.isIcon) {
+                                    if (item.isIcon) {
                                         Icon(
                                             painter = painterResource,
                                             contentDescription = contentDescription,
@@ -157,11 +180,9 @@ fun DashboardNavigationDrawer(
                         }
                     }
                 }
-            },
-            modifier = Modifier
+            }
         ) {
-            if(currentDestination?.route != Screen.VideoPlayer.route &&
-                currentDestination?.route != Screen.AudioPlayer.route) {
+            if (currentDestination?.route !in hiddenDrawerRoutes) {
                 Box(modifier = modifier
                     .background(background)
                     .padding(start = CLOSE_DRAWER_WIDTH + BACKGROUND_CONTENT_PADDING),

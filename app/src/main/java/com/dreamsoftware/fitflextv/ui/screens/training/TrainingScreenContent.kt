@@ -13,17 +13,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.grid.TvGridCells
-import androidx.tv.foundation.lazy.grid.TvLazyHorizontalGrid
-import androidx.tv.foundation.lazy.grid.itemsIndexed
-import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
@@ -87,7 +86,7 @@ private fun TrainingProgramList(
     actionListener: TrainingScreenActionListener
 ) {
     CommonFocusRequester(state) { focusRequester ->
-        TvLazyColumn(
+        LazyColumn(
             Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -148,28 +147,26 @@ private fun TrainingProgramList(
                         animationSpec = tween(800)
                     ),
                 ) {
-                    TvLazyHorizontalGrid(
+                    LazyHorizontalGrid(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(650.dp),
-                        rows = TvGridCells.Fixed(3),
+                        rows = GridCells.Fixed(3),
                         horizontalArrangement = Arrangement.spacedBy(24.dp),
                         verticalArrangement = Arrangement.spacedBy(24.dp),
                         contentPadding = PaddingValues(32.dp)
                     ) {
                         itemsIndexed(state.trainingPrograms) { idx, training ->
-                            with(MaterialTheme.typography) {
-                                CommonCard(
-                                    modifier = Modifier.conditional(condition = idx == 0, ifTrue = {
-                                        focusRequester(focusRequester)
-                                    }),
-                                    imageUrl = training.imageUrl,
-                                    title = training.name,
-                                    timeText = training.duration,
-                                    typeText = training.intensity.level,
-                                    onClick = { actionListener.onItemClicked(training.id) }
-                                )
-                            }
+                            CommonCard(
+                                modifier = Modifier.conditional(condition = idx == 0, ifTrue = {
+                                    focusRequester(focusRequester)
+                                }),
+                                imageUrl = training.imageUrl,
+                                title = training.name,
+                                timeText = training.duration,
+                                typeText = training.intensity.level,
+                                onClick = { actionListener.onItemClicked(training.id) }
+                            )
                         }
                     }
                 }

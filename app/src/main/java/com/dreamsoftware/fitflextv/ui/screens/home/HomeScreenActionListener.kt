@@ -5,5 +5,6 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 interface HomeScreenActionListener {
 
     fun onOpenTrainingProgram(trainingProgram: ITrainingProgramBO)
-    fun onCategorySelected(categoryId: String): Unit
+    fun onCategorySelected(categoryId: String)
+    fun onErrorAccepted()
 }

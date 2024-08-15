@@ -6,4 +6,5 @@ interface SettingsScreenActionListener {
     fun onSettingItemSelected(setting: ISettingItemVO)
     fun onSignOffConfirmed()
     fun onSignOffCancelled()
+    fun onErrorAccepted()
 }

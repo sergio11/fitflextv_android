@@ -19,7 +19,7 @@ import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailScree
 sealed class Screen(
     val route: String,
     val name: String,
-    arguments: List<NamedNavArgument> = emptyList()
+    val arguments: List<NamedNavArgument> = emptyList()
 ) {
 
     data object Splash: Screen(route = "splash", name = "Splash")

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,13 +25,12 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.PivotOffsets
-import androidx.tv.foundation.lazy.list.TvLazyRow
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.ScalableAvatar
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
 
 @Composable
@@ -44,9 +44,8 @@ fun CommonProfileSelector(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TvLazyRow(
+            LazyRow(
                 horizontalArrangement = Arrangement.Center,
-                pivotOffsets = PivotOffsets(0.5f, 0.5f),
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 items(profiles.size) {
@@ -86,7 +85,7 @@ private fun ProfileAvatarName(name: String) {
                     SizeTransform(clip = false),
                 )
         },
-        label = "",
+        label = String.EMPTY,
     ) { text ->
         CommonText(
             titleText = text,

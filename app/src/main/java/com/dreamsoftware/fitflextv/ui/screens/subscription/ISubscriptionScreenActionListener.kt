@@ -7,4 +7,5 @@ interface ISubscriptionScreenActionListener {
     fun onSubscribe()
     fun onRestorePurchases()
     fun onCompleted()
+    fun onErrorAccepted()
 }

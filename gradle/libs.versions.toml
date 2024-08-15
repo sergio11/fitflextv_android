@@ -3,12 +3,12 @@ agp = "8.2.2"
 kotlin = "1.9.0"
 core-ktx = "1.13.1"
 appcompat = "1.7.0"
-compose-bom = "2024.06.00"
+compose-foundation = "1.7.0-beta07"
+compose-runtime = "1.7.0-beta07"
 firebase-auth-ktx = "23.0.0"
 firebase-firestore-ktx = "25.0.0"
 firebase-auth = "23.0.0"
 firebase-bom = "33.1.2"
-tv-foundation = "1.0.0-alpha11"
 tv-material = "1.0.0-rc02"
 lifecycle-runtime-ktx = "2.8.4"
 activity-compose = "1.9.1"
@@ -54,12 +54,12 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose-foundation" }
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose-runtime" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "tv-foundation" }
 tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tv-material" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
