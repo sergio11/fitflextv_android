@@ -7,6 +7,7 @@ data class ChallengeBO(
     override val name: String,
     override val description: String,
     override val instructorName: String,
+    override val instructorId: String,
     override val workoutType: WorkoutTypeEnum,
     override val imageUrl: String,
     override val duration: String,

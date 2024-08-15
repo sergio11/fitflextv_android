@@ -73,6 +73,10 @@
     <!-- Trainings -->
     <string name="trainings_not_programs_available">No training programs available</string>
 
+    <!-- Instructor Detail -->
+    <string name="instructor_detail_title">Instructor Details</string>
+    <string name="instructor_detail_not_available">Instructor details are not available at the moment.</string>
+
     <!-- Category Detail -->
     <string name="category_detail_trainings_title" formatted="false">"%s" Trainings</string>
     <string name="category_detail_trainings_title_default">Trainings</string>

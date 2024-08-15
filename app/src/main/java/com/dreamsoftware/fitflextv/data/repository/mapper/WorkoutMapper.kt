@@ -17,6 +17,7 @@ internal class WorkoutMapper : IOneSideMapper<Pair<WorkoutDTO, InstructorDTO>, W
             name = first.name,
             description = first.description,
             instructorName = second.name,
+            instructorId = second.id,
             workoutType = enumNameOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
             imageUrl = first.imageUrl,
             duration = first.duration,

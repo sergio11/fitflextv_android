@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreen
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreen
 import com.dreamsoftware.fitflextv.ui.screens.home.HomeScreen
+import com.dreamsoftware.fitflextv.ui.screens.instructordetail.InstructorDetailScreen
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreen
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreen
@@ -133,6 +134,22 @@ fun DashboardNavHost(
                         onPlayTrainingSong = {
                             navigate(Screen.AudioPlayer.buildRoute(it))
                         },
+                        onOpenInstructorDetail = {
+                            navigate(Screen.InstructorDetail.buildRoute(it))
+                        },
+                        onBackPressed = {
+                            popBackStack()
+                        },
+                    )
+                }
+            }
+        }
+
+        composable(Screen.InstructorDetail.route) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let(Screen.InstructorDetail::parseArgs)?.let { args ->
+                with(navController) {
+                    InstructorDetailScreen(
+                        args = args,
                         onBackPressed = {
                             popBackStack()
                         },

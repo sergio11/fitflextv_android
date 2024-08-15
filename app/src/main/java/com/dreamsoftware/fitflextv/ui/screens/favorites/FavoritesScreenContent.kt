@@ -50,7 +50,9 @@ import com.dreamsoftware.fitflextv.ui.theme.popupShadow
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 import com.dreamsoftware.fitflextv.ui.theme.surfaceVariant
 import com.dreamsoftware.fitflextv.ui.utils.conditional
+import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
 import com.dreamsoftware.fitflextv.ui.utils.shadowBox
+import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
 
 @Composable
 internal fun FavoritesScreenContent(
@@ -204,7 +206,7 @@ private fun TrainingProgramDetailsPopup(
                             .padding(bottom = 12.dp),
                         type = CommonButtonTypeEnum.MEDIUM,
                         style = CommonButtonStyleTypeEnum.NORMAL,
-                        text = "Start"
+                        textRes = trainingProgram.toTrainingType().getStartButtonID()
                     ) {
                         onStartTrainingProgram(trainingProgram.id)
                     }
@@ -214,7 +216,7 @@ private fun TrainingProgramDetailsPopup(
                             .padding(bottom = 12.dp),
                         type = CommonButtonTypeEnum.MEDIUM,
                         style = CommonButtonStyleTypeEnum.INVERSE,
-                        text = "Remove from favorites"
+                        textRes = R.string.remove_from_favorites
                     ) {
                         onRemoveFromFavorites(trainingProgram.id)
                     }
