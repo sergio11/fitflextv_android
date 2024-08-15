@@ -4,7 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -43,7 +42,6 @@ import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
-import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import kotlinx.coroutines.delay
 
 private val CLOSE_DRAWER_WIDTH = 80.dp
@@ -74,7 +72,7 @@ fun DashboardNavigationDrawer(
     LaunchedEffect(currentDestination) {
         // Set flag to show drawer after a delay
         shouldShowDrawer = false
-        delay(700L)
+        delay(800L)
         shouldShowDrawer = true
     }
 

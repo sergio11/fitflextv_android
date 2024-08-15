@@ -67,6 +67,14 @@ class MoreOptionsViewModel @Inject constructor(
         }
     }
 
+    override fun onOpenInstructorDetail() {
+        uiState.value.trainingProgram?.let {
+            launchSideEffect(
+                MoreOptionsSideEffects.OpenInstructorDetail(id = it.instructorId)
+            )
+        }
+    }
+
     override fun onPlayTrainingSong() {
         uiState.value.trainingProgram?.let {
             launchSideEffect(
@@ -120,5 +128,6 @@ data class MoreOptionsUiState(
 sealed interface MoreOptionsSideEffects : SideEffect {
     data class PlayTrainingProgram(val id: String, val type: TrainingTypeEnum) : MoreOptionsSideEffects
     data class PlayTrainingSong(val songId: String) : MoreOptionsSideEffects
+    data class OpenInstructorDetail(val id: String): MoreOptionsSideEffects
     data object ExitFromMoreDetail: MoreOptionsSideEffects
 }

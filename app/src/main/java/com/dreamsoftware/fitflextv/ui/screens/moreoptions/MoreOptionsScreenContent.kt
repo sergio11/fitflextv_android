@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.moreoptions
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,6 +17,8 @@ import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonMoreOptionsButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndTypeTraining
+import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
+import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
 
 @Composable
 internal fun MoreOptionsScreenContent(
@@ -43,7 +46,7 @@ internal fun MoreOptionsScreenContent(
                     ) = createRefs()
 
                     CommonCardDetails(
-                        modifier = Modifier.constrainAs(trainingDetails) {},
+                        modifier = Modifier.width(268.dp).constrainAs(trainingDetails) {},
                         title = trainingProgram?.name.orEmpty(),
                         time = trainingProgram.formatTimeAndTypeTraining(),
                         description = trainingProgram?.description.orEmpty(),
@@ -63,7 +66,7 @@ internal fun MoreOptionsScreenContent(
                                     top.linkTo(trainingDetails.top)
                                     start.linkTo(trainingDetails.end, margin = 164.dp)
                                 },
-                            textRes = R.string.start_workout,
+                            textRes = trainingProgram?.toTrainingType()?.getStartButtonID() ?: R.string.start_workout,
                             icon = R.drawable.ic_rounded_play,
                             onClick = actionListener::onTrainingProgramOpened
                         )
@@ -101,7 +104,8 @@ internal fun MoreOptionsScreenContent(
                             start.linkTo(startButton.start)
                         },
                         textRes = R.string.view_instructor,
-                        icon = R.drawable.ic_instructor
+                        icon = R.drawable.ic_instructor,
+                        onClick = actionListener::onOpenInstructorDetail
                     )
                     CommonMoreOptionsButton(
                         modifier = Modifier.constrainAs(shareButton) {

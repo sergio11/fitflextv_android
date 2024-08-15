@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,18 +17,19 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 
 @Composable
 fun CommonCardDetails(
     modifier: Modifier = Modifier,
-    title: String,
-    time: String,
-    description: String,
-    imageUrl: String
+    title: String = String.EMPTY,
+    time: String = String.EMPTY,
+    description: String = String.EMPTY,
+    imageUrl: String = String.EMPTY
 ) {
     with(MaterialTheme.colorScheme) {
         Column(
-            modifier = modifier.width(268.dp),
+            modifier = modifier,
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {

@@ -7,6 +7,7 @@ interface ITrainingProgramBO {
     val name: String
     val description: String
     val instructorName: String
+    val instructorId: String
     val workoutType: WorkoutTypeEnum
     val imageUrl: String
     val intensity: IntensityEnum

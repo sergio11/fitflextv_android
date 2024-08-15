@@ -15,6 +15,7 @@ fun MoreOptionsScreen(
     viewModel: MoreOptionsViewModel = hiltViewModel(),
     args: MoreOptionsScreenArgs,
     onBackPressed: () -> Unit,
+    onOpenInstructorDetail: (id: String) -> Unit,
     onPlayTrainingProgram: (id: String, type: TrainingTypeEnum) -> Unit,
     onPlayTrainingSong: (songId: String) -> Unit
 ) {
@@ -27,6 +28,7 @@ fun MoreOptionsScreen(
                 MoreOptionsSideEffects.ExitFromMoreDetail -> onBackPressed()
                 is MoreOptionsSideEffects.PlayTrainingProgram -> onPlayTrainingProgram(it.id, it.type)
                 is MoreOptionsSideEffects.PlayTrainingSong -> onPlayTrainingSong(it.songId)
+                is MoreOptionsSideEffects.OpenInstructorDetail -> onOpenInstructorDetail(it.id)
             }
         },
         onInit = {

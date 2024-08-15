@@ -7,6 +7,7 @@ import androidx.navigation.navArgument
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.instructordetail.InstructorDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
@@ -201,6 +202,24 @@ sealed class Screen(
         fun parseArgs(args: Bundle): CategoryDetailScreenArgs? = with(args) {
             getString("id")?.let { id ->
                 CategoryDetailScreenArgs(id = id)
+            }
+        }
+    }
+
+    data object InstructorDetail : Screen(route = "instructor_detail/{id}", name = "InstructorDetail", arguments = listOf(
+        navArgument("id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(id: String): String =
+            route.replace(
+                oldValue = "{id}",
+                newValue = id
+            )
+
+        fun parseArgs(args: Bundle): InstructorDetailScreenArgs? = with(args) {
+            getString("id")?.let { id ->
+                InstructorDetailScreenArgs(id = id)
             }
         }
     }

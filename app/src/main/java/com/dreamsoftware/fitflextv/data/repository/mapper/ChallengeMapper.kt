@@ -22,6 +22,7 @@ internal class ChallengeMapper(
             name = first.name,
             description = first.description,
             instructorName = third.name,
+            instructorId = third.id,
             workoutType = enumNameOfOrDefault(first.workoutType, WorkoutTypeEnum.YOGA),
             imageUrl = first.imageUrl,
             duration = first.duration,

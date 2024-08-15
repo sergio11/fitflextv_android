@@ -37,7 +37,7 @@ internal class InstructorRepositoryImpl(
                 .getInstructorById(id)
                 .let(instructorMapper::mapInToOut)
         } catch (ex: FetchInstructorByIdRemoteException) {
-            throw FetchInstructorByIdException("An error occurred when fetching the instructor by $id", ex)
+            throw FetchInstructorByIdException("An error occurred when fetching the instructor by id: $id", ex)
         }
     }
 }
