@@ -5,4 +5,5 @@ interface TrainingDetailScreenActionListener {
     fun onTrainingProgramStarted()
     fun onTrainingProgramMoreInfoRequested()
     fun onTrainingFavoriteClicked()
+    fun onErrorAccepted()
 }

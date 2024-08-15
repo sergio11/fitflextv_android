@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
@@ -20,8 +22,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.itemsIndexed
 import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
@@ -44,7 +44,7 @@ internal fun FilterSideMenu(
 ) {
     with(MaterialTheme.colorScheme) {
         CommonFocusRequester { focusRequester ->
-            TvLazyColumn(
+            LazyColumn(
                 contentPadding = PaddingValues(vertical = 32.dp, horizontal = 20.dp)
             ) {
                 item {

@@ -6,4 +6,5 @@ interface MoreOptionsScreenActionListener {
     fun onTrainingProgramOpened()
     fun onFavouriteClicked()
     fun onPlayTrainingSong()
+    fun onErrorAccepted()
 }

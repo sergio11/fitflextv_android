@@ -24,7 +24,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
     }
 
     buildTypes {
@@ -62,7 +61,6 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
-        pickFirst ("META-INF/gradle/incremental.annotation.processors")
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -70,27 +68,32 @@ android {
 }
 
 dependencies {
+    // Core Android Libraries
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.ui.tooling.preview)
-    implementation(libs.tv.foundation)
     implementation(libs.tv.material)
-    implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
-    implementation(libs.coil.compose)
     implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.constraint.layout)
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.material.icons.extended)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.tooling)
-    debugImplementation(libs.ui.test.manifest)
+
+    // Jetpack Compose
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.runtime)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.activity.compose)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.ui.tooling)
 
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)
 
-    // Hilt
+    // Hilt for Dependency Injection
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
@@ -101,30 +104,18 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore.ktx)
 
-    // ViewModel in Compose
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    //lifecycle
-    implementation(libs.androidx.lifecycle.runtime.compose)
-
-    // Compose Navigation
-    implementation(libs.androidx.navigation.compose)
-
-    // Coil
-    implementation(libs.coil.compose)
-
-    // JSON parser
-    implementation(libs.kotlinx.serialization)
-
-    // Media3
+    // Media3 for Media Playback
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
 
-    implementation(libs.androidx.datastore.preferences)
+    // JSON Parsing
+    implementation(libs.kotlinx.serialization)
     implementation(libs.moshi.kotlin)
 
-    implementation(libs.constraint.layout)
+    // Testing Libraries
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.test.manifest)
 
-    // Baseline profile installer
+    // Baseline Profile Installer
     implementation(libs.androidx.profileinstaller)
 }

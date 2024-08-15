@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -22,8 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.tv.foundation.lazy.list.TvLazyRow
-import androidx.tv.foundation.lazy.list.itemsIndexed
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Tab
 import androidx.tv.material3.TabDefaults
@@ -98,7 +98,7 @@ internal fun ChallengeTabs(
                     }
                 }
             }
-            TvLazyRow(
+            LazyRow(
                 modifier = Modifier
                     .padding(top = 40.dp)
                     .focusRestorer(),

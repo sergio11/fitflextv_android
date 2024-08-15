@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.ChallengeTabs
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.RoundedGradientImage
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.TrainingEntityDetails
@@ -20,26 +21,28 @@ internal fun TrainingDetailScreenContent(
     state: TrainingDetailUiState,
     actionListener: TrainingDetailScreenActionListener
 ) {
-    var isChallengeTabsVisible by remember { mutableStateOf(false) }
-    Column(modifier = Modifier.fillMaxSize()) {
-        AnimatedVisibility(visible = !isChallengeTabsVisible) {
-            Box(contentAlignment = Alignment.BottomStart) {
-                RoundedGradientImage(imageUrl = state.imageUrl)
-                TrainingEntityDetails(
+    CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
+        var isChallengeTabsVisible by remember { mutableStateOf(false) }
+        Column(modifier = Modifier.fillMaxSize()) {
+            AnimatedVisibility(visible = !isChallengeTabsVisible) {
+                Box(contentAlignment = Alignment.BottomStart) {
+                    RoundedGradientImage(imageUrl = state.imageUrl)
+                    TrainingEntityDetails(
+                        state = state,
+                        onStartTrainingClicked = actionListener::onTrainingProgramStarted,
+                        onMoreInfoClicked = actionListener::onTrainingProgramMoreInfoRequested,
+                        onChallengesPlanClicked = { isChallengeTabsVisible = true },
+                        onTrainingFavoriteClicked = actionListener::onTrainingFavoriteClicked
+                    )
+                }
+            }
+            AnimatedVisibility(visible = isChallengeTabsVisible) {
+                ChallengeTabs(
                     state = state,
-                    onStartTrainingClicked = actionListener::onTrainingProgramStarted,
-                    onMoreInfoClicked = actionListener::onTrainingProgramMoreInfoRequested,
-                    onChallengesPlanClicked = { isChallengeTabsVisible = true },
-                    onTrainingFavoriteClicked = actionListener::onTrainingFavoriteClicked
+                    onClickBackChallenge = { isChallengeTabsVisible = false },
+                    onClickCard = {}
                 )
             }
-        }
-        AnimatedVisibility(visible = isChallengeTabsVisible) {
-            ChallengeTabs(
-                state = state,
-                onClickBackChallenge = { isChallengeTabsVisible = false },
-                onClickCard = {}
-            )
         }
     }
 }
