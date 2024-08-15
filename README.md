@@ -228,6 +228,32 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_29.png" />
 </p>
 
+### Training Program Detail
+
+<p align="center">
+  <img src="doc/picture_9.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_11.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_30.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_31.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_32.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_33.png" />
+</p>
+
 ### Subscriptions
 
 <p align="center">
