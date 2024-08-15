@@ -7,23 +7,22 @@ compose-bom = "2024.06.00"
 firebase-auth-ktx = "23.0.0"
 firebase-firestore-ktx = "25.0.0"
 firebase-auth = "23.0.0"
-firebase-bom = "33.1.1"
-tv-foundation = "1.0.0-alpha10"
-tv-material = "1.0.0-beta01"
-lifecycle-runtime-ktx = "2.8.3"
-activity-compose = "1.9.0"
+firebase-bom = "33.1.2"
+tv-foundation = "1.0.0-alpha11"
+tv-material = "1.0.0-rc02"
+lifecycle-runtime-ktx = "2.8.4"
+activity-compose = "1.9.1"
 hilt-navigation-compose = "1.2.0"
 hilt-android = "2.49"
 kotlin-android = "1.9.0"
 kotlinx-serialization = "1.6.0"
 ksp = "1.9.0-1.0.13"
-kotlinx-coroutines = "1.6.0"
 navigation-compose = "2.7.7"
 core-splashscreen = "1.0.1"
 benchmark-macro-junit4 = "1.2.4"
 coil-compose = "2.5.0"
-media3-ui = "1.3.1"
-media3-exoplayer = "1.3.1"
+media3-ui = "1.4.0"
+media3-exoplayer = "1.4.0"
 constraint-layout = "1.0.1"
 junit = "1.2.1"
 espresso-core = "3.6.1"
@@ -32,14 +31,13 @@ profileinstaller = "1.3.1"
 benchmark = "1.2.4"
 camera-core = "1.3.4"
 material3-android = "1.2.1"
-materialIconsExtended = "1.5.4"
-datastore-preferences = "1.0.0"
+materialIconsExtended = "1.6.8"
+datastore-preferences = "1.1.1"
 moshiKotlin = "1.14.0"
 
 
 [libraries]
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
-compose-material-iconsExtended = { module = "androidx.compose.material:material-icons-extended" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebase-auth-ktx" }
 firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebase-firestore-ktx" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebase-auth" }
@@ -47,7 +45,6 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "core-splashscreen" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro-junit4", version.ref = "benchmark-macro-junit4" }
-androidx-hilt-android = { module = "androidx.hilt:hilt-android", version.ref = "hilt-android" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle-runtime-ktx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
