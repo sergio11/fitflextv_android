@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.ui.tooling)
+    implementation(libs.fudge.tv.compose)
 
     // SplashScreen
     implementation(libs.androidx.core.splashscreen)

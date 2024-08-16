@@ -35,7 +35,7 @@ material3-android = "1.2.1"
 materialIconsExtended = "1.6.8"
 datastore-preferences = "1.1.1"
 moshiKotlin = "1.14.0"
-
+fudge-tv-compose = "0.0.1"
 
 [libraries]
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
@@ -75,6 +75,7 @@ androidx-camera-core = { group = "androidx.camera", name = "camera-core", versio
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3-android" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore-preferences" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
+fudge-tv-compose = { module = "com.dreamsoftware.libraries:fudge-tv-compose", version.ref = "fudge-tv-compose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
