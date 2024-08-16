@@ -50,7 +50,7 @@ fun SaveProfileScreenContent(
             primaryOptionTextRes = R.string.save_profile_confirm_button_text,
             secondaryOptionTextRes = R.string.save_profile_cancel_button_text,
             tertiaryOptionTextRes = if(isEditMode) {
-                R.string.save_profile_advance_configuration_button_text
+                R.string.save_profile_change_secure_pin_button_text
             } else {
                 null
             },
@@ -126,7 +126,7 @@ private fun EditProfile(
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         SaveProfileFormContent(
-            modifier = Modifier.weight(0.7f),
+            modifier = Modifier.weight(0.4f),
             uiState = uiState,
             onAliasChanged = onAliasChanged,
             onPinChanged = onPinChanged

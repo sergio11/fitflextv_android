@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.category.CategoryDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.instructordetail.InstructorDetailScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.moreoptions.MoreOptionsScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.audio.AudioPlayerScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.player.video.VideoPlayerScreenArgs
-import com.dreamsoftware.fitflextv.ui.screens.profiles.advance.ProfileAdvanceScreenArgs
+import com.dreamsoftware.fitflextv.ui.screens.profiles.changesecurepin.ChangeSecurePinScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.delete.DeleteProfileScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreenArgs
 import com.dreamsoftware.fitflextv.ui.screens.profiles.secure.SecurePinScreenArgs
@@ -63,9 +62,9 @@ sealed class Screen(
                 newValue = id
             )
 
-        fun parseArgs(args: Bundle): ProfileAdvanceScreenArgs? = with(args) {
+        fun parseArgs(args: Bundle): ChangeSecurePinScreenArgs? = with(args) {
             getString("id")?.let { id ->
-                ProfileAdvanceScreenArgs(
+                ChangeSecurePinScreenArgs(
                     profileId = id,
                 )
             }
