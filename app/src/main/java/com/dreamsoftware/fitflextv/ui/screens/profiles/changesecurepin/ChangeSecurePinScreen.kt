@@ -23,6 +23,7 @@ fun ChangeSecurePinScreen(
         onSideEffect = {
             when(it) {
                 is ChangeSecurePinSideEffects.RequestDeleteProfile -> onGoToDeleteProfile(it.id)
+                ChangeSecurePinSideEffects.SecurePinUpdated -> onBackPressed()
             }
         }
     ) { uiState ->

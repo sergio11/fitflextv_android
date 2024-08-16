@@ -13,6 +13,7 @@ import com.dreamsoftware.fitflextv.domain.repository.ITrainingSongsRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.AddUserSubscriptionUseCase
+import com.dreamsoftware.fitflextv.domain.usecase.ChangeSecurePinUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.CreateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.DeleteProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoriesUseCase
@@ -444,5 +445,16 @@ class UseCasesModule {
     ): GetInstructorDetailUseCase =
         GetInstructorDetailUseCase(
             instructorRepository = instructorRepository
+        )
+
+    @Provides
+    @ViewModelScoped
+    fun provideChangeSecurePinUseCase(
+        profilesRepository: IProfilesRepository,
+        validator:  IBusinessEntityValidator<UpdatedProfileRequestBO>
+    ): ChangeSecurePinUseCase =
+        ChangeSecurePinUseCase(
+            profilesRepository = profilesRepository,
+            validator = validator
         )
 }

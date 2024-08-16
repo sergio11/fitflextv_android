@@ -121,6 +121,8 @@
     <string name="profiles_change_secure_pin_delete_button_text">Delete Profile?</string>
     <string name="profiles_change_secure_pin_form_current_pin_label_text">Current Security PIN</string>
     <string name="profiles_change_secure_pin_form_new_pin_label_text">New Security PIN</string>
+    <string name="profiles_change_secure_updated_dialog_title">PIN Updated Successfully! 🔐</string>
+    <string name="profiles_change_secure_updated_dialog_description">Your secure PIN has been updated. You’re all set to keep your profile safe!</string>
 
     <!-- Delete Profile -->
     <string name="delete_profile_main_title">Delete Profile</string>

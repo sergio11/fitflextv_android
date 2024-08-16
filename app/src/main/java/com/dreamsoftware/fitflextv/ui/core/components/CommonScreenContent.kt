@@ -49,7 +49,7 @@ fun CommonScreenContent(
                     Snackbar(
                         shape = RoundedCornerShape(20.dp),
                         containerColor = errorContainer,
-                        contentColor = onError,
+                        contentColor = onErrorContainer,
                         snackbarData = it
                     )
                 }
