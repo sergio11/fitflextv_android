@@ -1,4 +1,4 @@
-package com.example.benchmark
+package com.dreamsoftware.fitflextv
 
 import androidx.benchmark.macro.StartupMode
 import androidx.benchmark.macro.StartupTimingMetric
@@ -27,7 +27,7 @@ class StartupBenchmark {
 
     @Test
     fun startup() = benchmarkRule.measureRepeated(
-        packageName = "com.google.jetfit",
+        packageName = "com.dreamsoftware.fitflextv",
         metrics = listOf(StartupTimingMetric()),
         iterations = 5,
         startupMode = StartupMode.COLD
