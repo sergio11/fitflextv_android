@@ -7,4 +7,5 @@ interface ChangeSecurePinActionListener {
     fun onErrorAccepted()
     fun onCurrentSecurePinChanged(pin: String)
     fun onNewSecurePinChanged(pin: String)
+    fun onCloseSecurePinUpdatedDialog()
 }
