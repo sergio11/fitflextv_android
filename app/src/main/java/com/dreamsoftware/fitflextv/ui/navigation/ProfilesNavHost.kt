@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dreamsoftware.fitflextv.ui.screens.profiles.advance.ProfileAdvanceScreen
+import com.dreamsoftware.fitflextv.ui.screens.profiles.changesecurepin.ChangeSecurePinScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.delete.DeleteProfileScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.management.ProfilesManagementScreen
 import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreen
@@ -96,7 +96,7 @@ fun ProfilesNavigation(
             navBackStackEntry.arguments?.let { args ->
                 Screen.ProfileAdvance.parseArgs(args)?.let {
                     with(navController) {
-                        ProfileAdvanceScreen(
+                        ChangeSecurePinScreen(
                             args = it,
                             onGoToDeleteProfile = {
                                 navigate(Screen.DeleteProfile.buildRoute(it))

@@ -92,7 +92,7 @@
     <string name="save_profile_form_pin_label_text">Security PIN</string>
     <string name="save_profile_confirm_button_text">Save Changes</string>
     <string name="save_profile_cancel_button_text">Cancel</string>
-    <string name="save_profile_advance_configuration_button_text">Advanced Settings</string>
+    <string name="save_profile_change_secure_pin_button_text">Change Secure Pin</string>
     <string name="save_profile_form_invalid_data_provided">Invalid data provided. Please check your information.</string>
 
     <!-- Profile Selector -->
@@ -114,13 +114,13 @@
     <string name="secure_pin_form_accept_button_text">Accept</string>
     <string name="secure_pin_form_cancel_button_text">Cancel</string>
 
-    <!-- Profile Advance -->
-    <string name="profiles_advance_main_title">Advanced Profile Settings</string>
-    <string name="profiles_advance_main_description">Configure additional settings for this profile.</string>
-    <string name="profiles_advance_form_confirm_button_text">Confirm</string>
-    <string name="profiles_advance_form_delete_button_text">Delete Profile?</string>
-    <string name="profiles_advance_change_pin_tab_label_text">Change secure pin</string>
-    <string name="profiles_advance_time_restrictions_tab_label_text">Time Restrictions</string>
+    <!-- Change Secure Pin -->
+    <string name="profiles_change_secure_pin_main_title">Ready for a PIN Refresh? 🔒</string>
+    <string name="profiles_change_secure_pin_main_description">Keep your profile secure and up-to-date by setting a new PIN.\n Your preferences are in good hands! 👌</string>
+    <string name="profiles_change_secure_pin_form_confirm_button_text">Confirm</string>
+    <string name="profiles_change_secure_pin_delete_button_text">Delete Profile?</string>
+    <string name="profiles_change_secure_pin_form_current_pin_label_text">Current Security PIN</string>
+    <string name="profiles_change_secure_pin_form_new_pin_label_text">New Security PIN</string>
 
     <!-- Delete Profile -->
     <string name="delete_profile_main_title">Delete Profile</string>
