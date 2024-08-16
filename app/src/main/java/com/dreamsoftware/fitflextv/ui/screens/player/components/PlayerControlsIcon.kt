@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -20,11 +21,13 @@ import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 
 @Composable
 internal fun PlayerControlsIcon(
+    modifier: Modifier = Modifier,
     icon: Int,
     border: ButtonBorder,
     buttonColor: Color,
-    modifier: Modifier = Modifier,
+    iconColor: Color = Color.Gray,
     size: Dp = 40.dp,
+    interactionSource: MutableInteractionSource? = null,
     onClick: () -> Unit
 ) {
     CommonFillIconButton(
@@ -32,6 +35,8 @@ internal fun PlayerControlsIcon(
         onClick = onClick,
         icon = icon,
         buttonColor = buttonColor,
+        iconColor = iconColor,
+        interactionSource = interactionSource,
         border = border
     )
 }
@@ -50,7 +55,8 @@ fun PreviewPlayerControlsIcon() {
                     shape = CircleShape
                 )
             ),
-            buttonColor = Color.Transparent
+            buttonColor = Color.Transparent,
+            iconColor = Color.Gray
         ) {}
     }
 }
