@@ -38,18 +38,30 @@ internal fun VideoPlayerControlsIcon(
         }
     }
 
-    PlayerControlsIcon(
-        modifier = modifier.size(40.dp),
-        icon = icon,
-        border = IconButtonDefaults.border(
-            border = Border(
-                border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.border),
-                shape = CircleShape
-            )
-        ),
-        buttonColor = Color.Transparent,
-        onClick = onClick
-    )
+    with(MaterialTheme.colorScheme) {
+        PlayerControlsIcon(
+            modifier = modifier.size(40.dp),
+            interactionSource = interactionSource,
+            icon = icon,
+            border = IconButtonDefaults.border(
+                border = Border(
+                    border = BorderStroke(1.5.dp, if(isFocused) {
+                        primary
+                    } else {
+                        onPrimary
+                    }),
+                    shape = CircleShape
+                )
+            ),
+            buttonColor = Color.Transparent,
+            onClick = onClick,
+            iconColor = if(isFocused) {
+                primary
+            } else {
+                onPrimary
+            }
+        )
+    }
 }
 
 

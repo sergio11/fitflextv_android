@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -50,7 +49,6 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
 import com.dreamsoftware.fitflextv.ui.core.components.CommonText
 import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.shadowCarouselColor
@@ -67,57 +65,54 @@ internal fun FeaturedTrainings(
     modifier: Modifier = Modifier,
 ) {
     var isCarouselFocused by remember { mutableStateOf(false) }
-    CommonFocusRequester { focusRequester ->
-        Carousel(
-            modifier = modifier
-                .focusRequester(focusRequester)
-                .fillMaxSize()
-                .padding(padding)
-                .conditional(isCarouselFocused, ifTrue = {
-                    shadowBox(
-                        color = shadowCarouselColor,
-                        blurRadius = 40.dp,
-                        offset = DpOffset(0.dp, 8.dp),
-                        shape = MaterialTheme.shapes.extraLarge,
-                    )
-                })
-                .border(
-                    width = 3.dp,
-                    color = MaterialTheme.colorScheme.border.copy(alpha = if (isCarouselFocused) 1f else 0f),
+    Carousel(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(padding)
+            .conditional(isCarouselFocused, ifTrue = {
+                shadowBox(
+                    color = shadowCarouselColor,
+                    blurRadius = 40.dp,
+                    offset = DpOffset(0.dp, 8.dp),
                     shape = MaterialTheme.shapes.extraLarge,
                 )
-                .clip(MaterialTheme.shapes.extraLarge)
-                .onFocusChanged {
-                    isCarouselFocused = it.hasFocus
-                },
-            itemCount = trainings.size,
-            carouselState = carouselState,
-            carouselIndicator = {
-                CarouselIndicator(
-                    itemCount = trainings.size,
-                    activeItemIndex = carouselState.activeItemIndex
-                )
-            },
-            contentTransformStartToEnd = fadeIn(tween(durationMillis = 1000)).togetherWith(
-                fadeOut(tween(durationMillis = 1000))
-            ),
-            contentTransformEndToStart = fadeIn(tween(durationMillis = 1000)).togetherWith(
-                fadeOut(tween(durationMillis = 1000))
+            })
+            .border(
+                width = 3.dp,
+                color = MaterialTheme.colorScheme.border.copy(alpha = if (isCarouselFocused) 1f else 0f),
+                shape = MaterialTheme.shapes.extraLarge,
             )
-        ) { index ->
-            Box(modifier = Modifier.fillMaxSize()) {
-                val training = trainings[index]
-                CarouselItemBackground(
-                    modifier = Modifier.fillMaxSize(),
-                    trainingProgram = training
-                )
-                CarouselItemForeground(
-                    training = training,
-                    isCarouselFocused = isCarouselFocused,
-                    onOpenTrainingProgram = { onOpenTrainingProgram(training) },
-                    modifier = Modifier.align(Alignment.BottomStart)
-                )
-            }
+            .clip(MaterialTheme.shapes.extraLarge)
+            .onFocusChanged {
+                isCarouselFocused = it.hasFocus
+            },
+        itemCount = trainings.size,
+        carouselState = carouselState,
+        carouselIndicator = {
+            CarouselIndicator(
+                itemCount = trainings.size,
+                activeItemIndex = carouselState.activeItemIndex
+            )
+        },
+        contentTransformStartToEnd = fadeIn(tween(durationMillis = 1000)).togetherWith(
+            fadeOut(tween(durationMillis = 1000))
+        ),
+        contentTransformEndToStart = fadeIn(tween(durationMillis = 1000)).togetherWith(
+            fadeOut(tween(durationMillis = 1000))
+        )
+    ) { index ->
+        Box(modifier = Modifier.fillMaxSize()) {
+            val training = trainings[index]
+            CarouselItemBackground(
+                modifier = Modifier.fillMaxSize(),
+                trainingProgram = training
+            )
+            CarouselItemForeground(
+                training = training,
+                isCarouselFocused = isCarouselFocused,
+                onOpenTrainingProgram = { onOpenTrainingProgram(training) },
+                modifier = Modifier.align(Alignment.BottomStart)
+            )
         }
     }
 }

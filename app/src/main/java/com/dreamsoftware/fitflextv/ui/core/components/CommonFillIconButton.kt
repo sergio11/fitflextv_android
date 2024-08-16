@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.core.components
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,7 +18,9 @@ fun CommonFillIconButton(
     icon: Int,
     onClick: () -> Unit,
     border: ButtonBorder = IconButtonDefaults.border(),
-    buttonColor: Color = Color.White
+    buttonColor: Color = Color.White,
+    iconColor: Color = Color.Gray,
+    interactionSource: MutableInteractionSource? = null,
 ) {
     IconButton(
         onClick = { onClick() },
@@ -25,9 +28,14 @@ fun CommonFillIconButton(
         border = border,
         colors = IconButtonDefaults.colors(
             buttonColor
-        )
+        ),
+        interactionSource = interactionSource
     ) {
-        Icon(painter = painterResource(id = icon), contentDescription = "icon")
+        Icon(
+            painter = painterResource(id = icon),
+            contentDescription = "icon",
+            tint = iconColor
+        )
     }
 }
 
