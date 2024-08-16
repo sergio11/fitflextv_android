@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.benchmark"
+    namespace = "com.dreamsoftware.fitflextv"
     compileSdk = 34
 
     compileOptions {

@@ -1,7 +1,6 @@
-package com.example.benchmark
+package com.dreamsoftware.fitflextv
 
 import android.os.Build
-import android.view.KeyEvent
 import androidx.annotation.RequiresApi
 import androidx.benchmark.macro.junit4.BaselineProfileRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -21,7 +20,7 @@ class BaselineProfileGenerator {
     @RequiresApi(Build.VERSION_CODES.P)
     @Test
     fun generateBaseLineProfile() = baselineProfileRule.collect(
-        packageName = "com.google.jetfit"
+        packageName = "com.dreamsoftware.fitflextv"
     ){
         startActivityAndWait()
 
