@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
 import com.dreamsoftware.fitflextv.AppEvent
-import com.dreamsoftware.fudge.utils.FudgeEventBus
+import com.dreamsoftware.fudge.utils.FudgeTvEventBus
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ScreenStateReceiver : BroadcastReceiver() {
 
     @Inject
-    lateinit var appEventBus: FudgeEventBus
+    lateinit var appEventBus: FudgeTvEventBus
 
     override fun onReceive(context: Context?, intent: Intent?) {
         when (intent?.action) {

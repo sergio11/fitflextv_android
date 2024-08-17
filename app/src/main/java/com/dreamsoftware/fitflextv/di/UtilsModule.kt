@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.di
 import android.content.Context
 import com.dreamsoftware.fitflextv.utils.network.NetworkConnectivityCallback
 import com.dreamsoftware.fitflextv.utils.network.NetworkConnectivityMonitor
-import com.dreamsoftware.fudge.utils.FudgeEventBus
+import com.dreamsoftware.fudge.utils.FudgeTvEventBus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,11 +17,11 @@ class UtilsModule {
 
     @Singleton
     @Provides
-    fun provideAppEventBus() = FudgeEventBus()
+    fun provideAppEventBus() = FudgeTvEventBus()
 
     @Singleton
     @Provides
-    fun provideNetworkCallback(appEventBus: FudgeEventBus) = NetworkConnectivityCallback(appEventBus)
+    fun provideNetworkCallback(appEventBus: FudgeTvEventBus) = NetworkConnectivityCallback(appEventBus)
 
     @Singleton
     @Provides

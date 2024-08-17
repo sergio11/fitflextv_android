@@ -5,14 +5,14 @@ import com.dreamsoftware.fitflextv.AppEvent
 import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
-import com.dreamsoftware.fudge.utils.FudgeEventBus
+import com.dreamsoftware.fudge.utils.FudgeTvEventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    private val appEventBus: FudgeEventBus
+    private val appEventBus: FudgeTvEventBus
 ): FudgeTvViewModel<AppUiState, AppSideEffects>(), IAppScreenActionListener {
 
     init {

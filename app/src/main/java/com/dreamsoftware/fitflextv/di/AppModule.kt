@@ -1,7 +1,7 @@
 package com.dreamsoftware.fitflextv.di
 
 import android.content.Context
-import com.dreamsoftware.fitflextv.utils.IApplicationAware
+import com.dreamsoftware.fudge.utils.IFudgeTvApplicationAware
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,6 +42,6 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApplicationAware(@ApplicationContext context: Context): IApplicationAware =
-        context as IApplicationAware
+    fun provideApplicationAware(@ApplicationContext context: Context): IFudgeTvApplicationAware =
+        context as IFudgeTvApplicationAware
 }
