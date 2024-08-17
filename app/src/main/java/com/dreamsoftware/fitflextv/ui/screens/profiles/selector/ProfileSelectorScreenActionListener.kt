@@ -1,11 +1,10 @@
 package com.dreamsoftware.fitflextv.ui.screens.profiles.selector
 
-import com.dreamsoftware.fitflextv.domain.model.ProfileBO
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface ProfileSelectorScreenActionListener: IFudgeScreenActionListener {
+interface ProfileSelectorScreenActionListener: IFudgeTvScreenActionListener {
 
-    fun onProfileSelected(profile: ProfileBO)
+    fun onProfileSelected(profileId: String)
     fun onAddProfilePressed()
     fun onProfileManagementPressed()
 }

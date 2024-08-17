@@ -19,7 +19,7 @@ fun ProfilesManagementScreen(
         ProfilesManagementScreenContent(
             uiState = uiState,
             onCompletePressed = onBackPressed,
-            onProfileSelected = { onGoToEditProfile(it.uuid) },
+            onProfileSelected = { onGoToEditProfile(it) },
             onErrorAccepted = ::onErrorAccepted
         )
     }

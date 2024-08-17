@@ -1,9 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.home
 
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface HomeScreenActionListener: IFudgeScreenActionListener {
+interface HomeScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onOpenTrainingProgram(trainingProgram: ITrainingProgramBO)
     fun onCategorySelected(categoryId: String)

@@ -8,14 +8,14 @@ import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
-import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
+import com.dreamsoftware.fudge.core.FudgeTvUseCaseWithParams
 import java.util.UUID
 
 class SignUpUseCase(
     private val userRepository: IUserRepository,
     private val profilesRepository: IProfilesRepository,
     private val validator: IBusinessEntityValidator<SignUpBO>
-) : FudgeUseCaseWithParams<SignUpUseCase.Params, UserDetailBO>() {
+) : FudgeTvUseCaseWithParams<SignUpUseCase.Params, UserDetailBO>() {
 
     private companion object {
         const val DEFAULT_PIN = 123456

@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.ChangeSecurePinUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ChangeSecurePinViewModel @Inject constructor(
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
     private val changeSecurePinUseCase: ChangeSecurePinUseCase
-): FudgeViewModel<ChangeSecurePinUiState, ChangeSecurePinSideEffects>(), ChangeSecurePinActionListener {
+): FudgeTvViewModel<ChangeSecurePinUiState, ChangeSecurePinSideEffects>(), ChangeSecurePinActionListener {
 
     override fun onGetDefaultState(): ChangeSecurePinUiState = ChangeSecurePinUiState()
 

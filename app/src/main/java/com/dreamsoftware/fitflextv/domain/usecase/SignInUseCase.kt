@@ -5,7 +5,7 @@ import com.dreamsoftware.fitflextv.domain.model.SignInBO
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
-import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
+import com.dreamsoftware.fudge.core.FudgeTvUseCaseWithParams
 
 /**
  * SignIn Use Case
@@ -15,7 +15,7 @@ import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 class SignInUseCase(
     private val userRepository: IUserRepository,
     private val validator: IBusinessEntityValidator<SignInBO>
-) : FudgeUseCaseWithParams<SignInUseCase.Params, UserDetailBO>() {
+) : FudgeTvUseCaseWithParams<SignInUseCase.Params, UserDetailBO>() {
 
     override suspend fun onExecuted(params: Params): UserDetailBO = with(params) {
         params.toSignInBO().let { signInBO ->

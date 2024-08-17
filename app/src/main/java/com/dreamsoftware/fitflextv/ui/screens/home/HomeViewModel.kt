@@ -8,7 +8,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.GetFeaturedTrainingsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsRecommendedUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.HasActiveSubscriptionUseCase
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getTrainingsRecommendedUseCase: GetTrainingsRecommendedUseCase,
     private val hasActiveSubscriptionUseCase: HasActiveSubscriptionUseCase
-) : FudgeViewModel<HomeUiState, HomeSideEffects>(), HomeScreenActionListener {
+) : FudgeTvViewModel<HomeUiState, HomeSideEffects>(), HomeScreenActionListener {
 
     override fun onGetDefaultState(): HomeUiState = HomeUiState()
 

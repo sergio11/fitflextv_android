@@ -1,9 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.favorites
 
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface FavoritesScreenActionListener: IFudgeScreenActionListener {
+interface FavoritesScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onTrainingProgramSelected(trainingProgram: ITrainingProgramBO)
     fun onTrainingProgramStarted(id: String)

@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.splash
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.usecase.HasMultiplesProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyUserSessionUseCase
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class SplashScreenViewModel @Inject constructor(
     private val verifyUserSessionUseCase: VerifyUserSessionUseCase,
     private val hasMultiplesProfilesUseCase: HasMultiplesProfilesUseCase
-): FudgeViewModel<SplashUiState, SplashSideEffects>() {
+): FudgeTvViewModel<SplashUiState, SplashSideEffects>() {
 
     override fun onGetDefaultState(): SplashUiState = SplashUiState()
 

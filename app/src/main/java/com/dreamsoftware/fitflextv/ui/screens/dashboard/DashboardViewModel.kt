@@ -6,7 +6,7 @@ import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileSelectedUseCase
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val getProfileSelectedUseCase: GetProfileSelectedUseCase
-) : FudgeViewModel<DashboardUiState, DashboardSideEffects>(), DashboardActionListener {
+) : FudgeTvViewModel<DashboardUiState, DashboardSideEffects>(), DashboardActionListener {
 
     fun fetchData() {
         executeUseCase(
