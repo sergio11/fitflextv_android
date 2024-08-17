@@ -5,6 +5,7 @@ import com.dreamsoftware.fitflextv.data.remote.dto.response.FavoriteTrainingDTO
 import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoveAllFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesRemoteException
 
 interface IFavoritesRemoteDataSource {
@@ -20,4 +21,7 @@ interface IFavoritesRemoteDataSource {
 
     @Throws(RemoveFromFavoritesRemoteException::class)
     suspend fun removeFavorite(profileId: String, trainingId: String): Boolean
+
+    @Throws(RemoveAllFavoritesRemoteException::class)
+    suspend fun removeFavorites(profileId: String): Boolean
 }

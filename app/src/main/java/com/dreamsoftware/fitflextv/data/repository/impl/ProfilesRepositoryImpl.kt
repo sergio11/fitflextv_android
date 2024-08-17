@@ -2,6 +2,7 @@ package com.dreamsoftware.fitflextv.data.repository.impl
 
 import com.dreamsoftware.fitflextv.data.preferences.datasource.IProfileSessionDataSource
 import com.dreamsoftware.fitflextv.data.preferences.dto.ProfileSelectedPreferenceDTO
+import com.dreamsoftware.fitflextv.data.remote.datasource.IFavoritesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IProfilesRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.datasource.IUserRemoteDataSource
 import com.dreamsoftware.fitflextv.data.remote.dto.request.CreateProfileRequestDTO
@@ -35,6 +36,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 internal class ProfilesRepositoryImpl(
     private val profilesRemoteDataSource: IProfilesRemoteDataSource,
     private val userRemoteDataSource: IUserRemoteDataSource,
+    private val favoritesRemoteDataSource: IFavoritesRemoteDataSource,
     private val profilesMapper: IOneSideMapper<ProfileDTO, ProfileBO>,
     private val createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
     private val updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
@@ -75,6 +77,7 @@ internal class ProfilesRepositoryImpl(
             with(profilesRemoteDataSource) {
                 val profile = getProfileById(profileId)
                 deleteProfile(profileId).also {
+                    favoritesRemoteDataSource.removeFavorites(profileId)
                     userRemoteDataSource.decrementProfilesCount(profile.userId)
                 }
             }
