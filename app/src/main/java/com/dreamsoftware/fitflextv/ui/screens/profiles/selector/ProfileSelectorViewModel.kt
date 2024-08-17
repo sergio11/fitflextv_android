@@ -3,7 +3,9 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.selector
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
+import com.dreamsoftware.fudge.component.profiles.ProfileSelectorVO
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +15,9 @@ import javax.inject.Inject
 class ProfileSelectorViewModel @Inject constructor(
     private val getProfilesUseCase: GetProfilesUseCase,
     private val selectProfileUseCase: SelectProfileUseCase,
-): FudgeViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>(), ProfileSelectorScreenActionListener {
+): FudgeTvViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>(), ProfileSelectorScreenActionListener {
+
+    private var userProfiles: List<ProfileBO> = emptyList()
 
     override fun onGetDefaultState(): ProfileSelectorUiState = ProfileSelectorUiState()
 
@@ -24,15 +28,17 @@ class ProfileSelectorViewModel @Inject constructor(
         )
     }
 
-    override fun onProfileSelected(profile: ProfileBO) {
-        val isProfileLocked = profile.isSecured
-        updateState {
-            it.copy(profileSelected = profile)
-        }
-        if(isProfileLocked) {
-            onProfileLocked(profile.uuid)
-        } else {
-            selectProfile(profile)
+    override fun onProfileSelected(profileId: String) {
+        userProfiles.find { it.uuid == profileId }?.let { profile ->
+            val isProfileLocked = profile.isSecured
+            updateState {
+                it.copy(profileSelected = profile)
+            }
+            if(isProfileLocked) {
+                onProfileLocked(profile.uuid)
+            } else {
+                selectProfile(profile)
+            }
         }
     }
 
@@ -45,8 +51,15 @@ class ProfileSelectorViewModel @Inject constructor(
     }
 
     private fun onLoadProfileSuccessfully(profiles: List<ProfileBO>) {
+        userProfiles = profiles
         updateState {
-            it.copy(profiles = profiles)
+            it.copy(profiles = profiles.map { profile ->
+                ProfileSelectorVO(
+                    uuid = profile.uuid,
+                    alias = profile.alias,
+                    avatarIconRes = profile.avatarType.toDrawableResource()
+                )
+            })
         }
     }
 
@@ -72,7 +85,7 @@ class ProfileSelectorViewModel @Inject constructor(
 data class ProfileSelectorUiState(
     override var isLoading: Boolean = false,
     override var errorMessage: String? = null,
-    val profiles: List<ProfileBO> = emptyList(),
+    val profiles: List<ProfileSelectorVO> = emptyList(),
     val profileSelected: ProfileBO? = null
 ): UiState<ProfileSelectorUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): ProfileSelectorUiState =

@@ -1,9 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.profiles.save
 
 import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface SaveProfileScreenActionListener: IFudgeScreenActionListener {
+interface SaveProfileScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onAliasChanged(alias: String)
     fun onPinChanged(pin: String)

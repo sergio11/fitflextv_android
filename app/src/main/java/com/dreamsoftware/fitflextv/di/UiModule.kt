@@ -1,12 +1,12 @@
 package com.dreamsoftware.fitflextv.di
 
 import android.content.Context
-import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.favorites.FavoritesScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.profiles.save.SaveProfileScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.signin.SignInScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.signup.SignUpScreenSimpleErrorMapper
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingScreenSimpleErrorMapper
+import com.dreamsoftware.fudge.core.IFudgeTvErrorMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ class UiModule {
     @SignUpScreenErrorMapper
     fun provideSignUpScreenSimpleErrorMapper(
         @ApplicationContext context: Context
-    ): IErrorMapper =
+    ): IFudgeTvErrorMapper =
         SignUpScreenSimpleErrorMapper(context = context)
 
     @Provides
@@ -31,7 +31,7 @@ class UiModule {
     @SignInScreenErrorMapper
     fun provideSignInScreenSimpleErrorMapper(
         @ApplicationContext context: Context
-    ): IErrorMapper =
+    ): IFudgeTvErrorMapper =
         SignInScreenSimpleErrorMapper(context = context)
 
     @Provides
@@ -39,7 +39,7 @@ class UiModule {
     @SaveProfileScreenErrorMapper
     fun provideSaveProfileScreenErrorMapper(
         @ApplicationContext context: Context
-    ): IErrorMapper =
+    ): IFudgeTvErrorMapper =
         SaveProfileScreenSimpleErrorMapper(context = context)
 
     @Provides
@@ -47,7 +47,7 @@ class UiModule {
     @FavoritesScreenErrorMapper
     fun provideFavoritesScreenSimpleErrorMapper(
         @ApplicationContext context: Context
-    ): IErrorMapper =
+    ): IFudgeTvErrorMapper =
         FavoritesScreenSimpleErrorMapper(context = context)
 
     @Provides
@@ -55,6 +55,6 @@ class UiModule {
     @TrainingScreenErrorMapper
     fun provideTrainingScreenSimpleErrorMapper(
         @ApplicationContext context: Context
-    ): IErrorMapper =
+    ): IFudgeTvErrorMapper =
         TrainingScreenSimpleErrorMapper(context = context)
 }

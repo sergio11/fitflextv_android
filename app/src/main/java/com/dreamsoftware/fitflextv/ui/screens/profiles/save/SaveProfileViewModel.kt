@@ -6,9 +6,9 @@ import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.CreateProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.UpdateProfileUseCase
-import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
+import com.dreamsoftware.fudge.core.IFudgeTvErrorMapper
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +19,8 @@ class SaveProfileViewModel @Inject constructor(
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
     private val createProfileUseCase: CreateProfileUseCase,
     private val updateProfileUseCase: UpdateProfileUseCase,
-    @SaveProfileScreenErrorMapper private val errorMapper: IErrorMapper
-): FudgeViewModel<SaveProfileUiState, SaveProfileSideEffects>(), SaveProfileScreenActionListener {
+    @SaveProfileScreenErrorMapper private val errorMapper: IFudgeTvErrorMapper
+): FudgeTvViewModel<SaveProfileUiState, SaveProfileSideEffects>(), SaveProfileScreenActionListener {
 
     override fun onGetDefaultState(): SaveProfileUiState = SaveProfileUiState()
 

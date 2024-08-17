@@ -1,8 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.moreoptions
 
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface MoreOptionsScreenActionListener: IFudgeScreenActionListener {
+interface MoreOptionsScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onBackPressed()
     fun onTrainingProgramOpened()

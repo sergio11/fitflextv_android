@@ -1,8 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.trainingdetail
 
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface TrainingDetailScreenActionListener: IFudgeScreenActionListener {
+interface TrainingDetailScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onTrainingProgramStarted()
     fun onTrainingProgramMoreInfoRequested()

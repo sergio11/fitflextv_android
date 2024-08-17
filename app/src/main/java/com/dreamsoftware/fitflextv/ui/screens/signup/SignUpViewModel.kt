@@ -2,9 +2,9 @@ package com.dreamsoftware.fitflextv.ui.screens.signup
 
 import com.dreamsoftware.fitflextv.di.SignUpScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.usecase.SignUpUseCase
-import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
+import com.dreamsoftware.fudge.core.IFudgeTvErrorMapper
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
-    @SignUpScreenErrorMapper private val errorMapper: IErrorMapper,
-): FudgeViewModel<SignUpUiState, SignUpSideEffects>() {
+    @SignUpScreenErrorMapper private val errorMapper: IFudgeTvErrorMapper,
+): FudgeTvViewModel<SignUpUiState, SignUpSideEffects>() {
     override fun onGetDefaultState(): SignUpUiState = SignUpUiState()
 
     fun onSignUp() {

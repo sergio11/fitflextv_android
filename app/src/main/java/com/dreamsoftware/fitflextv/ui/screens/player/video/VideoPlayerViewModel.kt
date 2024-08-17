@@ -4,7 +4,7 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VideoPlayerViewModel @Inject constructor(
     private val getTrainingByIdUseCase: GetTrainingByIdUseCase
-) : FudgeViewModel<VideoPlayerUiState, VideoPlayerSideEffects>() {
+) : FudgeTvViewModel<VideoPlayerUiState, VideoPlayerSideEffects>() {
 
     override fun onGetDefaultState(): VideoPlayerUiState = VideoPlayerUiState()
 

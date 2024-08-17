@@ -1,8 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.profiles.secure
 
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface SecurePinScreenActionListener: IFudgeScreenActionListener {
+interface SecurePinScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onUnlockPinChanged(unlockPin: String)
     fun onVerifyPressed()

@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.delete
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.DeleteProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class DeleteProfileViewModel @Inject constructor(
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
     private val deleteProfileUseCase: DeleteProfileUseCase
-): FudgeViewModel<DeleteProfileUiState, DeleteProfileSideEffects>(), DeleteProfileScreenActionListener {
+): FudgeTvViewModel<DeleteProfileUiState, DeleteProfileSideEffects>(), DeleteProfileScreenActionListener {
 
     override fun onGetDefaultState(): DeleteProfileUiState = DeleteProfileUiState()
 

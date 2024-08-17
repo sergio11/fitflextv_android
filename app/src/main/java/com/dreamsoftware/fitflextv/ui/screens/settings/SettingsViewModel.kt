@@ -10,7 +10,7 @@ import com.dreamsoftware.fitflextv.domain.model.VideoQualityEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserPreferencesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SaveUserPreferencesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import com.dreamsoftware.fudge.utils.FudgeEventBus
@@ -23,7 +23,7 @@ class SettingsViewModel @Inject constructor(
     private val appEventBus: FudgeEventBus,
     private val getUserPreferencesUseCase: GetUserPreferencesUseCase,
     private val saveUserPreferencesUseCase: SaveUserPreferencesUseCase
-) : FudgeViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
+) : FudgeTvViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
 
     fun fetchData() {
         executeUseCase(useCase = getUserPreferencesUseCase, onSuccess = ::onFetchUserPreferencesCompleted)

@@ -7,7 +7,7 @@ import com.dreamsoftware.fitflextv.domain.usecase.AddUserSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetSubscriptionsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserSubscriptionUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveUserSubscriptionUseCase
-import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ class SubscriptionViewModel @Inject constructor(
     private val addUserSubscriptionUseCase: AddUserSubscriptionUseCase,
     private val removeUserSubscriptionUseCase: RemoveUserSubscriptionUseCase,
     private val getUserSubscriptionUseCase: GetUserSubscriptionUseCase
-) : FudgeViewModel<SubscriptionUiState, SubscriptionSideEffects>(), ISubscriptionScreenActionListener {
+) : FudgeTvViewModel<SubscriptionUiState, SubscriptionSideEffects>(), ISubscriptionScreenActionListener {
 
     fun loadData() {
         executeUseCase(

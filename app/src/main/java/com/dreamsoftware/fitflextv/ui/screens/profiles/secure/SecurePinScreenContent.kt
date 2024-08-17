@@ -8,12 +8,12 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.screens.profiles.components.CommonProfileScreenContent
 import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
 import com.dreamsoftware.fudge.component.FudgeTvText
 import com.dreamsoftware.fudge.component.FudgeTvTextField
 import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.component.profiles.FudgeTvProfileScreenContent
 
 @Composable
 fun SecurePinScreenContent(
@@ -21,9 +21,13 @@ fun SecurePinScreenContent(
     actionListener: SecurePinScreenActionListener
 ) {
     with(uiState) {
-        CommonProfileScreenContent(
+        FudgeTvProfileScreenContent(
             isLoading = isLoading,
             error = errorMessage,
+            mainLogoRes = R.drawable.main_logo,
+            mainLogoInverseRes = R.drawable.main_logo_inverse,
+            loadingTitleRes = R.string.generic_progress_dialog_title,
+            loadingDescriptionRes = R.string.generic_progress_dialog_description,
             mainTitleRes = R.string.secure_pin_main_title,
             secondaryTitleRes = R.string.secure_pin_main_description,
             primaryOptionTextRes = R.string.secure_pin_form_accept_button_text,

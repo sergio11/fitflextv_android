@@ -4,13 +4,13 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fudge.core.FudgeUseCase
+import com.dreamsoftware.fudge.core.FudgeTvUseCase
 
 class GetFavoritesTrainingsByUserUseCase(
     private val userRepository: IUserRepository,
     private val profileRepository: IProfilesRepository,
     private val trainingRepository: ITrainingRepository
-): FudgeUseCase<List<ITrainingProgramBO>>() {
+): FudgeTvUseCase<List<ITrainingProgramBO>>() {
 
     override suspend fun onExecuted(): List<ITrainingProgramBO> {
         val userUid = userRepository.getAuthenticatedUid()

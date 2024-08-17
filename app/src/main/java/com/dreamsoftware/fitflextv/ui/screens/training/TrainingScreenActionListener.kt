@@ -1,8 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
-import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
-interface TrainingScreenActionListener: IFudgeScreenActionListener {
+interface TrainingScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onFilterClicked()
     fun onSortedClicked()
