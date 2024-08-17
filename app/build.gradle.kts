@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "com.dreamsoftware.fitflextv"
-        minSdk = 24
+        minSdk = 25
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -72,7 +72,6 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.tv.material)
-    implementation(libs.androidx.camera.core)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.constraint.layout)
     implementation(libs.androidx.material3.android)

@@ -17,15 +17,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextField
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextFieldTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.ScalableAvatar
 import com.dreamsoftware.fitflextv.ui.screens.profiles.components.CommonProfileScreenContent
 import com.dreamsoftware.fitflextv.ui.theme.Dimens
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvScalableAvatar
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextField
+import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun SaveProfileScreenContent(
@@ -36,7 +36,7 @@ fun SaveProfileScreenContent(
         CommonProfileScreenContent(
             isLoading = isLoading,
             error = errorMessage,
-            onErrorAccepted = actionListener::onErrorAccepted,
+            onErrorAccepted = actionListener::onErrorMessageCleared,
             mainTitleRes = if(isEditMode) {
                 R.string.edit_profile_main_title
             } else {
@@ -149,15 +149,15 @@ private fun ProfileAvatarSelected(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        ScalableAvatar(
+        FudgeTvScalableAvatar(
             avatarRes = profileType?.toDrawableResource(),
             padding = Dimens.PROFILE_AVATAR_NO_PADDING,
             focusedScale = Dimens.SAVE_PROFILE_AVATAR_SELECTED_FOCUSED_SCALE
         )
         Spacer(modifier = Modifier.height(10.dp))
-        CommonText(
+        FudgeTvText(
             titleRes = R.string.save_profile_form_avatar_label_text,
-            type = CommonTextTypeEnum.BODY_MEDIUM,
+            type = FudgeTvTextTypeEnum.BODY_MEDIUM,
             textAlign = TextAlign.Center
         )
     }
@@ -171,16 +171,16 @@ private fun SaveProfileFormContent(
     onPinChanged: (String) -> Unit
 ) {
     with(uiState) {
-        CommonFocusRequester { requester ->
+        FudgeTvFocusRequester { requester ->
             Column(
                 modifier = modifier,
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                CommonTextField(
+                FudgeTvTextField(
                     modifier = Modifier.focusRequester(requester),
                     icon = Icons.Filled.Person,
-                    type = CommonTextFieldTypeEnum.TEXT,
+                    type = FudgeTvTextFieldTypeEnum.TEXT,
                     value = alias,
                     errorMessage = aliasError,
                     labelRes = R.string.save_profile_form_alias_label_text,
@@ -188,11 +188,11 @@ private fun SaveProfileFormContent(
                 )
                 if(!isEditMode) {
                     Spacer(modifier = Modifier.height(20.dp))
-                    CommonTextField(
+                    FudgeTvTextField(
                         icon = Icons.Filled.Key,
                         value = securePin,
                         errorMessage = securePinError,
-                        type = CommonTextFieldTypeEnum.NUMBER_SECRET,
+                        type = FudgeTvTextFieldTypeEnum.NUMBER_SECRET,
                         labelRes = R.string.save_profile_form_pin_label_text,
                         onValueChange = onPinChanged
                     )
@@ -213,7 +213,7 @@ private fun ProfileSelector(
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         AvatarTypeEnum.entries.forEach {
-            ScalableAvatar(
+            FudgeTvScalableAvatar(
                 avatarRes = it.toDrawableResource(),
                 focusedScale = Dimens.SAVE_PROFILE_AVATAR_FOCUSED_SCALE,
                 size = Dimens.SAVE_PROFILE_AVATAR_SIZE,

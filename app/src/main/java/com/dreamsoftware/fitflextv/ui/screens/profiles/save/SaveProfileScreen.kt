@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.save
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 data class SaveProfileScreenArgs(
     val profileId: String
@@ -15,7 +15,7 @@ fun SaveProfileScreen(
     onGoToAdvanceConfiguration: (String) -> Unit = {},
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInit = { args?.profileId?.let(::load) },
         onBackPressed = onBackPressed,

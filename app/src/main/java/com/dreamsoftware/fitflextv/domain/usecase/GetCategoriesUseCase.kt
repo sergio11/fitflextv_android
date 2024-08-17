@@ -2,11 +2,11 @@ package com.dreamsoftware.fitflextv.domain.usecase
 
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.repository.ICategoryRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCase
+import com.dreamsoftware.fudge.core.FudgeUseCase
 
 class GetCategoriesUseCase(
     private val categoryRepository: ICategoryRepository
-) : BaseUseCase<List<CategoryBO>>() {
+) : FudgeUseCase<List<CategoryBO>>() {
     override suspend fun onExecuted(): List<CategoryBO> =
         categoryRepository.getCategories()
 }

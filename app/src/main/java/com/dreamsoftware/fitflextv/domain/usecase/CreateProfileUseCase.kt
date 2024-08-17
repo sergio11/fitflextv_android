@@ -5,15 +5,15 @@ import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
+import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 import java.util.UUID
 
 class CreateProfileUseCase(
     private val userRepository: IUserRepository,
     private val profilesRepository: IProfilesRepository,
     private val validator: IBusinessEntityValidator<CreateProfileRequestBO>
-): BaseUseCaseWithParams<CreateProfileUseCase.Params, Boolean>() {
+): FudgeUseCaseWithParams<CreateProfileUseCase.Params, Boolean>() {
 
     override suspend fun onExecuted(params: Params): Boolean = with(params) {
         toCreateProfileRequestBO(userRepository.getAuthenticatedUid()).let { createProfileRequestBO ->

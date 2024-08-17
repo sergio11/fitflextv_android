@@ -7,7 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.tv.material3.CarouselState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 val carouselSaver =
@@ -22,7 +22,7 @@ fun HomeScreen(
     onGoToSubscriptions: () -> Unit
 ) {
     val carouselState = rememberSaveable(saver = carouselSaver) { CarouselState(0) }
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInitialUiState = { HomeUiState() },
         onSideEffect = {

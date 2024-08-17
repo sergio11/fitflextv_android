@@ -3,9 +3,9 @@ package com.dreamsoftware.fitflextv.ui.screens.splash
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.fitflextv.domain.usecase.HasMultiplesProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyUserSessionUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class SplashScreenViewModel @Inject constructor(
     private val verifyUserSessionUseCase: VerifyUserSessionUseCase,
     private val hasMultiplesProfilesUseCase: HasMultiplesProfilesUseCase
-): BaseViewModel<SplashUiState, SplashSideEffects>() {
+): FudgeViewModel<SplashUiState, SplashSideEffects>() {
 
     override fun onGetDefaultState(): SplashUiState = SplashUiState()
 

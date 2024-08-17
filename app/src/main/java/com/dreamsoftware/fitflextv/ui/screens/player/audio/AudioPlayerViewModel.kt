@@ -2,17 +2,17 @@ package com.dreamsoftware.fitflextv.ui.screens.player.audio
 
 import com.dreamsoftware.fitflextv.domain.model.TrainingSongBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetSongByIdUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class AudioPlayerViewModel @Inject constructor(
     private val getSongByIdUseCase: GetSongByIdUseCase
-) : BaseViewModel<AudioPlayerUiState, AudioPlayerSideEffects>() {
+) : FudgeViewModel<AudioPlayerUiState, AudioPlayerSideEffects>() {
 
     override fun onGetDefaultState(): AudioPlayerUiState = AudioPlayerUiState()
 

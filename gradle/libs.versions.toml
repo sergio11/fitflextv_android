@@ -30,12 +30,11 @@ espresso-core = "3.6.1"
 uiautomator = "2.3.0"
 profileinstaller = "1.3.1"
 benchmark = "1.2.4"
-camera-core = "1.3.4"
 material3-android = "1.2.1"
 materialIconsExtended = "1.6.8"
 datastore-preferences = "1.1.1"
 moshiKotlin = "1.14.0"
-fudge-tv-compose = "0.0.1"
+fudge-tv-compose = "0.0.11"
 
 [libraries]
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
@@ -71,7 +70,6 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 androidx-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "uiautomator" }
 androidx-profileinstaller = { module = "androidx.profileinstaller:profileinstaller", version.ref = "profileinstaller" }
-androidx-camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camera-core" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3-android" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore-preferences" }
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }

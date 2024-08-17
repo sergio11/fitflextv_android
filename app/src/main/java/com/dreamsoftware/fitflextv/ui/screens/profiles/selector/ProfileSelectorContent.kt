@@ -20,7 +20,7 @@ fun ProfileSelectorContent(
             secondaryOptionTextRes = R.string.profile_selector_profile_management_button_text,
             onPrimaryOptionPressed = actionListener::onAddProfilePressed,
             onSecondaryOptionPressed = actionListener::onProfileManagementPressed,
-            onErrorAccepted = actionListener::onErrorAccepted
+            onErrorAccepted = actionListener::onErrorMessageCleared
         ) {
             CommonProfileSelector(
                 profiles = uiState.profiles,

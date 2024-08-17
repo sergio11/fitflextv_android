@@ -5,12 +5,12 @@ import com.dreamsoftware.fitflextv.domain.model.UnitsEnum
 import com.dreamsoftware.fitflextv.domain.model.UserPreferenceBO
 import com.dreamsoftware.fitflextv.domain.model.VideoQualityEnum
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 import com.dreamsoftware.fitflextv.utils.enumOfOrDefault
+import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 
 class SaveUserPreferencesUseCase(
     private val userRepository: IUserRepository
-) : BaseUseCaseWithParams<SaveUserPreferencesUseCase.Params, Unit>() {
+) : FudgeUseCaseWithParams<SaveUserPreferencesUseCase.Params, Unit>() {
 
     override suspend fun onExecuted(params: Params): Unit = with(params) {
         userRepository.saveUserPreferences(toUserPreferencesBO())

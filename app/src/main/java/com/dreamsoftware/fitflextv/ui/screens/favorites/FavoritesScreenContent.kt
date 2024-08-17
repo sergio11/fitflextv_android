@@ -35,24 +35,24 @@ import androidx.compose.ui.window.Dialog
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.onSurface
 import com.dreamsoftware.fitflextv.ui.theme.popupShadow
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 import com.dreamsoftware.fitflextv.ui.theme.surfaceVariant
-import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
-import com.dreamsoftware.fitflextv.ui.utils.shadowBox
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvCard
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvLoadingState
+import com.dreamsoftware.fudge.component.FudgeTvNoContentState
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
+import com.dreamsoftware.fudge.utils.shadowBox
 
 @Composable
 internal fun FavoritesScreenContent(
@@ -60,11 +60,11 @@ internal fun FavoritesScreenContent(
     actionListener: FavoritesScreenActionListener
 ) {
     with(uiState) {
-        CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
+        FudgeTvScreenContent(onErrorAccepted = actionListener::onErrorMessageCleared) {
             if (isLoading) {
-                CommonLoadingState(modifier = Modifier.fillMaxSize())
+                FudgeTvLoadingState(modifier = Modifier.fillMaxSize())
             } else if(favoritesTrainings.isEmpty()) {
-                CommonNoContentState(
+                FudgeTvNoContentState(
                     modifier = Modifier.fillMaxSize(),
                     messageRes = R.string.favorites_not_workout_available
                 )
@@ -72,13 +72,13 @@ internal fun FavoritesScreenContent(
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    CommonText(
+                    FudgeTvText(
                         modifier = Modifier.padding(bottom = 8.dp, top = 56.dp, start = 32.dp, end = 32.dp),
-                        type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+                        type = FudgeTvTextTypeEnum.HEADLINE_MEDIUM,
                         titleRes = R.string.favorites_screen_title,
                         textBold = true
                     )
-                    CommonFocusRequester { focusRequester ->
+                    FudgeTvFocusRequester { focusRequester ->
                         LazyHorizontalGrid(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -89,7 +89,7 @@ internal fun FavoritesScreenContent(
                             verticalArrangement = Arrangement.spacedBy(24.dp)
                         ) {
                             itemsIndexed(items = favoritesTrainings, key = { _, item -> item.id }) { idx, item ->
-                                CommonCard(modifier = Modifier
+                                FudgeTvCard(modifier = Modifier
                                     .conditional(condition = idx == 0, ifTrue = {
                                         focusRequester(focusRequester)
                                     }),
@@ -135,7 +135,7 @@ private fun TrainingProgramDetailsPopup(
     onBackPressed: () -> Unit
 ) {
     Dialog(onDismissRequest = onBackPressed) {
-        CommonFocusRequester { focusRequester ->
+        FudgeTvFocusRequester { focusRequester ->
             Box(
                 modifier = Modifier
                     .background(surfaceContainerHigh, RoundedCornerShape(16.dp))
@@ -165,9 +165,9 @@ private fun TrainingProgramDetailsPopup(
                     horizontalAlignment = Alignment.Start
                 ) {
                     Spacer(modifier = Modifier.fillMaxHeight(0.35f))
-                    CommonText(
+                    FudgeTvText(
                         modifier = Modifier.padding(bottom = 8.dp),
-                        type = CommonTextTypeEnum.HEADLINE_SMALL,
+                        type = FudgeTvTextTypeEnum.HEADLINE_SMALL,
                         textColor = onSurface,
                         textAlign = TextAlign.Justify,
                         titleText = trainingProgram.name,
@@ -180,9 +180,9 @@ private fun TrainingProgramDetailsPopup(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Start
                     ) {
-                        CommonText(
+                        FudgeTvText(
                             modifier = Modifier,
-                            type = CommonTextTypeEnum.LABEL_MEDIUM,
+                            type = FudgeTvTextTypeEnum.LABEL_MEDIUM,
                             titleText = "${trainingProgram.duration} | ${trainingProgram.intensity.value} ",
                             textColor = onSurface,
                             overflow = TextOverflow.Ellipsis,
@@ -190,32 +190,32 @@ private fun TrainingProgramDetailsPopup(
                             maxLines = 4
                         )
                     }
-                    CommonText(
+                    FudgeTvText(
                         titleText = trainingProgram.description,
                         modifier = Modifier.padding(bottom = 28.dp),
-                        type = CommonTextTypeEnum.BODY_SMALL,
+                        type = FudgeTvTextTypeEnum.BODY_SMALL,
                         textColor = Color.LightGray,
                         overflow = TextOverflow.Ellipsis,
                         softWrap = true,
                         maxLines = 4
                     )
-                    CommonButton(
+                    FudgeTvButton(
                         modifier = Modifier
                             .focusRequester(focusRequester)
                             .fillMaxWidth()
                             .padding(bottom = 12.dp),
-                        type = CommonButtonTypeEnum.MEDIUM,
-                        style = CommonButtonStyleTypeEnum.NORMAL,
+                        type = FudgeTvButtonTypeEnum.MEDIUM,
+                        style = FudgeTvButtonStyleTypeEnum.NORMAL,
                         textRes = trainingProgram.toTrainingType().getStartButtonID()
                     ) {
                         onStartTrainingProgram(trainingProgram.id)
                     }
-                    CommonButton(
+                    FudgeTvButton(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 12.dp),
-                        type = CommonButtonTypeEnum.MEDIUM,
-                        style = CommonButtonStyleTypeEnum.INVERSE,
+                        type = FudgeTvButtonTypeEnum.MEDIUM,
+                        style = FudgeTvButtonStyleTypeEnum.INVERSE,
                         textRes = R.string.remove_from_favorites
                     ) {
                         onRemoveFromFavorites(trainingProgram.id)

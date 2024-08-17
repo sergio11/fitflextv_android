@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun SignInScreen(
@@ -15,7 +15,7 @@ fun SignInScreen(
     onGoToSignUp: () -> Unit,
     onBackPressed: () -> Unit,
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { SignInUiState() },

@@ -4,13 +4,13 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.repository.ISubscriptionsRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
+import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 
 class GetTrainingsByCategoryUseCase(
     private val userRepository: IUserRepository,
     private val subscriptionsRepository: ISubscriptionsRepository,
     private val trainingRepository: ITrainingRepository
-) : BaseUseCaseWithParams<GetTrainingsByCategoryUseCase.Params, List<ITrainingProgramBO>>() {
+) : FudgeUseCaseWithParams<GetTrainingsByCategoryUseCase.Params, List<ITrainingProgramBO>>() {
     override suspend fun onExecuted(params: Params): List<ITrainingProgramBO> {
         val userUid = userRepository.getAuthenticatedUid()
         val hasActiveSubscription = subscriptionsRepository.hasActiveSubscription(userUid)

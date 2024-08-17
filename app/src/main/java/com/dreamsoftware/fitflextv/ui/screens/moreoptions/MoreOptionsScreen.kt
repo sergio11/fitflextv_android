@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.moreoptions
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 data class MoreOptionsScreenArgs(
     val id: String,
@@ -19,7 +19,7 @@ fun MoreOptionsScreen(
     onPlayTrainingProgram: (id: String, type: TrainingTypeEnum) -> Unit,
     onPlayTrainingSong: (songId: String) -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { MoreOptionsUiState() },

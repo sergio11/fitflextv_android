@@ -2,11 +2,11 @@ package com.dreamsoftware.fitflextv.domain.usecase
 
 import com.dreamsoftware.fitflextv.domain.model.InstructorBO
 import com.dreamsoftware.fitflextv.domain.repository.IInstructorRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
+import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 
 class GetInstructorDetailUseCase(
     private val instructorRepository: IInstructorRepository
-): BaseUseCaseWithParams<GetInstructorDetailUseCase.Params, InstructorBO>() {
+): FudgeUseCaseWithParams<GetInstructorDetailUseCase.Params, InstructorBO>() {
 
     override suspend fun onExecuted(params: Params): InstructorBO =
         instructorRepository.getInstructorById(params.id)

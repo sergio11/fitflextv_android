@@ -30,8 +30,8 @@ import androidx.tv.material3.TabDefaults
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
+import com.dreamsoftware.fudge.component.FudgeTvCard
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -42,7 +42,7 @@ internal fun ChallengeTabs(
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     Box(modifier = Modifier.fillMaxSize()) {
-        RoundedGradientImage(
+        FudgeTvRoundedGradientImage(
             modifier = Modifier.alpha(.5f),
             imageUrl = state.imageUrl
         )
@@ -111,7 +111,7 @@ internal fun ChallengeTabs(
                         listOf()
                     )
                 ) { index, item ->
-                    CommonCard(
+                    FudgeTvCard(
                         modifier = Modifier.width(196.dp),
                         imageUrl = item.imageUrl,
                         title = item.title,

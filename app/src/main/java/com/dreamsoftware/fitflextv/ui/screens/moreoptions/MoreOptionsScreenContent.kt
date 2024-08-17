@@ -11,14 +11,14 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonBackRowSchema
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCardDetails
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonMoreOptionsButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndTypeTraining
 import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
+import com.dreamsoftware.fudge.component.FudgeTvBackRowSchema
+import com.dreamsoftware.fudge.component.FudgeTvCardDetails
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvMoreOptionsButton
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
 
 @Composable
 internal fun MoreOptionsScreenContent(
@@ -26,8 +26,8 @@ internal fun MoreOptionsScreenContent(
     actionListener: MoreOptionsScreenActionListener
 ) {
     with(state) {
-        CommonScreenContent(
-            onErrorAccepted = actionListener::onErrorAccepted
+        FudgeTvScreenContent(
+            onErrorAccepted = actionListener::onErrorMessageCleared
         ) {
             Row(
                 modifier = Modifier.fillMaxSize(),
@@ -45,21 +45,21 @@ internal fun MoreOptionsScreenContent(
                         shareButton
                     ) = createRefs()
 
-                    CommonCardDetails(
+                    FudgeTvCardDetails(
                         modifier = Modifier.width(268.dp).constrainAs(trainingDetails) {},
                         title = trainingProgram?.name.orEmpty(),
                         time = trainingProgram.formatTimeAndTypeTraining(),
                         description = trainingProgram?.description.orEmpty(),
                         imageUrl = trainingProgram?.imageUrl.orEmpty()
                     )
-                    CommonBackRowSchema(
+                    FudgeTvBackRowSchema(
                         modifier = Modifier.constrainAs(backRowSchema) {
                             top.linkTo(trainingDetails.bottom, margin = 50.dp)
                         },
                         onClickBack = actionListener::onBackPressed
                     )
-                    CommonFocusRequester { focusRequester ->
-                        CommonMoreOptionsButton(
+                    FudgeTvFocusRequester { focusRequester ->
+                        FudgeTvMoreOptionsButton(
                             modifier = Modifier
                                 .focusRequester(focusRequester)
                                 .constrainAs(startButton) {
@@ -72,7 +72,7 @@ internal fun MoreOptionsScreenContent(
                         )
                     }
 
-                    CommonMoreOptionsButton(
+                    FudgeTvMoreOptionsButton(
                         modifier = Modifier.constrainAs(favoritesButton) {
                             top.linkTo(startButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)
@@ -89,7 +89,7 @@ internal fun MoreOptionsScreenContent(
                         },
                         onClick = actionListener::onFavouriteClicked
                     )
-                    CommonMoreOptionsButton(
+                    FudgeTvMoreOptionsButton(
                         modifier = Modifier.constrainAs(moreInfoButton) {
                             top.linkTo(favoritesButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)
@@ -98,7 +98,7 @@ internal fun MoreOptionsScreenContent(
                         icon = R.drawable.music_icon,
                         onClick = actionListener::onPlayTrainingSong
                     )
-                    CommonMoreOptionsButton(
+                    FudgeTvMoreOptionsButton(
                         modifier = Modifier.constrainAs(viewInstructorButton) {
                             top.linkTo(moreInfoButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)
@@ -107,7 +107,7 @@ internal fun MoreOptionsScreenContent(
                         icon = R.drawable.ic_instructor,
                         onClick = actionListener::onOpenInstructorDetail
                     )
-                    CommonMoreOptionsButton(
+                    FudgeTvMoreOptionsButton(
                         modifier = Modifier.constrainAs(shareButton) {
                             top.linkTo(viewInstructorButton.bottom, margin = 12.dp)
                             start.linkTo(startButton.start)

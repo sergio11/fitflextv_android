@@ -5,10 +5,10 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetCategoryByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByCategoryUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class CategoryDetailScreenViewModel @Inject constructor(
     private val getTrainingsByCategoryUseCase: GetTrainingsByCategoryUseCase,
     private val getCategoryByIdUseCase: GetCategoryByIdUseCase
-) : BaseViewModel<CategoryDetailUiState, CategoryDetailSideEffects>(), CategoryDetailActionListener {
+) : FudgeViewModel<CategoryDetailUiState, CategoryDetailSideEffects>(), CategoryDetailActionListener {
 
     fun fetchData(id: String) {
         fetchCategoryDetail(id)

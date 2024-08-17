@@ -4,10 +4,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.runtime.Composable
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonDialog
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextField
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextFieldTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.profiles.components.CommonProfileScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvDialog
+import com.dreamsoftware.fudge.component.FudgeTvTextField
+import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
 
 @Composable
 fun ChangeSecurePinScreenContent(
@@ -18,7 +18,7 @@ fun ChangeSecurePinScreenContent(
         CommonProfileScreenContent(
             isLoading = isLoading,
             error = errorMessage,
-            onErrorAccepted = actionListener::onErrorAccepted,
+            onErrorAccepted = actionListener::onErrorMessageCleared,
             mainTitleRes = R.string.profiles_change_secure_pin_main_title,
             secondaryTitleRes = R.string.profiles_change_secure_pin_main_description,
             primaryOptionTextRes = R.string.profiles_change_secure_pin_form_confirm_button_text,
@@ -26,25 +26,26 @@ fun ChangeSecurePinScreenContent(
             onPrimaryOptionPressed = actionListener::onConfirmPressed,
             onSecondaryOptionPressed = actionListener::onDeleteProfilePressed
         ) {
-            CommonDialog(
+            FudgeTvDialog(
                 isVisible = showSecurePinUpdatedDialog,
+                mainLogoRes = R.drawable.main_logo,
                 titleRes = R.string.profiles_change_secure_updated_dialog_title,
                 descriptionRes = R.string.profiles_change_secure_updated_dialog_description,
                 onAcceptClicked = actionListener::onCloseSecurePinUpdatedDialog,
             )
-            CommonTextField(
+            FudgeTvTextField(
                 icon = Icons.Filled.Key,
                 value = currentSecurePin,
                 errorMessage = currentSecurePinError,
-                type = CommonTextFieldTypeEnum.NUMBER_SECRET,
+                type = FudgeTvTextFieldTypeEnum.NUMBER_SECRET,
                 labelRes = R.string.profiles_change_secure_pin_form_current_pin_label_text,
                 onValueChange = actionListener::onCurrentSecurePinChanged
             )
-            CommonTextField(
+            FudgeTvTextField(
                 icon = Icons.Filled.Key,
                 value = newSecurePin,
                 errorMessage = newSecurePinError,
-                type = CommonTextFieldTypeEnum.NUMBER_SECRET,
+                type = FudgeTvTextFieldTypeEnum.NUMBER_SECRET,
                 labelRes = R.string.profiles_change_secure_pin_form_new_pin_label_text,
                 onValueChange = actionListener::onNewSecurePinChanged
             )

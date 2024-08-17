@@ -3,9 +3,9 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.selector
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfilesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SelectProfileUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ProfileSelectorViewModel @Inject constructor(
     private val getProfilesUseCase: GetProfilesUseCase,
     private val selectProfileUseCase: SelectProfileUseCase,
-): BaseViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>(), ProfileSelectorScreenActionListener {
+): FudgeViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>(), ProfileSelectorScreenActionListener {
 
     override fun onGetDefaultState(): ProfileSelectorUiState = ProfileSelectorUiState()
 

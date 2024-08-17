@@ -27,14 +27,14 @@ import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.training.TrainingFilterVO
-import com.dreamsoftware.fitflextv.ui.utils.conditional
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
 internal fun FilterSideMenu(
@@ -43,7 +43,7 @@ internal fun FilterSideMenu(
     onFieldClicked: (TrainingFilterVO) -> Unit
 ) {
     with(MaterialTheme.colorScheme) {
-        CommonFocusRequester { focusRequester ->
+        FudgeTvFocusRequester { focusRequester ->
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 32.dp, horizontal = 20.dp)
             ) {
@@ -55,14 +55,14 @@ internal fun FilterSideMenu(
                             .padding(bottom = 24.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CommonText(
-                            type = CommonTextTypeEnum.HEADLINE_SMALL,
+                        FudgeTvText(
+                            type = FudgeTvTextTypeEnum.HEADLINE_SMALL,
                             titleRes = R.string.filters,
                             textColor = onSurface
                         )
-                        CommonButton(
-                            type = CommonButtonTypeEnum.SMALL,
-                            style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                        FudgeTvButton(
+                            type = FudgeTvButtonTypeEnum.SMALL,
+                            style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
                             textRes = R.string.clear,
                             onClick = onClearFilters
                         )
@@ -95,8 +95,8 @@ internal fun FilterSideMenu(
                             )
                         },
                         headlineContent = {
-                            CommonText(
-                                type = CommonTextTypeEnum.TITLE_MEDIUM,
+                            FudgeTvText(
+                                type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                                 titleRes = field.title,
                                 textColor = if(isFocused) {
                                     surfaceVariant
@@ -106,8 +106,8 @@ internal fun FilterSideMenu(
                             )
                         },
                         supportingContent = {
-                            CommonText(
-                                type = CommonTextTypeEnum.BODY_SMALL,
+                            FudgeTvText(
+                                type = FudgeTvTextTypeEnum.BODY_SMALL,
                                 titleText = field.description,
                                 textColor = if(isFocused) {
                                     surfaceVariant

@@ -24,8 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun SplashScreenContent(
@@ -45,15 +45,15 @@ fun SplashScreenContent(
                 modifier = modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CommonText(
-                    type = CommonTextTypeEnum.TITLE_LARGE,
+                FudgeTvText(
+                    type = FudgeTvTextTypeEnum.TITLE_LARGE,
                     titleRes = R.string.splash_main_title_text,
                     textColor = onSurface,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                CommonText(
-                    type = CommonTextTypeEnum.TITLE_MEDIUM,
+                FudgeTvText(
+                    type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                     titleRes = R.string.splash_description_text,
                     textColor = onSurface,
                     textAlign = TextAlign.Center

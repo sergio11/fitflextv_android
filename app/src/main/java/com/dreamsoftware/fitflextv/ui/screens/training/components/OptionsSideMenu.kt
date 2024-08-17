@@ -25,13 +25,13 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.RadioButtonDefaults
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.utils.conditional
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
 fun OptionsSideMenu(
@@ -42,7 +42,7 @@ fun OptionsSideMenu(
     onSelectedItem: (currentIndex: Int) -> Unit,
 ) {
     with(MaterialTheme.colorScheme) {
-        CommonFocusRequester(selectedIndex) { focusRequester ->
+        FudgeTvFocusRequester(selectedIndex) { focusRequester ->
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 32.dp, horizontal = 20.dp)
             ) {
@@ -54,14 +54,14 @@ fun OptionsSideMenu(
                             .padding(bottom = 24.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CommonText(
-                            type = CommonTextTypeEnum.HEADLINE_SMALL,
+                        FudgeTvText(
+                            type = FudgeTvTextTypeEnum.HEADLINE_SMALL,
                             titleRes = titleRes,
                             textColor = onSurface
                         )
-                        CommonButton(
-                            type = CommonButtonTypeEnum.SMALL,
-                            style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                        FudgeTvButton(
+                            type = FudgeTvButtonTypeEnum.SMALL,
+                            style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
                             textRes = R.string.reset,
                             onClick = onDismissSideMenu
                         )
@@ -99,8 +99,8 @@ fun OptionsSideMenu(
                             )
                         },
                         headlineContent = {
-                            CommonText(
-                                type = CommonTextTypeEnum.TITLE_MEDIUM,
+                            FudgeTvText(
+                                type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                                 titleText = items[index],
                                 textColor = if(isFocused) {
                                     surfaceVariant

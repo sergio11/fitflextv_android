@@ -8,12 +8,12 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextField
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextFieldTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.profiles.components.CommonProfileScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextField
+import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun SecurePinScreenContent(
@@ -30,14 +30,14 @@ fun SecurePinScreenContent(
             secondaryOptionTextRes = R.string.secure_pin_form_cancel_button_text,
             onPrimaryOptionPressed = actionListener::onVerifyPressed,
             onSecondaryOptionPressed = actionListener::onCancelPressed,
-            onErrorAccepted = actionListener::onErrorAccepted
+            onErrorAccepted = actionListener::onErrorMessageCleared
         ) { mainFocusRequester ->
-            CommonFocusRequester { focusRequester ->
-                CommonTextField(
+            FudgeTvFocusRequester { focusRequester ->
+                FudgeTvTextField(
                     modifier = Modifier.focusRequester(focusRequester),
                     icon = Icons.Filled.Security,
                     value = unlockPin,
-                    type = CommonTextFieldTypeEnum.NUMBER_SECRET,
+                    type = FudgeTvTextFieldTypeEnum.NUMBER_SECRET,
                     imeAction = ImeAction.Done,
                     onImeActionCompleted = {
                         mainFocusRequester.requestFocus()
@@ -47,8 +47,8 @@ fun SecurePinScreenContent(
                 )
             }
             profileLocked?.let {
-                CommonText(
-                    type = CommonTextTypeEnum.BODY_MEDIUM,
+                FudgeTvText(
+                    type = FudgeTvTextTypeEnum.BODY_MEDIUM,
                     titleText = stringResource(id = R.string.secure_pin_info_profile_locked, it.alias),
                     textBold = true
                 )

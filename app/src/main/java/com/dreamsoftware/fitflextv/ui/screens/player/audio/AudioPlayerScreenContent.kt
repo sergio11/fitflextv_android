@@ -1,6 +1,5 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.audio
 
-import android.os.Build
 import androidx.annotation.OptIn
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -41,12 +40,12 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.screens.player.audio.components.AudioPlayerControlsIcon
-import com.dreamsoftware.fitflextv.ui.screens.player.audio.components.AudioPlayerSeeker
-import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerTitle
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.dreamsoftware.fitflextv.ui.utils.dPadAudioEvents
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.player.FudgeTvPlayerTitle
+import com.dreamsoftware.fudge.component.player.audio.FudgeTvAudioPlayerControlsIcon
+import com.dreamsoftware.fudge.component.player.audio.FudgeTvAudioPlayerSeeker
+import com.dreamsoftware.fudge.utils.dPadAudioEvents
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -94,50 +93,46 @@ internal fun AudioPlayerScreenContent(
         ),
         label = ""
     )
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-        Column(
+    Column(
+        modifier = Modifier
+            .dPadAudioEvents(exoPlayer = exoPlayer)
+            .focusable()
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AsyncImage(
             modifier = Modifier
-                .dPadAudioEvents(exoPlayer = exoPlayer)
-                .focusable()
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.background),
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            AsyncImage(
-                modifier = Modifier
-                    .size(196.dp)
-                    .scale(scale)
-                    .clip(RoundedCornerShape(16.dp)),
-                model = state.imageUrl,
-                contentDescription = stringResource(R.string.song_image),
-                contentScale = ContentScale.Crop,
-            )
+                .size(196.dp)
+                .scale(scale)
+                .clip(RoundedCornerShape(16.dp)),
+            model = state.imageUrl,
+            contentDescription = stringResource(R.string.song_image),
+            contentScale = ContentScale.Crop,
+        )
 
-            PlayerTitle(
-                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                descriptionModifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                title = state.title,
-                description = "${state.author} • ${state.description}",
-                titleStyle = MaterialTheme.typography.headlineMedium,
-                descriptionTextStyle = MaterialTheme.typography.bodyMedium,
-            )
+        FudgeTvPlayerTitle(
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            descriptionModifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            title = state.title,
+            description = "${state.author} • ${state.description}"
+        )
 
-            AudioPlayerSeeker(
-                modifier = Modifier
-                    .fillMaxWidth(0.6f)
-                    .align(alignment = Alignment.CenterHorizontally),
-                onSeek = { exoPlayer.seekTo(exoPlayer.duration.times(it).toLong()) },
-                contentProgress = contentCurrentPosition.milliseconds,
-                contentDuration = exoPlayer.duration.milliseconds
-            )
+        FudgeTvAudioPlayerSeeker(
+            modifier = Modifier
+                .fillMaxWidth(0.6f)
+                .align(alignment = Alignment.CenterHorizontally),
+            onSeek = { exoPlayer.seekTo(exoPlayer.duration.times(it).toLong()) },
+            contentProgress = contentCurrentPosition.milliseconds,
+            contentDuration = exoPlayer.duration.milliseconds
+        )
 
-            AudioPlayerControls(
-                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                exoPlayer = exoPlayer,
-                isPlaying = isPlaying,
-            )
-        }
+        AudioPlayerControls(
+            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+            exoPlayer = exoPlayer,
+            isPlaying = isPlaying,
+        )
     }
 }
 
@@ -147,19 +142,19 @@ private fun AudioPlayerControls(
     isPlaying: Boolean,
     modifier: Modifier = Modifier
 ) {
-    CommonFocusRequester { focusRequester ->
+    FudgeTvFocusRequester { focusRequester ->
         Row(
             modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            AudioPlayerControlsIcon(icon = R.drawable.shuffle) {
+            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.shuffle) {
 
             }
-            AudioPlayerControlsIcon(icon = R.drawable.forrward_back) {
+            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.forrward_back) {
                 exoPlayer.seekBack()
             }
-            AudioPlayerControlsIcon(
+            FudgeTvAudioPlayerControlsIcon(
                 modifier = Modifier.focusRequester(focusRequester),
                 icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
                 buttonColor = MaterialTheme.colorScheme.onBackground,
@@ -171,10 +166,10 @@ private fun AudioPlayerControls(
                     exoPlayer.pause()
                 }
             }
-            AudioPlayerControlsIcon(icon = R.drawable.forrward) {
+            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.forrward) {
                 exoPlayer.seekForward()
             }
-            AudioPlayerControlsIcon(icon = R.drawable.repeat) {
+            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.repeat) {
                 exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
             }
         }

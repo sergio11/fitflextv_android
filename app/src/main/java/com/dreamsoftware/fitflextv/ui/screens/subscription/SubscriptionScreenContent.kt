@@ -24,13 +24,13 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonDialog
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.screens.subscription.components.SubscriptionHeadline
 import com.dreamsoftware.fitflextv.ui.screens.subscription.components.SubscriptionOptions
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvDialog
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
 
 @Composable
 fun SubscriptionScreenContent(
@@ -38,9 +38,10 @@ fun SubscriptionScreenContent(
     actionListener: ISubscriptionScreenActionListener
 ) {
     with(uiState) {
-        CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
-            CommonDialog(
+        FudgeTvScreenContent(onErrorAccepted = actionListener::onErrorMessageCleared) {
+            FudgeTvDialog(
                 isVisible = showSubscriptionAddedDialog,
+                mainLogoRes = R.drawable.main_logo,
                 titleRes = R.string.add_subscription_completed_dialog_title,
                 descriptionRes = R.string.add_subscription_completed_dialog_description,
                 onAcceptClicked = actionListener::onCompleted
@@ -79,16 +80,16 @@ fun SubscriptionScreenContent(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        CommonButton(
-                            type = CommonButtonTypeEnum.LARGE,
-                            style = CommonButtonStyleTypeEnum.NORMAL,
+                        FudgeTvButton(
+                            type = FudgeTvButtonTypeEnum.LARGE,
+                            style = FudgeTvButtonStyleTypeEnum.NORMAL,
                             textRes = R.string.subscribe_now,
                             onClick = actionListener::onSubscribe
                         )
                         if(hasActiveSubscription) {
-                            CommonButton(
-                                type = CommonButtonTypeEnum.LARGE,
-                                style = CommonButtonStyleTypeEnum.INVERSE,
+                            FudgeTvButton(
+                                type = FudgeTvButtonTypeEnum.LARGE,
+                                style = FudgeTvButtonStyleTypeEnum.INVERSE,
                                 textRes = R.string.restore_purchases,
                                 onClick = actionListener::onRestorePurchases
                             )

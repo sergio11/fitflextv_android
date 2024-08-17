@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.CarouselState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.screens.home.components.Categories
 import com.dreamsoftware.fitflextv.ui.screens.home.components.FeaturedTrainings
 import com.dreamsoftware.fitflextv.ui.screens.home.components.TrainingsRecommended
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
@@ -28,7 +28,7 @@ internal fun HomeScreenContent(
     actionListener: HomeScreenActionListener
 ) {
     with(state) {
-        CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
+        FudgeTvScreenContent(onErrorAccepted = actionListener::onErrorMessageCleared) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()

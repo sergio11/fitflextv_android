@@ -2,14 +2,14 @@ package com.dreamsoftware.fitflextv.ui.screens.subscription
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun SubscriptionScreen(
     viewModel: SubscriptionViewModel = hiltViewModel(),
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { SubscriptionUiState() },

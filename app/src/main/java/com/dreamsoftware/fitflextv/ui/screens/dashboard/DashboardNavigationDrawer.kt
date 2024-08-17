@@ -39,9 +39,9 @@ import androidx.tv.material3.NavigationDrawerItem
 import androidx.tv.material3.NavigationDrawerItemColors
 import androidx.tv.material3.rememberDrawerState
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 import kotlinx.coroutines.delay
 
 private val CLOSE_DRAWER_WIDTH = 80.dp
@@ -142,8 +142,8 @@ fun DashboardNavigationDrawer(
                                 onClick = { onItemClicked(item) },
                                 content = {
                                     if (isDrawerOpen) {
-                                        CommonText(
-                                            type = CommonTextTypeEnum.TITLE_MEDIUM,
+                                        FudgeTvText(
+                                            type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                                             titleRes = item.nameRes,
                                             titleText = item.name,
                                             textColor = if (isPressed) {

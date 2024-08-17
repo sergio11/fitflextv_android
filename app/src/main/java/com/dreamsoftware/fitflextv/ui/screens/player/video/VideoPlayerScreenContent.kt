@@ -1,6 +1,5 @@
 package com.dreamsoftware.fitflextv.ui.screens.player.video
 
-import android.os.Build
 import androidx.annotation.OptIn
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement
@@ -34,16 +33,16 @@ import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.screens.player.components.PlayerTitle
-import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerControlsIcon
-import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerFrame
-import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerOverlay
-import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerSeeker
-import com.dreamsoftware.fitflextv.ui.screens.player.video.components.VideoPlayerState
-import com.dreamsoftware.fitflextv.ui.screens.player.video.components.rememberVideoPlayerState
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
-import com.dreamsoftware.fitflextv.ui.utils.dPadVideoEvents
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.player.FudgeTvPlayerTitle
+import com.dreamsoftware.fudge.component.player.video.FudgeTvVideoPlayerControlsIcon
+import com.dreamsoftware.fudge.component.player.video.FudgeTvVideoPlayerFrame
+import com.dreamsoftware.fudge.component.player.video.FudgeTvVideoPlayerOverlay
+import com.dreamsoftware.fudge.component.player.video.FudgeTvVideoPlayerSeeker
+import com.dreamsoftware.fudge.component.player.video.FudgeTvVideoPlayerState
+import com.dreamsoftware.fudge.component.player.video.rememberVideoPlayerState
+import com.dreamsoftware.fudge.utils.dPadVideoEvents
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -86,62 +85,60 @@ internal fun VideoPlayerScreenContent(
         }
     }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-        Box(
-            Modifier
-                .fillMaxSize()
-                .dPadVideoEvents(
-                    exoPlayer,
-                    videoPlayerState,
-                )
-                .focusable()
-        ) {
-            AndroidView(
-                modifier = Modifier.fillMaxSize(),
-                factory = {
-                    PlayerView(context)
-                        .apply {
-                            useController = false
-                            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-                        }
-                },
-                update = { it.player = exoPlayer },
-                onRelease = { exoPlayer.release() }
+    Box(
+        Modifier
+            .fillMaxSize()
+            .dPadVideoEvents(
+                exoPlayer,
+                videoPlayerState,
             )
-
-            CommonFocusRequester { focusRequester ->
-                VideoPlayerOverlay(
-                    modifier = Modifier.align(Alignment.BottomCenter),
-                    focusRequester = focusRequester,
-                    state = videoPlayerState,
-                    isPlaying = isPlaying,
-                    onBuildCenterButton = {
-                        VideoPlayerControlsIcon(
-                            modifier = Modifier.focusRequester(focusRequester),
-                            icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
-                            onClick = {
-                                if (isPlaying) {
-                                    exoPlayer.pause()
-                                } else {
-                                    exoPlayer.play()
-                                }
-                            },
-                            state = videoPlayerState,
-                            isPlaying = isPlaying,
-                        )
-                    },
-                    onBuildControls = {
-                        VideoPlayerControls(
-                            isPlaying = isPlaying,
-                            contentCurrentPosition = contentCurrentPosition,
-                            exoPlayer = exoPlayer,
-                            state = videoPlayerState,
-                            title = state.title,
-                            instructor = state.instructor,
-                        )
+            .focusable()
+    ) {
+        AndroidView(
+            modifier = Modifier.fillMaxSize(),
+            factory = {
+                PlayerView(context)
+                    .apply {
+                        useController = false
+                        resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
                     }
-                )
-            }
+            },
+            update = { it.player = exoPlayer },
+            onRelease = { exoPlayer.release() }
+        )
+
+        FudgeTvFocusRequester { focusRequester ->
+            FudgeTvVideoPlayerOverlay(
+                modifier = Modifier.align(Alignment.BottomCenter),
+                focusRequester = focusRequester,
+                state = videoPlayerState,
+                isPlaying = isPlaying,
+                onBuildCenterButton = {
+                    FudgeTvVideoPlayerControlsIcon(
+                        modifier = Modifier.focusRequester(focusRequester),
+                        icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
+                        onClick = {
+                            if (isPlaying) {
+                                exoPlayer.pause()
+                            } else {
+                                exoPlayer.play()
+                            }
+                        },
+                        state = videoPlayerState,
+                        isPlaying = isPlaying,
+                    )
+                },
+                onBuildControls = {
+                    VideoPlayerControls(
+                        isPlaying = isPlaying,
+                        contentCurrentPosition = contentCurrentPosition,
+                        exoPlayer = exoPlayer,
+                        state = videoPlayerState,
+                        title = state.title,
+                        instructor = state.instructor,
+                    )
+                }
+            )
         }
     }
 }
@@ -151,13 +148,13 @@ private fun VideoPlayerControls(
     isPlaying: Boolean,
     contentCurrentPosition: Long,
     exoPlayer: ExoPlayer,
-    state: VideoPlayerState,
+    state: FudgeTvVideoPlayerState,
     title: String,
     instructor: String,
 ) {
-    VideoPlayerFrame(
+    FudgeTvVideoPlayerFrame(
         videoTitle = {
-            PlayerTitle(
+            FudgeTvPlayerTitle(
                 title = title,
                 description = instructor,
                 modifier = Modifier.fillMaxWidth()
@@ -169,17 +166,17 @@ private fun VideoPlayerControls(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                VideoPlayerControlsIcon(
+                FudgeTvVideoPlayerControlsIcon(
                     icon = R.drawable.subtitles,
                     state = state,
                     isPlaying = isPlaying,
                 ) {}
-                VideoPlayerControlsIcon(
+                FudgeTvVideoPlayerControlsIcon(
                     icon = R.drawable.audio,
                     state = state,
                     isPlaying = isPlaying,
                 ) {}
-                VideoPlayerControlsIcon(
+                FudgeTvVideoPlayerControlsIcon(
                     icon = R.drawable.settings,
                     state = state,
                     isPlaying = isPlaying,
@@ -187,7 +184,7 @@ private fun VideoPlayerControls(
             }
         },
         videoSeeker = {
-            VideoPlayerSeeker(
+            FudgeTvVideoPlayerSeeker(
                 state = state,
                 onSeek = { exoPlayer.seekTo(exoPlayer.duration.times(it).toLong()) },
                 contentProgress = contentCurrentPosition.milliseconds,

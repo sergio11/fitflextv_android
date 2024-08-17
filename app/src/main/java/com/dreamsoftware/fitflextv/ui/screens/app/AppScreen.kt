@@ -7,12 +7,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.navigateSingleTopTo
-import com.dreamsoftware.fitflextv.ui.utils.openSystemSettings
-import com.dreamsoftware.fitflextv.ui.utils.restartApplication
+import com.dreamsoftware.fudge.component.FudgeTvScreen
+import com.dreamsoftware.fudge.utils.openSystemSettings
+import com.dreamsoftware.fudge.utils.restartApplication
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
@@ -22,7 +22,7 @@ fun AppScreen(
 ) {
     FitFlexTVTheme {
         with(LocalContext.current) {
-            CommonScreen(
+            FudgeTvScreen(
                 viewModel = viewModel,
                 onInitialUiState = { AppUiState() },
                 onSideEffect = {
