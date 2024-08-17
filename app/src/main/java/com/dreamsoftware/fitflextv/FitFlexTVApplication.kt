@@ -1,12 +1,12 @@
 package com.dreamsoftware.fitflextv
 
 import android.app.Application
-import com.dreamsoftware.fitflextv.utils.IApplicationAware
 import com.dreamsoftware.fudge.utils.IFudgeAppEvent
+import com.dreamsoftware.fudge.utils.IFudgeTvApplicationAware
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FitFlexTVApplication : Application(), IApplicationAware
+class FitFlexTVApplication : Application(), IFudgeTvApplicationAware
 
 
 sealed interface AppEvent: IFudgeAppEvent {

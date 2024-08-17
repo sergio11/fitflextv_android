@@ -13,14 +13,14 @@ import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
 import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
-import com.dreamsoftware.fudge.utils.FudgeEventBus
+import com.dreamsoftware.fudge.utils.FudgeTvEventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val signOffUseCase: SignOffUseCase,
-    private val appEventBus: FudgeEventBus,
+    private val appEventBus: FudgeTvEventBus,
     private val getUserPreferencesUseCase: GetUserPreferencesUseCase,
     private val saveUserPreferencesUseCase: SaveUserPreferencesUseCase
 ) : FudgeTvViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {

@@ -3,9 +3,9 @@ package com.dreamsoftware.fitflextv.utils.network
 import android.net.ConnectivityManager
 import android.net.Network
 import com.dreamsoftware.fitflextv.AppEvent
-import com.dreamsoftware.fudge.utils.FudgeEventBus
+import com.dreamsoftware.fudge.utils.FudgeTvEventBus
 
-class NetworkConnectivityCallback(private val appEventBus: FudgeEventBus) : ConnectivityManager.NetworkCallback() {
+class NetworkConnectivityCallback(private val appEventBus: FudgeTvEventBus) : ConnectivityManager.NetworkCallback() {
 
     private var lastState: Boolean = true
 
