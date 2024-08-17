@@ -20,11 +20,11 @@ fun NavGraphBuilder.navigationDrawerGraph(
         DashboardScreen(
             navController = navController,
             currentDestination = navBackStackEntry?.destination,
-            onNavigateToScreen = { screen ->
-                if(screen is Screen.Profiles) {
+            onNavigateToScreen = { route ->
+                if(route == Screen.Profiles.route) {
                     onNavigateToProfiles()
                 } else {
-                    navController.navigateSingleTopTo(screen.route)
+                    navController.navigateSingleTopTo(route)
                 }
             }
         )
