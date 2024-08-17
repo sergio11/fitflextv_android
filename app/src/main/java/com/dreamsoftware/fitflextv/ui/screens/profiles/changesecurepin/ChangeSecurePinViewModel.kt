@@ -4,6 +4,7 @@ import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.ChangeSecurePinUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fitflextv.utils.combinedLet
 import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
@@ -32,15 +33,17 @@ class ChangeSecurePinViewModel @Inject constructor(
 
     override fun onConfirmPressed() {
         uiState.value.let {
-            executeUseCaseWithParams(
-                useCase = changeSecurePinUseCase,
-                params = ChangeSecurePinUseCase.Params(
-                    profileId = it.profile?.uuid.orEmpty(),
-                    currentSecurePin = it.currentSecurePin.toInt(),
-                    newSecurePin = it.newSecurePin.toInt()
-                ),
-                onSuccess = { onSecurePinChanged() }
-            )
+            combinedLet(it.currentSecurePin.toIntOrNull(), it.newSecurePin.toIntOrNull()) { currentSecurePin, newSecurePin ->
+                executeUseCaseWithParams(
+                    useCase = changeSecurePinUseCase,
+                    params = ChangeSecurePinUseCase.Params(
+                        profileId = it.profile?.uuid.orEmpty(),
+                        currentSecurePin = currentSecurePin,
+                        newSecurePin = newSecurePin
+                    ),
+                    onSuccess = { onSecurePinChanged() }
+                )
+            }
         }
     }
 
