@@ -17,10 +17,10 @@ import androidx.tv.material3.CardDefaults
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.RadioButton
 import androidx.tv.material3.RadioButtonDefaults
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 internal fun SubscriptionOption(
@@ -42,8 +42,8 @@ internal fun SubscriptionOption(
                     .fillMaxWidth()
                     .padding(all = 10.dp)
             ) {
-                CommonText(
-                    type = CommonTextTypeEnum.TITLE_MEDIUM,
+                FudgeTvText(
+                    type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                     titleText = title,
                     textColor = onSurface
                 )
@@ -51,14 +51,14 @@ internal fun SubscriptionOption(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    CommonText(
+                    FudgeTvText(
                         titleText = description,
-                        type = CommonTextTypeEnum.BODY_SMALL,
+                        type = FudgeTvTextTypeEnum.BODY_SMALL,
                         textColor = onSurface.copy(alpha = 0.8f)
                     )
-                    CommonText(
+                    FudgeTvText(
                         titleText = price,
-                        type = CommonTextTypeEnum.LABEL_LARGE,
+                        type = FudgeTvTextTypeEnum.LABEL_LARGE,
                         textColor = onSurface
                     )
                     RadioButton(

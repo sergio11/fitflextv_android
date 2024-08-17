@@ -21,13 +21,13 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonImageRes
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.LoadingDialog
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvImageRes
+import com.dreamsoftware.fudge.component.FudgeTvLoadingDialog
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun CommonProfileScreenContent(
@@ -47,19 +47,20 @@ fun CommonProfileScreenContent(
     content: @Composable (mainActionFocusRequester: FocusRequester) -> Unit
 ) {
     val mainActionFocusRequester = remember { FocusRequester() }
-    CommonScreenContent(
+    FudgeTvScreenContent(
         error = error,
         onErrorAccepted = onErrorAccepted
     ) {
         CommonProfileGradientBox {
             isLoading?.let {
-                LoadingDialog(
+                FudgeTvLoadingDialog(
                     isShowingDialog = it,
+                    mainLogoRes = R.drawable.main_logo,
                     titleRes = R.string.generic_progress_dialog_title,
                     descriptionRes = R.string.generic_progress_dialog_description
                 )
             }
-            CommonImageRes(
+            FudgeTvImageRes(
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(20.dp)
@@ -108,16 +109,16 @@ private fun ColumnScope.CommonProfileHeader(
     secondaryTitleText: String? = null,
 ) {
     Spacer(modifier = Modifier.weight(0.2f))
-    CommonText(
+    FudgeTvText(
         titleRes = mainTitleRes,
         titleText = mainTitleText,
-        type = CommonTextTypeEnum.TITLE_LARGE
+        type = FudgeTvTextTypeEnum.TITLE_LARGE
     )
     Spacer(modifier = Modifier.height(10.dp))
-    CommonText(
+    FudgeTvText(
         titleRes = secondaryTitleRes,
         titleText = secondaryTitleText,
-        type = CommonTextTypeEnum.TITLE_MEDIUM,
+        type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
         textAlign = TextAlign.Center
     )
     Spacer(modifier = Modifier.weight(0.1f))
@@ -156,27 +157,27 @@ private fun CommonProfileActions(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ){
-            CommonButton(
+            FudgeTvButton(
                 modifier = Modifier.focusRequester(focusRequester),
                 textRes = primaryOptionTextRes,
                 onClick = onPrimaryOptionPressed,
             )
             secondaryOptionTextRes?.let {
                 Spacer(modifier = Modifier.width(30.dp))
-                CommonButton(
+                FudgeTvButton(
                     textRes = it,
                     onClick = onSecondaryOptionPressed,
-                    style = CommonButtonStyleTypeEnum.INVERSE
+                    style = FudgeTvButtonStyleTypeEnum.INVERSE
                 )
             }
         }
         tertiaryOptionTextRes?.let {
-            CommonButton(
+            FudgeTvButton(
                 modifier = Modifier.width(250.dp),
                 textRes = it,
                 enableBorder = false,
                 onClick = onTertiaryOptionPressed,
-                style = CommonButtonStyleTypeEnum.TRANSPARENT
+                style = FudgeTvButtonStyleTypeEnum.TRANSPARENT
             )
         }
     }

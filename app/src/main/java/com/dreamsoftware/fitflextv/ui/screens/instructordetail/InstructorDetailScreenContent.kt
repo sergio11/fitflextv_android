@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonBackRowSchema
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCardDetails
-import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvBackRowSchema
+import com.dreamsoftware.fudge.component.FudgeTvCardDetails
+import com.dreamsoftware.fudge.component.FudgeTvLoadingState
+import com.dreamsoftware.fudge.component.FudgeTvNoContentState
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 internal fun InstructorDetailScreenContent(
@@ -23,11 +23,11 @@ internal fun InstructorDetailScreenContent(
     actionListener: InstructorDetailActionListener
 ) {
     with(uiState) {
-        CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
+        FudgeTvScreenContent(onErrorAccepted = actionListener::onErrorMessageCleared) {
             if (isLoading) {
-                CommonLoadingState(modifier = Modifier.fillMaxSize())
+                FudgeTvLoadingState(modifier = Modifier.fillMaxSize())
             } else if (instructorDetail == null) {
-                CommonNoContentState(
+                FudgeTvNoContentState(
                     modifier = Modifier.fillMaxSize(),
                     messageRes = R.string.instructor_detail_not_available
                 )
@@ -36,18 +36,18 @@ internal fun InstructorDetailScreenContent(
                     modifier = Modifier.fillMaxSize().padding(32.dp),
                     verticalArrangement = Arrangement.spacedBy(30.dp)
                 ) {
-                    CommonText(
-                        type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+                    FudgeTvText(
+                        type = FudgeTvTextTypeEnum.HEADLINE_MEDIUM,
                         titleRes = R.string.instructor_detail_title,
                         textBold = true
                     )
-                    CommonCardDetails(
+                    FudgeTvCardDetails(
                         modifier = Modifier.width(400.dp),
                         title = instructorDetail.name,
                         description = instructorDetail.description,
                         imageUrl = instructorDetail.imageUrl
                     )
-                    CommonBackRowSchema(
+                    FudgeTvBackRowSchema(
                         onClickBack = actionListener::onBackPressed
                     )
                 }

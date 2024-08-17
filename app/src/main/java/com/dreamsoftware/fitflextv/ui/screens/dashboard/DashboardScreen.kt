@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
 import com.dreamsoftware.fitflextv.ui.navigation.Screen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun DashboardScreen(
@@ -14,7 +14,7 @@ fun DashboardScreen(
     onNavigateToScreen: (Screen) -> Unit,
     currentDestination: NavDestination?
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInitialUiState = { DashboardUiState() },
         onSideEffect = {

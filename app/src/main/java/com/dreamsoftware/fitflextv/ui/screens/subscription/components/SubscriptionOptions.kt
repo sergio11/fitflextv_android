@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.utils.conditional
 import com.dreamsoftware.fitflextv.ui.utils.formatPeriodTime
 import com.dreamsoftware.fitflextv.ui.utils.formatPeriodTimeAndPrice
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
 internal fun SubscriptionOptions(
@@ -31,14 +31,14 @@ internal fun SubscriptionOptions(
         modifier = modifier.width(412.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        CommonText(
+        FudgeTvText(
             modifier = Modifier.padding(bottom = 8.dp),
             titleRes = R.string.our_plans,
-            type = CommonTextTypeEnum.TITLE_MEDIUM,
+            type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
             textColor = MaterialTheme.colorScheme.onSurface
         )
         val idxSelected = selectedSubscription?.let { subscriptionOptions.indexOf(it) } ?: 0
-        CommonFocusRequester { focusRequester ->
+        FudgeTvFocusRequester { focusRequester ->
             subscriptionOptions.forEachIndexed { index, subscriptionBO ->
                 with(subscriptionBO) {
                     SubscriptionOption(

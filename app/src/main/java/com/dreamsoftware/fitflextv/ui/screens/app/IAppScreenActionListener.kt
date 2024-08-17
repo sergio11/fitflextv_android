@@ -1,7 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.app
 
-interface IAppScreenActionListener {
+import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+
+interface IAppScreenActionListener: IFudgeScreenActionListener {
     fun onOpenSettingsPressed()
     fun onRestartAppPressed()
-    fun onErrorAccepted()
 }

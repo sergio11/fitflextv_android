@@ -11,22 +11,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.ChallengeTabs
-import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.RoundedGradientImage
+import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.FudgeTvRoundedGradientImage
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.TrainingEntityDetails
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
 
 @Composable
 internal fun TrainingDetailScreenContent(
     state: TrainingDetailUiState,
     actionListener: TrainingDetailScreenActionListener
 ) {
-    CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
+    FudgeTvScreenContent(onErrorAccepted = actionListener::onErrorMessageCleared) {
         var isChallengeTabsVisible by remember { mutableStateOf(false) }
         Column(modifier = Modifier.fillMaxSize()) {
             AnimatedVisibility(visible = !isChallengeTabsVisible) {
                 Box(contentAlignment = Alignment.BottomStart) {
-                    RoundedGradientImage(imageUrl = state.imageUrl)
+                    FudgeTvRoundedGradientImage(imageUrl = state.imageUrl)
                     TrainingEntityDetails(
                         state = state,
                         onStartTrainingClicked = actionListener::onTrainingProgramStarted,

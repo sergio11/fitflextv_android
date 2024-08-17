@@ -1,7 +1,8 @@
 package com.dreamsoftware.fitflextv.ui.screens.instructordetail
 
-interface InstructorDetailActionListener {
+import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
 
-    fun onErrorAccepted()
+interface InstructorDetailActionListener: IFudgeScreenActionListener {
+
     fun onBackPressed()
 }

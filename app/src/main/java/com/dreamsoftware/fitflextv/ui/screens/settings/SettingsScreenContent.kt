@@ -38,13 +38,13 @@ import androidx.tv.material3.ListItem
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonDialog
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
-import com.dreamsoftware.fitflextv.ui.utils.conditional
+import com.dreamsoftware.fudge.component.FudgeTvDialog
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
 fun SettingsScreenContent(
@@ -53,9 +53,10 @@ fun SettingsScreenContent(
 ) {
     with(uiState) {
         with(MaterialTheme.colorScheme) {
-            CommonScreenContent(onErrorAccepted = actionListener::onErrorAccepted) {
-                CommonDialog(
+            FudgeTvScreenContent(onErrorAccepted = actionListener::onErrorMessageCleared) {
+                FudgeTvDialog(
                     isVisible = showSignOffDialog,
+                    mainLogoRes = R.drawable.main_logo,
                     titleRes = R.string.settings_confirm_sign_off_dialog_title,
                     descriptionRes = R.string.settings_confirm_sign_off_dialog_description,
                     onAcceptClicked = actionListener::onSignOffConfirmed,
@@ -72,13 +73,13 @@ fun SettingsScreenContent(
                             .background(background),
                         horizontalAlignment = Alignment.Start
                     ) {
-                        CommonText(
+                        FudgeTvText(
                             titleRes = R.string.settings,
-                            type = CommonTextTypeEnum.TITLE_LARGE,
+                            type = FudgeTvTextTypeEnum.TITLE_LARGE,
                             textColor = onSurface,
                             modifier = Modifier.padding(top = 64.dp, start = 32.dp)
                         )
-                        CommonFocusRequester(uiState) { focusRequester ->
+                        FudgeTvFocusRequester(uiState) { focusRequester ->
                             LazyColumn(
                                 modifier = Modifier.fillMaxWidth(),
                                 contentPadding = PaddingValues(32.dp),
@@ -88,9 +89,9 @@ fun SettingsScreenContent(
                                 itemsIndexed(settingList) { idx, item ->
                                     when (item) {
                                         is ISettingItemVO.SettingHeaderVO -> {
-                                            CommonText(
+                                            FudgeTvText(
                                                 titleRes = item.titleRes,
-                                                type = CommonTextTypeEnum.BODY_SMALL,
+                                                type = FudgeTvTextTypeEnum.BODY_SMALL,
                                                 textColor = onSurface,
                                             )
                                         }
@@ -122,7 +123,7 @@ fun SettingsScreenContent(
                         modifier = Modifier.weight(1f)
                     ) {
                         settingSelected?.let {
-                            CommonFocusRequester { focusRequester ->
+                            FudgeTvFocusRequester { focusRequester ->
                                 SettingsDetail(
                                     focusRequester = focusRequester,
                                     item = it,
@@ -155,8 +156,8 @@ private fun SettingsItem(
                 actionListener.onSettingItemSelected(item)
             },
             leadingContent = {
-                CommonText(
-                    type = CommonTextTypeEnum.TITLE_MEDIUM,
+                FudgeTvText(
+                    type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                     titleRes = item.titleRes,
                     textColor = if (isPressed || isFocused) {
                         surfaceVariant
@@ -171,8 +172,8 @@ private fun SettingsItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     if(item is ISettingItemVO.ISettingValueItemVO.SettingMultipleValuesVO) {
-                        CommonText(
-                            type = CommonTextTypeEnum.TITLE_MEDIUM,
+                        FudgeTvText(
+                            type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                             titleText = item.value,
                             textColor = if (isPressed || isFocused) {
                                 surfaceVariant
@@ -222,9 +223,9 @@ private fun SettingMultipleValuesItem(
                 },
                 selected = item.value == value,
                 leadingContent = {
-                    CommonText(
+                    FudgeTvText(
                         titleText = value,
-                        type = CommonTextTypeEnum.TITLE_MEDIUM,
+                        type = FudgeTvTextTypeEnum.TITLE_MEDIUM,
                         textColor = if (isPressed || isFocused) {
                             surfaceVariant
                         } else {
@@ -266,9 +267,9 @@ private fun SettingsDetail(
                 .fillMaxHeight(),
             horizontalAlignment = Alignment.Start
         ) {
-            CommonText(
+            FudgeTvText(
                 modifier = Modifier.padding(top = 64.dp, start = 32.dp),
-                type = CommonTextTypeEnum.TITLE_LARGE,
+                type = FudgeTvTextTypeEnum.TITLE_LARGE,
                 titleRes = item.titleRes,
                 textColor = onSurface
             )
@@ -285,10 +286,10 @@ private fun SettingsDetail(
                             actionListener = actionListener
                         )
                         is ISettingItemVO.ISettingValueItemVO.SettingSingleValueVO -> {
-                            CommonText(
+                            FudgeTvText(
                                 titleText = item.value,
                                 titleRes = item.valueRes,
-                                type = CommonTextTypeEnum.TITLE_MEDIUM
+                                type = FudgeTvTextTypeEnum.TITLE_MEDIUM
                             )
                         }
                     }

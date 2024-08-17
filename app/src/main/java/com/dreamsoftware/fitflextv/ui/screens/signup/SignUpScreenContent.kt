@@ -30,18 +30,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFullScreenImage
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextField
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextFieldTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.LoadingDialog
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvFullScreenImage
+import com.dreamsoftware.fudge.component.FudgeTvLoadingDialog
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextField
+import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun SignUpScreenContent(
@@ -57,7 +57,7 @@ fun SignUpScreenContent(
     onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
-        CommonScreenContent(
+        FudgeTvScreenContent(
             error = errorMessage,
             onErrorAccepted = onErrorAccepted
         ) {
@@ -90,9 +90,9 @@ fun SignUpScreenContent(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    CommonText(
+                    FudgeTvText(
                         titleRes = R.string.developer_credits_text_single_line,
-                        type = CommonTextTypeEnum.LABEL_SMALL,
+                        type = FudgeTvTextTypeEnum.LABEL_SMALL,
                         textAlign = TextAlign.Start
                     )
                 }
@@ -106,8 +106,9 @@ private fun SignUpDialog(
     uiState: SignUpUiState
 ) {
     with(uiState) {
-        LoadingDialog(
+        FudgeTvLoadingDialog(
             isShowingDialog = isLoading,
+            mainLogoRes = R.drawable.main_logo,
             titleRes = R.string.sign_up_progress_dialog_title,
             descriptionRes = R.string.sign_up_progress_dialog_description
         )
@@ -116,7 +117,7 @@ private fun SignUpDialog(
 
 @Composable
 private fun SignUpBackground() {
-    CommonFullScreenImage(resourceId = R.drawable.signup_background)
+    FudgeTvFullScreenImage(resourceId = R.drawable.signup_background)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -142,25 +143,25 @@ private fun SignUpFormContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row {
-            CommonButton(
+            FudgeTvButton(
                 modifier = Modifier.padding(end = 20.dp),
-                type = CommonButtonTypeEnum.SMALL,
+                type = FudgeTvButtonTypeEnum.SMALL,
                 onClick = onCancelPressed,
-                style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
                 text = "Cancel"
             )
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CommonText(
+                FudgeTvText(
                     titleRes = R.string.sign_up_main_title_text,
-                    type = CommonTextTypeEnum.TITLE_LARGE,
+                    type = FudgeTvTextTypeEnum.TITLE_LARGE,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                CommonText(
+                FudgeTvText(
                     titleRes = R.string.sign_up_secondary_title_text,
-                    type = CommonTextTypeEnum.TITLE_SMALL,
+                    type = FudgeTvTextTypeEnum.TITLE_SMALL,
                     textAlign = TextAlign.Center
                 )
             }
@@ -193,7 +194,7 @@ private fun SignUpFormContent(
                 onRepeatPasswordChanged = onRepeatPasswordChanged
             )
         }
-        CommonButton(
+        FudgeTvButton(
             onClick = onSigUpPressed,
             textRes = R.string.sign_up_main_button
         )
@@ -209,9 +210,9 @@ private fun UserInfoFormColumn(
     onEmailChanged: (String) -> Unit
 ) {
     with(uiState) {
-        CommonFocusRequester { focusRequester ->
+        FudgeTvFocusRequester { focusRequester ->
             FormColumn(modifier = modifier) {
-                CommonTextField(
+                FudgeTvTextField(
                     modifier = Modifier.focusRequester(focusRequester),
                     icon = Icons.Filled.Person,
                     value = firstName,
@@ -219,17 +220,17 @@ private fun UserInfoFormColumn(
                     errorMessage = firstNameError,
                     onValueChange = onFirstNameChanged
                 )
-                CommonTextField(
+                FudgeTvTextField(
                     icon = Icons.Filled.PersonOutline,
                     value = lastName,
                     labelRes = R.string.sign_up_form_surname_label_text,
                     errorMessage = lastNameError,
                     onValueChange = onLastNameChanged
                 )
-                CommonTextField(
+                FudgeTvTextField(
                     icon = Icons.Filled.Email,
                     value = email,
-                    type = CommonTextFieldTypeEnum.EMAIL,
+                    type = FudgeTvTextFieldTypeEnum.EMAIL,
                     labelRes = R.string.sign_up_form_email_label_text,
                     errorMessage = emailError,
                     onValueChange = onEmailChanged
@@ -249,25 +250,25 @@ private fun UserCredentialsInfoFormColumn(
 ) {
     with(uiState) {
         FormColumn(modifier = modifier) {
-            CommonTextField(
+            FudgeTvTextField(
                 icon = Icons.Filled.Person,
                 value = username,
                 labelRes = R.string.sign_up_form_username_label_text,
                 errorMessage = usernameError,
                 onValueChange = onUsernameChanged
             )
-            CommonTextField(
+            FudgeTvTextField(
                 icon = Icons.Filled.Password,
                 value = password,
-                type = CommonTextFieldTypeEnum.PASSWORD,
+                type = FudgeTvTextFieldTypeEnum.PASSWORD,
                 labelRes = R.string.sign_up_form_password_label_text,
                 errorMessage = passwordError,
                 onValueChange = onPasswordChanged
             )
-            CommonTextField(
+            FudgeTvTextField(
                 icon = Icons.Filled.Password,
                 value = repeatPassword,
-                type = CommonTextFieldTypeEnum.PASSWORD,
+                type = FudgeTvTextFieldTypeEnum.PASSWORD,
                 labelRes = R.string.sign_up_form_repeat_password_label_text,
                 errorMessage = repeatPasswordError,
                 onValueChange = onRepeatPasswordChanged

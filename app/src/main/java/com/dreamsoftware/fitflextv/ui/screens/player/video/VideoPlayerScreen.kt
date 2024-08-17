@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.player.video
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 data class VideoPlayerScreenArgs(
     val id: String,
@@ -16,7 +16,7 @@ fun VideoPlayerScreen(
     args: VideoPlayerScreenArgs,
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { VideoPlayerUiState() },

@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.favorites
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun FavoritesScreen(
@@ -11,7 +11,7 @@ fun FavoritesScreen(
     onBackPressed: () -> Unit,
     onOpenTrainingProgramDetail: (id: String, type: TrainingTypeEnum) -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { FavoritesUiState() },

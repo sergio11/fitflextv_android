@@ -29,18 +29,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFullScreenImage
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreenContent
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextField
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextFieldTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.LoadingDialog
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvFullScreenImage
+import com.dreamsoftware.fudge.component.FudgeTvLoadingDialog
+import com.dreamsoftware.fudge.component.FudgeTvScreenContent
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextField
+import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun SignInScreenContent(
@@ -51,7 +51,7 @@ fun SignInScreenContent(
     onErrorAcceptPressed: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
-    CommonScreenContent(
+    FudgeTvScreenContent(
         error = uiState.errorMessage,
         onErrorAccepted = onErrorAcceptPressed
     ) {
@@ -80,8 +80,9 @@ private fun SignInDialog(
     uiState: SignInUiState
 ) {
     with(uiState) {
-        LoadingDialog(
+        FudgeTvLoadingDialog(
             isShowingDialog = isLoading,
+            mainLogoRes = R.drawable.main_logo,
             titleRes = R.string.sign_in_progress_dialog_title,
             descriptionRes = R.string.sign_in_progress_dialog_description
         )
@@ -141,21 +142,21 @@ private fun ColumnScope.SignInSecondaryContent(onGoToSignUp: () -> Unit) {
             modifier = Modifier.weight(1f),
             contentAlignment = Alignment.Center
         ) {
-            CommonText(
+            FudgeTvText(
                 titleRes = R.string.developer_credits_text,
-                type = CommonTextTypeEnum.LABEL_MEDIUM,
+                type = FudgeTvTextTypeEnum.LABEL_MEDIUM,
                 textAlign = TextAlign.Center
             )
         }
-        CommonText(
+        FudgeTvText(
             titleRes = R.string.sign_in_do_not_have_account_yet_text,
-            type = CommonTextTypeEnum.LABEL_LARGE
+            type = FudgeTvTextTypeEnum.LABEL_LARGE
         )
         Spacer(modifier = Modifier.width(20.dp))
-        CommonButton(
+        FudgeTvButton(
             textRes = R.string.sign_in_go_sign_up_button_text,
-            type = CommonButtonTypeEnum.SMALL,
-            style = CommonButtonStyleTypeEnum.TRANSPARENT,
+            type = FudgeTvButtonTypeEnum.SMALL,
+            style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
             onClick = onGoToSignUp
         )
     }
@@ -163,7 +164,7 @@ private fun ColumnScope.SignInSecondaryContent(onGoToSignUp: () -> Unit) {
 
 @Composable
 private fun SignInVideoBackground() {
-    CommonFullScreenImage(resourceId = R.drawable.login_background)
+    FudgeTvFullScreenImage(resourceId = R.drawable.login_background)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -179,16 +180,16 @@ private fun SignInFormInfo(modifier: Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        CommonText(
+        FudgeTvText(
             titleRes = R.string.sign_in_main_title_text,
-            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            type = FudgeTvTextTypeEnum.HEADLINE_MEDIUM,
             textAlign = TextAlign.Center,
             textBold = true
         )
         Spacer(modifier = Modifier.height(20.dp))
-        CommonText(
+        FudgeTvText(
             titleRes = R.string.sign_in_secondary_title_text,
-            type = CommonTextTypeEnum.BODY_LARGE,
+            type = FudgeTvTextTypeEnum.BODY_LARGE,
             textAlign = TextAlign.Center,
             textBold = true
         )
@@ -205,36 +206,36 @@ private fun SignInFormContent(
     onSigInPressed: () -> Unit
 ) {
     with(uiState) {
-        CommonFocusRequester { requester ->
+        FudgeTvFocusRequester { requester ->
             Column(
                 modifier = modifier,
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                CommonText(
+                FudgeTvText(
                     titleRes = R.string.sign_in_form_heading_text,
-                    type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+                    type = FudgeTvTextTypeEnum.HEADLINE_MEDIUM,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-                CommonTextField(
+                FudgeTvTextField(
                     icon = Icons.Filled.Person,
                     value = email,
-                    type = CommonTextFieldTypeEnum.EMAIL,
+                    type = FudgeTvTextFieldTypeEnum.EMAIL,
                     labelRes = R.string.sign_in_form_email_label_text,
                     errorMessage = emailError,
                     onValueChange = onEmailChanged
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-                CommonTextField(
+                FudgeTvTextField(
                     icon = Icons.Filled.Password,
                     value = password,
-                    type = CommonTextFieldTypeEnum.PASSWORD,
+                    type = FudgeTvTextFieldTypeEnum.PASSWORD,
                     labelRes = R.string.sign_in_form_password_label_text,
                     errorMessage = passwordError,
                     onValueChange = onPasswordChanged
                 )
                 Spacer(modifier = Modifier.height(40.dp))
-                CommonButton(
+                FudgeTvButton(
                     modifier = Modifier.focusRequester(requester),
                     onClick = onSigInPressed,
                     textRes = R.string.sign_in_main_button_text

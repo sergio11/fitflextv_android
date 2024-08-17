@@ -46,14 +46,14 @@ import androidx.tv.material3.ShapeDefaults
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.shadowCarouselColor
-import com.dreamsoftware.fitflextv.ui.utils.conditional
-import com.dreamsoftware.fitflextv.ui.utils.shadowBox
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
+import com.dreamsoftware.fudge.utils.shadowBox
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
@@ -156,22 +156,22 @@ private fun CarouselItemForeground(
                 .width(360.dp),
             verticalArrangement = Arrangement.Bottom
         ) {
-            CommonText(
-                type = CommonTextTypeEnum.LABEL_MEDIUM,
+            FudgeTvText(
+                type = FudgeTvTextTypeEnum.LABEL_MEDIUM,
                 titleText = training.instructorName,
                 singleLine = true,
                 textColor = onSurfaceVariant
             )
-            CommonText(
+            FudgeTvText(
                 modifier = Modifier.padding(top = 4.dp),
-                type = CommonTextTypeEnum.HEADLINE_SMALL,
+                type = FudgeTvTextTypeEnum.HEADLINE_SMALL,
                 titleText = training.name,
                 singleLine = true,
                 textColor = onSurface
             )
-            CommonText(
+            FudgeTvText(
                 modifier = Modifier.padding(top = 12.dp, bottom = 28.dp),
-                type = CommonTextTypeEnum.BODY_SMALL,
+                type = FudgeTvTextTypeEnum.BODY_SMALL,
                 titleText = training.description,
                 singleLine = true,
                 textColor = onSurfaceVariant,
@@ -179,9 +179,9 @@ private fun CarouselItemForeground(
                 overflow = TextOverflow.Ellipsis,
             )
             AnimatedVisibility(visible = isCarouselFocused) {
-                CommonButton(
-                    type = CommonButtonTypeEnum.LARGE,
-                    style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                FudgeTvButton(
+                    type = FudgeTvButtonTypeEnum.LARGE,
+                    style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
                     textRes = R.string.start_session,
                     onClick = onOpenTrainingProgram
                 )

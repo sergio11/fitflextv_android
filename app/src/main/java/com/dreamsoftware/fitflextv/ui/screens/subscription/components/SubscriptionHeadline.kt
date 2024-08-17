@@ -7,9 +7,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 internal fun SubscriptionHeadline() {
@@ -17,14 +17,14 @@ internal fun SubscriptionHeadline() {
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            CommonText(
-                type = CommonTextTypeEnum.TITLE_LARGE,
+            FudgeTvText(
+                type = FudgeTvTextTypeEnum.TITLE_LARGE,
                 textColor = onSurface,
                 titleRes = R.string.subscribe_to_premium
             )
-            CommonText(
+            FudgeTvText(
                 titleRes = R.string.subscribe_brief,
-                type = CommonTextTypeEnum.BODY_SMALL,
+                type = FudgeTvTextTypeEnum.BODY_SMALL,
                 textColor = onSurface
             )
         }

@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.selector
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun ProfileSelectorScreen(
@@ -12,7 +12,7 @@ fun ProfileSelectorScreen(
     onGoToAddProfile: () -> Unit,
     onGoToProfileManagement: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInit = {  loadProfiles() },
         onInitialUiState = { ProfileSelectorUiState() },

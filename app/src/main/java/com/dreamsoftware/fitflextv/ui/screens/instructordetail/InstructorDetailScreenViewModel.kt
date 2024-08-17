@@ -2,16 +2,16 @@ package com.dreamsoftware.fitflextv.ui.screens.instructordetail
 
 import com.dreamsoftware.fitflextv.domain.model.InstructorBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorDetailUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class InstructorDetailScreenViewModel @Inject constructor(
     private val getInstructorDetailUseCase: GetInstructorDetailUseCase
-) : BaseViewModel<InstructorDetailUiState, InstructorDetailSideEffects>(), InstructorDetailActionListener {
+) : FudgeViewModel<InstructorDetailUiState, InstructorDetailSideEffects>(), InstructorDetailActionListener {
 
     override fun onGetDefaultState(): InstructorDetailUiState = InstructorDetailUiState()
 

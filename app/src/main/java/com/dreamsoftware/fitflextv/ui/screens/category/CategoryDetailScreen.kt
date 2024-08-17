@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.category
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 data class CategoryDetailScreenArgs(
     val id: String
@@ -16,7 +16,7 @@ fun CategoryDetailScreen(
     onOpenTrainingProgramDetail: (String, TrainingTypeEnum) -> Unit,
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+   FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { CategoryDetailUiState() },

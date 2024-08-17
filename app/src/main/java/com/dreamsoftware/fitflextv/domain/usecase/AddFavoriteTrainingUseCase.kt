@@ -5,13 +5,13 @@ import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
 import com.dreamsoftware.fitflextv.domain.repository.ITrainingRepository
 import com.dreamsoftware.fitflextv.domain.repository.IUserRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
+import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 
 class AddFavoriteTrainingUseCase(
     private val userRepository: IUserRepository,
     private val profileRepository: IProfilesRepository,
     private val trainingRepository: ITrainingRepository
-) : BaseUseCaseWithParams<AddFavoriteTrainingUseCase.Params, Boolean>() {
+) : FudgeUseCaseWithParams<AddFavoriteTrainingUseCase.Params, Boolean>() {
 
     override suspend fun onExecuted(params: Params) = with(params) {
         val currentUserUid = userRepository.getAuthenticatedUid()

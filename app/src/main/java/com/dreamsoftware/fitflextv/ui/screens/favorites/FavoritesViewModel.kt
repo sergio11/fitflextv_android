@@ -5,11 +5,11 @@ import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetFavoritesTrainingsByUserUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class FavoritesViewModel @Inject constructor(
     private val getFavoritesTrainingsByUserUseCase: GetFavoritesTrainingsByUserUseCase,
     private val removeFavoriteTrainingUseCase: RemoveFavoriteTrainingUseCase,
     @FavoritesScreenErrorMapper private val errorMapper: IErrorMapper,
-) : BaseViewModel<FavoritesUiState, FavoritesSideEffects>(), FavoritesScreenActionListener {
+) : FudgeViewModel<FavoritesUiState, FavoritesSideEffects>(), FavoritesScreenActionListener {
 
     override fun onGetDefaultState(): FavoritesUiState = FavoritesUiState()
 

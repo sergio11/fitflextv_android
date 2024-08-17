@@ -11,12 +11,12 @@ import com.dreamsoftware.fitflextv.domain.usecase.AddFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.RemoveFavoriteTrainingUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.VerifyTrainingInFavoritesUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.ChallengeWorkoutItemUiState
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState.TrainingInfoItem
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -26,7 +26,7 @@ class TrainingDetailViewModel @Inject constructor(
     private val addFavoriteTrainingUseCase: AddFavoriteTrainingUseCase,
     private val removeFavoriteTrainingUseCase: RemoveFavoriteTrainingUseCase,
     private val verifyTrainingInFavoritesUseCase: VerifyTrainingInFavoritesUseCase
-) : BaseViewModel<TrainingDetailUiState, TrainingDetailSideEffects>(), TrainingDetailScreenActionListener {
+) : FudgeViewModel<TrainingDetailUiState, TrainingDetailSideEffects>(), TrainingDetailScreenActionListener {
 
     override fun onGetDefaultState(): TrainingDetailUiState = TrainingDetailUiState()
 

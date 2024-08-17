@@ -2,17 +2,16 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.management
 
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfilesUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfilesManagementViewModel @Inject constructor(
     private val getProfilesUseCase: GetProfilesUseCase,
-):
-    BaseViewModel<ProfilesManagementUiState, ProfilesManagementSideEffects>() {
+): FudgeViewModel<ProfilesManagementUiState, ProfilesManagementSideEffects>() {
 
     override fun onGetDefaultState(): ProfilesManagementUiState = ProfilesManagementUiState()
 

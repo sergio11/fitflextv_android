@@ -3,7 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.splash
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun SplashScreen(
@@ -13,7 +13,7 @@ fun SplashScreen(
     onGoToHome: () -> Unit,
     onGoToProfileSelector: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInitialUiState = { SplashUiState() },
         onSideEffect = {

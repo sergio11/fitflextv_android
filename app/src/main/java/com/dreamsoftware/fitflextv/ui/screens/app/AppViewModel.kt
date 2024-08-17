@@ -1,19 +1,19 @@
 package com.dreamsoftware.fitflextv.ui.screens.app
 
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
-import com.dreamsoftware.fitflextv.utils.AppEvent
-import com.dreamsoftware.fitflextv.utils.AppEventBus
+import com.dreamsoftware.fitflextv.AppEvent
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
+import com.dreamsoftware.fudge.utils.FudgeEventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AppViewModel @Inject constructor(
-    private val appEventBus: AppEventBus
-): BaseViewModel<AppUiState, AppSideEffects>(), IAppScreenActionListener {
+    private val appEventBus: FudgeEventBus
+): FudgeViewModel<AppUiState, AppSideEffects>(), IAppScreenActionListener {
 
     init {
         observeEvents()

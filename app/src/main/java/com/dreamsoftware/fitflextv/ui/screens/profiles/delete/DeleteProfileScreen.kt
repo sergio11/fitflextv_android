@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.delete
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 data class DeleteProfileScreenArgs(
     val profileId: String
@@ -15,7 +15,7 @@ fun DeleteProfileScreen(
     onProfileDeletedSuccessfully: () -> Unit,
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInit = { load(args.profileId) },
         onBackPressed = onBackPressed,

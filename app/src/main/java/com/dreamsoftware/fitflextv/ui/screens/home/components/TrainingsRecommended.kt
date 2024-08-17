@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvCard
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 internal fun TrainingsRecommended(
@@ -27,9 +27,9 @@ internal fun TrainingsRecommended(
     onClick: (ITrainingProgramBO) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
-        CommonText(
+        FudgeTvText(
             modifier = Modifier.padding(start = 32.dp),
-            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            type = FudgeTvTextTypeEnum.HEADLINE_MEDIUM,
             titleRes = R.string.recommended_for_you,
             textColor = MaterialTheme.colorScheme.onSurface,
             textBold = true
@@ -44,7 +44,7 @@ internal fun TrainingsRecommended(
             contentPadding = PaddingValues(horizontal = 32.dp)
         ) {
             items(state) { training ->
-                CommonCard(
+                FudgeTvCard(
                     modifier = modifier.width(196.dp),
                     imageUrl = training.imageUrl,
                     title = training.name,

@@ -3,17 +3,17 @@ package com.dreamsoftware.fitflextv.ui.screens.player.video
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingByIdUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class VideoPlayerViewModel @Inject constructor(
     private val getTrainingByIdUseCase: GetTrainingByIdUseCase
-) : BaseViewModel<VideoPlayerUiState, VideoPlayerSideEffects>() {
+) : FudgeViewModel<VideoPlayerUiState, VideoPlayerSideEffects>() {
 
     override fun onGetDefaultState(): VideoPlayerUiState = VideoPlayerUiState()
 

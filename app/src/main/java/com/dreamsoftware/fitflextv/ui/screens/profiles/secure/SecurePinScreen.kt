@@ -2,7 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.secure
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 @Composable
 fun SecurePinScreen(
@@ -11,7 +11,7 @@ fun SecurePinScreen(
     onGoToHome: () -> Unit,
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onInit = { load(args.profileId) },
         onBackPressed = onBackPressed,

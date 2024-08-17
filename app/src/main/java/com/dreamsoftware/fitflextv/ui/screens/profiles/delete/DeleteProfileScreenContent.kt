@@ -7,13 +7,13 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.ScalableAvatar
 import com.dreamsoftware.fitflextv.ui.screens.profiles.components.CommonProfileScreenContent
 import com.dreamsoftware.fitflextv.ui.theme.Dimens
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvScalableAvatar
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun DeleteProfileScreenContent(
@@ -30,24 +30,24 @@ fun DeleteProfileScreenContent(
             secondaryOptionTextRes = R.string.delete_profile_form_cancel_button_text,
             onPrimaryOptionPressed = actionListener::onDeletePressed,
             onSecondaryOptionPressed = actionListener::onCancelPressed,
-            onErrorAccepted = actionListener::onErrorAccepted
+            onErrorAccepted = actionListener::onErrorMessageCleared
         ) {
-            CommonFocusRequester {
-                ScalableAvatar(
+            FudgeTvFocusRequester {
+                FudgeTvScalableAvatar(
                     modifier = Modifier.focusRequester(it),
                     avatarRes = profile?.avatarType?.toDrawableResource(),
                     padding = Dimens.PROFILE_AVATAR_NO_PADDING
                 )
             }
-            CommonText(
+            FudgeTvText(
                 titleText = profile?.alias.orEmpty(),
-                type = CommonTextTypeEnum.TITLE_LARGE,
+                type = FudgeTvTextTypeEnum.TITLE_LARGE,
                 textBold = true
             )
-            CommonText(
+            FudgeTvText(
                 modifier = Modifier.padding(horizontal = 30.dp),
                 titleRes = R.string.delete_profile_explanation_text,
-                type = CommonTextTypeEnum.BODY_LARGE,
+                type = FudgeTvTextTypeEnum.BODY_LARGE,
                 textAlign = TextAlign.Center
             )
         }

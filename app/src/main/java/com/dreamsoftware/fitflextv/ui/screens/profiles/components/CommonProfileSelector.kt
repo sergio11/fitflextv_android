@@ -26,12 +26,12 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.ScalableAvatar
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvScalableAvatar
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun CommonProfileSelector(
@@ -40,7 +40,7 @@ fun CommonProfileSelector(
     onProfileSelected: (ProfileBO) -> Unit
 ) {
     var selectedAvatar by remember { mutableStateOf("") }
-    CommonFocusRequester { requester ->
+    FudgeTvFocusRequester { requester ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -50,7 +50,7 @@ fun CommonProfileSelector(
             ) {
                 items(profiles.size) {
                     val profile = profiles[it]
-                    ScalableAvatar(
+                    FudgeTvScalableAvatar(
                         avatarRes = profile.avatarType.toDrawableResource(),
                         editMode = editMode,
                         modifier = Modifier
@@ -87,9 +87,9 @@ private fun ProfileAvatarName(name: String) {
         },
         label = String.EMPTY,
     ) { text ->
-        CommonText(
+        FudgeTvText(
             titleText = text,
-            type = CommonTextTypeEnum.HEADLINE_LARGE,
+            type = FudgeTvTextTypeEnum.HEADLINE_LARGE,
             textBold = true,
             textAlign = TextAlign.Center,
             modifier = Modifier

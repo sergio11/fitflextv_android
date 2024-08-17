@@ -3,11 +3,11 @@ package com.dreamsoftware.fitflextv.ui.screens.signin
 import com.dreamsoftware.fitflextv.di.SignInScreenErrorMapper
 import com.dreamsoftware.fitflextv.domain.model.UserDetailBO
 import com.dreamsoftware.fitflextv.domain.usecase.SignInUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     @SignInScreenErrorMapper private val errorMapper: IErrorMapper
-): BaseViewModel<SignInUiState, SignInSideEffects>() {
+): FudgeViewModel<SignInUiState, SignInSideEffects>() {
 
     private companion object {
         const val DEFAULT_PROFILES_COUNT = 1

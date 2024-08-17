@@ -2,8 +2,7 @@ package com.dreamsoftware.fitflextv.ui.screens.player.audio
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonScreen
+import com.dreamsoftware.fudge.component.FudgeTvScreen
 
 data class AudioPlayerScreenArgs(
     val id: String
@@ -15,7 +14,7 @@ fun AudioPlayerScreen(
     args: AudioPlayerScreenArgs,
     onBackPressed: () -> Unit
 ) {
-    CommonScreen(
+    FudgeTvScreen(
         viewModel = viewModel,
         onBackPressed = onBackPressed,
         onInitialUiState = { AudioPlayerUiState() },

@@ -12,13 +12,13 @@ import com.dreamsoftware.fitflextv.domain.model.VideoLengthEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
 import com.dreamsoftware.fitflextv.ui.core.IErrorMapper
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import com.dreamsoftware.fitflextv.ui.utils.resetOptions
 import com.dreamsoftware.fitflextv.utils.IApplicationAware
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -28,7 +28,7 @@ class TrainingViewModel @Inject constructor(
     private val getTrainingsByTypeUseCase: GetTrainingsByTypeUseCase,
     private val applicationAware: IApplicationAware,
     @FavoritesScreenErrorMapper private val errorMapper: IErrorMapper,
-) : BaseViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
+) : FudgeViewModel<TrainingUiState, TrainingSideEffects>(), TrainingScreenActionListener {
 
     private var instructors: List<InstructorBO> = emptyList()
     private var instructor: String = String.EMPTY

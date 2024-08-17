@@ -25,18 +25,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonCard
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonLoadingState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonNoContentState
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTabRow
 import com.dreamsoftware.fitflextv.ui.screens.training.components.FilterSideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.components.OptionsSideMenu
 import com.dreamsoftware.fitflextv.ui.screens.training.components.SideMenu
-import com.dreamsoftware.fitflextv.ui.utils.conditional
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvCard
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvLoadingState
+import com.dreamsoftware.fudge.component.FudgeTvNoContentState
+import com.dreamsoftware.fudge.component.FudgeTvTabRow
+import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
 internal fun TrainingScreenContent(
@@ -85,7 +85,7 @@ private fun TrainingProgramList(
     state: TrainingUiState,
     actionListener: TrainingScreenActionListener
 ) {
-    CommonFocusRequester(state) { focusRequester ->
+    FudgeTvFocusRequester(state) { focusRequester ->
         LazyColumn(
             Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -97,7 +97,7 @@ private fun TrainingProgramList(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Spacer(modifier = Modifier.width(20.dp))
-                    CommonTabRow(
+                    FudgeTvTabRow(
                         tabs = state.tabsTitle,
                         selectedTabIndex = state.selectedTab,
                         focusTabIndex = state.focusTabIndex,
@@ -105,17 +105,17 @@ private fun TrainingProgramList(
                         onFocus = actionListener::onChangeFocusTab,
                     )
                     Spacer(modifier = Modifier.weight(1F))
-                    CommonButton(
-                        type = CommonButtonTypeEnum.SMALL,
-                        style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                    FudgeTvButton(
+                        type = FudgeTvButtonTypeEnum.SMALL,
+                        style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
                         textRes = R.string.filters_button,
                         onClick = actionListener::onFilterClicked
                     )
                     Spacer(modifier = Modifier.width(14.dp))
-                    CommonButton(
+                    FudgeTvButton(
                         modifier = Modifier.width(140.dp),
-                        type = CommonButtonTypeEnum.SMALL,
-                        style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                        type = FudgeTvButtonTypeEnum.SMALL,
+                        style = FudgeTvButtonStyleTypeEnum.TRANSPARENT,
                         text = "${stringResource(id = R.string.sort_by)}: ${SortTypeEnum.entries[state.selectedSortItem].value}",
                         onClick = actionListener::onSortedClicked
                     )
@@ -125,13 +125,13 @@ private fun TrainingProgramList(
 
             item {
                 if (state.isLoading) {
-                    CommonLoadingState(
+                    FudgeTvLoadingState(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(400.dp)
                     )
                 } else if(state.trainingPrograms.isEmpty()) {
-                    CommonNoContentState(
+                    FudgeTvNoContentState(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(400.dp),
@@ -157,7 +157,7 @@ private fun TrainingProgramList(
                         contentPadding = PaddingValues(32.dp)
                     ) {
                         itemsIndexed(state.trainingPrograms) { idx, training ->
-                            CommonCard(
+                            FudgeTvCard(
                                 modifier = Modifier.conditional(condition = idx == 0, ifTrue = {
                                     focusRequester(focusRequester)
                                 }),

@@ -1,10 +1,11 @@
 package com.dreamsoftware.fitflextv.ui.screens.profiles.changesecurepin
 
-interface ChangeSecurePinActionListener {
+import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+
+interface ChangeSecurePinActionListener: IFudgeScreenActionListener {
 
     fun onConfirmPressed()
     fun onDeleteProfilePressed()
-    fun onErrorAccepted()
     fun onCurrentSecurePinChanged(pin: String)
     fun onNewSecurePinChanged(pin: String)
     fun onCloseSecurePinUpdatedDialog()

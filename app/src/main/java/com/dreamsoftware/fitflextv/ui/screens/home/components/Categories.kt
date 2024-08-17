@@ -27,9 +27,9 @@ import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 internal fun Categories(
@@ -38,9 +38,9 @@ internal fun Categories(
     modifier: Modifier = Modifier,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(24.dp)) {
-        CommonText(
+        FudgeTvText(
             modifier = Modifier.padding(start = 32.dp),
-            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            type = FudgeTvTextTypeEnum.HEADLINE_MEDIUM,
             titleRes = R.string.categories,
             textColor = MaterialTheme.colorScheme.onSurface,
             textBold = true
@@ -95,18 +95,18 @@ private fun CategoryItem(
                 contentScale = ContentScale.Crop
             )
             Column(modifier = Modifier.padding(start = 16.dp)) {
-                CommonText(
+                FudgeTvText(
                     modifier = Modifier.width(180.dp),
                     titleText = categoryBO.title,
-                    type = CommonTextTypeEnum.BODY_LARGE,
+                    type = FudgeTvTextTypeEnum.BODY_LARGE,
                     textColor = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                CommonText(
+                FudgeTvText(
                     modifier = Modifier.width(200.dp),
                     titleText = categoryBO.description,
-                    type = CommonTextTypeEnum.BODY_SMALL,
+                    type = FudgeTvTextTypeEnum.BODY_SMALL,
                     textColor = MaterialTheme.colorScheme.onSurface,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis

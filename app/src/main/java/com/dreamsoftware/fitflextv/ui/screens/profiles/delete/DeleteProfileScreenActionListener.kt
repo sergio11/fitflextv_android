@@ -1,8 +1,9 @@
 package com.dreamsoftware.fitflextv.ui.screens.profiles.delete
 
-interface DeleteProfileScreenActionListener {
+import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+
+interface DeleteProfileScreenActionListener: IFudgeScreenActionListener {
 
     fun onDeletePressed()
     fun onCancelPressed()
-    fun onErrorAccepted()
 }

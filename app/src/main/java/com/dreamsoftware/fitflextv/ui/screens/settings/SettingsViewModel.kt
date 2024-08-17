@@ -1,6 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.settings
 
 import androidx.annotation.StringRes
+import com.dreamsoftware.fitflextv.AppEvent
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.AppLanguageEnum
 import com.dreamsoftware.fitflextv.domain.model.UnitsEnum
@@ -9,21 +10,20 @@ import com.dreamsoftware.fitflextv.domain.model.VideoQualityEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetUserPreferencesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SaveUserPreferencesUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.SignOffUseCase
-import com.dreamsoftware.fitflextv.ui.core.BaseViewModel
-import com.dreamsoftware.fitflextv.ui.core.SideEffect
-import com.dreamsoftware.fitflextv.ui.core.UiState
-import com.dreamsoftware.fitflextv.utils.AppEvent
-import com.dreamsoftware.fitflextv.utils.AppEventBus
+import com.dreamsoftware.fudge.core.FudgeViewModel
+import com.dreamsoftware.fudge.core.SideEffect
+import com.dreamsoftware.fudge.core.UiState
+import com.dreamsoftware.fudge.utils.FudgeEventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val signOffUseCase: SignOffUseCase,
-    private val appEventBus: AppEventBus,
+    private val appEventBus: FudgeEventBus,
     private val getUserPreferencesUseCase: GetUserPreferencesUseCase,
     private val saveUserPreferencesUseCase: SaveUserPreferencesUseCase
-) : BaseViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
+) : FudgeViewModel<SettingsUiState, SettingsSideEffects>(), SettingsScreenActionListener {
 
     fun fetchData() {
         executeUseCase(useCase = getUserPreferencesUseCase, onSuccess = ::onFetchUserPreferencesCompleted)

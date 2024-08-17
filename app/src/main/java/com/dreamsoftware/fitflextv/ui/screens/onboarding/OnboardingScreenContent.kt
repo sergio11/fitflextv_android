@@ -28,14 +28,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonVideoBackground
 import com.dreamsoftware.fitflextv.ui.core.components.ExitAppDialog
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvVideoBackground
 
 @Composable
 fun OnboardingScreenContent(
@@ -119,24 +119,24 @@ private fun OnboardingContentInfo(modifier: Modifier) {
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            CommonText(
+            FudgeTvText(
                 titleRes = R.string.onboarding_main_title_text,
-                type = CommonTextTypeEnum.HEADLINE_LARGE,
+                type = FudgeTvTextTypeEnum.HEADLINE_LARGE,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 8.dp),
                 textBold = true
             )
             Spacer(modifier = Modifier.height(20.dp))
-            CommonText(
+            FudgeTvText(
                 titleRes = R.string.onboarding_secondary_title_text,
-                type = CommonTextTypeEnum.BODY_LARGE,
+                type = FudgeTvTextTypeEnum.BODY_LARGE,
                 textAlign = TextAlign.Center,
                 textBold = true
             )
             Spacer(modifier = Modifier.height(50.dp))
-            CommonText(
+            FudgeTvText(
                 titleRes = R.string.onboarding_additional_info_text,
-                type = CommonTextTypeEnum.HEADLINE_SMALL,
+                type = FudgeTvTextTypeEnum.HEADLINE_SMALL,
                 textAlign = TextAlign.Center
             )
         }
@@ -145,7 +145,7 @@ private fun OnboardingContentInfo(modifier: Modifier) {
 
 @Composable
 private fun OnboardingVideoBackground() {
-    CommonVideoBackground(videoResourceId = R.raw.onboarding_video)
+    FudgeTvVideoBackground(videoResourceId = R.raw.onboarding_video)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -159,7 +159,7 @@ private fun OnBoardingActions(
     onGoToSignIn: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
-    CommonFocusRequester { requester ->
+    FudgeTvFocusRequester { requester ->
         Row (
             modifier = modifier,
             horizontalArrangement = Arrangement.End,
@@ -169,24 +169,24 @@ private fun OnBoardingActions(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.Center
             ) {
-                CommonText(
+                FudgeTvText(
                     titleRes = R.string.developer_credits_text,
-                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    type = FudgeTvTextTypeEnum.LABEL_MEDIUM,
                     textAlign = TextAlign.Center
                 )
             }
-            CommonButton(
+            FudgeTvButton(
                 modifier = Modifier.focusRequester(requester),
-                type = CommonButtonTypeEnum.LARGE,
+                type = FudgeTvButtonTypeEnum.LARGE,
                 textRes = R.string.onboarding_sign_in_button_text,
                 onClick = onGoToSignIn,
             )
             Spacer(modifier = Modifier.width(30.dp))
-            CommonButton(
-                type = CommonButtonTypeEnum.LARGE,
+            FudgeTvButton(
+                type = FudgeTvButtonTypeEnum.LARGE,
                 onClick = onGoToSignUp,
                 textRes = R.string.onboarding_sign_up_button_text,
-                style = CommonButtonStyleTypeEnum.INVERSE
+                style = FudgeTvButtonStyleTypeEnum.INVERSE
             )
         }
     }

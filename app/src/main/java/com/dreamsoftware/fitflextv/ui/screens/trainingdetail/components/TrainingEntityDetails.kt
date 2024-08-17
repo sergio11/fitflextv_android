@@ -28,14 +28,14 @@ import androidx.tv.material3.IconButton
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButton
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonButtonTypeEnum
-import com.dreamsoftware.fitflextv.ui.core.components.CommonFocusRequester
-import com.dreamsoftware.fitflextv.ui.core.components.CommonText
-import com.dreamsoftware.fitflextv.ui.core.components.CommonTextTypeEnum
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
 import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
+import com.dreamsoftware.fudge.component.FudgeTvButton
+import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
+import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvText
+import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
 fun TrainingEntityDetails(
@@ -53,28 +53,28 @@ fun TrainingEntityDetails(
             else -> 80.dp
         }
         with(MaterialTheme.colorScheme) {
-            CommonFocusRequester { requester ->
+            FudgeTvFocusRequester { requester ->
                 Column(
                     modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
                     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        CommonText(
+                        FudgeTvText(
                             titleText = subtitle,
-                            type =  CommonTextTypeEnum.BODY_SMALL,
+                            type =  FudgeTvTextTypeEnum.BODY_SMALL,
                             textColor = onSurfaceVariant
                         )
-                        CommonText(
+                        FudgeTvText(
                             titleText = title,
-                            type = CommonTextTypeEnum.HEADLINE_LARGE,
+                            type = FudgeTvTextTypeEnum.HEADLINE_LARGE,
                             textColor = onSurface,
                             textBold = true
                         )
                     }
-                    CommonText(
+                    FudgeTvText(
                         modifier = Modifier.width(descriptionWidth),
                         titleText = description,
-                        type = CommonTextTypeEnum.BODY_LARGE,
+                        type = FudgeTvTextTypeEnum.BODY_LARGE,
                         maxLines = 2,
                         textColor = onSurfaceVariant
                     )
@@ -91,16 +91,16 @@ fun TrainingEntityDetails(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CommonButton(
+                        FudgeTvButton(
                             modifier = Modifier.focusRequester(requester),
-                            type = CommonButtonTypeEnum.LARGE,
-                            style = CommonButtonStyleTypeEnum.NORMAL,
+                            type = FudgeTvButtonTypeEnum.LARGE,
+                            style = FudgeTvButtonStyleTypeEnum.NORMAL,
                             textRes = trainingType.getStartButtonID(),
                             onClick = onStartTrainingClicked
                         )
-                        CommonButton(
-                            type = CommonButtonTypeEnum.LARGE,
-                            style = CommonButtonStyleTypeEnum.INVERSE,
+                        FudgeTvButton(
+                            type = FudgeTvButtonTypeEnum.LARGE,
+                            style = FudgeTvButtonStyleTypeEnum.INVERSE,
                             textRes = R.string.more_info,
                             onClick = onMoreInfoClicked
                         )
@@ -129,14 +129,14 @@ private fun TrainingInfo(
 ) {
     with(MaterialTheme.colorScheme) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            CommonText(
-                type = CommonTextTypeEnum.BODY_LARGE,
+            FudgeTvText(
+                type = FudgeTvTextTypeEnum.BODY_LARGE,
                 titleText = info,
                 textBold = true,
                 textColor = onBackground
             )
-            CommonText(
-                type = CommonTextTypeEnum.BODY_SMALL,
+            FudgeTvText(
+                type = FudgeTvTextTypeEnum.BODY_SMALL,
                 titleRes = labelRes,
                 textColor = onSurfaceVariant
             )

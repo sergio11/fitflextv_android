@@ -1,5 +1,7 @@
 package com.dreamsoftware.fitflextv.ui.screens.dashboard
 
-interface DashboardActionListener {
+import com.dreamsoftware.fudge.core.IFudgeScreenActionListener
+
+interface DashboardActionListener: IFudgeScreenActionListener {
     fun onMenuItemSelected(menuItem: NavigationDrawerItemModel)
 }

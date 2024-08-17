@@ -5,13 +5,13 @@ import com.dreamsoftware.fitflextv.domain.model.AvatarTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.fitflextv.domain.repository.IProfilesRepository
-import com.dreamsoftware.fitflextv.domain.usecase.core.BaseUseCaseWithParams
 import com.dreamsoftware.fitflextv.domain.validation.IBusinessEntityValidator
+import com.dreamsoftware.fudge.core.FudgeUseCaseWithParams
 
 class UpdateProfileUseCase(
     private val profilesRepository: IProfilesRepository,
     private val validator: IBusinessEntityValidator<UpdatedProfileRequestBO>
-): BaseUseCaseWithParams<UpdateProfileUseCase.Params, ProfileBO>() {
+): FudgeUseCaseWithParams<UpdateProfileUseCase.Params, ProfileBO>() {
 
     override suspend fun onExecuted(params: Params): ProfileBO = with(params) {
         toUpdatedProfileRequestBO().let { updatedProfileRequestBO ->
