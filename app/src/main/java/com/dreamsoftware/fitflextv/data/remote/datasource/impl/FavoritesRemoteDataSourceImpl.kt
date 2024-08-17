@@ -8,6 +8,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.AddToFavoritesRemoteExc
 import com.dreamsoftware.fitflextv.data.remote.exception.DeleteProfileRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.GetFavoritesByUserRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.HasTrainingInFavoritesRemoteException
+import com.dreamsoftware.fitflextv.data.remote.exception.RemoveAllFavoritesRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.RemoveFromFavoritesRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
 import com.google.firebase.firestore.FirebaseFirestore
@@ -94,4 +95,34 @@ internal class FavoritesRemoteDataSourceImpl(
             ex
         )
     }
+
+    @Throws(RemoveAllFavoritesRemoteException::class)
+    override suspend fun removeFavorites(profileId: String): Boolean = try {
+        withContext(dispatcher) {
+            // Get all documents in the sub-collection (favorites) for the given profile
+            val favoriteDocuments = firebaseStore
+                .collection(COLLECTION_NAME)
+                .document(profileId)
+                .collection(SUB_COLLECTION_NAME)
+                .get()
+                .await()
+
+            if (!favoriteDocuments.isEmpty) {
+                // Create a batch to delete all documents at once
+                val batch = firebaseStore.batch()
+                for (document in favoriteDocuments.documents) {
+                    batch.delete(document.reference)
+                }
+                // Commit the batch
+                batch.commit().await()
+            }
+            true
+        }
+    } catch (ex: Exception) {
+        throw RemoveAllFavoritesRemoteException(
+            "An error occurred when trying to remove all favorites for profile $profileId",
+            ex
+        )
+    }
+
 }

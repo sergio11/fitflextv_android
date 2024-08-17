@@ -272,6 +272,7 @@ class RepositoryModule {
     fun provideProfilesRepository(
         profilesRemoteDataSource: IProfilesRemoteDataSource,
         userRemoteDataSource: IUserRemoteDataSource,
+        favoritesRemoteDataSource: IFavoritesRemoteDataSource,
         profilesMapper: IOneSideMapper<ProfileDTO, ProfileBO>,
         createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
         updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
@@ -282,6 +283,7 @@ class RepositoryModule {
         ProfilesRepositoryImpl(
             profilesRemoteDataSource,
             userRemoteDataSource,
+            favoritesRemoteDataSource,
             profilesMapper,
             createProfileMapper,
             updateProfileMapper,
