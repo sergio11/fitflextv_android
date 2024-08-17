@@ -32,6 +32,7 @@ import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
 import com.dreamsoftware.fudge.component.FudgeTvCard
+import com.dreamsoftware.fudge.component.FudgeTvRoundedGradientImage
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -40,85 +41,87 @@ internal fun ChallengeTabs(
     onClickBackChallenge: () -> Unit,
     onClickCard: (Int) -> Unit,
 ) {
-    var selectedTabIndex by remember { mutableIntStateOf(0) }
-    Box(modifier = Modifier.fillMaxSize()) {
-        FudgeTvRoundedGradientImage(
-            modifier = Modifier.alpha(.5f),
-            imageUrl = state.imageUrl
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 16.dp),
-        ) {
-            ChallengesPlanButton(
-                modifier = Modifier.padding(start = 48.dp),
-                subtitle = stringResource(R.string.challenge_details),
-                iconId = R.drawable.up_arrow_head_icon,
-                onClick = onClickBackChallenge
+    with(MaterialTheme.colorScheme) {
+        var selectedTabIndex by remember { mutableIntStateOf(0) }
+        Box(modifier = Modifier.fillMaxSize()) {
+            FudgeTvRoundedGradientImage(
+                modifier = Modifier.alpha(.5f),
+                imageUrl = state.imageUrl
             )
-            Text(
-                modifier = Modifier.padding(top = 52.dp, start = 48.dp),
-                text = stringResource(R.string.weekly_plan),
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-            TabRow(
+            Column(
                 modifier = Modifier
-                    .padding(top = 24.dp, start = 48.dp)
-                    .focusRestorer(),
-                selectedTabIndex = selectedTabIndex,
-                separator = { Spacer(modifier = Modifier.width(16.dp)) },
-                indicator = { tabPositions, doesTabRowHaveFocus ->
-                    ChallengeTabRowIndicator(
-                        currentTabPosition = tabPositions[selectedTabIndex],
-                        doesTabRowHaveFocus = doesTabRowHaveFocus,
-                        activeColor = MaterialTheme.colorScheme.secondary,
-                    )
-                }
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
             ) {
-                state.tabs.forEachIndexed { index, tab ->
-                    key(index) {
-                        Tab(
-                            selected = selectedTabIndex == index,
-                            onFocus = { selectedTabIndex = index },
-                            colors = TabDefaults.underlinedIndicatorTabColors(
-                                contentColor = MaterialTheme.colorScheme.secondary,
-                                selectedContentColor = MaterialTheme.colorScheme.secondary,
-                                inactiveContentColor = MaterialTheme.colorScheme.onSurface,
-                            )
-                        ) {
-                            Text(
-                                text = tab,
-                                style = MaterialTheme.typography.labelLarge,
-                                modifier = Modifier.padding(bottom = 4.dp)
-                            )
+                ChallengesPlanButton(
+                    modifier = Modifier.padding(start = 48.dp),
+                    subtitle = stringResource(R.string.challenge_details),
+                    iconId = R.drawable.up_arrow_head_icon,
+                    onClick = onClickBackChallenge
+                )
+                Text(
+                    modifier = Modifier.padding(top = 52.dp, start = 48.dp),
+                    text = stringResource(R.string.weekly_plan),
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = onSurface,
+                )
+                TabRow(
+                    modifier = Modifier
+                        .padding(top = 24.dp, start = 48.dp)
+                        .focusRestorer(),
+                    selectedTabIndex = selectedTabIndex,
+                    separator = { Spacer(modifier = Modifier.width(16.dp)) },
+                    indicator = { tabPositions, doesTabRowHaveFocus ->
+                        ChallengeTabRowIndicator(
+                            currentTabPosition = tabPositions[selectedTabIndex],
+                            doesTabRowHaveFocus = doesTabRowHaveFocus,
+                            activeColor = secondary,
+                        )
+                    }
+                ) {
+                    state.tabs.forEachIndexed { index, tab ->
+                        key(index) {
+                            Tab(
+                                selected = selectedTabIndex == index,
+                                onFocus = { selectedTabIndex = index },
+                                colors = TabDefaults.underlinedIndicatorTabColors(
+                                    contentColor = secondary,
+                                    selectedContentColor = secondary,
+                                    inactiveContentColor = onSurface,
+                                )
+                            ) {
+                                Text(
+                                    text = tab,
+                                    style = MaterialTheme.typography.labelLarge,
+                                    modifier = Modifier.padding(bottom = 4.dp)
+                                )
+                            }
                         }
                     }
                 }
-            }
-            LazyRow(
-                modifier = Modifier
-                    .padding(top = 40.dp)
-                    .focusRestorer(),
-                horizontalArrangement = Arrangement.spacedBy(24.dp),
-                contentPadding = PaddingValues(horizontal = 48.dp)
-            ) {
-                itemsIndexed(
-                    state.weaklyPlans[selectedTabIndex].getOrDefault(
-                        state.tabs[selectedTabIndex],
-                        listOf()
-                    )
-                ) { index, item ->
-                    FudgeTvCard(
-                        modifier = Modifier.width(196.dp),
-                        imageUrl = item.imageUrl,
-                        title = item.title,
-                        timeText = item.time,
-                        typeText = item.typeText,
-                        onClick = { onClickCard(index) }
-                    )
+                LazyRow(
+                    modifier = Modifier
+                        .padding(top = 40.dp)
+                        .focusRestorer(),
+                    horizontalArrangement = Arrangement.spacedBy(24.dp),
+                    contentPadding = PaddingValues(horizontal = 48.dp)
+                ) {
+                    itemsIndexed(
+                        state.weaklyPlans[selectedTabIndex].getOrDefault(
+                            state.tabs[selectedTabIndex],
+                            listOf()
+                        )
+                    ) { index, item ->
+                        FudgeTvCard(
+                            modifier = Modifier.width(196.dp),
+                            imageUrl = item.imageUrl,
+                            title = item.title,
+                            timeText = item.time,
+                            typeText = item.typeText,
+                            onClick = { onClickCard(index) }
+                        )
+                    }
                 }
             }
         }

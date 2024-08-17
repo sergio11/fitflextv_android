@@ -13,7 +13,7 @@ import com.dreamsoftware.fitflextv.domain.model.WorkoutTypeEnum
 import com.dreamsoftware.fitflextv.domain.usecase.GetInstructorsUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetTrainingsByTypeUseCase
 import com.dreamsoftware.fitflextv.ui.utils.EMPTY
-import com.dreamsoftware.fitflextv.ui.utils.resetOptions
+import com.dreamsoftware.fudge.component.menu.FudgeTvFilterVO
 import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.IFudgeTvErrorMapper
 import com.dreamsoftware.fudge.core.SideEffect
@@ -40,36 +40,36 @@ class TrainingViewModel @Inject constructor(
 
     override fun onGetDefaultState(): TrainingUiState = TrainingUiState(
         filterItems = listOf(
-            TrainingFilterVO(
-                type = FilterTypeEnum.VIDEO_LENGTH,
+            FudgeTvFilterVO(
+                id = VIDEO_LENGTH_FILTER,
                 icon = R.drawable.length_ic,
                 title = R.string.length,
                 description = VideoLengthEnum.NOT_SET.value,
                 options = VideoLengthEnum.entries.map { it.value }
             ),
-            TrainingFilterVO(
-                type = FilterTypeEnum.CLASS_TYPE,
+            FudgeTvFilterVO(
+                id = CLASS_TYPE_FILTER,
                 icon = R.drawable.class_type_ic,
                 title = R.string.class_type,
                 description = WorkoutTypeEnum.NOT_SET.value,
                 options = WorkoutTypeEnum.entries.map { it.value }
             ),
-            TrainingFilterVO(
-                type = FilterTypeEnum.CLASS_LANGUAGE,
+            FudgeTvFilterVO(
+                id = CLASS_LANGUAGE_FILTER,
                 icon = R.drawable.language_ic,
                 title = R.string.class_language,
                 description = ClassLanguageEnum.NOT_SET.value,
                 options = ClassLanguageEnum.entries.map { it.value }
             ),
-            TrainingFilterVO(
-                type = FilterTypeEnum.DIFFICULTY,
+            FudgeTvFilterVO(
+                id = DIFFICULTY_FILTER,
                 icon = R.drawable.difficulty_ic,
                 title = R.string.difficulty,
                 description = IntensityEnum.NOT_SET.value,
                 options = IntensityEnum.entries.map { it.value }
             ),
-            TrainingFilterVO(
-                type = FilterTypeEnum.INSTRUCTOR,
+            FudgeTvFilterVO(
+                id = INSTRUCTOR_FILTER,
                 icon = R.drawable.person_ic,
                 title = R.string.instructor
             )
@@ -111,7 +111,7 @@ class TrainingViewModel @Inject constructor(
         updateState { it.copy(isFieldFilterSelected = false) }
     }
 
-    override fun onFilterFieldSelected(trainingFilter: TrainingFilterVO) {
+    override fun onFilterFieldSelected(trainingFilter: FudgeTvFilterVO) {
         updateState {
             it.copy(
                 selectedTrainingFilter = trainingFilter,
@@ -129,35 +129,35 @@ class TrainingViewModel @Inject constructor(
     override fun onSelectedTrainingFilterOption(currentIndex: Int) {
         updateState { it.copy(isFieldFilterSelected = false) }
         uiState.value.selectedTrainingFilter?.let { filter ->
-            when(filter.type) {
-                FilterTypeEnum.VIDEO_LENGTH -> {
+            when(filter.id) {
+                VIDEO_LENGTH_FILTER -> {
                     videoLength = VideoLengthEnum.entries[currentIndex]
                 }
-                FilterTypeEnum.CLASS_TYPE -> {
+                CLASS_TYPE_FILTER -> {
                     workoutType = WorkoutTypeEnum.entries[currentIndex]
                 }
-                FilterTypeEnum.DIFFICULTY -> {
+                DIFFICULTY_FILTER -> {
                     intensity = IntensityEnum.entries[currentIndex]
                 }
-                FilterTypeEnum.CLASS_LANGUAGE -> {
+                CLASS_LANGUAGE_FILTER -> {
                     classLanguage = ClassLanguageEnum.entries[currentIndex]
                 }
-                FilterTypeEnum.INSTRUCTOR -> {
+                INSTRUCTOR_FILTER -> {
                     instructor = instructors.getOrNull(currentIndex)?.id.orEmpty()
                 }
             }
             updateState {
                 it.copy(
                     filterItems = it.filterItems.map { item ->
-                        if(item.type == filter.type) {
+                        if(item.id == filter.id) {
                             item.copy(
                                 selectedOption = currentIndex,
-                                description = when(filter.type) {
-                                    FilterTypeEnum.VIDEO_LENGTH -> VideoLengthEnum.entries[currentIndex].value
-                                    FilterTypeEnum.CLASS_TYPE -> WorkoutTypeEnum.entries[currentIndex].value
-                                    FilterTypeEnum.DIFFICULTY -> IntensityEnum.entries[currentIndex].value
-                                    FilterTypeEnum.CLASS_LANGUAGE -> ClassLanguageEnum.entries[currentIndex].value
-                                    FilterTypeEnum.INSTRUCTOR -> instructors.getOrNull(currentIndex)?.name.orEmpty()
+                                description = when(filter.id) {
+                                    VIDEO_LENGTH_FILTER -> VideoLengthEnum.entries[currentIndex].value
+                                    CLASS_TYPE_FILTER -> WorkoutTypeEnum.entries[currentIndex].value
+                                    DIFFICULTY_FILTER -> IntensityEnum.entries[currentIndex].value
+                                    CLASS_LANGUAGE_FILTER -> ClassLanguageEnum.entries[currentIndex].value
+                                    else -> instructors.getOrNull(currentIndex)?.name.orEmpty()
                                 }
                             )
                         } else {
@@ -229,7 +229,7 @@ class TrainingViewModel @Inject constructor(
         updateState {
             it.copy(
                 filterItems = it.filterItems.map { item ->
-                    if(item.type == FilterTypeEnum.INSTRUCTOR) {
+                    if(item.id == INSTRUCTOR_FILTER) {
                         item.copy(
                             options = instructorList.map(InstructorBO::name) + noInstructorSet,
                             description = noInstructorSet
@@ -262,6 +262,19 @@ class TrainingViewModel @Inject constructor(
             )
         }
     }
+
+    private fun List<FudgeTvFilterVO>.resetOptions() = map { item ->
+        item.copy(
+            selectedOption = 0,
+            description = when(item.id) {
+                VIDEO_LENGTH_FILTER -> VideoLengthEnum.NOT_SET.value
+                CLASS_TYPE_FILTER -> WorkoutTypeEnum.NOT_SET.value
+                DIFFICULTY_FILTER -> IntensityEnum.NOT_SET.value
+                CLASS_LANGUAGE_FILTER -> ClassLanguageEnum.NOT_SET.value
+                else -> String.EMPTY
+            }
+        )
+    }
 }
 
 data class TrainingUiState(
@@ -271,9 +284,9 @@ data class TrainingUiState(
     val isFieldFilterSelected: Boolean = false,
     val isSortExpended: Boolean = false,
     val trainingPrograms: List<ITrainingProgramBO> = emptyList(),
-    val filterItems: List<TrainingFilterVO> = emptyList(),
+    val filterItems: List<FudgeTvFilterVO> = emptyList(),
     val selectedSortItem: Int = 0,
-    val selectedTrainingFilter: TrainingFilterVO? = null,
+    val selectedTrainingFilter: FudgeTvFilterVO? = null,
     val selectedTab: Int = 0,
     val tabsTitle: List<Int> = listOf(
         R.string.training_type_workout_name,
@@ -293,15 +306,8 @@ sealed interface TrainingSideEffects : SideEffect {
         TrainingSideEffects
 }
 
-data class TrainingFilterVO(
-    val type: FilterTypeEnum,
-    val icon: Int,
-    val title: Int,
-    val description: String = String.EMPTY,
-    val selectedOption: Int = 0,
-    val options: List<String> = emptyList()
-)
-
-enum class FilterTypeEnum {
-    VIDEO_LENGTH, CLASS_TYPE, DIFFICULTY, CLASS_LANGUAGE, INSTRUCTOR
-}
+const val VIDEO_LENGTH_FILTER = "VIDEO_LENGTH_FILTER"
+const val CLASS_TYPE_FILTER = "CLASS_TYPE_FILTER"
+const val DIFFICULTY_FILTER = "DIFFICULTY_FILTER"
+const val CLASS_LANGUAGE_FILTER = "CLASS_LANGUAGE_FILTER"
+const val INSTRUCTOR_FILTER = "INSTRUCTOR_FILTER"

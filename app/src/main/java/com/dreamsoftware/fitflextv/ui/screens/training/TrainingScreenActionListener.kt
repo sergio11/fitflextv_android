@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.training
 
+import com.dreamsoftware.fudge.component.menu.FudgeTvFilterVO
 import com.dreamsoftware.fudge.core.IFudgeTvScreenActionListener
 
 interface TrainingScreenActionListener: IFudgeTvScreenActionListener {
@@ -11,7 +12,7 @@ interface TrainingScreenActionListener: IFudgeTvScreenActionListener {
     fun onDismissFilterSideMenu()
     fun onFilterCleared()
     fun onDismissFieldFilterSideMenu()
-    fun onFilterFieldSelected(trainingFilter: TrainingFilterVO)
+    fun onFilterFieldSelected(trainingFilter: FudgeTvFilterVO)
     fun onSelectedSortedItem(currentIndex: Int)
     fun onSelectedTrainingFilterOption(currentIndex: Int)
     fun onChangeSelectedTab(index: Int)

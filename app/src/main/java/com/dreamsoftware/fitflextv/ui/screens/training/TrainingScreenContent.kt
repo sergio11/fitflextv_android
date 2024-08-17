@@ -25,9 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
-import com.dreamsoftware.fitflextv.ui.screens.training.components.FilterSideMenu
-import com.dreamsoftware.fitflextv.ui.screens.training.components.OptionsSideMenu
-import com.dreamsoftware.fitflextv.ui.screens.training.components.SideMenu
+import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 import com.dreamsoftware.fudge.component.FudgeTvButton
 import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
@@ -36,6 +34,9 @@ import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
 import com.dreamsoftware.fudge.component.FudgeTvLoadingState
 import com.dreamsoftware.fudge.component.FudgeTvNoContentState
 import com.dreamsoftware.fudge.component.FudgeTvTabRow
+import com.dreamsoftware.fudge.component.menu.FudgeTvFilterSideMenu
+import com.dreamsoftware.fudge.component.menu.FudgeTvOptionsSideMenu
+import com.dreamsoftware.fudge.component.menu.FudgeTvSideMenu
 import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
@@ -45,16 +46,26 @@ internal fun TrainingScreenContent(
 ) {
     with(actionListener) {
         with(state) {
-            SideMenu(onDismissSideMenu = ::onDismissFilterSideMenu, isSideMenuExpended = isFilterExpended) {
-                FilterSideMenu(
+            FudgeTvSideMenu(
+                onDismissSideMenu = ::onDismissFilterSideMenu,
+                backgroundContainerColor = surfaceContainerHigh,
+                isSideMenuExpended = isFilterExpended
+            ) {
+                FudgeTvFilterSideMenu(
                     onClearFilters = ::onFilterCleared,
                     filtrationFields = filterItems,
+                    titleRes = R.string.filters,
+                    clearButtonTextRes = R.string.clear,
                     onFieldClicked = ::onFilterFieldSelected
                 )
             }
-            SideMenu(onDismissSideMenu = ::onDismissFieldFilterSideMenu, isSideMenuExpended = isFieldFilterSelected) {
+            FudgeTvSideMenu(
+                onDismissSideMenu = ::onDismissFieldFilterSideMenu,
+                backgroundContainerColor = surfaceContainerHigh,
+                isSideMenuExpended = isFieldFilterSelected
+            ) {
                 selectedTrainingFilter?.run {
-                    OptionsSideMenu(
+                    FudgeTvOptionsSideMenu(
                         onDismissSideMenu = ::onDismissFieldFilterSideMenu,
                         selectedIndex = selectedOption,
                         titleRes = title,
@@ -63,8 +74,12 @@ internal fun TrainingScreenContent(
                     )
                 }
             }
-            SideMenu(onDismissSideMenu = ::onDismissSortSideMenu, isSideMenuExpended = isSortExpended) {
-                OptionsSideMenu(
+            FudgeTvSideMenu(
+                onDismissSideMenu = ::onDismissSortSideMenu,
+                backgroundContainerColor = surfaceContainerHigh,
+                isSideMenuExpended = isSortExpended
+            ) {
+                FudgeTvOptionsSideMenu(
                     onDismissSideMenu = ::onSortCleared,
                     titleRes = R.string.sort_by,
                     items = SortTypeEnum.entries.map { it.value },
