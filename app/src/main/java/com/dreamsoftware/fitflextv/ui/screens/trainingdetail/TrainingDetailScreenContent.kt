@@ -12,8 +12,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.ChallengeTabs
-import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.FudgeTvRoundedGradientImage
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.components.TrainingEntityDetails
+import com.dreamsoftware.fudge.component.FudgeTvRoundedGradientImage
 import com.dreamsoftware.fudge.component.FudgeTvScreenContent
 
 @Composable
