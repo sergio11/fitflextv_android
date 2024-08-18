@@ -228,7 +228,25 @@ In essence, the Home Screen is designed to make your fitness exploration both in
   <img src="doc/picture_10.png" />
 </p>
 
-### Trainings
+## Exploring Workouts and More 🏋️‍♀️✨
+
+Dive into the **Workouts** section, your ultimate fitness playground where your workout adventures come to life! 🎉 This hub is crafted to help you discover and enjoy a variety of exercises that fit your unique fitness goals.
+
+In this section, you’ll find a diverse array of categories to explore:
+
+- **Workouts** 💪: Find a wide range of exercises designed for different fitness levels and objectives. Whether you’re into high-intensity cardio or strength training, there’s something here for every fitness enthusiast.
+
+- **Series** 📈: Explore structured workout series that guide you through progressive routines. Perfect for building strength and endurance over time, these series keep you on track and motivated.
+
+- **Challenges** 🏆: Take on fun and engaging challenges that push you to reach new milestones. Stay motivated and committed to your fitness journey with these exciting opportunities.
+
+- **Routines** 🗓️: Discover comprehensive workout routines that combine various exercises into effective sessions. Ideal for achieving balanced fitness results and keeping your workouts fresh and dynamic.
+
+Navigating through these categories is a breeze with our **filtering and sorting options** 🔍. Tailor your search based on duration, intensity, or specific goals to find the workouts that suit you best.
+
+Once you find a workout that piques your interest, check out the **detailed view** 📋. Here you’ll get all the essential information, including instructions, duration, and any special tips, so you can make informed decisions and seamlessly integrate them into your routine.
+
+The **Workouts** section is designed to be your personal fitness hub, where exploration and discovery are just a tap away. Whether you’re a beginner or a seasoned pro, this section has everything you need to achieve your fitness goals and keep your workouts exciting and effective. 🌟🚀
 
 <p align="center">
   <img src="doc/picture_22.png" />
@@ -284,7 +302,19 @@ In essence, the Home Screen is designed to make your fitness exploration both in
   <img src="doc/picture_33.png" />
 </p>
 
-### Subscriptions
+## Subscription Options 🌟📅
+
+In the **Subscriptions** section, you'll find flexible plans designed to fit your needs and help you get the most out of FitFlexTV! 💪✨ Whether you're just starting your fitness journey or you're a seasoned pro, our subscription options offer exclusive access to premium workouts and features that can elevate your training experience.
+
+Here’s how it works:
+
+- **Choose Your Plan** 🗓️: Select the subscription that best suits your fitness goals and lifestyle. We offer three options: 3 months, 6 months, or 12 months. Each plan is crafted to provide you with continuous motivation and access to a variety of workouts.
+
+- **Enjoy Discounts** 💰: The longer you commit, the more you save! Choose a longer subscription period and benefit from our special discounts. It’s a win-win—more savings and more access to premium content!
+
+- **Unlock Premium Content** 🔓: With a subscription, you'll gain exclusive access to high-quality, premium workouts that are not available with the free plan. Dive into advanced routines, specialized training programs, and expert-guided sessions that take your fitness to the next level.
+
+The **Subscriptions** section ensures that your fitness journey is not only effective but also rewarding. With the flexibility to choose your plan and the added value of premium content, you'll stay motivated and engaged, reaching your fitness goals with ease. 🚀💥
 
 <p align="center">
   <img src="doc/picture_19.png" />
