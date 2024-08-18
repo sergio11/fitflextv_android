@@ -194,7 +194,18 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_6.png" />
 </p>
 
-### Home
+### Exploring the Home Screen 📱
+
+Welcome to the heart of our app: the Home Screen, where users embark on their fitness journey with ease and excitement. Here’s a closer look at what you’ll find on this vibrant screen:
+
+At the very top, you’ll encounter the **Highlighted Trainings Carousel** 🎠. This engaging feature showcases a rotating selection of standout workouts. Think of it as a dynamic showcase where you can swipe through to discover popular or featured training sessions that are trending right now. It’s the perfect way to catch your eye and inspire your next workout.
+
+Moving down the screen, you’ll come across the **Categories Row** 📊. This section organizes all available training programs into various categories, like Cardio, Strength, and Yoga. Presented as a horizontal list, it allows you to browse through different categories effortlessly. Just tap on any category to dive into the specific workouts it offers, making it easy to find the perfect session based on your current mood or fitness goals.
+
+Finally, the screen wraps up with the **Recommended Trainings for Your Profile** ⭐. This personalized section is tailored just for you, using your workout history and preferences to suggest the best training programs for your current fitness level and goals. These recommendations are curated to ensure you always have something motivating and relevant right at your fingertips.
+
+In essence, the Home Screen is designed to make your fitness exploration both intuitive and enjoyable. From discovering featured workouts to finding the right category and receiving personalized suggestions, everything is organized to enhance your journey and keep you engaged.
+
 
 <p align="center">
   <img src="doc/picture_7.png" />
