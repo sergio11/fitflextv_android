@@ -66,14 +66,6 @@ We understand that staying motivated can be challenging, especially when life ge
   <img src="doc/picture_8.png" />
 </p>
 
-## Key Features ✨
-
-- **Personalized Workout Plans**: Get customized workout routines that suit your fitness level and goals. 📝
-- **Progress Tracking**: Monitor your progress and achievements to stay motivated. 📊
-- **Secure Authentication**: Keep your data safe with Firebase Authentication. 🔒
-- **Real-time Data Sync**: Enjoy seamless data synchronization with Firebase Firestore. 🔄
-- **Media Storage**: Store and retrieve workout media using Firebase Storage. 🗄️
-
 ## Technologies Used 🛠️
 
 - **Kotlin**: The language of choice for developing Android applications, offering modern syntax and powerful features to streamline coding and enhance productivity. 🚀
@@ -107,54 +99,48 @@ We understand that staying motivated can be challenging, especially when life ge
 
 - **Mapper Pattern**: 🔄 Facilitates conversion between different data models (DTOs, BOs, etc.), ensuring data consistency and smooth interactions across various application components. 📐
 
-## Architecture 🏗️
+## Architecture Overview 🏛️
 
-### Clean Architecture
+Our application is designed with a robust and scalable architecture to ensure maintainability, testability, and flexibility. The architecture leverages several design patterns and principles to create a well-structured and efficient system.
 
-We chose Clean Architecture for the following reasons:
+### **Clean Architecture** 🏗️
+Clean Architecture is the foundation of our design, focusing on separating concerns into distinct layers. This approach enhances the maintainability and testability of the code by isolating business logic from the UI and data layers. Our architecture typically includes the following layers:
+- **Presentation Layer**: Handles the UI and user interactions, using Jetpack Compose for building modern and responsive interfaces.
+- **Domain Layer**: Contains the business logic and use cases. It defines the core functionality of the application and is independent of external frameworks.
+- **Data Layer**: Manages data sources and repositories, providing a consistent interface for data access. It abstracts the details of data retrieval and storage from the rest of the application.
 
-- **Separation of Concerns**: Clean Architecture helps keep the codebase modular and separates concerns across different layers, making the codebase easier to manage and scale.
-- **Independence**: Each layer of the architecture operates independently of frameworks, UI, database, and any external agency.
-- **Testability**: With well-defined boundaries and separations, unit testing becomes more straightforward and effective.
+### **Data Sources** 📦
+Data sources are responsible for fetching and managing data from various origins. We utilize multiple data sources, such as:
+- **Remote Data Sources**: Interact with cloud services or web APIs (e.g., Firebase Firestore, Firebase Auth).
+- **Local Data Sources**: Handle local data storage (e.g., Jetpack DataStore, SQLite).
 
-### MVI (Model-View-Intent)
+### **Repository Pattern** 🗃️
+The repository pattern provides a unified interface for accessing data, regardless of whether it's coming from a remote server or local storage. Repositories manage data operations and serve as a single source of truth for the application's data. This pattern decouples data retrieval and storage from the rest of the application, allowing for easier testing and maintenance.
 
-MVI complements Clean Architecture by:
+### **Use Cases** 🧩
+In the Domain Layer, **Use Cases** (also known as Interactors) represent specific actions or operations that the application can perform. They encapsulate business logic and interact with repositories to retrieve or modify data. Use Cases ensure that the business rules and application flow are managed correctly, providing a layer of abstraction that protects the domain logic from changes in the data or presentation layers. By focusing on specific tasks or operations, Use Cases contribute to the modularity and flexibility of the application.
 
-- **Unidirectional Data Flow**: Ensuring a predictable state management by following a unidirectional data flow.
-- **State Management**: Managing the state effectively, making the UI reflect the current state of the application.
-- **Reactivity**: Ensuring the UI reacts to state changes, making the application more responsive and robust.
+### **Inversion of Control (IoC)** 🔄
+Inversion of Control is a principle where the control flow of the application is inverted. Dependencies are injected rather than being hardcoded. This is achieved through:
+- **Dependency Injection (DI)**: Managed by Dagger Hilt, DI simplifies the management of dependencies and their lifecycle, promoting modularity and reducing boilerplate code.
 
-### Repository Pattern
+### **SOLID Principles** 📏
+We apply SOLID principles to ensure our codebase remains clean, modular, and maintainable:
+- **Single Responsibility Principle (SRP)**: Each class or module has one responsibility, reducing complexity and improving cohesion.
+- **Open/Closed Principle (OCP)**: Classes and modules are open for extension but closed for modification, promoting flexibility and reducing the risk of introducing bugs.
+- **Liskov Substitution Principle (LSP)**: Subtypes must be substitutable for their base types without altering the correctness of the program, ensuring proper inheritance hierarchies.
+- **Interface Segregation Principle (ISP)**: Clients should not be forced to depend on interfaces they do not use, promoting more focused and cohesive interfaces.
+- **Dependency Inversion Principle (DIP)**: High-level modules should not depend on low-level modules; both should depend on abstractions. This principle encourages a more flexible and decoupled design.
 
-The repository pattern abstracts the data layer, providing a clean API for data access. This helps in managing data from multiple sources (local database, remote server) and makes the data layer more modular and testable.
+### **MVI (Model-View-Intent)** 📈
+MVI is employed for managing the state and interactions within the application:
+- **Model**: Represents the application's state and business logic.
+- **View**: Displays the UI and reacts to state changes.
+- **Intent**: Represents user actions or events that drive changes in the state.
 
-### Mapper Pattern
+By applying MVI, we achieve a unidirectional data flow, making state management predictable and consistent.
 
-Mappers are used to convert data between different layers of the application (e.g., from network DTOs to business objects). This ensures that each layer of the application works with its own data format, keeping the layers decoupled and easier to manage.
-
-### Jetpack Compose for TV
-
-We use Jetpack Compose for TV to:
-
-- **Reusability**: Build UI components that are highly reusable across different parts of the application.
-- **Declarative UI**: Create UIs in a declarative manner, making the codebase more readable and maintainable.
-- **Flexibility**: Easily adapt the UI for different screen sizes and orientations, ensuring a seamless experience on TV screens.
-
-## Firebase Platform Integration 🔥
-
-### Firestore
-
-- **Real-time Database**: Firestore is used to store and sync data in real-time across all clients.
-- **Scalable**: Automatically scales to handle large datasets and high-traffic applications.
-
-### Firebase Auth
-
-- **User Authentication**: Firebase Auth is used to handle user authentication, supporting email/password sign-in, third-party providers (Google, Facebook, etc.), and anonymous sign-in.
-
-### Firebase Storage
-
-- **Media Storage**: Firebase Storage is used to store user profile images and other media files, ensuring fast and secure uploads and downloads.
+This architecture ensures that our application is well-structured, easy to maintain, and scalable, while adhering to best practices and design principles.
 
 ## App Screenshots
 
