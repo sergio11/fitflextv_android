@@ -328,9 +328,24 @@ The **Subscriptions** section ensures that your fitness journey is not only effe
   <img src="doc/picture_21.png" />
 </p>
 
-### Settings
+### Settings 🛠️🔧
 
-⚙️ Welcome to Settings!
+The **Settings** section in FitFlexTV is your personal control panel, where you can customize your app experience to perfectly suit your preferences. 🌟 Here’s what you can do:
+
+- **Adjust Language** 🌐: Choose the language that makes you feel most comfortable. Whether you prefer English, Spanish, or any other language we offer, the app will adapt to your choice, making your experience seamless and intuitive.
+
+- **Select Measurement Units** 📏: Pick your preferred unit of measurement—metric or imperial. Whether you’re used to kilometers and kilograms or miles and pounds, FitFlexTV will display your workout metrics in the format you’re accustomed to.
+
+- **Set Video Quality** 📹: Control your video streaming experience by selecting the video quality. Choose from Full HD for crisp, clear visuals or opt for Automatic to let the app adjust the quality up to 4K based on your internet connection.
+
+- **Learn About Us** 🧑‍💻: Discover more about the developers behind FitFlexTV and the vision that drives the app. We’re excited to share our journey with you!
+
+- **Log Out** 🚪: Need a break or switching accounts? Easily log out and take a pause or switch profiles with just a few taps.
+
+- **Manage Subscriptions** 💳: Review and adjust your subscription plan. You can change your current plan or even cancel your subscription if needed. Stay in control of your fitness journey and make sure your plan fits your evolving needs.
+
+The **Settings** section ensures that you have the flexibility to tailor FitFlexTV to your liking, enhancing your overall experience. From language preferences to video quality settings, everything is designed to offer you a personalized and enjoyable fitness journey. 🌟🛠️
+
 
 <p align="center">
   <img src="doc/picture_13.png" />
