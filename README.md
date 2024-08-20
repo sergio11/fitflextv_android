@@ -190,35 +190,65 @@ Welcome to the **Profiles** section, where personalization and convenience come 
 
 At the heart of this section is the **Profile Selection** screen. Here, you can easily choose the profile you want to use when accessing the app. This feature allows each user to maintain their unique settings, preferences, and workout history, ensuring a customized experience every time.
 
-If you're looking to add a new dimension to your experience, you can **create up to three profiles**. Each profile can be customized with its own alias and avatar, making it easy for family members or multiple users to have their distinct space within the app. Whether it's a new workout buddy or a personalized setup for different family members, adding new profiles is simple and straightforward.
-
-Editing your current profile is just as easy. You can update your profile’s **alias** and **avatar** to reflect your personality or preferences. Want to change your security PIN? No problem. The app allows you to **update your security PIN** whenever needed to ensure your account remains secure and accessible only to you.
-
-If you decide that a profile is no longer needed, you have the option to **delete it**. Each profile comes with its own set of favorite workouts, so when you remove a profile, all associated data and favorites will be cleared, ensuring that your app stays clean and organized.
-
-Overall, the **Profiles** section is designed to give you flexibility and control, making sure that your fitness journey is personalized and secure. Whether you’re managing multiple profiles for family members or simply updating your own, this section ensures that your experience is tailored to fit your needs perfectly.
-
-
 <p align="center">
   <img src="doc/picture_5.png" />
 </p>
 
+If you're looking to add a new dimension to your experience, you can **create up to four profiles**. Each profile can be customized with its own alias and avatar, making it easy for family members or multiple users to have their distinct space within the app. Whether it's a new workout buddy or a personalized setup for different family members, adding new profiles is simple and straightforward.
+
+<p align="center">
+  <img src="doc/picture_34.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_35.png" />
+</p>
+
+Editing your current profile is just as easy. You can update your profile’s **alias** and **avatar** to reflect your personality or preferences. Want to change your security PIN? No problem. The app allows you to **update your security PIN** whenever needed to ensure your account remains secure and accessible only to you.
+
+<p align="center">
+  <img src="doc/picture_36.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_37.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_38.png" />
+</p>
+
+
+If you decide that a profile is no longer needed, you have the option to **delete it**. Each profile comes with its own set of favorite workouts, so when you remove a profile, all associated data and favorites will be cleared, ensuring that your app stays clean and organized.
+
+<p align="center">
+  <img src="doc/picture_39.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_40.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_41.png" />
+</p>
+
+Overall, the **Profiles** section is designed to give you flexibility and control, making sure that your fitness journey is personalized and secure. Whether you’re managing multiple profiles for family members or simply updating your own, this section ensures that your experience is tailored to fit your needs perfectly.
+
 <p align="center">
   <img src="doc/picture_6.png" />
 </p>
+
+<p align="center">
+  <img src="doc/picture_42.png" />
+</p>
+
 
 ### Exploring the Home Screen 📱
 
 Welcome to the heart of our app: the Home Screen, where users embark on their fitness journey with ease and excitement. Here’s a closer look at what you’ll find on this vibrant screen:
 
 At the very top, you’ll encounter the **Highlighted Trainings Carousel** 🎠. This engaging feature showcases a rotating selection of standout workouts. Think of it as a dynamic showcase where you can swipe through to discover popular or featured training sessions that are trending right now. It’s the perfect way to catch your eye and inspire your next workout.
-
-Moving down the screen, you’ll come across the **Categories Row** 📊. This section organizes all available training programs into various categories, like Cardio, Strength, and Yoga. Presented as a horizontal list, it allows you to browse through different categories effortlessly. Just tap on any category to dive into the specific workouts it offers, making it easy to find the perfect session based on your current mood or fitness goals.
-
-Finally, the screen wraps up with the **Recommended Trainings for Your Profile** ⭐. This personalized section is tailored just for you, using your workout history and preferences to suggest the best training programs for your current fitness level and goals. These recommendations are curated to ensure you always have something motivating and relevant right at your fingertips.
-
-In essence, the Home Screen is designed to make your fitness exploration both intuitive and enjoyable. From discovering featured workouts to finding the right category and receiving personalized suggestions, everything is organized to enhance your journey and keep you engaged.
-
 
 <p align="center">
   <img src="doc/picture_7.png" />
@@ -228,6 +258,24 @@ In essence, the Home Screen is designed to make your fitness exploration both in
   <img src="doc/picture_10.png" />
 </p>
 
+Moving down the screen, you’ll come across the **Categories Row** 📊. This section organizes all available training programs into various categories, like Cardio, Strength, and Yoga. Presented as a horizontal list, it allows you to browse through different categories effortlessly. Just tap on any category to dive into the specific workouts it offers, making it easy to find the perfect session based on your current mood or fitness goals.
+
+<p align="center">
+  <img src="doc/picture_43.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_44.png" />
+</p>
+
+Finally, the screen wraps up with the **Recommended Trainings for Your Profile** ⭐. This personalized section is tailored just for you, using your workout history and preferences to suggest the best training programs for your current fitness level and goals. These recommendations are curated to ensure you always have something motivating and relevant right at your fingertips.
+
+<p align="center">
+  <img src="doc/picture_45.png" />
+</p>
+
+In essence, the Home Screen is designed to make your fitness exploration both intuitive and enjoyable. From discovering featured workouts to finding the right category and receiving personalized suggestions, everything is organized to enhance your journey and keep you engaged.
+
 ## Exploring Workouts and More 🏋️‍♀️✨
 
 Dive into the **Workouts** section, your ultimate fitness playground where your workout adventures come to life! 🎉 This hub is crafted to help you discover and enjoy a variety of exercises that fit your unique fitness goals.
@@ -236,21 +284,33 @@ In this section, you’ll find a diverse array of categories to explore:
 
 - **Workouts** 💪: Find a wide range of exercises designed for different fitness levels and objectives. Whether you’re into high-intensity cardio or strength training, there’s something here for every fitness enthusiast.
 
-- **Series** 📈: Explore structured workout series that guide you through progressive routines. Perfect for building strength and endurance over time, these series keep you on track and motivated.
-
-- **Challenges** 🏆: Take on fun and engaging challenges that push you to reach new milestones. Stay motivated and committed to your fitness journey with these exciting opportunities.
-
-- **Routines** 🗓️: Discover comprehensive workout routines that combine various exercises into effective sessions. Ideal for achieving balanced fitness results and keeping your workouts fresh and dynamic.
-
-Navigating through these categories is a breeze with our **filtering and sorting options** 🔍. Tailor your search based on duration, intensity, or specific goals to find the workouts that suit you best.
-
-Once you find a workout that piques your interest, check out the **detailed view** 📋. Here you’ll get all the essential information, including instructions, duration, and any special tips, so you can make informed decisions and seamlessly integrate them into your routine.
-
-The **Workouts** section is designed to be your personal fitness hub, where exploration and discovery are just a tap away. Whether you’re a beginner or a seasoned pro, this section has everything you need to achieve your fitness goals and keep your workouts exciting and effective. 🌟🚀
-
 <p align="center">
   <img src="doc/picture_22.png" />
 </p>
+
+<p align="center">
+  <img src="doc/picture_29.png" />
+</p>
+
+- **Series** 📈: Explore structured workout series that guide you through progressive routines. Perfect for building strength and endurance over time, these series keep you on track and motivated.
+
+<p align="center">
+  <img src="doc/picture_46.png" />
+</p>
+
+- **Challenges** 🏆: Take on fun and engaging challenges that push you to reach new milestones. Stay motivated and committed to your fitness journey with these exciting opportunities.
+
+<p align="center">
+  <img src="doc/picture_47.png" />
+</p>
+
+- **Routines** 🗓️: Discover comprehensive workout routines that combine various exercises into effective sessions. Ideal for achieving balanced fitness results and keeping your workouts fresh and dynamic.
+
+<p align="center">
+  <img src="doc/picture_48.png" />
+</p>
+
+Navigating through these categories is a breeze with our **filtering and sorting options** 🔍. Tailor your search based on duration, intensity, or specific goals to find the workouts that suit you best.
 
 <p align="center">
   <img src="doc/picture_23.png" />
@@ -272,9 +332,10 @@ The **Workouts** section is designed to be your personal fitness hub, where expl
   <img src="doc/picture_27.png" />
 </p>
 
-<p align="center">
-  <img src="doc/picture_29.png" />
-</p>
+Once you find a workout that piques your interest, check out the **detailed view** 📋. Here you’ll get all the essential information, including instructions, duration, and any special tips, so you can make informed decisions and seamlessly integrate them into your routine.
+
+The **Workouts** section is designed to be your personal fitness hub, where exploration and discovery are just a tap away. Whether you’re a beginner or a seasoned pro, this section has everything you need to achieve your fitness goals and keep your workouts exciting and effective. 🌟🚀
+
 
 ### Training Program Detail
 
@@ -301,6 +362,7 @@ The **Workouts** section is designed to be your personal fitness hub, where expl
 <p align="center">
   <img src="doc/picture_33.png" />
 </p>
+
 
 ## Subscription Options 🌟📅
 
