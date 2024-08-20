@@ -190,22 +190,55 @@ Welcome to the **Profiles** section, where personalization and convenience come 
 
 At the heart of this section is the **Profile Selection** screen. Here, you can easily choose the profile you want to use when accessing the app. This feature allows each user to maintain their unique settings, preferences, and workout history, ensuring a customized experience every time.
 
-If you're looking to add a new dimension to your experience, you can **create up to three profiles**. Each profile can be customized with its own alias and avatar, making it easy for family members or multiple users to have their distinct space within the app. Whether it's a new workout buddy or a personalized setup for different family members, adding new profiles is simple and straightforward.
-
-Editing your current profile is just as easy. You can update your profile’s **alias** and **avatar** to reflect your personality or preferences. Want to change your security PIN? No problem. The app allows you to **update your security PIN** whenever needed to ensure your account remains secure and accessible only to you.
-
-If you decide that a profile is no longer needed, you have the option to **delete it**. Each profile comes with its own set of favorite workouts, so when you remove a profile, all associated data and favorites will be cleared, ensuring that your app stays clean and organized.
-
-Overall, the **Profiles** section is designed to give you flexibility and control, making sure that your fitness journey is personalized and secure. Whether you’re managing multiple profiles for family members or simply updating your own, this section ensures that your experience is tailored to fit your needs perfectly.
-
-
 <p align="center">
   <img src="doc/picture_5.png" />
 </p>
 
+If you're looking to add a new dimension to your experience, you can **create up to four profiles**. Each profile can be customized with its own alias and avatar, making it easy for family members or multiple users to have their distinct space within the app. Whether it's a new workout buddy or a personalized setup for different family members, adding new profiles is simple and straightforward.
+
+<p align="center">
+  <img src="doc/picture_34.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_35.png" />
+</p>
+
+Editing your current profile is just as easy. You can update your profile’s **alias** and **avatar** to reflect your personality or preferences. Want to change your security PIN? No problem. The app allows you to **update your security PIN** whenever needed to ensure your account remains secure and accessible only to you.
+
+<p align="center">
+  <img src="doc/picture_36.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_37.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_38.png" />
+</p>
+
+
+If you decide that a profile is no longer needed, you have the option to **delete it**. Each profile comes with its own set of favorite workouts, so when you remove a profile, all associated data and favorites will be cleared, ensuring that your app stays clean and organized.
+
+<p align="center">
+  <img src="doc/picture_39.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_40.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_41.png" />
+</p>
+
+Overall, the **Profiles** section is designed to give you flexibility and control, making sure that your fitness journey is personalized and secure. Whether you’re managing multiple profiles for family members or simply updating your own, this section ensures that your experience is tailored to fit your needs perfectly.
+
 <p align="center">
   <img src="doc/picture_6.png" />
 </p>
+
 
 ### Exploring the Home Screen 📱
 
