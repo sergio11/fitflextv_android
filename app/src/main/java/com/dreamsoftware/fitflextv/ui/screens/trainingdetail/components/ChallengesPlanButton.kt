@@ -28,40 +28,42 @@ fun ChallengesPlanButton(
     iconId: Int,
     onClick: () -> Unit
 ) {
-    var isFocused by remember { mutableStateOf(false) }
-    val transition = updateTransition(targetState = isFocused, label = null)
-    val textColor by transition.animateColor(label = "textColor") {
-        if (it) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onSurfaceVariant
-    }
-    val iconColor by transition.animateColor(label = "iconColor") {
-        if (it) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onSurface
-    }
-    OutlinedButton(
-        modifier = modifier
-            .onFocusChanged {
-                isFocused = it.isFocused || it.hasFocus
-            },
-        onClick = onClick,
-        colors = ButtonDefaults.colors(
-            containerColor = Color.Transparent,
-            focusedContainerColor = MaterialTheme.colorScheme.onBackground
-        ),
-        border = ButtonDefaults.border()
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-            verticalAlignment = Alignment.CenterVertically
+    with(MaterialTheme.colorScheme) {
+        var isFocused by remember { mutableStateOf(false) }
+        val transition = updateTransition(targetState = isFocused, label = null)
+        val textColor by transition.animateColor(label = "textColor") {
+            if (it) background else onSurfaceVariant
+        }
+        val iconColor by transition.animateColor(label = "iconColor") {
+            if (it) background else onSurface
+        }
+        OutlinedButton(
+            modifier = modifier
+                .onFocusChanged {
+                    isFocused = it.isFocused || it.hasFocus
+                },
+            onClick = onClick,
+            colors = ButtonDefaults.colors(
+                containerColor = Color.Transparent,
+                focusedContainerColor = onBackground
+            ),
+            border = ButtonDefaults.border()
         ) {
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodyMedium,
-                color = textColor
-            )
-            Icon(
-                painter = painterResource(iconId),
-                tint = iconColor,
-                contentDescription = null,
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = textColor
+                )
+                Icon(
+                    painter = painterResource(iconId),
+                    tint = iconColor,
+                    contentDescription = null,
+                )
+            }
         }
     }
 }
