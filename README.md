@@ -395,6 +395,46 @@ The **Training Program Detail** screen is your control center to make the most o
   <img src="doc/picture_57.png" />
 </p>
 
+## Workout Player 🎥🎶
+
+The **Workout Player** is where your workout truly comes to life on FitFlexTV. Designed to provide a seamless and immersive experience, the player ensures you stay focused and motivated throughout your session.
+
+- **High-Quality Video** 📺: Enjoy your workouts in stunning quality, with support for Full HD and even 4K resolutions. The player automatically adjusts to give you the best possible experience based on your connection.
+
+- **Workout Controls** ⏯️: Easily navigate through your workout with intuitive controls. You can pause, rewind, or skip forward, ensuring you never miss a beat.
+
+- **On-Screen Guidance** 🧭: Follow along with clear, on-screen instructions that guide you through each movement. Stay on track with real-time tips and pointers from your instructor.
+
+- **Music Integration** 🎧: Pump up your workout with perfectly synced music. Whether it’s upbeat tracks to keep your energy high or calming tunes for a yoga session, the music enhances your workout experience.
+
+- **Music Player** 🎵: Want to enjoy the workout music on its own? The music player lets you listen to the session's curated playlist at your own pace. Perfect for when you want to move freely to your rhythm.
+
+- **Progress Tracking** 📊: See your progress throughout the workout, with visual cues that show how far you've come and how much is left. Stay motivated as you push through each section.
+
+- **Full-Screen Mode** 🖥️: Immerse yourself completely in your workout with full-screen mode, minimizing distractions and allowing you to focus on every movement.
+
+The **Workout Player** on FitFlexTV is your ultimate companion, making sure every workout is not only effective but also enjoyable. Whether you're sweating it out to high-energy routines or winding down with yoga, the player provides everything you need for a top-notch experience. 💥🏆
+
+<p align="center">
+  <img src="doc/picture_58.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_59.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_60.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_61.gif" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_62.gif" />
+</p>
+
 ## Subscription Options 🌟📅
 
 In the **Subscriptions** section, you'll find flexible plans designed to fit your needs and help you get the most out of FitFlexTV! 💪✨ Whether you're just starting your fitness journey or you're a seasoned pro, our subscription options offer exclusive access to premium workouts and features that can elevate your training experience.
