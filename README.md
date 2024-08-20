@@ -16,6 +16,16 @@ Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committ
   <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
 </p>
 
+<p align="center">
+  <img width="500px" src="doc/previewed/image1.jpeg" />
+  <img width="500px" src="doc/previewed/image2.jpeg" />
+  <img width="500px" src="doc/previewed/image3.jpeg" />
+  <img width="500px" src="doc/previewed/image4.jpeg" />
+  <img width="500px" src="doc/previewed/image5.jpeg" />
+</p>
+
+Slides are built using the  template from [Previewed](https://previewed.app/template/AFC0B4CB). I extend my gratitude to them for their remarkable work and contribution.
+
 ## Overview 🌐
 
 With **FitFlexTV**, you can access a range of workouts designed for various fitness levels and preferences 🌈. Our app offers both free and premium content 💎, ensuring there’s something for everyone. For a more personalized experience, you can explore workouts with specific music tracks 🎵 that enhance your focus and enjoyment.
