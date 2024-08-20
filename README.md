@@ -337,32 +337,63 @@ Once you find a workout that piques your interest, check out the **detailed view
 The **Workouts** section is designed to be your personal fitness hub, where exploration and discovery are just a tap away. Whether you’re a beginner or a seasoned pro, this section has everything you need to achieve your fitness goals and keep your workouts exciting and effective. 🌟🚀
 
 
-### Training Program Detail
+### Training Program Detail 🏋️‍♂️💪
+
+The **Training Program Detail** screen on FitFlexTV is where your fitness journey truly begins. Here, you'll find all the essential information to get the most out of every session. 🏆
+
+- **Duration** ⏱️: How much time do you have today? The workout duration is clearly displayed, so you can plan your session without any surprises.
+
+- **Intensity** 🔥: From gentle and relaxing sessions to workouts that will push your limits, each exercise is labeled with its intensity level, helping you choose the right challenge based on your energy and goals.
+
+- **Workout Description** 📄: Read a detailed description to understand exactly what the workout involves. Discover the exercises, benefits, and what you can expect from the session.
+
+- **Instructor** 👩‍🏫: Get to know the professional who will guide you through this workout. You can also explore more about their experience and access other workouts they've designed.
+
+- **Start Workout** ▶️: Ready to get started? Just hit "Start" and prepare to sweat. Your session begins here!
+
+- **Play Music** 🎵: Prefer to do the workout at your own pace? You can access the music that accompanies the workout and play it whenever you like, adding your own flair to the session.
+
+- **Add to Favorites** ⭐: Is this one of your go-to workouts? Add it to your favorites for easy access in the future!
+
+- **More About the Instructor** 📚: If you love the instructor's style, you can learn more about their background and philosophy, connecting even more with your fitness guide.
+
+The **Training Program Detail** screen is your control center to make the most out of every session. Everything is designed to inspire and motivate you every step of the way. 💥🔥
 
 <p align="center">
-  <img src="doc/picture_9.png" />
+  <img src="doc/picture_49.png" />
 </p>
 
 <p align="center">
-  <img src="doc/picture_11.png" />
+  <img src="doc/picture_50.png" />
 </p>
 
 <p align="center">
-  <img src="doc/picture_30.png" />
+  <img src="doc/picture_51.png" />
 </p>
 
 <p align="center">
-  <img src="doc/picture_31.png" />
+  <img src="doc/picture_52.png" />
 </p>
 
 <p align="center">
-  <img src="doc/picture_32.png" />
+  <img src="doc/picture_53.png" />
 </p>
 
 <p align="center">
-  <img src="doc/picture_33.png" />
+  <img src="doc/picture_54.png" />
 </p>
 
+<p align="center">
+  <img src="doc/picture_55.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_56.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_57.png" />
+</p>
 
 ## Subscription Options 🌟📅
 
