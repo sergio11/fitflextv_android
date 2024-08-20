@@ -38,7 +38,7 @@ import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvVideoBackground
 
 @Composable
-fun OnboardingScreenContent(
+internal fun OnboardingScreenContent(
     modifier: Modifier = Modifier,
     onGoToSignIn: () -> Unit,
     onGoToSignUp: () -> Unit,

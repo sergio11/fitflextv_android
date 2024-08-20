@@ -6,7 +6,7 @@ import com.dreamsoftware.fudge.component.profiles.FudgeTvProfileScreenContent
 import com.dreamsoftware.fudge.component.profiles.FudgeTvProfileSelector
 
 @Composable
-fun ProfileSelectorContent(
+internal fun ProfileSelectorContent(
     uiState: ProfileSelectorUiState,
     actionListener: ProfileSelectorScreenActionListener
 ) {

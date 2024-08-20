@@ -44,61 +44,56 @@ import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
-fun SignUpScreenContent(
+internal fun SignUpScreenContent(
     uiState: SignUpUiState,
-    onFirstNameChanged: (String) -> Unit,
-    onLastNameChanged: (String) -> Unit,
-    onEmailChanged: (String) -> Unit,
-    onUsernameChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
-    onRepeatPasswordChanged: (String) -> Unit,
-    onSigUpPressed: () -> Unit,
-    onCancelPressed: () -> Unit,
-    onErrorAccepted: () -> Unit
+    actionListener: SignUpScreenActionListener
 ) {
-    with(uiState) {
-        FudgeTvScreenContent(
-            error = errorMessage,
-            onErrorAccepted = onErrorAccepted
-        ) {
-            SignUpDialog(uiState = uiState)
-            SignUpBackground()
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .fillMaxWidth(0.8f),
-                verticalArrangement = Arrangement.SpaceEvenly,
+    with(actionListener) {
+        with(uiState) {
+            FudgeTvScreenContent(
+                error = errorMessage,
+                onErrorAccepted = actionListener::onErrorMessageCleared
             ) {
-                SignUpFormContent(
+                SignUpDialog(uiState = uiState)
+                SignUpBackground()
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.8f),
-                    uiState = uiState,
-                    onFirstNameChanged = onFirstNameChanged,
-                    onLastNameChanged = onLastNameChanged,
-                    onEmailChanged = onEmailChanged,
-                    onUsernameChanged = onUsernameChanged,
-                    onPasswordChanged = onPasswordChanged,
-                    onRepeatPasswordChanged = onRepeatPasswordChanged,
-                    onCancelPressed = onCancelPressed,
-                    onSigUpPressed = onSigUpPressed
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.2f),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
+                        .fillMaxHeight()
+                        .fillMaxWidth(0.8f),
+                    verticalArrangement = Arrangement.SpaceEvenly,
                 ) {
-                    FudgeTvText(
-                        titleRes = R.string.developer_credits_text_single_line,
-                        type = FudgeTvTextTypeEnum.LABEL_SMALL,
-                        textAlign = TextAlign.Start
+                    SignUpFormContent(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.8f),
+                        uiState = uiState,
+                        onFirstNameChanged = ::onFirstNameChanged,
+                        onLastNameChanged = ::onLastNameChanged,
+                        onEmailChanged = ::onEmailChanged,
+                        onUsernameChanged = ::onUsernameChanged,
+                        onPasswordChanged = ::onPasswordChanged,
+                        onRepeatPasswordChanged = ::onRepeatPasswordChanged,
+                        onCancelPressed = ::onCancelPressed,
+                        onSigUpPressed = ::onSigUpPressed
                     )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.2f),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        FudgeTvText(
+                            titleRes = R.string.developer_credits_text_single_line,
+                            type = FudgeTvTextTypeEnum.LABEL_SMALL,
+                            textAlign = TextAlign.Start
+                        )
+                    }
                 }
             }
         }
     }
+
 }
 
 @Composable
@@ -296,15 +291,16 @@ fun SignUpPrev() {
     FitFlexTVTheme {
         SignUpScreenContent(
             uiState = SignUpUiState(),
-            onFirstNameChanged = {},
-            onLastNameChanged = {},
-            onEmailChanged = {},
-            onUsernameChanged = {},
-            onPasswordChanged = {},
-            onRepeatPasswordChanged = {},
-            onSigUpPressed = {},
-            onCancelPressed = {},
-            onErrorAccepted = {}
+            actionListener = object : SignUpScreenActionListener {
+                override fun onFirstNameChanged(newFirstName: String) {}
+                override fun onLastNameChanged(newLastName: String) {}
+                override fun onEmailChanged(newEmail: String) {}
+                override fun onUsernameChanged(newUsername: String) {}
+                override fun onPasswordChanged(newPassword: String) {}
+                override fun onRepeatPasswordChanged(newRepeatPassword: String) {}
+                override fun onSigUpPressed() {}
+                override fun onCancelPressed() {}
+            }
         )
     }
 }

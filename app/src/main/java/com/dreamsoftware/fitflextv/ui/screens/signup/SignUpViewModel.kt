@@ -14,10 +14,35 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
     @SignUpScreenErrorMapper private val errorMapper: IFudgeTvErrorMapper,
-): FudgeTvViewModel<SignUpUiState, SignUpSideEffects>() {
+): FudgeTvViewModel<SignUpUiState, SignUpSideEffects>(), SignUpScreenActionListener {
+
     override fun onGetDefaultState(): SignUpUiState = SignUpUiState()
 
-    fun onSignUp() {
+    override fun onUsernameChanged(newUsername: String) {
+        updateState { it.copy(username = newUsername) }
+    }
+
+    override fun onFirstNameChanged(newFirstName: String) {
+        updateState { it.copy(firstName = newFirstName) }
+    }
+
+    override fun onLastNameChanged(newLastName: String) {
+        updateState { it.copy(lastName = newLastName) }
+    }
+
+    override fun onEmailChanged(newEmail: String) {
+        updateState { it.copy(email = newEmail) }
+    }
+
+    override fun onPasswordChanged(newPassword: String) {
+        updateState { it.copy(password = newPassword) }
+    }
+
+    override fun onRepeatPasswordChanged(newRepeatPassword: String) {
+        updateState { it.copy(repeatPassword = newRepeatPassword,) }
+    }
+
+    override fun onSigUpPressed() {
         with(uiState.value) {
             executeUseCaseWithParams(
                 useCase = signUpUseCase,
@@ -37,28 +62,8 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun onUsernameChanged(newUsername: String) {
-        updateState { it.copy(username = newUsername) }
-    }
-
-    fun onFirstNameChanged(newFirstName: String) {
-        updateState { it.copy(firstName = newFirstName) }
-    }
-
-    fun onLastNameChanged(newLastName: String) {
-        updateState { it.copy(lastName = newLastName) }
-    }
-
-    fun onEmailChanged(newEmail: String) {
-        updateState { it.copy(email = newEmail) }
-    }
-
-    fun onPasswordChanged(newPassword: String) {
-        updateState { it.copy(password = newPassword) }
-    }
-
-    fun onRepeatPasswordChanged(newRepeatPassword: String) {
-        updateState { it.copy(repeatPassword = newRepeatPassword,) }
+    override fun onCancelPressed() {
+        launchSideEffect(SignUpSideEffects.RegisterCancelled)
     }
 
     private fun onSigUpSuccessfully() {
@@ -94,4 +99,5 @@ data class SignUpUiState(
 
 sealed interface SignUpSideEffects: SideEffect {
     data object RegisteredSuccessfully: SignUpSideEffects
+    data object RegisterCancelled: SignUpSideEffects
 }

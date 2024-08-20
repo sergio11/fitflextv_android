@@ -43,17 +43,13 @@ import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
-fun SignInScreenContent(
+internal fun SignInScreenContent(
     uiState: SignInUiState,
-    onEmailChanged: (String) -> Unit,
-    onPasswordChanged: (String) -> Unit,
-    onSigInPressed: () -> Unit,
-    onErrorAcceptPressed: () -> Unit,
-    onGoToSignUp: () -> Unit
+    actionListener: SignInScreenActionListener
 ) {
     FudgeTvScreenContent(
         error = uiState.errorMessage,
-        onErrorAccepted = onErrorAcceptPressed
+        onErrorAccepted = actionListener::onErrorMessageCleared
     ) {
         SignInDialog(uiState = uiState)
         SignInVideoBackground()
@@ -66,11 +62,11 @@ fun SignInScreenContent(
         ) {
             SignInMainContent(
                 uiState = uiState,
-                onEmailChanged = onEmailChanged,
-                onPasswordChanged = onPasswordChanged,
-                onSigInPressed = onSigInPressed
+                onEmailChanged = actionListener::onEmailChanged,
+                onPasswordChanged = actionListener::onPasswordChanged,
+                onSigInPressed = actionListener::onSigInPressed
             )
-            SignInSecondaryContent(onGoToSignUp = onGoToSignUp)
+            SignInSecondaryContent(onGoToSignUp = actionListener::onGoToSignUp)
         }
     }
 }
@@ -251,11 +247,12 @@ fun SignInScreenContentPrev() {
     FitFlexTVTheme {
         SignInScreenContent(
             uiState = SignInUiState(),
-            onGoToSignUp = {},
-            onEmailChanged = {},
-            onPasswordChanged = {},
-            onSigInPressed = {},
-            onErrorAcceptPressed = {}
+            actionListener = object : SignInScreenActionListener {
+                override fun onEmailChanged(newEmail: String) {}
+                override fun onPasswordChanged(newPassword: String) {}
+                override fun onSigInPressed() {}
+                override fun onGoToSignUp() {}
+            }
         )
     }
 }
