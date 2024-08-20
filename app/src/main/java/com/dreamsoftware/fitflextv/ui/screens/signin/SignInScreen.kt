@@ -23,16 +23,13 @@ fun SignInScreen(
             when(it) {
                 SignInSideEffects.AuthenticationSuccessfully -> onGoToHome()
                 SignInSideEffects.ProfileSelectionRequired -> onGoToProfiles()
+                SignInSideEffects.CreateNewAccount -> onGoToSignUp()
             }
         }
     ) { uiState ->
         SignInScreenContent(
             uiState = uiState,
-            onEmailChanged = ::onEmailChanged,
-            onPasswordChanged = ::onPasswordChanged,
-            onErrorAcceptPressed = ::onErrorAccepted,
-            onSigInPressed = ::onSignIn,
-            onGoToSignUp = onGoToSignUp
+            actionListener = viewModel
         )
     }
 }

@@ -17,22 +17,15 @@ fun SignUpScreen(
         onBackPressed = onBackPressed,
         onInitialUiState = { SignUpUiState() },
         onSideEffect = {
-            if(it is SignUpSideEffects.RegisteredSuccessfully) {
-                onBackPressed()
+            when(it) {
+                SignUpSideEffects.RegisterCancelled -> onBackPressed()
+                SignUpSideEffects.RegisteredSuccessfully -> onBackPressed()
             }
         }
     ) { uiState ->
         SignUpScreenContent(
             uiState = uiState,
-            onFirstNameChanged = ::onFirstNameChanged,
-            onLastNameChanged = ::onLastNameChanged,
-            onEmailChanged = ::onEmailChanged,
-            onUsernameChanged = ::onUsernameChanged,
-            onPasswordChanged = ::onPasswordChanged,
-            onRepeatPasswordChanged = ::onRepeatPasswordChanged,
-            onSigUpPressed = ::onSignUp,
-            onCancelPressed = onBackPressed,
-            onErrorAccepted = ::onErrorMessageCleared
+            actionListener = viewModel
         )
     }
 }

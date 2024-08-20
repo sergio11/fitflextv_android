@@ -15,7 +15,7 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     @SignInScreenErrorMapper private val errorMapper: IFudgeTvErrorMapper
-): FudgeTvViewModel<SignInUiState, SignInSideEffects>() {
+): FudgeTvViewModel<SignInUiState, SignInSideEffects>(), SignInScreenActionListener {
 
     private companion object {
         const val DEFAULT_PROFILES_COUNT = 1
@@ -23,7 +23,15 @@ class SignInViewModel @Inject constructor(
 
     override fun onGetDefaultState(): SignInUiState = SignInUiState()
 
-    fun onSignIn() {
+    override fun onEmailChanged(newEmail: String) {
+        updateState { it.copy(email = newEmail) }
+    }
+
+    override fun onPasswordChanged(newPassword: String) {
+        updateState { it.copy(password = newPassword) }
+    }
+
+    override fun onSigInPressed() {
         with(uiState.value) {
             executeUseCaseWithParams(
                 useCase = signInUseCase,
@@ -34,12 +42,8 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun onEmailChanged(newEmail: String) {
-        updateState { it.copy(email = newEmail) }
-    }
-
-    fun onPasswordChanged(newPassword: String) {
-        updateState { it.copy(password = newPassword,) }
+    override fun onGoToSignUp() {
+        launchSideEffect(SignInSideEffects.CreateNewAccount)
     }
 
     private fun onSignInSuccessfully(userDetail: UserDetailBO) {
@@ -72,6 +76,7 @@ data class SignInUiState(
 sealed interface SignInSideEffects: SideEffect {
     data object AuthenticationSuccessfully: SignInSideEffects
     data object ProfileSelectionRequired: SignInSideEffects
+    data object CreateNewAccount: SignInSideEffects
 }
 
 private const val DEMO_USER_EMAIL = "ssanchez@yopmail.com"

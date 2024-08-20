@@ -10,7 +10,7 @@ import com.dreamsoftware.fudge.component.FudgeTvTextFieldTypeEnum
 import com.dreamsoftware.fudge.component.profiles.FudgeTvProfileScreenContent
 
 @Composable
-fun ChangeSecurePinScreenContent(
+internal fun ChangeSecurePinScreenContent(
     uiState: ChangeSecurePinUiState,
     actionListener: ChangeSecurePinActionListener
 ) {

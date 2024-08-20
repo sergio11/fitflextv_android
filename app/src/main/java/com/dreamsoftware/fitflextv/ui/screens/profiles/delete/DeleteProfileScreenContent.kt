@@ -16,7 +16,7 @@ import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 import com.dreamsoftware.fudge.component.profiles.FudgeTvProfileScreenContent
 
 @Composable
-fun DeleteProfileScreenContent(
+internal fun DeleteProfileScreenContent(
     uiState: DeleteProfileUiState,
     actionListener: DeleteProfileScreenActionListener
 ) {

@@ -14,7 +14,7 @@ import com.dreamsoftware.fudge.component.FudgeTvScreenContent
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
-fun AppScreenContent(
+internal fun AppScreenContent(
     uiState: AppUiState,
     navController: NavHostController,
     actionListener: IAppScreenActionListener

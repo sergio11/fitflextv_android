@@ -28,7 +28,7 @@ import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 import com.dreamsoftware.fudge.component.profiles.FudgeTvProfileScreenContent
 
 @Composable
-fun SaveProfileScreenContent(
+internal fun SaveProfileScreenContent(
     uiState: SaveProfileUiState,
     actionListener: SaveProfileScreenActionListener
 ) {

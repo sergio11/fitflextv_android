@@ -28,7 +28,7 @@ import com.dreamsoftware.fudge.component.FudgeTvText
 import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 
 @Composable
-fun SplashScreenContent(
+internal fun SplashScreenContent(
     modifier: Modifier,
     uiState: SplashUiState
 ) {

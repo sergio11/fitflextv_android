@@ -47,7 +47,7 @@ import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
-fun SettingsScreenContent(
+internal fun SettingsScreenContent(
     uiState: SettingsUiState,
     actionListener: SettingsScreenActionListener
 ) {
