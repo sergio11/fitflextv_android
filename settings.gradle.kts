@@ -53,4 +53,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "FitFlexTV"
 include(":app")
-include(":benchmark")
