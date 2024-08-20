@@ -17,11 +17,11 @@ Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committ
 </p>
 
 <p align="center">
-  <img width="500px" src="doc/previewed/image1.jpeg" />
-  <img width="500px" src="doc/previewed/image2.jpeg" />
-  <img width="500px" src="doc/previewed/image3.jpeg" />
-  <img width="500px" src="doc/previewed/image4.jpeg" />
-  <img width="500px" src="doc/previewed/image5.jpeg" />
+  <img width="350px" src="doc/previewed/image1.jpeg" />
+  <img width="350px" src="doc/previewed/image2.jpeg" />
+  <img width="350px" src="doc/previewed/image3.jpeg" />
+  <img width="350px" src="doc/previewed/image4.jpeg" />
+  <img width="350px" src="doc/previewed/image5.jpeg" />
 </p>
 
 Slides are built using the  template from [Previewed](https://previewed.app/template/AFC0B4CB). I extend my gratitude to them for their remarkable work and contribution.
