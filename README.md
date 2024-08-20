@@ -171,13 +171,13 @@ The user will be able to log in to **FitFlexTV** by providing their email and pa
 </p>
 
 
-### Sign Up
+### Sign Up ✨
 
-On this screen, you can create your account on **FitFlexTV**. Registering is quick, easy, and will open up a world of possibilities. Ready to get started?
+Welcome to **FitFlexTV**! 🎉 Creating your account is quick and easy, opening up a world of fitness possibilities. Ready to get started? 💪
 
-Simply fill out the required fields, such as your name, email address, and a secure password. Make sure to choose a password that's easy to remember but hard to guess to keep your account safe.
+Simply fill in your details, including your name 📝, email address 📧, and a secure password 🔒. Make sure your password is easy to remember but tough to guess—your security is important to us!
 
-Once you've entered all the necessary information, click "Register," and you're all set! You're now part of our community. You'll be able to access all the features and exclusive content we offer.
+Once you’ve completed all the fields, just hit "Register" ✅ and you’re all set! 🎊 Welcome to the FitFlexTV community! Now you can access all our amazing features and exclusive content. 🚀🌟
 
 <p align="center">
   <img src="doc/picture_2.png" />
