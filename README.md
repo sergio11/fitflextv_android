@@ -258,6 +258,10 @@ At the very top, you’ll encounter the **Highlighted Trainings Carousel** 🎠.
   <img src="doc/picture_10.png" />
 </p>
 
+<p align="center">
+  <img src="doc/picture_63.gif" />
+</p>
+
 Moving down the screen, you’ll come across the **Categories Row** 📊. This section organizes all available training programs into various categories, like Cardio, Strength, and Yoga. Presented as a horizontal list, it allows you to browse through different categories effortlessly. Just tap on any category to dive into the specific workouts it offers, making it easy to find the perfect session based on your current mood or fitness goals.
 
 <p align="center">
