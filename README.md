@@ -66,75 +66,81 @@ We understand that staying motivated can be challenging, especially when life ge
   <img src="doc/picture_8.png" />
 </p>
 
-## Key Features ✨
-
-- **Personalized Workout Plans**: Get customized workout routines that suit your fitness level and goals. 📝
-- **Progress Tracking**: Monitor your progress and achievements to stay motivated. 📊
-- **Secure Authentication**: Keep your data safe with Firebase Authentication. 🔒
-- **Real-time Data Sync**: Enjoy seamless data synchronization with Firebase Firestore. 🔄
-- **Media Storage**: Store and retrieve workout media using Firebase Storage. 🗄️
-
 ## Technologies Used 🛠️
 
-- **Kotlin**: For developing the Android application.
+- **Kotlin**: The language of choice for developing Android applications, offering modern syntax and powerful features to streamline coding and enhance productivity. 🚀
+
 - **Firebase Platform**:
-  - **Firestore**: For real-time database and storage.
-  - **Firebase Auth**: For authentication and user management.
-  - **Firebase Storage**: For storing user profile images and other media.
-- **Coroutines**: For asynchronous programming and managing background tasks.
-- **Clean Architecture**: For a robust and scalable architecture.
-- **MVI (Model-View-Intent)**: For a unidirectional data flow and state management.
-- **Jetpack Compose for TV**: For building the UI with a focus on reusability.
-- **Mapper Pattern**: For converting between different data models (DTOs, BOs, etc.).
+  - **Firestore**: 🔥 A NoSQL cloud database that provides real-time data synchronization and offline support. It scales seamlessly with your app's needs, ensuring fast and reliable data retrieval. 📊✨
+  - **Firebase Auth**: 🔐 Handles user authentication with ease, providing secure sign-in and user management capabilities. Supports various authentication methods, including email/password, social media logins, and more. 🛡️📱
+  - **Firebase Storage**: ☁️ Stores and serves user-generated content like profile images and media files. Offers robust and scalable storage solutions with built-in security and easy integration with other Firebase services. 📸🎥
 
-## Architecture 🏗️
+- **Coroutines**: 🌀 Simplifies asynchronous programming and manages background tasks efficiently. Ensures smooth, non-blocking operations, enhancing the app's responsiveness and user experience. ⏱️
 
-### Clean Architecture
+- **Clean Architecture**: 🏗️ Promotes a well-structured and scalable app design by separating concerns into distinct layers. Enhances maintainability, testability, and overall robustness of the application. 🔍
 
-We chose Clean Architecture for the following reasons:
+- **MVI (Model-View-Intent)**: 📈 Implements a unidirectional data flow pattern, making state management predictable and consistent. Ensures a clear separation between UI components and business logic. 🔄
 
-- **Separation of Concerns**: Clean Architecture helps keep the codebase modular and separates concerns across different layers, making the codebase easier to manage and scale.
-- **Independence**: Each layer of the architecture operates independently of frameworks, UI, database, and any external agency.
-- **Testability**: With well-defined boundaries and separations, unit testing becomes more straightforward and effective.
+- **Jetpack Compose for TV**: 📺 Leverages Jetpack Compose to build modern, responsive UIs tailored for TV screens. Focuses on reusability and a seamless viewing experience, optimizing the interface for large displays. 🎨
 
-### MVI (Model-View-Intent)
+- **Jetpack Compose Navigation**: 🗺️ Facilitates in-app navigation and screen transitions with a clear and concise API. Supports deep linking and helps manage complex navigation flows effortlessly. 🚦
 
-MVI complements Clean Architecture by:
+- **Material Design 3**: 🎨 Applies the latest Material Design guidelines to create a visually appealing and intuitive user interface. Ensures consistency and enhances the overall aesthetic of the app. 🖌️
 
-- **Unidirectional Data Flow**: Ensuring a predictable state management by following a unidirectional data flow.
-- **State Management**: Managing the state effectively, making the UI reflect the current state of the application.
-- **Reactivity**: Ensuring the UI reacts to state changes, making the application more responsive and robust.
+- **🍮 Fudge**: [Fudge](https://github.com/sergio11/fudge_tv_compose_library) is a Jetpack Compose UI Kit tailored for TV apps. It provides pre-built components and tools to craft engaging and seamless experiences on the big screen. Simplify your TV app development with Fudge! 🎬🚀
 
-### Repository Pattern
+- **Jetpack DataStore**: 💾 A modern data storage solution for storing key-value pairs and typed objects. Provides a robust and asynchronous API for data management, ensuring consistent and reliable data handling in your app. 🔐
 
-The repository pattern abstracts the data layer, providing a clean API for data access. This helps in managing data from multiple sources (local database, remote server) and makes the data layer more modular and testable.
+- **Media3 for Media Playback**:
+  - **Media3 ExoPlayer**: 🎥 Part of the Media3 library, ExoPlayer is a powerful media player that supports a wide range of media formats and advanced features like adaptive streaming and DRM support. Ensures high-quality and smooth playback experiences. 📻🍿
+  - **Media3 UI**: 🎨 Provides UI components and tools to integrate media playback controls seamlessly into your app's interface. Enhances the media playback experience with customizable and user-friendly controls. 🕹️
 
-### Mapper Pattern
+- **Dagger Hilt**: 🧩 A dependency injection library that simplifies the management of dependencies in your app. It reduces boilerplate code and enhances modularity by providing a clear and concise way to inject dependencies and manage their lifecycle. 🔧💡
 
-Mappers are used to convert data between different layers of the application (e.g., from network DTOs to business objects). This ensures that each layer of the application works with its own data format, keeping the layers decoupled and easier to manage.
+- **Mapper Pattern**: 🔄 Facilitates conversion between different data models (DTOs, BOs, etc.), ensuring data consistency and smooth interactions across various application components. 📐
 
-### Jetpack Compose for TV
+## Architecture Overview 🏛️
 
-We use Jetpack Compose for TV to:
+Our application is designed with a robust and scalable architecture to ensure maintainability, testability, and flexibility. The architecture leverages several design patterns and principles to create a well-structured and efficient system.
 
-- **Reusability**: Build UI components that are highly reusable across different parts of the application.
-- **Declarative UI**: Create UIs in a declarative manner, making the codebase more readable and maintainable.
-- **Flexibility**: Easily adapt the UI for different screen sizes and orientations, ensuring a seamless experience on TV screens.
+### **Clean Architecture** 🏗️
+Clean Architecture is the foundation of our design, focusing on separating concerns into distinct layers. This approach enhances the maintainability and testability of the code by isolating business logic from the UI and data layers. Our architecture typically includes the following layers:
+- **Presentation Layer**: Handles the UI and user interactions, using Jetpack Compose for building modern and responsive interfaces.
+- **Domain Layer**: Contains the business logic and use cases. It defines the core functionality of the application and is independent of external frameworks.
+- **Data Layer**: Manages data sources and repositories, providing a consistent interface for data access. It abstracts the details of data retrieval and storage from the rest of the application.
 
-## Firebase Platform Integration 🔥
+### **Data Sources** 📦
+Data sources are responsible for fetching and managing data from various origins. We utilize multiple data sources, such as:
+- **Remote Data Sources**: Interact with cloud services or web APIs (e.g., Firebase Firestore, Firebase Auth).
+- **Local Data Sources**: Handle local data storage (e.g., Jetpack DataStore, SQLite).
 
-### Firestore
+### **Repository Pattern** 🗃️
+The repository pattern provides a unified interface for accessing data, regardless of whether it's coming from a remote server or local storage. Repositories manage data operations and serve as a single source of truth for the application's data. This pattern decouples data retrieval and storage from the rest of the application, allowing for easier testing and maintenance.
 
-- **Real-time Database**: Firestore is used to store and sync data in real-time across all clients.
-- **Scalable**: Automatically scales to handle large datasets and high-traffic applications.
+### **Use Cases** 🧩
+In the Domain Layer, **Use Cases** (also known as Interactors) represent specific actions or operations that the application can perform. They encapsulate business logic and interact with repositories to retrieve or modify data. Use Cases ensure that the business rules and application flow are managed correctly, providing a layer of abstraction that protects the domain logic from changes in the data or presentation layers. By focusing on specific tasks or operations, Use Cases contribute to the modularity and flexibility of the application.
 
-### Firebase Auth
+### **Inversion of Control (IoC)** 🔄
+Inversion of Control is a principle where the control flow of the application is inverted. Dependencies are injected rather than being hardcoded. This is achieved through:
+- **Dependency Injection (DI)**: Managed by Dagger Hilt, DI simplifies the management of dependencies and their lifecycle, promoting modularity and reducing boilerplate code.
 
-- **User Authentication**: Firebase Auth is used to handle user authentication, supporting email/password sign-in, third-party providers (Google, Facebook, etc.), and anonymous sign-in.
+### **SOLID Principles** 📏
+We apply SOLID principles to ensure our codebase remains clean, modular, and maintainable:
+- **Single Responsibility Principle (SRP)**: Each class or module has one responsibility, reducing complexity and improving cohesion.
+- **Open/Closed Principle (OCP)**: Classes and modules are open for extension but closed for modification, promoting flexibility and reducing the risk of introducing bugs.
+- **Liskov Substitution Principle (LSP)**: Subtypes must be substitutable for their base types without altering the correctness of the program, ensuring proper inheritance hierarchies.
+- **Interface Segregation Principle (ISP)**: Clients should not be forced to depend on interfaces they do not use, promoting more focused and cohesive interfaces.
+- **Dependency Inversion Principle (DIP)**: High-level modules should not depend on low-level modules; both should depend on abstractions. This principle encourages a more flexible and decoupled design.
 
-### Firebase Storage
+### **MVI (Model-View-Intent)** 📈
+MVI is employed for managing the state and interactions within the application:
+- **Model**: Represents the application's state and business logic.
+- **View**: Displays the UI and reacts to state changes.
+- **Intent**: Represents user actions or events that drive changes in the state.
 
-- **Media Storage**: Firebase Storage is used to store user profile images and other media files, ensuring fast and secure uploads and downloads.
+By applying MVI, we achieve a unidirectional data flow, making state management predictable and consistent.
+
+This architecture ensures that our application is well-structured, easy to maintain, and scalable, while adhering to best practices and design principles.
 
 ## App Screenshots
 
@@ -178,7 +184,20 @@ Once you've entered all the necessary information, click "Register," and you're 
 </p>
 
 
-### Profiles
+### Managing Your Profiles 🎭
+
+Welcome to the **Profiles** section, where personalization and convenience come together to enhance your app experience. This area is designed to give you full control over your profiles, ensuring that each user can tailor their fitness journey to their liking.
+
+At the heart of this section is the **Profile Selection** screen. Here, you can easily choose the profile you want to use when accessing the app. This feature allows each user to maintain their unique settings, preferences, and workout history, ensuring a customized experience every time.
+
+If you're looking to add a new dimension to your experience, you can **create up to three profiles**. Each profile can be customized with its own alias and avatar, making it easy for family members or multiple users to have their distinct space within the app. Whether it's a new workout buddy or a personalized setup for different family members, adding new profiles is simple and straightforward.
+
+Editing your current profile is just as easy. You can update your profile’s **alias** and **avatar** to reflect your personality or preferences. Want to change your security PIN? No problem. The app allows you to **update your security PIN** whenever needed to ensure your account remains secure and accessible only to you.
+
+If you decide that a profile is no longer needed, you have the option to **delete it**. Each profile comes with its own set of favorite workouts, so when you remove a profile, all associated data and favorites will be cleared, ensuring that your app stays clean and organized.
+
+Overall, the **Profiles** section is designed to give you flexibility and control, making sure that your fitness journey is personalized and secure. Whether you’re managing multiple profiles for family members or simply updating your own, this section ensures that your experience is tailored to fit your needs perfectly.
+
 
 <p align="center">
   <img src="doc/picture_5.png" />
@@ -188,7 +207,18 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_6.png" />
 </p>
 
-### Home
+### Exploring the Home Screen 📱
+
+Welcome to the heart of our app: the Home Screen, where users embark on their fitness journey with ease and excitement. Here’s a closer look at what you’ll find on this vibrant screen:
+
+At the very top, you’ll encounter the **Highlighted Trainings Carousel** 🎠. This engaging feature showcases a rotating selection of standout workouts. Think of it as a dynamic showcase where you can swipe through to discover popular or featured training sessions that are trending right now. It’s the perfect way to catch your eye and inspire your next workout.
+
+Moving down the screen, you’ll come across the **Categories Row** 📊. This section organizes all available training programs into various categories, like Cardio, Strength, and Yoga. Presented as a horizontal list, it allows you to browse through different categories effortlessly. Just tap on any category to dive into the specific workouts it offers, making it easy to find the perfect session based on your current mood or fitness goals.
+
+Finally, the screen wraps up with the **Recommended Trainings for Your Profile** ⭐. This personalized section is tailored just for you, using your workout history and preferences to suggest the best training programs for your current fitness level and goals. These recommendations are curated to ensure you always have something motivating and relevant right at your fingertips.
+
+In essence, the Home Screen is designed to make your fitness exploration both intuitive and enjoyable. From discovering featured workouts to finding the right category and receiving personalized suggestions, everything is organized to enhance your journey and keep you engaged.
+
 
 <p align="center">
   <img src="doc/picture_7.png" />
@@ -198,7 +228,25 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_10.png" />
 </p>
 
-### Trainings
+## Exploring Workouts and More 🏋️‍♀️✨
+
+Dive into the **Workouts** section, your ultimate fitness playground where your workout adventures come to life! 🎉 This hub is crafted to help you discover and enjoy a variety of exercises that fit your unique fitness goals.
+
+In this section, you’ll find a diverse array of categories to explore:
+
+- **Workouts** 💪: Find a wide range of exercises designed for different fitness levels and objectives. Whether you’re into high-intensity cardio or strength training, there’s something here for every fitness enthusiast.
+
+- **Series** 📈: Explore structured workout series that guide you through progressive routines. Perfect for building strength and endurance over time, these series keep you on track and motivated.
+
+- **Challenges** 🏆: Take on fun and engaging challenges that push you to reach new milestones. Stay motivated and committed to your fitness journey with these exciting opportunities.
+
+- **Routines** 🗓️: Discover comprehensive workout routines that combine various exercises into effective sessions. Ideal for achieving balanced fitness results and keeping your workouts fresh and dynamic.
+
+Navigating through these categories is a breeze with our **filtering and sorting options** 🔍. Tailor your search based on duration, intensity, or specific goals to find the workouts that suit you best.
+
+Once you find a workout that piques your interest, check out the **detailed view** 📋. Here you’ll get all the essential information, including instructions, duration, and any special tips, so you can make informed decisions and seamlessly integrate them into your routine.
+
+The **Workouts** section is designed to be your personal fitness hub, where exploration and discovery are just a tap away. Whether you’re a beginner or a seasoned pro, this section has everything you need to achieve your fitness goals and keep your workouts exciting and effective. 🌟🚀
 
 <p align="center">
   <img src="doc/picture_22.png" />
@@ -254,7 +302,19 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_33.png" />
 </p>
 
-### Subscriptions
+## Subscription Options 🌟📅
+
+In the **Subscriptions** section, you'll find flexible plans designed to fit your needs and help you get the most out of FitFlexTV! 💪✨ Whether you're just starting your fitness journey or you're a seasoned pro, our subscription options offer exclusive access to premium workouts and features that can elevate your training experience.
+
+Here’s how it works:
+
+- **Choose Your Plan** 🗓️: Select the subscription that best suits your fitness goals and lifestyle. We offer three options: 3 months, 6 months, or 12 months. Each plan is crafted to provide you with continuous motivation and access to a variety of workouts.
+
+- **Enjoy Discounts** 💰: The longer you commit, the more you save! Choose a longer subscription period and benefit from our special discounts. It’s a win-win—more savings and more access to premium content!
+
+- **Unlock Premium Content** 🔓: With a subscription, you'll gain exclusive access to high-quality, premium workouts that are not available with the free plan. Dive into advanced routines, specialized training programs, and expert-guided sessions that take your fitness to the next level.
+
+The **Subscriptions** section ensures that your fitness journey is not only effective but also rewarding. With the flexibility to choose your plan and the added value of premium content, you'll stay motivated and engaged, reaching your fitness goals with ease. 🚀💥
 
 <p align="center">
   <img src="doc/picture_19.png" />
@@ -268,9 +328,24 @@ Once you've entered all the necessary information, click "Register," and you're 
   <img src="doc/picture_21.png" />
 </p>
 
-### Settings
+### Settings 🛠️🔧
 
-⚙️ Welcome to Settings!
+The **Settings** section in FitFlexTV is your personal control panel, where you can customize your app experience to perfectly suit your preferences. 🌟 Here’s what you can do:
+
+- **Adjust Language** 🌐: Choose the language that makes you feel most comfortable. Whether you prefer English, Spanish, or any other language we offer, the app will adapt to your choice, making your experience seamless and intuitive.
+
+- **Select Measurement Units** 📏: Pick your preferred unit of measurement—metric or imperial. Whether you’re used to kilometers and kilograms or miles and pounds, FitFlexTV will display your workout metrics in the format you’re accustomed to.
+
+- **Set Video Quality** 📹: Control your video streaming experience by selecting the video quality. Choose from Full HD for crisp, clear visuals or opt for Automatic to let the app adjust the quality up to 4K based on your internet connection.
+
+- **Learn About Us** 🧑‍💻: Discover more about the developers behind FitFlexTV and the vision that drives the app. We’re excited to share our journey with you!
+
+- **Log Out** 🚪: Need a break or switching accounts? Easily log out and take a pause or switch profiles with just a few taps.
+
+- **Manage Subscriptions** 💳: Review and adjust your subscription plan. You can change your current plan or even cancel your subscription if needed. Stay in control of your fitness journey and make sure your plan fits your evolving needs.
+
+The **Settings** section ensures that you have the flexibility to tailor FitFlexTV to your liking, enhancing your overall experience. From language preferences to video quality settings, everything is designed to offer you a personalized and enjoyable fitness journey. 🌟🛠️
+
 
 <p align="center">
   <img src="doc/picture_13.png" />
