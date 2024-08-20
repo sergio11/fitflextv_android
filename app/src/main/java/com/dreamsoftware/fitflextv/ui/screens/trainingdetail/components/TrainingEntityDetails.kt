@@ -36,6 +36,7 @@ import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
 import com.dreamsoftware.fudge.component.FudgeTvText
 import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
+import com.dreamsoftware.fudge.utils.conditional
 
 @Composable
 fun TrainingEntityDetails(
@@ -53,7 +54,7 @@ fun TrainingEntityDetails(
             else -> 80.dp
         }
         with(MaterialTheme.colorScheme) {
-            FudgeTvFocusRequester { requester ->
+            FudgeTvFocusRequester(requestFocusAtInMillis = 100L) { requester ->
                 Column(
                     modifier = Modifier.padding(start = 48.dp, bottom = paddingBottom),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -92,7 +93,9 @@ fun TrainingEntityDetails(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         FudgeTvButton(
-                            modifier = Modifier.focusRequester(requester),
+                            modifier = Modifier.conditional(!isChallenges, ifTrue = {
+                                focusRequester(requester)
+                            }),
                             type = FudgeTvButtonTypeEnum.LARGE,
                             style = FudgeTvButtonStyleTypeEnum.NORMAL,
                             textRes = trainingType.getStartButtonID(),
@@ -109,13 +112,16 @@ fun TrainingEntityDetails(
                             onClick = onTrainingFavoriteClicked
                         )
                     }
-                    if (isChallenges)
+                    if (isChallenges) {
                         ChallengesPlanButton(
-                            modifier = Modifier.padding(top = 16.dp),
+                            modifier = Modifier
+                                .focusRequester(requester)
+                                .padding(top = 16.dp),
                             subtitle = stringResource(R.string.weekly_plan),
                             iconId = R.drawable.down_arrow_head_icon,
                             onClick = onChallengesPlanClicked
                         )
+                    }
                 }
             }
         }
