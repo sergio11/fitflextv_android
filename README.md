@@ -48,6 +48,10 @@ But that's not all—**FitFlexTV** offers both **free workouts** just by signing
 
 Seeing your progress is one of the best motivators in any fitness journey. **FitFlexTV** helps you monitor your achievements with detailed stats and insights. Track your calories burned, workout duration, and total workouts completed. Watch as you improve over time, with every milestone bringing you closer to your fitness goals. Whether it’s a small win or a major achievement, **FitFlexTV** is here to celebrate every step with you!
 
+<p align="center">
+  <img src="doc/picture_73.gif" />
+</p>
+
 ### 🎧 Personalized Experience with Music and More
 
 Enhance your workout experience with custom music options! Each workout on **FitFlexTV** comes with its own music track designed to help you stay focused and motivated. Prefer your own tunes? No problem—**FitFlexTV** allows you to choose how you want to experience your workout. Whether it’s pumping beats or a calming playlist, the choice is yours.
@@ -55,6 +59,11 @@ Enhance your workout experience with custom music options! Each workout on **Fit
 ### 🌟 Favorites and Recommendations
 
 Finding the perfect workout is easy with **FitFlexTV**. Use our variety of filters to discover the workout that best fits your needs, whether it’s by duration, intensity, or type. Plus, you can mark your favorite workouts for quick and easy access later. And with our smart recommendations, **FitFlexTV** suggests the most suitable workouts based on your profile, helping you make the most of your fitness journey.
+
+<p align="center">
+  <img src="doc/picture_74.gif" />
+</p>
+
 
 ### 👨‍👩‍👧‍👦 Multiple Profiles for the Whole Family
 
@@ -576,3 +585,10 @@ FitFlexTV is developed and maintained by Sergio Sánchez Sánchez (Dream Softwar
 
 We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
 <div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
+
+A heartfelt thank you to the creators of the [JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit) for providing such an invaluable starting point for Jetpack Compose for TV. Your work has been incredibly inspiring and instrumental in shaping the development of this project.
+
+The resources, examples, and insights provided in the JetFit repository served as a foundational reference, enabling us to build and expand upon your excellent groundwork. Your contributions have significantly accelerated our journey and enriched our understanding of creating seamless TV applications using Jetpack Compose. 📺✨
+
+Thank you for sharing your expertise and for your dedication to advancing the Jetpack Compose ecosystem for TV. Your efforts have made a real difference!
+
