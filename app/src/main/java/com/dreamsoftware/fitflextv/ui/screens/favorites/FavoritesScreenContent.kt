@@ -197,7 +197,7 @@ private fun TrainingProgramDetailsPopup(
                         textColor = Color.LightGray,
                         overflow = TextOverflow.Ellipsis,
                         softWrap = true,
-                        maxLines = 4
+                        maxLines = 3
                     )
                     FudgeTvButton(
                         modifier = Modifier
