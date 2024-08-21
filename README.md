@@ -465,6 +465,14 @@ The **Workout Player** on FitFlexTV is your ultimate companion, making sure ever
   <img src="doc/picture_62.gif" />
 </p>
 
+<p align="center">
+  <img src="doc/picture_69.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_70.png" />
+</p>
+
 ## Subscription Options 🌟📅
 
 In the **Subscriptions** section, you'll find flexible plans designed to fit your needs and help you get the most out of FitFlexTV! 💪✨ Whether you're just starting your fitness journey or you're a seasoned pro, our subscription options offer exclusive access to premium workouts and features that can elevate your training experience.
