@@ -48,6 +48,10 @@ But that's not all—**FitFlexTV** offers both **free workouts** just by signing
 
 Seeing your progress is one of the best motivators in any fitness journey. **FitFlexTV** helps you monitor your achievements with detailed stats and insights. Track your calories burned, workout duration, and total workouts completed. Watch as you improve over time, with every milestone bringing you closer to your fitness goals. Whether it’s a small win or a major achievement, **FitFlexTV** is here to celebrate every step with you!
 
+<p align="center">
+  <img src="doc/picture_73.gif" />
+</p>
+
 ### 🎧 Personalized Experience with Music and More
 
 Enhance your workout experience with custom music options! Each workout on **FitFlexTV** comes with its own music track designed to help you stay focused and motivated. Prefer your own tunes? No problem—**FitFlexTV** allows you to choose how you want to experience your workout. Whether it’s pumping beats or a calming playlist, the choice is yours.
@@ -55,6 +59,11 @@ Enhance your workout experience with custom music options! Each workout on **Fit
 ### 🌟 Favorites and Recommendations
 
 Finding the perfect workout is easy with **FitFlexTV**. Use our variety of filters to discover the workout that best fits your needs, whether it’s by duration, intensity, or type. Plus, you can mark your favorite workouts for quick and easy access later. And with our smart recommendations, **FitFlexTV** suggests the most suitable workouts based on your profile, helping you make the most of your fitness journey.
+
+<p align="center">
+  <img src="doc/picture_74.gif" />
+</p>
+
 
 ### 👨‍👩‍👧‍👦 Multiple Profiles for the Whole Family
 
