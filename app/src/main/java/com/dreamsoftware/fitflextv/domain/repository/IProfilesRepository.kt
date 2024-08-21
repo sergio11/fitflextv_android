@@ -17,6 +17,9 @@ interface IProfilesRepository {
     @Throws(FetchProfilesByUserException::class)
     suspend fun getProfilesByUser(userId: String): List<ProfileBO>
 
+    @Throws(FetchProfilesByUserException::class)
+    suspend fun countProfilesByUser(userId: String): Long
+
     @Throws(UpdateProfileException::class)
     suspend fun updateProfile(profileId: String, data: UpdatedProfileRequestBO): ProfileBO
 
