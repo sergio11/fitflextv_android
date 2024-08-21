@@ -425,7 +425,31 @@ The **Training Program Detail** screen is your control center to make the most o
   <img src="doc/picture_57.png" />
 </p>
 
-## Workout Player 🎥🎶
+### Favorites Section 🌟
+
+In the Favorites section, you'll find all the workouts you’ve marked as favorites for your current profile. This is your personalized space to quickly access your preferred training sessions without the need to search for them again. 💪
+
+#### What’s in the Favorites Section?
+
+- **Quick Access:** Instantly see all the workouts you've tagged as favorites, making it easy to revisit and continue your favorite routines.
+- **Detailed View:** Tap on any workout to jump straight to its detailed view, where you can review all the relevant information. 📋
+- **Easy Start:** With just a click, you can start any of your favorite workouts right away, streamlining your fitness journey and saving you time. 🚀
+
+Enjoy a more efficient and personalized workout experience by keeping your top exercises at your fingertips!
+
+<p align="center">
+  <img src="doc/picture_68.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_71.png" />
+</p>
+
+<p align="center">
+  <img src="doc/picture_72.png" />
+</p>
+
+### Workout Player 🎥🎶
 
 The **Workout Player** is where your workout truly comes to life on FitFlexTV. Designed to provide a seamless and immersive experience, the player ensures you stay focused and motivated throughout your session.
 
@@ -473,7 +497,7 @@ The **Workout Player** on FitFlexTV is your ultimate companion, making sure ever
   <img src="doc/picture_70.png" />
 </p>
 
-## Subscription Options 🌟📅
+### Subscription Options 🌟📅
 
 In the **Subscriptions** section, you'll find flexible plans designed to fit your needs and help you get the most out of FitFlexTV! 💪✨ Whether you're just starting your fitness journey or you're a seasoned pro, our subscription options offer exclusive access to premium workouts and features that can elevate your training experience.
 
