@@ -113,7 +113,7 @@ private fun TrainingProgramList(
                 ) {
                     Spacer(modifier = Modifier.width(20.dp))
                     FudgeTvTabRow(
-                        tabs = state.tabsTitle,
+                        tabsRes = state.tabsTitle,
                         selectedTabIndex = state.selectedTab,
                         focusTabIndex = state.focusTabIndex,
                         onClick = actionListener::onChangeSelectedTab,
