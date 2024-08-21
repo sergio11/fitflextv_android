@@ -130,7 +130,8 @@
     <string name="delete_profile_form_accept_button_text">Delete</string>
     <string name="delete_profile_form_cancel_button_text">Cancel</string>
     <string name="delete_profile_explanation_text">Deleting a profile will remove all associated data permanently. Please proceed with caution.</string>
-
+    <string name="delete_profile_dialog_title">Profile Gone! 🎉</string>
+    <string name="delete_profile_dialog_description">The profile has been successfully removed. Say goodbye! 👋</string>
     <!-- Generic Actions -->
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>

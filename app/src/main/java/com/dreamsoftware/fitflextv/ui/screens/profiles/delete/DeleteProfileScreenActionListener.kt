@@ -6,4 +6,5 @@ interface DeleteProfileScreenActionListener: IFudgeTvScreenActionListener {
 
     fun onDeletePressed()
     fun onCancelPressed()
+    fun onProfileDeletedDialogClosed()
 }
