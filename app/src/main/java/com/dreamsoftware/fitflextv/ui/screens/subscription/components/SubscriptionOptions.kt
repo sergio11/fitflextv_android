@@ -15,6 +15,7 @@ import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 import com.dreamsoftware.fitflextv.ui.utils.formatPeriodTime
 import com.dreamsoftware.fitflextv.ui.utils.formatPeriodTimeAndPrice
 import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
+import com.dreamsoftware.fudge.component.FudgeTvItemOption
 import com.dreamsoftware.fudge.component.FudgeTvText
 import com.dreamsoftware.fudge.component.FudgeTvTextTypeEnum
 import com.dreamsoftware.fudge.utils.conditional
@@ -41,7 +42,7 @@ internal fun SubscriptionOptions(
         FudgeTvFocusRequester { focusRequester ->
             subscriptionOptions.forEachIndexed { index, subscriptionBO ->
                 with(subscriptionBO) {
-                    SubscriptionOption(
+                    FudgeTvItemOption(
                         modifier = Modifier.conditional(index == idxSelected, ifTrue = {
                             focusRequester(focusRequester)
                         }),

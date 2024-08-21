@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -12,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -25,14 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Tab
-import androidx.tv.material3.TabDefaults
-import androidx.tv.material3.TabRow
 import androidx.tv.material3.Text
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.screens.trainingdetail.TrainingDetailUiState
 import com.dreamsoftware.fudge.component.FudgeTvCard
 import com.dreamsoftware.fudge.component.FudgeTvRoundedGradientImage
+import com.dreamsoftware.fudge.component.FudgeTvTabRow
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -40,6 +36,7 @@ internal fun ChallengeTabs(
     state: TrainingDetailUiState,
     onClickBackChallenge: () -> Unit,
     onClickCard: (Int) -> Unit,
+
 ) {
     with(MaterialTheme.colorScheme) {
         var selectedTabIndex by remember { mutableIntStateOf(0) }
@@ -66,40 +63,17 @@ internal fun ChallengeTabs(
                     fontWeight = FontWeight.Medium,
                     color = onSurface,
                 )
-                TabRow(
+
+                FudgeTvTabRow(
                     modifier = Modifier
-                        .padding(top = 24.dp, start = 48.dp)
-                        .focusRestorer(),
+                        .padding(top = 24.dp, start = 48.dp),
+                    tabs = state.tabs,
+                    enableRowIndicator = true,
                     selectedTabIndex = selectedTabIndex,
-                    separator = { Spacer(modifier = Modifier.width(16.dp)) },
-                    indicator = { tabPositions, doesTabRowHaveFocus ->
-                        ChallengeTabRowIndicator(
-                            currentTabPosition = tabPositions[selectedTabIndex],
-                            doesTabRowHaveFocus = doesTabRowHaveFocus,
-                            activeColor = secondary,
-                        )
-                    }
-                ) {
-                    state.tabs.forEachIndexed { index, tab ->
-                        key(index) {
-                            Tab(
-                                selected = selectedTabIndex == index,
-                                onFocus = { selectedTabIndex = index },
-                                colors = TabDefaults.underlinedIndicatorTabColors(
-                                    contentColor = secondary,
-                                    selectedContentColor = secondary,
-                                    inactiveContentColor = onSurface,
-                                )
-                            ) {
-                                Text(
-                                    text = tab,
-                                    style = MaterialTheme.typography.labelLarge,
-                                    modifier = Modifier.padding(bottom = 4.dp)
-                                )
-                            }
-                        }
-                    }
-                }
+                    focusTabIndex = selectedTabIndex,
+                    onClick = { selectedTabIndex = it },
+                    onFocus = { selectedTabIndex = it },
+                )
                 LazyRow(
                     modifier = Modifier
                         .padding(top = 40.dp)
