@@ -3,6 +3,7 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.delete
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.DeleteProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
+import com.dreamsoftware.fitflextv.ui.screens.profiles.changesecurepin.ChangeSecurePinSideEffects
 import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState
@@ -32,7 +33,7 @@ class DeleteProfileViewModel @Inject constructor(
     }
 
     private fun onProfileDeleted() {
-        launchSideEffect(DeleteProfileSideEffects.ProfileDeleteSuccessfully)
+        updateState { it.copy(showProfileDeletedDialog = true) }
     }
 
     override fun onDeletePressed() {
@@ -52,11 +53,17 @@ class DeleteProfileViewModel @Inject constructor(
     override fun onCancelPressed() {
         launchSideEffect(DeleteProfileSideEffects.CancelConfiguration)
     }
+
+    override fun onProfileDeletedDialogClosed() {
+        updateState { it.copy(showProfileDeletedDialog = false) }
+        launchSideEffect(DeleteProfileSideEffects.ProfileDeleteSuccessfully)
+    }
 }
 
 data class DeleteProfileUiState(
     override val isLoading: Boolean = false,
     override val errorMessage: String? = null,
+    val showProfileDeletedDialog: Boolean = false,
     val profile: ProfileBO? = null
 ): UiState<DeleteProfileUiState>(isLoading, errorMessage) {
     override fun copyState(isLoading: Boolean, errorMessage: String?): DeleteProfileUiState =

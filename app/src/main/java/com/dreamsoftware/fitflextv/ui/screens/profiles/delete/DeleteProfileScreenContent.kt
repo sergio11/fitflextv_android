@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.theme.Dimens
 import com.dreamsoftware.fitflextv.ui.utils.toDrawableResource
+import com.dreamsoftware.fudge.component.FudgeTvDialog
 import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
 import com.dreamsoftware.fudge.component.FudgeTvScalableAvatar
 import com.dreamsoftware.fudge.component.FudgeTvText
@@ -36,6 +37,13 @@ internal fun DeleteProfileScreenContent(
             onSecondaryOptionPressed = actionListener::onCancelPressed,
             onErrorAccepted = actionListener::onErrorMessageCleared
         ) {
+            FudgeTvDialog(
+                isVisible = showProfileDeletedDialog,
+                mainLogoRes = R.drawable.main_logo,
+                titleRes = R.string.delete_profile_dialog_title,
+                descriptionRes = R.string.delete_profile_dialog_description,
+                onAcceptClicked = actionListener::onProfileDeletedDialogClosed,
+            )
             FudgeTvFocusRequester {
                 FudgeTvScalableAvatar(
                     modifier = Modifier.focusRequester(it),
