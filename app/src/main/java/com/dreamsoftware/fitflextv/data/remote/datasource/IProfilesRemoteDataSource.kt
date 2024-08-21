@@ -16,6 +16,9 @@ interface IProfilesRemoteDataSource {
     @Throws(FetchProfilesRemoteException::class)
     suspend fun getProfilesByUser(userId: String): List<ProfileDTO>
 
+    @Throws(FetchProfilesRemoteException::class)
+    suspend fun countProfilesByUser(userId: String): Long
+
     @Throws(UpdateProfileRemoteException::class)
     suspend fun updateProfile(profileId: String, data: UpdatedProfileRequestDTO): ProfileDTO
 

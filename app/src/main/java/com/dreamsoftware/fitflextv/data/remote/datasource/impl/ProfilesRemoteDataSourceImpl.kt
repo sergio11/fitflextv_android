@@ -13,6 +13,7 @@ import com.dreamsoftware.fitflextv.data.remote.exception.FetchProfilesRemoteExce
 import com.dreamsoftware.fitflextv.data.remote.exception.UpdateProfileRemoteException
 import com.dreamsoftware.fitflextv.data.remote.exception.VerifyProfileRemoteException
 import com.dreamsoftware.fitflextv.utils.IOneSideMapper
+import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.tasks.await
@@ -42,6 +43,25 @@ internal class ProfilesRemoteDataSourceImpl(
             },
             mapper = { data -> profilesMapper.mapInToOut(data) }
         )
+    } catch (ex: Exception) {
+        throw FetchProfilesRemoteException("An error occurred when trying to fetch profiles", ex)
+    }
+
+    @Throws(FetchProfilesRemoteException::class)
+    override suspend fun countProfilesByUser(userId: String): Long = try {
+        withContext(dispatcher) {
+            val query = firebaseStore
+                .collection(COLLECTION_NAME)
+                .whereEqualTo(USER_ID, userId)
+
+            val aggregateQuery = query.count()
+
+            // Use AggregateSource.SERVER to execute the query on the server
+            val aggregateSnapshot = aggregateQuery.get(AggregateSource.SERVER).await()
+
+            // Return the count from the aggregate snapshot
+            aggregateSnapshot.count
+        }
     } catch (ex: Exception) {
         throw FetchProfilesRemoteException("An error occurred when trying to fetch profiles", ex)
     }

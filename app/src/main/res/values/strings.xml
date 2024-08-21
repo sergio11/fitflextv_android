@@ -94,7 +94,7 @@
     <string name="save_profile_cancel_button_text">Cancel</string>
     <string name="save_profile_change_secure_pin_button_text">Change Secure Pin</string>
     <string name="save_profile_form_invalid_data_provided">Invalid data provided. Please check your information.</string>
-
+    <string name="save_profile_limit_reached_error" formatted="false">You have reached the maximum allowed profiles. The limit is %d profiles. Please delete an existing profile to add a new one.</string>
     <!-- Profile Selector -->
     <string name="profile_selector_main_title">Select Your Profile</string>
     <string name="profile_selector_secondary_title">Choose who you are today on FitFlexTV.</string>

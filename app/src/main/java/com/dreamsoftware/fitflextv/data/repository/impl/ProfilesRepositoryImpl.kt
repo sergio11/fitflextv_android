@@ -57,6 +57,16 @@ internal class ProfilesRepositoryImpl(
         }
     }
 
+    @Throws(FetchProfilesByUserException::class)
+    override suspend fun countProfilesByUser(userId: String): Long = safeExecute {
+        try {
+            profilesRemoteDataSource
+                .countProfilesByUser(userId)
+        } catch (ex: FetchCategoriesRemoteException) {
+            throw FetchCategoriesException("An error occurred when fetching profiles", ex)
+        }
+    }
+
     @Throws(UpdateProfileException::class)
     override suspend fun updateProfile(
         profileId: String,

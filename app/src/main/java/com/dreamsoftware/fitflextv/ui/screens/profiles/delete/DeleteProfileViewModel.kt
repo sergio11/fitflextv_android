@@ -3,7 +3,6 @@ package com.dreamsoftware.fitflextv.ui.screens.profiles.delete
 import com.dreamsoftware.fitflextv.domain.model.ProfileBO
 import com.dreamsoftware.fitflextv.domain.usecase.DeleteProfileUseCase
 import com.dreamsoftware.fitflextv.domain.usecase.GetProfileByIdUseCase
-import com.dreamsoftware.fitflextv.ui.screens.profiles.changesecurepin.ChangeSecurePinSideEffects
 import com.dreamsoftware.fudge.core.FudgeTvViewModel
 import com.dreamsoftware.fudge.core.SideEffect
 import com.dreamsoftware.fudge.core.UiState

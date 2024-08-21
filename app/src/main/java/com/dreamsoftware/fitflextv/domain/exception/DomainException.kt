@@ -4,7 +4,6 @@ open class DomainRepositoryException(message: String? = null, cause: Throwable? 
 class RepositoryOperationException(message: String? = null, cause: Throwable? = null) : DomainRepositoryException(message, cause)
 
 class InvalidDataException(errors: Map<String, String>, message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
-
 // Training
 class FetchTrainingsException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class FetchTrainingByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
@@ -43,7 +42,7 @@ class VerifyPinException(message: String? = null, cause: Throwable? = null): Dom
 class SelectProfileException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetProfileByIdException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class GetProfileSelectedException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
-
+class UserProfilesLimitReachedException(val maxProfilesLimit: Int, message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 // Users
 class SignInException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
 class SignUpException(message: String? = null, cause: Throwable? = null): DomainRepositoryException(message, cause)
