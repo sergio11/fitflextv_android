@@ -41,11 +41,11 @@ import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.ui.theme.FitFlexTVTheme
+import com.dreamsoftware.fitflextv.ui.utils.EMPTY
 import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
 import com.dreamsoftware.fudge.component.player.FudgeTvPlayerTitle
 import com.dreamsoftware.fudge.component.player.audio.FudgeTvAudioPlayerControlsIcon
 import com.dreamsoftware.fudge.component.player.audio.FudgeTvAudioPlayerSeeker
-import com.dreamsoftware.fudge.utils.dPadAudioEvents
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -83,7 +83,7 @@ internal fun AudioPlayerScreenContent(
             isPlaying = exoPlayer.isPlaying
         }
     }
-    val infiniteTransition = rememberInfiniteTransition(label = "")
+    val infiniteTransition = rememberInfiniteTransition(label = String.EMPTY)
     val scale by infiniteTransition.animateFloat(
         initialValue = 0.8f,
         targetValue = 1f,
@@ -91,11 +91,10 @@ internal fun AudioPlayerScreenContent(
             animation = tween(durationMillis = 1500),
             repeatMode = RepeatMode.Reverse
         ),
-        label = ""
+        label = String.EMPTY
     )
     Column(
         modifier = Modifier
-            .dPadAudioEvents(exoPlayer = exoPlayer)
             .focusable()
             .fillMaxSize()
             .background(color = MaterialTheme.colorScheme.background),
@@ -142,35 +141,39 @@ private fun AudioPlayerControls(
     isPlaying: Boolean,
     modifier: Modifier = Modifier
 ) {
-    FudgeTvFocusRequester { focusRequester ->
-        Row(
-            modifier = modifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.shuffle) {
-
-            }
-            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.forrward_back) {
-                exoPlayer.seekBack()
-            }
-            FudgeTvAudioPlayerControlsIcon(
-                modifier = Modifier.focusRequester(focusRequester),
-                icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
-                buttonColor = MaterialTheme.colorScheme.onBackground,
-                size = 56.dp
+    with(exoPlayer) {
+        FudgeTvFocusRequester { focusRequester ->
+            Row(
+                modifier = modifier,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                if (isPlaying) {
-                    exoPlayer.play()
-                } else {
-                    exoPlayer.pause()
+                FudgeTvAudioPlayerControlsIcon(icon = R.drawable.shuffle) {
+
                 }
-            }
-            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.forrward) {
-                exoPlayer.seekForward()
-            }
-            FudgeTvAudioPlayerControlsIcon(icon = R.drawable.repeat) {
-                exoPlayer.repeatMode = Player.REPEAT_MODE_ALL
+                FudgeTvAudioPlayerControlsIcon(icon = R.drawable.forrward_back) {
+                    seekBack()
+                }
+                FudgeTvAudioPlayerControlsIcon(
+                    modifier = Modifier.focusRequester(focusRequester),
+                    icon = if (!isPlaying) R.drawable.play_icon else R.drawable.pause,
+                    buttonColor = MaterialTheme.colorScheme.onBackground,
+                    size = 56.dp
+                ) {
+                    with(exoPlayer) {
+                        if (isPlaying) {
+                            pause()
+                        } else {
+                            play()
+                        }
+                    }
+                }
+                FudgeTvAudioPlayerControlsIcon(icon = R.drawable.forrward) {
+                    seekForward()
+                }
+                FudgeTvAudioPlayerControlsIcon(icon = R.drawable.repeat) {
+                    repeatMode = Player.REPEAT_MODE_ALL
+                }
             }
         }
     }
