@@ -35,7 +35,7 @@ internal fun SecurePinScreenContent(
             onPrimaryOptionPressed = actionListener::onVerifyPressed,
             onSecondaryOptionPressed = actionListener::onCancelPressed,
             onErrorAccepted = actionListener::onErrorMessageCleared
-        ) { mainFocusRequester ->
+        ) {
             FudgeTvFocusRequester { focusRequester ->
                 FudgeTvTextField(
                     modifier = Modifier.focusRequester(focusRequester),
@@ -44,7 +44,7 @@ internal fun SecurePinScreenContent(
                     type = FudgeTvTextFieldTypeEnum.NUMBER_SECRET,
                     imeAction = ImeAction.Done,
                     onImeActionCompleted = {
-                        mainFocusRequester.requestFocus()
+                        actionListener.onVerifyPressed()
                     },
                     labelRes = R.string.secure_pin_form_label_text,
                     onValueChange = actionListener::onUnlockPinChanged
