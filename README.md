@@ -4,11 +4,14 @@
 
 Welcome to **FitFlexTV** 🎉, your go-to fitness companion designed to make working out from home as easy and enjoyable as possible. In today’s busy world 🕒, fitting in a workout can be a challenge. That’s why **FitFlexTV** brings the fitness studio to your Smart TV 📺, so you can exercise right from your living room without any hassle.
 
+Built with **Jetpack Compose for TV**, **FitFlexTV** leverages the power of [**🍮 Fudge**](https://github.com/sergio11/fudge_tv_compose_library) — a Jetpack Compose UI Kit for TV apps. **Fudge** offers pre-built components and tools to create seamless and engaging experiences on the big screen 🎬. With **Fudge**, we’ve simplified TV app development, ensuring that FitFlexTV delivers a smooth, intuitive user experience 🚀.
+
 **FitFlexTV** is here to support you every step of the way on your fitness journey 🚀. Whether you’re just beginning your fitness adventure or looking to take your routine to the next level 🔝, our app is tailored to meet your individual needs. With a diverse selection of workouts 🏋️‍♀️, from high-energy HIIT sessions ⚡ to calming yoga routines 🧘‍♀️, you can find the perfect workout to match your mood and fitness goals.
 
 Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals 🎯. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
 
 A heartfelt thank you to the creators of the [JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit) for providing such an invaluable starting point for Jetpack Compose for TV. Your work has been incredibly inspiring and instrumental in shaping the development of this project.
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
