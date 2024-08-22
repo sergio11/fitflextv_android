@@ -77,6 +77,10 @@ Life can be busy, but that shouldn't keep you from staying active. **FitFlexTV**
 
 We understand that staying motivated can be challenging, especially when life gets in the way. That’s why **FitFlexTV** is more than just a workout app—it’s your daily dose of motivation. Enjoy personalized reminders, inspirational quotes, and expert tips that keep you engaged and excited about your fitness journey. Connect with a community of fitness enthusiasts, share your progress, exchange tips, and support each other every step of the way!
 
+<p align="center">
+  <img src="doc/picture_75.gif" />
+</p>
+
 ### 🌟 Start Your Fitness Journey Today
 
 **FitFlexTV** isn’t just another fitness app—it’s your partner in health and wellness. It’s here to help you stay committed, overcome obstacles, and achieve your full potential. With **FitFlexTV**, every step of your fitness journey is supported, from your very first workout to reaching your ultimate goals. So why wait? Take the first step towards a healthier, happier you with **FitFlexTV** today. Your body, mind, and soul will thank you!
