@@ -4,9 +4,14 @@
 
 Welcome to **FitFlexTV** 🎉, your go-to fitness companion designed to make working out from home as easy and enjoyable as possible. In today’s busy world 🕒, fitting in a workout can be a challenge. That’s why **FitFlexTV** brings the fitness studio to your Smart TV 📺, so you can exercise right from your living room without any hassle.
 
+Built with **Jetpack Compose for TV**, **FitFlexTV** leverages the power of [**🍮 Fudge**](https://github.com/sergio11/fudge_tv_compose_library) — a Jetpack Compose UI Kit for TV apps. **Fudge** offers pre-built components and tools to create seamless and engaging experiences on the big screen 🎬. With **Fudge**, we’ve simplified TV app development, ensuring that FitFlexTV delivers a smooth, intuitive user experience 🚀.
+
 **FitFlexTV** is here to support you every step of the way on your fitness journey 🚀. Whether you’re just beginning your fitness adventure or looking to take your routine to the next level 🔝, our app is tailored to meet your individual needs. With a diverse selection of workouts 🏋️‍♀️, from high-energy HIIT sessions ⚡ to calming yoga routines 🧘‍♀️, you can find the perfect workout to match your mood and fitness goals.
 
 Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals 🎯. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
+
+A heartfelt thank you to the creators of the [JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit) for providing such an invaluable starting point for Jetpack Compose for TV. Your work has been incredibly inspiring and instrumental in shaping the development of this project.
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
@@ -77,6 +82,10 @@ Life can be busy, but that shouldn't keep you from staying active. **FitFlexTV**
 
 We understand that staying motivated can be challenging, especially when life gets in the way. That’s why **FitFlexTV** is more than just a workout app—it’s your daily dose of motivation. Enjoy personalized reminders, inspirational quotes, and expert tips that keep you engaged and excited about your fitness journey. Connect with a community of fitness enthusiasts, share your progress, exchange tips, and support each other every step of the way!
 
+<p align="center">
+  <img src="doc/picture_75.gif" />
+</p>
+
 ### 🌟 Start Your Fitness Journey Today
 
 **FitFlexTV** isn’t just another fitness app—it’s your partner in health and wellness. It’s here to help you stay committed, overcome obstacles, and achieve your full potential. With **FitFlexTV**, every step of your fitness journey is supported, from your very first workout to reaching your ultimate goals. So why wait? Take the first step towards a healthier, happier you with **FitFlexTV** today. Your body, mind, and soul will thank you!
@@ -117,6 +126,19 @@ We understand that staying motivated can be challenging, especially when life ge
 - **Dagger Hilt**: 🧩 A dependency injection library that simplifies the management of dependencies in your app. It reduces boilerplate code and enhances modularity by providing a clear and concise way to inject dependencies and manage their lifecycle. 🔧💡
 
 - **Mapper Pattern**: 🔄 Facilitates conversion between different data models (DTOs, BOs, etc.), ensuring data consistency and smooth interactions across various application components. 📐
+
+## License ⚖️
+
+This project is licensed under the MIT License, an open-source software license that allows developers to freely use, copy, modify, and distribute the software. 🛠️ This includes use in both personal and commercial projects, with the only requirement being that the original copyright notice is retained. 📄
+
+Please note the following limitations:
+
+- The software is provided "as is", without any warranties, express or implied. 🚫🛡️
+- If you distribute the software, whether in original or modified form, you must include the original copyright notice and license. 📑
+- The license allows for commercial use, but you cannot claim ownership over the software itself. 🏷️
+
+The goal of this license is to maximize freedom for developers while maintaining recognition for the original creators.
+
 
 ## Architecture Overview 🏛️
 
@@ -586,9 +608,52 @@ FitFlexTV is developed and maintained by Sergio Sánchez Sánchez (Dream Softwar
 We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
 <div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
 
+
 A heartfelt thank you to the creators of the [JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit) for providing such an invaluable starting point for Jetpack Compose for TV. Your work has been incredibly inspiring and instrumental in shaping the development of this project.
 
 The resources, examples, and insights provided in the JetFit repository served as a foundational reference, enabling us to build and expand upon your excellent groundwork. Your contributions have significantly accelerated our journey and enriched our understanding of creating seamless TV applications using Jetpack Compose. 📺✨
 
-Thank you for sharing your expertise and for your dedication to advancing the Jetpack Compose ecosystem for TV. Your efforts have made a real difference!
+## Visitors Count
 
+<img width="auto" src="https://profile-counter.glitch.me/fitflextv_android/count.svg" />
+ 
+ ## Please Share & Star the repository to keep me motivated.
+  <a href = "https://github.com/sergio11/fitflextv_android/stargazers">
+     <img src = "https://img.shields.io/github/stars/sergio11/fitflextv_android" />
+  </a>
+
+## License ⚖️
+
+This project is licensed under the MIT License, an open-source software license that allows developers to freely use, copy, modify, and distribute the software. 🛠️ This includes use in both personal and commercial projects, with the only requirement being that the original copyright notice is retained. 📄
+
+Please note the following limitations:
+
+- The software is provided "as is", without any warranties, express or implied. 🚫🛡️
+- If you distribute the software, whether in original or modified form, you must include the original copyright notice and license. 📑
+- The license allows for commercial use, but you cannot claim ownership over the software itself. 🏷️
+
+The goal of this license is to maximize freedom for developers while maintaining recognition for the original creators.
+
+```
+MIT License
+
+Copyright (c) 2024 Dream software - Sergio Sánchez 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
