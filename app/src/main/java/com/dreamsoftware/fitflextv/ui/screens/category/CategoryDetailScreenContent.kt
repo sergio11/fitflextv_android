@@ -15,6 +15,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
+import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndIntensityTraining
 import com.dreamsoftware.fudge.component.FudgeTvCard
 import com.dreamsoftware.fudge.component.FudgeTvFocusRequester
 import com.dreamsoftware.fudge.component.FudgeTvLoadingState
@@ -71,8 +72,7 @@ internal fun CategoryDetailScreenContent(
                                     },
                                     imageUrl = item.imageUrl,
                                     title = item.name,
-                                    timeText = item.duration,
-                                    typeText = item.intensity.value
+                                    subtitle = item.formatTimeAndIntensityTraining(showLevel = false),
                                 )
                             }
                         }

@@ -79,5 +79,5 @@ sealed interface SignInSideEffects: SideEffect {
     data object CreateNewAccount: SignInSideEffects
 }
 
-private const val DEMO_USER_EMAIL = "ssanchez@yopmail.com"
+private const val DEMO_USER_EMAIL = "ssanchez@fitflextv.com"
 private const val DEMO_USER_PASSWORD = "Passw0rd!11"

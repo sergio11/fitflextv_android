@@ -91,8 +91,7 @@ internal fun ChallengeTabs(
                             modifier = Modifier.width(196.dp),
                             imageUrl = item.imageUrl,
                             title = item.title,
-                            timeText = item.time,
-                            typeText = item.typeText,
+                            subtitle = "${item.time} | ${item.typeText}",
                             onClick = { onClickCard(index) }
                         )
                     }

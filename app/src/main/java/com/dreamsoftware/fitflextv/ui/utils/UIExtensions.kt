@@ -10,8 +10,12 @@ import com.dreamsoftware.fitflextv.domain.model.SubscriptionBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
 import com.dreamsoftware.fitflextv.domain.model.WorkoutBO
 
-fun ITrainingProgramBO?.formatTimeAndTypeTraining(): String =
-    this?.run { "$duration | $intensity ••••" }.orEmpty()
+fun ITrainingProgramBO?.formatTimeAndIntensityTraining(showLevel: Boolean = true): String =
+    this?.run { "$duration | ${if(showLevel) {
+        intensity.level
+    } else {
+        intensity.value
+    }}" }.orEmpty()
 
 val String.Companion.EMPTY: String
     get() = ""

@@ -11,7 +11,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.dreamsoftware.fitflextv.R
-import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndTypeTraining
+import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndIntensityTraining
 import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
 import com.dreamsoftware.fudge.component.FudgeTvBackRowSchema
@@ -48,7 +48,7 @@ internal fun MoreOptionsScreenContent(
                     FudgeTvCardDetails(
                         modifier = Modifier.width(268.dp).constrainAs(trainingDetails) {},
                         title = trainingProgram?.name.orEmpty(),
-                        time = trainingProgram.formatTimeAndTypeTraining(),
+                        subtitle = "${trainingProgram?.duration} | ${trainingProgram?.intensity} ••••",
                         description = trainingProgram?.description.orEmpty(),
                         imageUrl = trainingProgram?.imageUrl.orEmpty()
                     )

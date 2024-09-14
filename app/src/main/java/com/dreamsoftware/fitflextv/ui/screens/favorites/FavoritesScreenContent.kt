@@ -39,6 +39,7 @@ import com.dreamsoftware.fitflextv.ui.theme.onSurface
 import com.dreamsoftware.fitflextv.ui.theme.popupShadow
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
 import com.dreamsoftware.fitflextv.ui.theme.surfaceVariant
+import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndIntensityTraining
 import com.dreamsoftware.fitflextv.ui.utils.getStartButtonID
 import com.dreamsoftware.fitflextv.ui.utils.toTrainingType
 import com.dreamsoftware.fudge.component.FudgeTvButton
@@ -95,8 +96,7 @@ internal fun FavoritesScreenContent(
                                     }),
                                     imageUrl = item.imageUrl,
                                     title = item.name,
-                                    timeText = item.duration,
-                                    typeText = item.intensity.level,
+                                    subtitle = item.formatTimeAndIntensityTraining(),
                                     onClick = {
                                         actionListener.onTrainingProgramSelected(item)
                                     })
