@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.dreamsoftware.fitflextv.R
 import com.dreamsoftware.fitflextv.domain.model.SortTypeEnum
 import com.dreamsoftware.fitflextv.ui.theme.surfaceContainerHigh
+import com.dreamsoftware.fitflextv.ui.utils.formatTimeAndIntensityTraining
 import com.dreamsoftware.fudge.component.FudgeTvButton
 import com.dreamsoftware.fudge.component.FudgeTvButtonStyleTypeEnum
 import com.dreamsoftware.fudge.component.FudgeTvButtonTypeEnum
@@ -178,8 +179,7 @@ private fun TrainingProgramList(
                                 }),
                                 imageUrl = training.imageUrl,
                                 title = training.name,
-                                timeText = training.duration,
-                                typeText = training.intensity.level,
+                                subtitle = training.formatTimeAndIntensityTraining(),
                                 onClick = { actionListener.onItemClicked(training.id) }
                             )
                         }

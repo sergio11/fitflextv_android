@@ -48,8 +48,7 @@ internal fun TrainingsRecommended(
                     modifier = modifier.width(196.dp),
                     imageUrl = training.imageUrl,
                     title = training.name,
-                    timeText = training.duration,
-                    typeText = training.instructorName,
+                    subtitle = "${training.duration} | ${training.instructorName}",
                     onClick = { onClick(training) }
                 )
             }
