@@ -35,7 +35,7 @@ material3-android = "1.3.0"
 materialIconsExtended = "1.7.1"
 datastore-preferences = "1.1.1"
 moshiKotlin = "1.14.0"
-fudge-tv-compose = "0.0.30"
+fudge-tv-compose = "0.0.36"
 
 [libraries]
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
