@@ -24,7 +24,7 @@ fun NavGraphBuilder.navigationDrawerGraph(
                 if(route == Screen.Profiles.route) {
                     onNavigateToProfiles()
                 } else {
-                    navController.navigateSingleTopTo(route)
+                    navController.navigateSingleTopTo(route, clearPreviousRoute = false)
                 }
             }
         )

@@ -16,6 +16,7 @@ fun SubscriptionScreen(
         onSideEffect = {
             when(it) {
                 SubscriptionSideEffects.AddSubscriptionCompleted -> onBackPressed()
+                SubscriptionSideEffects.NotInterested -> onBackPressed()
             }
         },
         onInit = {

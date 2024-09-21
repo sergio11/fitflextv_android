@@ -54,6 +54,10 @@ class SubscriptionViewModel @Inject constructor(
         )
     }
 
+    override fun onNotInterested() {
+        launchSideEffect(SubscriptionSideEffects.NotInterested)
+    }
+
     override fun onCompleted() {
         updateState {
             it.copy(
@@ -118,4 +122,5 @@ data class SubscriptionUiState(
 
 sealed interface SubscriptionSideEffects: SideEffect {
     data object AddSubscriptionCompleted: SubscriptionSideEffects
+    data object NotInterested: SubscriptionSideEffects
 }
