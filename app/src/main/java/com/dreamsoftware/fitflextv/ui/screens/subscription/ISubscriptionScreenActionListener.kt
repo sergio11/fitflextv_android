@@ -8,4 +8,5 @@ interface ISubscriptionScreenActionListener: IFudgeTvScreenActionListener {
     fun onSubscribe()
     fun onRestorePurchases()
     fun onCompleted()
+    fun onNotInterested()
 }

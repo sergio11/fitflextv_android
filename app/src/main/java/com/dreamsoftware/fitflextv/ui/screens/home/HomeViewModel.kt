@@ -1,5 +1,6 @@
 package com.dreamsoftware.fitflextv.ui.screens.home
 
+import androidx.lifecycle.SavedStateHandle
 import com.dreamsoftware.fitflextv.domain.model.CategoryBO
 import com.dreamsoftware.fitflextv.domain.model.ITrainingProgramBO
 import com.dreamsoftware.fitflextv.domain.model.TrainingTypeEnum
@@ -19,8 +20,18 @@ class HomeViewModel @Inject constructor(
     private val getFeaturedTrainingsUseCase: GetFeaturedTrainingsUseCase,
     private val getCategoriesUseCase: GetCategoriesUseCase,
     private val getTrainingsRecommendedUseCase: GetTrainingsRecommendedUseCase,
-    private val hasActiveSubscriptionUseCase: HasActiveSubscriptionUseCase
+    private val hasActiveSubscriptionUseCase: HasActiveSubscriptionUseCase,
+    private val savedStateHandle: SavedStateHandle
 ) : FudgeTvViewModel<HomeUiState, HomeSideEffects>(), HomeScreenActionListener {
+
+    companion object {
+        private const val KEY_SUBSCRIPTION_VERIFIED = "subscription_verified"
+    }
+    private var subscriptionAlreadyVerified: Boolean
+        get() = savedStateHandle[KEY_SUBSCRIPTION_VERIFIED] ?: false
+        set(value) {
+            savedStateHandle[KEY_SUBSCRIPTION_VERIFIED] = value
+        }
 
     override fun onGetDefaultState(): HomeUiState = HomeUiState()
 
@@ -28,7 +39,9 @@ class HomeViewModel @Inject constructor(
         fetchFeaturedTrainings()
         fetchCategories()
         fetchTrainingsRecommended()
-        verifyHasActiveSubscription()
+        if(!subscriptionAlreadyVerified) {
+            verifyHasActiveSubscription()
+        }
     }
 
     private fun fetchFeaturedTrainings() {
@@ -55,6 +68,7 @@ class HomeViewModel @Inject constructor(
         if(!hasActiveSubscription) {
             launchSideEffect(HomeSideEffects.NoActivePremiumSubscription)
         }
+        subscriptionAlreadyVerified = true
     }
 
     private fun onGetCategoriesSuccessfully(categories: List<CategoryBO>) {

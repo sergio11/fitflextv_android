@@ -47,13 +47,20 @@ fun SubscriptionScreenContent(
                         textRes = R.string.subscribe_now,
                         onClick = actionListener::onSubscribe
                     )
+                    Spacer(modifier = Modifier.width(10.dp))
                     if(hasActiveSubscription) {
-                        Spacer(modifier = Modifier.width(10.dp))
                         FudgeTvButton(
                             type = FudgeTvButtonTypeEnum.LARGE,
                             style = FudgeTvButtonStyleTypeEnum.INVERSE,
                             textRes = R.string.restore_purchases,
                             onClick = actionListener::onRestorePurchases
+                        )
+                    } else {
+                        FudgeTvButton(
+                            type = FudgeTvButtonTypeEnum.LARGE,
+                            style = FudgeTvButtonStyleTypeEnum.INVERSE,
+                            textRes = R.string.subscription_not_interested_button_text,
+                            onClick = actionListener::onNotInterested
                         )
                     }
                 }
