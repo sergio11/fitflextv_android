@@ -101,10 +101,6 @@ dependencies {
     implementation(libs.kotlinx.serialization)
     implementation(libs.moshi.kotlin)
 
-    // Testing Libraries
-    androidTestImplementation(libs.ui.test.junit4)
-    debugImplementation(libs.ui.test.manifest)
-
     // Baseline Profile Installer
     implementation(libs.androidx.profileinstaller)
 }

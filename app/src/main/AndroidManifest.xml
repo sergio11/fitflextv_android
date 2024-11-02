@@ -14,8 +14,8 @@
     <application
         android:name="com.dreamsoftware.fitflextv.FitFlexTVApplication"
         android:allowBackup="true"
-        android:banner="@mipmap/ic_launcher"
-        android:icon="@mipmap/ic_launcher"
+        android:banner="@mipmap/ic_banner"
+        android:icon="@mipmap/ic_channel"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitFlexTV"
