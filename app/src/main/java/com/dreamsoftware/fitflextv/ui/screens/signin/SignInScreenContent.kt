@@ -91,8 +91,8 @@ private fun BoxScope.SignInLogo() {
         painter = painterResource(id = R.drawable.main_logo_inverse),
         contentDescription = null,
         modifier = Modifier
+            .padding(25.dp)
             .height(120.dp)
-            .padding(horizontal = 20.dp)
             .align(Alignment.TopStart)
     )
 }
