@@ -36,27 +36,27 @@ Slides are built using the  template from [Previewed](https://previewed.app/temp
 
 Delve into the world of **Android TV development** with these cutting-edge projects. Each one demonstrates the power of **Jetpack Compose**, **Clean Architecture**, and innovative design principles, offering unique, practical solutions.  
 
-### Featured Projects 🌟  
+## Featured Projects 🌟  
 
-### **TvNexa - Your Global IPTV Destination** 🌐📺  
+#### [**TvNexa - Your Global IPTV Destination** 🌐📺](https://github.com/sergio11/tvnexa_androidtv)
 Experience global entertainment with **TvNexa**, a platform offering:  
 - **Access to diverse international channels**  
 - **Seamless multi-device compatibility**  
 - A modern, intuitive interface  
 
-### **SaboryTV - Your Culinary Guide** 🍳📺  
+#### [**SaboryTV - Your Culinary Guide** 🍳📺 ](https://github.com/sergio11/saborytv_android)
 Refine your cooking skills with **SaboryTV**, providing:  
 - **Step-by-step video recipes** tailored to your taste  
 - **Hands-free navigation** for seamless cooking  
 - **Expert guidance** from professional chefs  
 
-### **MelodiqTV - Your Music Haven** 🎶✨  
+#### [**MelodiqTV - Your Music Haven** 🎶✨](https://github.com/sergio11/melodiqtv_android) 
 Turn your TV into a music hub with **MelodiqTV**, offering:  
 - **A vast library of music videos** sorted by genre  
 - **Customizable user profiles**  
 - **Real-time sync** with Firebase  
 
-### **NimbusTV - Effortless M3U Streaming** 🌐📺  
+#### [**NimbusTV - Effortless M3U Streaming** 🌐📺](https://github.com/sergio11/nimbustv_android) 
 Simplify streaming with **NimbusTV**, your go-to M3U playlist solution:  
 - **Support for multiple playlists**: Organize by theme (sports, news, etc.)  
 - **EPG integration**: Real-time programming schedules with reminders  
