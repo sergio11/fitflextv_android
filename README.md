@@ -10,7 +10,7 @@ Built with **Jetpack Compose for TV**, **FitFlexTV** leverages the power of [**�
 
 Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals 🎯. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
 
-A heartfelt thank you to the creators of the [JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit) for providing such an invaluable starting point for Jetpack Compose for TV. Your work has been incredibly inspiring and instrumental in shaping the development of this project.
+A huge thank you to the creators of **[JetFit](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit)** for providing an invaluable foundation for **FitFlexTV**. Licensed under **Apache 2.0** (implementation) and **CC BY 4.0** (design), JetFit served as a key reference for building a seamless **Jetpack Compose for TV** experience. For more details and attributions, please check the **"Credits"** section below. 🚀  
 
 This app, **fitflextv**, includes images and resources designed by [Freepik](https://www.freepik.com). We would like to acknowledge and thank Freepik for their incredible design assets. The images used in the app are provided with attribution, as required by Freepik's licensing terms. For more information on Freepik's resources, please visit [www.freepik.com](https://www.freepik.com).
 
@@ -657,18 +657,29 @@ This repository is intended solely for **learning, experimentation, and non-comm
 ## Contribution
 Contributions to FitFlexTV Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
 
-## Credits
+
+## 🎖️ Recognition & Credits  
+
 FitFlexTV is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
 
-## Acknowledgements 🙏
+A heartfelt thank you to the creators of the **[JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit)** for providing such an invaluable starting point for **Jetpack Compose for TV**. Your work has been incredibly inspiring and instrumental in shaping the development of **FitFlexTV**.  
+
+The **JetFit** project, licensed under **Apache 2.0**, has served as a foundational reference for implementing the **Jetpack Compose for TV UI framework**, while its design, licensed under **CC BY 4.0**, provided an excellent structure to build upon.  
+
+### 📌 Resources:  
+- **JetFit GitHub Repository**: [JetFit on GitHub](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit)  
+- **JetFit Figma Design**: [JetFit Fitness App on Figma](https://www.figma.com/community/file/1237433831695839696/jetfit-fitness-app)  
+- **JetFit Case Study & Guidelines**: [Google TV JetFit Case Study](https://developer.android.com/design/ui/tv/samples/jet-fit?hl=es-419)  
+- **Google TV Design Kit**: [TV Design Kit (Figma)](https://developer.android.com/design/ui/tv/guidelines)  
+
+The resources, examples, and insights provided in the **JetFit repository** significantly accelerated our development process and enriched our understanding of **building seamless TV applications using Jetpack Compose**. We deeply appreciate the contributions of the JetFit team and their dedication to open-source development.  
+
+This project acknowledges and respects the **original JetFit implementation**, ensuring proper attribution under **Apache 2.0** and **CC BY 4.0** licenses. 🚀  
+
+This project acknowledges and respects the work of the original **JetFit** creators and follows the **CC BY 4.0** license terms. If you are interested in designing a TV-based fitness app, we highly recommend exploring the **JetFit project and Google's TV design resources**.  
 
 We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
 <div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
-
-
-A heartfelt thank you to the creators of the [JetFit repository](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit) for providing such an invaluable starting point for Jetpack Compose for TV. Your work has been incredibly inspiring and instrumental in shaping the development of this project.
-
-The resources, examples, and insights provided in the JetFit repository served as a foundational reference, enabling us to build and expand upon your excellent groundwork. Your contributions have significantly accelerated our journey and enriched our understanding of creating seamless TV applications using Jetpack Compose. 📺✨
 
 ## Visitors Count
 
