@@ -32,6 +32,16 @@ This app, **fitflextv**, includes images and resources designed by [Freepik](htt
 
 Slides are built using the  template from [Previewed](https://previewed.app/template/AFC0B4CB). I extend my gratitude to them for their remarkable work and contribution.
 
+## ⚠️ Disclaimer  
+
+This project, **FitFlexTV**, has been developed **for educational purposes only**. The main goal is to explore and learn how to build **modern Android TV applications** using **Jetpack Compose** and related technologies.  
+
+**FitFlexTV does not provide any workout content, streaming services, or fitness programs.** Instead, it serves as a **demonstration project** showcasing how to design and develop TV-based fitness applications. The UI, navigation, and functionalities are implemented to simulate a real-world fitness app experience.  
+
+Additionally, the name **"FitFlexTV"** was generated during a **brainstorming session with AI**, and any resemblance to existing brands or services is purely **coincidental**.  
+
+This repository is intended solely for **learning, experimentation, and non-commercial purposes**. If you wish to develop a real fitness app, please ensure compliance with content licensing, health guidelines, and data privacy regulations.  
+
 ## 🌟 Explore These Incredible Android TV Projects! 📺🚀  
 
 Delve into the world of **Android TV development** with these cutting-edge projects. Each one demonstrates the power of **Jetpack Compose**, **Clean Architecture**, and innovative design principles, offering unique, practical solutions.  
@@ -633,6 +643,16 @@ The **Settings** section ensures that you have the flexibility to tailor FitFlex
 <p align="center">
   <img src="doc/picture_18.png" />
 </p>
+
+## ⚠️ Disclaimer  
+
+This project, **FitFlexTV**, has been developed **for educational purposes only**. The main goal is to explore and learn how to build **modern Android TV applications** using **Jetpack Compose** and related technologies.  
+
+**FitFlexTV does not provide any workout content, streaming services, or fitness programs.** Instead, it serves as a **demonstration project** showcasing how to design and develop TV-based fitness applications. The UI, navigation, and functionalities are implemented to simulate a real-world fitness app experience.  
+
+Additionally, the name **"FitFlexTV"** was generated during a **brainstorming session with AI**, and any resemblance to existing brands or services is purely **coincidental**.  
+
+This repository is intended solely for **learning, experimentation, and non-commercial purposes**. If you wish to develop a real fitness app, please ensure compliance with content licensing, health guidelines, and data privacy regulations.
 
 ## Contribution
 Contributions to FitFlexTV Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
