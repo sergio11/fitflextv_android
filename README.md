@@ -1,6 +1,6 @@
 # Welcome to FitFlexTV: Your Ultimate Fitness Journey Begins Here! 🏡💪
 
-<img width="auto" height="200px" align="left" src="doc/main_logo.png" />
+<img width="auto" height="300px" align="left" src="doc/fitflex_logo.jpg" />
 
 Welcome to **FitFlexTV** 🎉, your go-to fitness companion designed to make working out from home as easy and enjoyable as possible. In today’s busy world 🕒, fitting in a workout can be a challenge. That’s why **FitFlexTV** brings the fitness studio to your Smart TV 📺, so you can exercise right from your living room without any hassle.
 
