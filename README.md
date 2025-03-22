@@ -1,18 +1,21 @@
-# Welcome to FitFlexTV: Your Ultimate Fitness Journey Begins Here! 🏡💪
+# FitFlexTV: A Personal Learning Journey in Fitness App Development 🏡💪
 
 <img width="auto" height="300px" align="left" src="doc/fitflex_logo.jpg" />
 
-Welcome to **FitFlexTV** 🎉, your go-to fitness companion designed to make working out from home as easy and enjoyable as possible. In today’s busy world 🕒, fitting in a workout can be a challenge. That’s why **FitFlexTV** brings the fitness studio to your Smart TV 📺, so you can exercise right from your living room without any hassle.
+Welcome to **FitFlexTV** 🎉! This app was created as part of my learning journey to explore fitness app development, particularly on Smart TVs 📺.
 
-Built with **Jetpack Compose for TV**, **FitFlexTV** leverages the power of [**🍮 Fudge**](https://github.com/sergio11/fudge_tv_compose_library) — a Jetpack Compose UI Kit for TV apps. **Fudge** offers pre-built components and tools to create seamless and engaging experiences on the big screen 🎬. With **Fudge**, we’ve simplified TV app development, ensuring that FitFlexTV delivers a smooth, intuitive user experience 🚀.
+**FitFlexTV** was built with **Jetpack Compose for TV**, along with the [**🍮 Fudge**](https://github.com/sergio11/fudge_tv_compose_library) UI Kit, a Jetpack Compose library for TV apps. This helped me understand how to create smooth, engaging experiences for larger screens 🎬.
 
-**FitFlexTV** is here to support you every step of the way on your fitness journey 🚀. Whether you’re just beginning your fitness adventure or looking to take your routine to the next level 🔝, our app is tailored to meet your individual needs. With a diverse selection of workouts 🏋️‍♀️, from high-energy HIIT sessions ⚡ to calming yoga routines 🧘‍♀️, you can find the perfect workout to match your mood and fitness goals.
+The goal of this project wasn’t just to explore **fitness** 🏋️‍♀️ app development, but also to improve my understanding of **software architecture** 🏛️ and best practices. I focused on applying **dependency injection** 🔌, designing clean and scalable code, and diving deeper into concepts specifically related to **Android TV** 📱 development.
 
-Ready to start your fitness journey? **FitFlexTV** makes it easy to stay committed to your health and wellness goals 🎯. Begin working out from the comfort of your home and discover a world of fitness possibilities with **FitFlexTV** today. Let’s get started on the path to a healthier, happier you! 🚀✨
+Through this project, I aimed to deepen my knowledge in **user experience** 🚀, fine-tuning **UI components** 🎨, and mastering **real-time data management** ⚡ for TV apps. My hope is that this project strengthens my skills and helps me grow as a developer, particularly in building more **robust** and **maintainable** Android TV applications.
 
 A huge thank you to the creators of **[JetFit](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit)** for providing an invaluable foundation for **FitFlexTV**. Licensed under **Apache 2.0** (implementation) and **CC BY 4.0** (design), JetFit served as a key reference for building a seamless **Jetpack Compose for TV** experience. For more details and attributions, please check the **"Credits"** section below. 🚀  
 
 This app, **fitflextv**, includes images and resources designed by [Freepik](https://www.freepik.com). We would like to acknowledge and thank Freepik for their incredible design assets. The images used in the app are provided with attribution, as required by Freepik's licensing terms. For more information on Freepik's resources, please visit [www.freepik.com](https://www.freepik.com).
+
+For demonstration purposes, the **Workout Player** uses a free stock video from Mixkit, showcasing a **shirtless young man lifting a heavy barbell**. This video is used solely to illustrate the player’s functionality
+[Free Stock Video: A Shirtless Young Man Lifting a Barbell](https://mixkit.co/free-stock-video/a-shirtless-young-man-does-repetitions-lifting-the-heavy-barbell-52094/)
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
@@ -82,25 +85,25 @@ Simplify streaming with **NimbusTV**, your go-to M3U playlist solution:
 
 ## Overview 🌐
 
-With **FitFlexTV**, you can access a range of workouts designed for various fitness levels and preferences 🌈. Our app offers both free and premium content 💎, ensuring there’s something for everyone. For a more personalized experience, you can explore workouts with specific music tracks 🎵 that enhance your focus and enjoyment.
+**FitFlexTV** was created as part of my personal project to learn more about app development, particularly for **fitness** 🏋️‍♀️ on **Smart TVs** 📺. The idea behind it was to explore how to build an app that offers a range of workouts suitable for different fitness levels and preferences 🌈. It includes both free and premium content 💎, so there’s something for everyone to try, and I wanted to experiment with adding features that would personalize the workout experience 🎵.
 
-Stay motivated with features that keep you engaged and inspired 🌟. **FitFlexTV** allows you to mark your favorite workouts ❤️ for easy access and apply different filters 🔍 to find the perfect routine for your needs. Create and manage multiple profiles 👨‍👩‍👧‍👦 so that each member of your household can have their own tailored workout experience.
+To make the app more engaging, I incorporated features like the ability to mark **favorite workouts** ❤️, apply filters 🔍, and create profiles 👨‍👩‍👧‍👦 for multiple users in a household. The goal was to learn how to create a more tailored experience for different users, even in a fitness app.
 
-The app also offers recommendations based on your fitness profile 🤖, helping you discover the best workouts suited to your goals. Whether you're looking to build strength 💪, improve flexibility 🤸‍♂️, or simply stay active 🚶‍♀️, **FitFlexTV** provides the tools you need to stay on track and make the most out of every workout.
+Additionally, I explored integrating recommendations 🤖 based on a user’s fitness profile, helping guide people to workouts that align with their goals. Whether it’s strength training 💪, flexibility 🤸‍♂️, or staying active 🚶‍♀️, **FitFlexTV** aims to provide tools to help users stick to their fitness journey.
 
 ### 💪 Tailored Workouts Just for You
 
-At **FitFlexTV**, we believe that fitness should be as unique as you are. That’s why our app offers workout plans specifically tailored to your goals, preferences, and fitness level. Whether you're aiming to lose weight, build muscle, improve flexibility, or simply stay active, **FitFlexTV** has got you covered. From high-intensity interval training (HIIT) and strength sessions to yoga and stretching routines, there’s something for everyone. With easy-to-follow instructions and video demonstrations, even beginners can jump right in and start moving.
+The idea behind **FitFlexTV** was to offer workouts that are as unique as each person. It was a chance for me to experiment with creating plans that are personalized to a user’s goals, preferences, and fitness level. Whether it’s HIIT, strength training, yoga, or stretching, I wanted the app to provide varied options, with clear instructions and video demonstrations so anyone can jump in and start.
 
 <p align="center">
   <img src="doc/picture_12.gif" />
 </p>
 
-But that's not all—**FitFlexTV** offers both **free workouts** just by signing up and **premium content** for those who want to take their training to the next level. Whether you choose to stay with the free content or unlock premium features with a subscription, you’ll have access to a wealth of workouts that you can do anytime, anywhere.
+This project also helped me dive into the concept of offering **free** workouts for everyone and **premium content** for users who want to level up their training. I wanted to explore how to handle both content types and how to keep things simple for the user.
 
 ### 📊 Track Your Progress, Celebrate Your Success
 
-Seeing your progress is one of the best motivators in any fitness journey. **FitFlexTV** helps you monitor your achievements with detailed stats and insights. Track your calories burned, workout duration, and total workouts completed. Watch as you improve over time, with every milestone bringing you closer to your fitness goals. Whether it’s a small win or a major achievement, **FitFlexTV** is here to celebrate every step with you!
+As part of my learning, I wanted to include progress tracking 📊 to keep users motivated. **FitFlexTV** allows you to monitor stats like calories burned, workout duration, and completed sessions. This gave me a chance to experiment with data tracking and visualize how users improve over time, whether it’s small wins or bigger milestones.
 
 <p align="center">
   <img src="doc/picture_73.gif" />
@@ -108,28 +111,30 @@ Seeing your progress is one of the best motivators in any fitness journey. **Fit
 
 ### 🎧 Personalized Experience with Music and More
 
-Enhance your workout experience with custom music options! Each workout on **FitFlexTV** comes with its own music track designed to help you stay focused and motivated. Prefer your own tunes? No problem—**FitFlexTV** allows you to choose how you want to experience your workout. Whether it’s pumping beats or a calming playlist, the choice is yours.
+One feature I explored was adding personalized **music tracks** 🎧 to workouts, which can help keep users focused and motivated. I also wanted to give users the flexibility to choose their own music preferences. I enjoyed experimenting with these customization options to see how they could improve the workout experience.
 
 ### 🌟 Favorites and Recommendations
 
-Finding the perfect workout is easy with **FitFlexTV**. Use our variety of filters to discover the workout that best fits your needs, whether it’s by duration, intensity, or type. Plus, you can mark your favorite workouts for quick and easy access later. And with our smart recommendations, **FitFlexTV** suggests the most suitable workouts based on your profile, helping you make the most of your fitness journey.
+To make the app easier to use, I included a way for users to mark their favorite workouts ❤️ and easily access them later. I also added **smart recommendations** 🤖 based on their fitness profile, which was a great way for me to practice creating a system that offers personalized workout suggestions.
 
 <p align="center">
   <img src="doc/picture_74.gif" />
 </p>
 
+**FitFlexTV** was a fun and educational project where I got to explore a variety of app development concepts, from **personalized user experiences** to **real-time data management**. It was an opportunity to dive into building a **fitness app for Smart TVs** while improving my skills in user engagement and data handling.
+
 
 ### 👨‍👩‍👧‍👦 Multiple Profiles for the Whole Family
 
-Fitness is for everyone, and **FitFlexTV** makes it simple for the whole family to stay active. Set up different profiles for each member of your household, so everyone can have their own personalized workout plans and track their individual progress. No more competing for time or space—everyone gets to enjoy a fitness experience that’s tailored just for them.
+One feature I explored in **FitFlexTV** was the ability to manage multiple profiles. This allows different users (like family members) to have their own personalized workout plans and track their progress individually. It was an opportunity to experiment with managing user data and creating personalized experiences for each user, learning how to scale the app to accommodate various profiles.
 
 ### 🕒 Work Out on Your Schedule, Anywhere, Anytime
 
-Life can be busy, but that shouldn't keep you from staying active. **FitFlexTV** is designed to fit into your schedule, whether you have just 10 minutes in the morning or an hour in the evening. Work out at home, in the park, or on the go—**FitFlexTV** is with you wherever you are. With the flexibility to exercise whenever and wherever you want, staying fit has never been easier.
+The goal of this feature was to design an experience that adapts to different schedules. Whether you have just a few minutes or a full hour, **FitFlexTV** is flexible enough to fit your time constraints. I focused on how to create an accessible workout experience that doesn’t require extra setup, giving users the freedom to work out whenever and wherever they want.
 
 ### 💬 Stay Motivated and Inspired
 
-We understand that staying motivated can be challenging, especially when life gets in the way. That’s why **FitFlexTV** is more than just a workout app—it’s your daily dose of motivation. Enjoy personalized reminders, inspirational quotes, and expert tips that keep you engaged and excited about your fitness journey. Connect with a community of fitness enthusiasts, share your progress, exchange tips, and support each other every step of the way!
+Motivation can be a challenge, so I added features like reminders, tips, and inspirational quotes to help keep users engaged. This was a chance for me to explore how small motivational elements can enhance the user experience. I also looked into ways to build a sense of community within the app, where users could share progress or receive encouragement, keeping them motivated throughout their fitness journey.
 
 <p align="center">
   <img src="doc/picture_75.gif" />
@@ -137,11 +142,12 @@ We understand that staying motivated can be challenging, especially when life ge
 
 ### 🌟 Start Your Fitness Journey Today
 
-**FitFlexTV** isn’t just another fitness app—it’s your partner in health and wellness. It’s here to help you stay committed, overcome obstacles, and achieve your full potential. With **FitFlexTV**, every step of your fitness journey is supported, from your very first workout to reaching your ultimate goals. So why wait? Take the first step towards a healthier, happier you with **FitFlexTV** today. Your body, mind, and soul will thank you!
+**FitFlexTV** is a personal project I created to experiment with Android TV development using Jetpack Compose. Through this project, I’ve been able to dive deeper into app architecture, UI design, and working with large-screen experiences. While the app isn’t a final product, it has provided me with valuable learning experiences and an opportunity to apply new skills in a real-world context.
 
 <p align="center">
   <img src="doc/picture_8.png" />
 </p>
+
 
 ## Technologies Used 🛠️
 
@@ -175,19 +181,6 @@ We understand that staying motivated can be challenging, especially when life ge
 - **Dagger Hilt**: 🧩 A dependency injection library that simplifies the management of dependencies in your app. It reduces boilerplate code and enhances modularity by providing a clear and concise way to inject dependencies and manage their lifecycle. 🔧💡
 
 - **Mapper Pattern**: 🔄 Facilitates conversion between different data models (DTOs, BOs, etc.), ensuring data consistency and smooth interactions across various application components. 📐
-
-## License ⚖️
-
-This project is licensed under the MIT License, an open-source software license that allows developers to freely use, copy, modify, and distribute the software. 🛠️ This includes use in both personal and commercial projects, with the only requirement being that the original copyright notice is retained. 📄
-
-Please note the following limitations:
-
-- The software is provided "as is", without any warranties, express or implied. 🚫🛡️
-- If you distribute the software, whether in original or modified form, you must include the original copyright notice and license. 📑
-- The license allows for commercial use, but you cannot claim ownership over the software itself. 🏷️
-
-The goal of this license is to maximize freedom for developers while maintaining recognition for the original creators.
-
 
 ## Architecture Overview 🏛️
 
@@ -234,11 +227,11 @@ This architecture ensures that our application is well-structured, easy to maint
 
 ## App Screenshots
 
-Here are some screenshots from our app to give you a glimpse of its design and functionality.
+Here are some screenshots from **FitFlexTV**, showcasing the different features I explored during the development process. This app is a personal project aimed at learning more about Android TV development with Jetpack Compose.
 
 ### Onboarding
 
-Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
+The Onboarding screens are the first thing users see when they open the app. If there’s no active session, users are directed to the landing page, where they can view an introduction to the app and choose to log in or create a new account.
 
 <p align="center">
   <img src="doc/picture_28.png" />
@@ -250,7 +243,7 @@ Here we have the Onboarding screens 📱, if the user doesn't have an active ses
 
 ### Sign In
 
-The user will be able to log in to **FitFlexTV** by providing their email and password. If they don't have an account, they can access the registration screen to create a new one. 🔐✉️🔑 If they don't have an account, they can access the registration screen to create a new one. 🆕
+This screen allows users to log into the app using their email and password. If they don't have an account, they can quickly navigate to the registration page.
 
 <p align="center">
   <img src="doc/picture_3.png" />
@@ -260,25 +253,17 @@ The user will be able to log in to **FitFlexTV** by providing their email and pa
   <img src="doc/picture_4.png" />
 </p>
 
-
 ### Sign Up ✨
 
-Welcome to **FitFlexTV**! 🎉 Creating your account is quick and easy, opening up a world of fitness possibilities. Ready to get started? 💪
-
-Simply fill in your details, including your name 📝, email address 📧, and a secure password 🔒. Make sure your password is easy to remember but tough to guess—your security is important to us!
-
-Once you’ve completed all the fields, just hit "Register" ✅ and you’re all set! 🎊 Welcome to the FitFlexTV community! Now you can access all our amazing features and exclusive content. 🚀🌟
+The signup process is straightforward—users can create an account by entering their details. This feature was useful for experimenting with authentication and form management.
 
 <p align="center">
   <img src="doc/picture_2.png" />
 </p>
 
-
 ### Managing Your Profiles 🎭
 
-Welcome to the **Profiles** section, where personalization and convenience come together to enhance your app experience. This area is designed to give you full control over your profiles, ensuring that each user can tailor their fitness journey to their liking.
-
-At the heart of this section is the **Profile Selection** screen. Here, you can easily choose the profile you want to use when accessing the app. This feature allows each user to maintain their unique settings, preferences, and workout history, ensuring a customized experience every time.
+The Profiles section allows users to customize their experience. In this part of the app, I implemented the ability to manage multiple profiles. Each user can set up their own preferences, including workout history, avatars, and personal settings.
 
 <p align="center">
   <img src="doc/picture_5.png" />
@@ -288,7 +273,7 @@ At the heart of this section is the **Profile Selection** screen. Here, you can 
   <img src="doc/picture_64.png" />
 </p>
 
-If you're looking to add a new dimension to your experience, you can **create up to four profiles**. Each profile can be customized with its own alias and avatar, making it easy for family members or multiple users to have their distinct space within the app. Whether it's a new workout buddy or a personalized setup for different family members, adding new profiles is simple and straightforward.
+Users can create up to four profiles, each with a unique alias and avatar, perfect for family members or multiple users. This feature gave me the chance to explore user data management and personalization in an app.
 
 <p align="center">
   <img src="doc/picture_34.png" />
@@ -302,7 +287,7 @@ If you're looking to add a new dimension to your experience, you can **create up
   <img src="doc/picture_65.png" />
 </p>
 
-Editing your current profile is just as easy. You can update your profile’s **alias** and **avatar** to reflect your personality or preferences. Want to change your security PIN? No problem. The app allows you to **update your security PIN** whenever needed to ensure your account remains secure and accessible only to you.
+It’s easy to edit your profile too—users can update their alias, avatar, or security PIN. This feature helped me learn more about handling user data securely and providing a personalized experience.
 
 <p align="center">
   <img src="doc/picture_36.png" />
@@ -320,8 +305,7 @@ Editing your current profile is just as easy. You can update your profile’s **
   <img src="doc/picture_38.png" />
 </p>
 
-
-If you decide that a profile is no longer needed, you have the option to **delete it**. Each profile comes with its own set of favorite workouts, so when you remove a profile, all associated data and favorites will be cleared, ensuring that your app stays clean and organized.
+If a user no longer needs a profile, they can easily delete it. Deleting a profile also removes associated data, which was a good way to explore how to manage user data cleanup.
 
 <p align="center">
   <img src="doc/picture_39.png" />
@@ -339,7 +323,7 @@ If you decide that a profile is no longer needed, you have the option to **delet
   <img src="doc/picture_67.png" />
 </p>
 
-Overall, the **Profiles** section is designed to give you flexibility and control, making sure that your fitness journey is personalized and secure. Whether you’re managing multiple profiles for family members or simply updating your own, this section ensures that your experience is tailored to fit your needs perfectly.
+The **Profiles** section gave me the opportunity to dive deeper into the user experience, experimenting with data management and customizing the app for different users.
 
 <p align="center">
   <img src="doc/picture_6.png" />
@@ -352,9 +336,9 @@ Overall, the **Profiles** section is designed to give you flexibility and contro
 
 ### Exploring the Home Screen 📱
 
-Welcome to the heart of our app: the Home Screen, where users embark on their fitness journey with ease and excitement. Here’s a closer look at what you’ll find on this vibrant screen:
+Welcome to the Home Screen of **FitFlexTV**—a core part of my personal project where I explored designing a user-friendly interface for a fitness app on Android TV. The Home Screen provides users with an intuitive and engaging experience to kickstart their fitness journey.
 
-At the very top, you’ll encounter the **Highlighted Trainings Carousel** 🎠. This engaging feature showcases a rotating selection of standout workouts. Think of it as a dynamic showcase where you can swipe through to discover popular or featured training sessions that are trending right now. It’s the perfect way to catch your eye and inspire your next workout.
+At the top, you'll see the **Highlighted Trainings Carousel** 🎠. This feature showcases a rotating selection of standout workouts. It was a fun way to experiment with dynamic UI elements and learn how to create a visually appealing carousel to keep the user engaged.
 
 <p align="center">
   <img src="doc/picture_7.png" />
@@ -368,7 +352,7 @@ At the very top, you’ll encounter the **Highlighted Trainings Carousel** 🎠.
   <img src="doc/picture_63.gif" />
 </p>
 
-Moving down the screen, you’ll come across the **Categories Row** 📊. This section organizes all available training programs into various categories, like Cardio, Strength, and Yoga. Presented as a horizontal list, it allows you to browse through different categories effortlessly. Just tap on any category to dive into the specific workouts it offers, making it easy to find the perfect session based on your current mood or fitness goals.
+As you scroll down, you'll find the **Categories Row** 📊. This section organizes workouts into various categories like Cardio, Strength, and Yoga. I implemented this feature to learn about horizontal scrolling and filtering items efficiently.
 
 <p align="center">
   <img src="doc/picture_43.png" />
@@ -378,21 +362,21 @@ Moving down the screen, you’ll come across the **Categories Row** 📊. This s
   <img src="doc/picture_44.png" />
 </p>
 
-Finally, the screen wraps up with the **Recommended Trainings for Your Profile** ⭐. This personalized section is tailored just for you, using your workout history and preferences to suggest the best training programs for your current fitness level and goals. These recommendations are curated to ensure you always have something motivating and relevant right at your fingertips.
+The screen finishes with the **Recommended Trainings for Your Profile** ⭐. Based on user preferences and workout history, this section suggests the most relevant workouts. It was an opportunity to experiment with basic recommendation logic and display dynamic content tailored to the user.
 
 <p align="center">
   <img src="doc/picture_45.png" />
 </p>
 
-In essence, the Home Screen is designed to make your fitness exploration both intuitive and enjoyable. From discovering featured workouts to finding the right category and receiving personalized suggestions, everything is organized to enhance your journey and keep you engaged.
+Overall, the Home Screen is designed to be intuitive and visually engaging, with a focus on learning UI/UX design for large screens and providing users with an easy way to explore workouts.
 
 ## Exploring Workouts and More 🏋️‍♀️✨
 
-Dive into the **Workouts** section, your ultimate fitness playground where your workout adventures come to life! 🎉 This hub is crafted to help you discover and enjoy a variety of exercises that fit your unique fitness goals.
+The **Workouts** section is where the real fun begins! In this part of the app, users can discover a variety of exercises based on their fitness goals. This feature was a big part of my learning process, helping me build dynamic workout categories and improve navigation on Android TV.
 
-In this section, you’ll find a diverse array of categories to explore:
+Here’s a breakdown of the workout categories:
 
-- **Workouts** 💪: Find a wide range of exercises designed for different fitness levels and objectives. Whether you’re into high-intensity cardio or strength training, there’s something here for every fitness enthusiast.
+- **Workouts** 💪: A wide range of exercises for different fitness levels and goals. Whether you're into cardio or strength training, I designed this section to be easy to navigate with a clear focus on filtering content based on type.
 
 <p align="center">
   <img src="doc/picture_22.png" />
@@ -402,25 +386,25 @@ In this section, you’ll find a diverse array of categories to explore:
   <img src="doc/picture_29.png" />
 </p>
 
-- **Series** 📈: Explore structured workout series that guide you through progressive routines. Perfect for building strength and endurance over time, these series keep you on track and motivated.
+- **Series** 📈: Structured workout series that progressively guide users through different routines. Implementing this feature was a great exercise in designing consistent experiences that build on each other over time.
 
 <p align="center">
   <img src="doc/picture_46.png" />
 </p>
 
-- **Challenges** 🏆: Take on fun and engaging challenges that push you to reach new milestones. Stay motivated and committed to your fitness journey with these exciting opportunities.
+- **Challenges** 🏆: Fun and motivational challenges that push users to reach new fitness milestones. I implemented this to learn how to gamify the fitness journey and keep users motivated.
 
 <p align="center">
   <img src="doc/picture_47.png" />
 </p>
 
-- **Routines** 🗓️: Discover comprehensive workout routines that combine various exercises into effective sessions. Ideal for achieving balanced fitness results and keeping your workouts fresh and dynamic.
+- **Routines** 🗓️: Comprehensive workout routines that combine various exercises. This section helped me learn how to group and organize content to ensure users can follow a structured path towards achieving their goals.
 
 <p align="center">
   <img src="doc/picture_48.png" />
 </p>
 
-Navigating through these categories is a breeze with our **filtering and sorting options** 🔍. Tailor your search based on duration, intensity, or specific goals to find the workouts that suit you best.
+Navigating these categories is easy thanks to the **filtering and sorting options** 🔍. This feature allowed me to dive into the details of how users can quickly find workouts based on their preferences and goals.
 
 <p align="center">
   <img src="doc/picture_23.png" />
@@ -442,32 +426,34 @@ Navigating through these categories is a breeze with our **filtering and sorting
   <img src="doc/picture_27.png" />
 </p>
 
-Once you find a workout that piques your interest, check out the **detailed view** 📋. Here you’ll get all the essential information, including instructions, duration, and any special tips, so you can make informed decisions and seamlessly integrate them into your routine.
+Once a user selects a workout, they are taken to the **detailed view** 📋, where they can see all relevant information like instructions, duration, and tips. This section helped me understand how to present detailed content on a larger screen, ensuring users can make informed decisions.
 
-The **Workouts** section is designed to be your personal fitness hub, where exploration and discovery are just a tap away. Whether you’re a beginner or a seasoned pro, this section has everything you need to achieve your fitness goals and keep your workouts exciting and effective. 🌟🚀
+The **Workouts** section was a key part of my learning experience, helping me understand how to display diverse content in an intuitive way while allowing for personalization and easy navigation. It’s all about making the user experience as seamless as possible.
+
+🌟🚀
 
 
 ### Training Program Detail 🏋️‍♂️💪
 
-The **Training Program Detail** screen on FitFlexTV is where your fitness journey truly begins. Here, you'll find all the essential information to get the most out of every session. 🏆
+The **Training Program Detail** screen is one of the key components of my **FitFlexTV** personal project. It provides the user with all the essential information to get the most out of every training session. While this is a conceptual feature, it was a great opportunity to dive into the design and functionality of a fitness app interface for Android TV.
 
-- **Duration** ⏱️: How much time do you have today? The workout duration is clearly displayed, so you can plan your session without any surprises.
+- **Duration** ⏱️: Clearly displayed to help users plan their workout sessions efficiently, making sure they know exactly how much time they need.
 
-- **Intensity** 🔥: From gentle and relaxing sessions to workouts that will push your limits, each exercise is labeled with its intensity level, helping you choose the right challenge based on your energy and goals.
+- **Intensity** 🔥: Each workout is labeled with its intensity level, from gentle to challenging, allowing users to select exercises based on their energy levels and goals.
 
-- **Workout Description** 📄: Read a detailed description to understand exactly what the workout involves. Discover the exercises, benefits, and what you can expect from the session.
+- **Workout Description** 📄: A detailed description of the workout, including the exercises, benefits, and what to expect, offering clarity to users before they start their session.
 
-- **Instructor** 👩‍🏫: Get to know the professional who will guide you through this workout. You can also explore more about their experience and access other workouts they've designed.
+- **Instructor** 👩‍🏫: Each workout has an instructor profile with a background overview. Users can learn more about the instructor’s expertise and find other workouts led by them.
 
-- **Start Workout** ▶️: Ready to get started? Just hit "Start" and prepare to sweat. Your session begins here!
+- **Start Workout** ▶️: A simple “Start” button to begin the session.
 
-- **Play Music** 🎵: Prefer to do the workout at your own pace? You can access the music that accompanies the workout and play it whenever you like, adding your own flair to the session.
+- **Play Music** 🎵: Access to workout music to enhance the session. This feature was implemented to add a customizable element, letting users play the music they enjoy during their workouts.
 
-- **Add to Favorites** ⭐: Is this one of your go-to workouts? Add it to your favorites for easy access in the future!
+- **Add to Favorites** ⭐: Users can save their favorite workouts for easy future access.
 
-- **More About the Instructor** 📚: If you love the instructor's style, you can learn more about their background and philosophy, connecting even more with your fitness guide.
+- **More About the Instructor** 📚: For those who love an instructor’s style, they can explore more about their philosophy and background, which helps foster a stronger connection to the content.
 
-The **Training Program Detail** screen is your control center to make the most out of every session. Everything is designed to inspire and motivate you every step of the way. 💥🔥
+This screen acts as the main control hub for users to dive deep into each workout, with the goal of inspiring and motivating them during their journey. It’s part of my experimentation with organizing workout data and creating a seamless, engaging interface. 💥🔥
 
 <p align="center">
   <img src="doc/picture_49.png" />
@@ -507,15 +493,17 @@ The **Training Program Detail** screen is your control center to make the most o
 
 ### Favorites Section 🌟
 
-In the Favorites section, you'll find all the workouts you’ve marked as favorites for your current profile. This is your personalized space to quickly access your preferred training sessions without the need to search for them again. 💪
+The **Favorites** section is designed to allow users to easily access their preferred workouts, offering a more personalized and efficient fitness journey. This part of the app was a great learning experience in terms of building a user-friendly and organized way to manage content.
 
 #### What’s in the Favorites Section?
 
-- **Quick Access:** Instantly see all the workouts you've tagged as favorites, making it easy to revisit and continue your favorite routines.
-- **Detailed View:** Tap on any workout to jump straight to its detailed view, where you can review all the relevant information. 📋
-- **Easy Start:** With just a click, you can start any of your favorite workouts right away, streamlining your fitness journey and saving you time. 🚀
+- **Quick Access:** All of the workouts you've marked as favorites are displayed for easy access.
 
-Enjoy a more efficient and personalized workout experience by keeping your top exercises at your fingertips!
+- **Detailed View:** Tapping on a workout brings users to its detailed view, where they can review all the relevant information.
+
+- **Easy Start:** Once you’ve found your favorite, starting the workout is just a click away.
+
+This section helps users quickly get back to the workouts they enjoy the most, providing a simple but effective way to improve their experience.
 
 <p align="center">
   <img src="doc/picture_68.png" />
@@ -531,23 +519,23 @@ Enjoy a more efficient and personalized workout experience by keeping your top e
 
 ### Workout Player 🎥🎶
 
-The **Workout Player** is where your workout truly comes to life on FitFlexTV. Designed to provide a seamless and immersive experience, the player ensures you stay focused and motivated throughout your session.
+The **Workout Player** is where your workout comes to life. In my project, I focused on creating a smooth and immersive experience with high-quality video, intuitive controls, and synchronized music to keep the user motivated.
 
-- **High-Quality Video** 📺: Enjoy your workouts in stunning quality, with support for Full HD and even 4K resolutions. The player automatically adjusts to give you the best possible experience based on your connection.
+- **High-Quality Video** 📺: Full HD and 4K support, ensuring the best possible visual quality based on your connection.
 
-- **Workout Controls** ⏯️: Easily navigate through your workout with intuitive controls. You can pause, rewind, or skip forward, ensuring you never miss a beat.
+- **Workout Controls** ⏯️: The player lets users pause, rewind, or skip forward, giving them control over their workout experience.
 
-- **On-Screen Guidance** 🧭: Follow along with clear, on-screen instructions that guide you through each movement. Stay on track with real-time tips and pointers from your instructor.
+- **On-Screen Guidance** 🧭: Users can follow along with clear, real-time instructions from the instructor, helping them stay on track.
 
-- **Music Integration** 🎧: Pump up your workout with perfectly synced music. Whether it’s upbeat tracks to keep your energy high or calming tunes for a yoga session, the music enhances your workout experience.
+- **Music Integration** 🎧: Music is synced to the workout, enhancing the experience, whether users prefer high-energy beats or relaxing tunes.
 
-- **Music Player** 🎵: Want to enjoy the workout music on its own? The music player lets you listen to the session's curated playlist at your own pace. Perfect for when you want to move freely to your rhythm.
+- **Music Player** 🎵: If users just want to listen to the music, they can enjoy the workout playlist independently from the session.
 
-- **Progress Tracking** 📊: See your progress throughout the workout, with visual cues that show how far you've come and how much is left. Stay motivated as you push through each section.
+- **Progress Tracking** 📊: Real-time progress tracking keeps users motivated by showing how much they’ve completed and how much is left.
 
-- **Full-Screen Mode** 🖥️: Immerse yourself completely in your workout with full-screen mode, minimizing distractions and allowing you to focus on every movement.
+- **Full-Screen Mode** 🖥️: Users can go full-screen for a distraction-free workout experience.
 
-The **Workout Player** on FitFlexTV is your ultimate companion, making sure every workout is not only effective but also enjoyable. Whether you're sweating it out to high-energy routines or winding down with yoga, the player provides everything you need for a top-notch experience. 💥🏆
+The **Workout Player** was a core feature that I worked on to ensure users have an engaging, smooth, and personalized experience while working out.
 
 <p align="center">
   <img src="doc/picture_58.png" />
@@ -579,17 +567,17 @@ The **Workout Player** on FitFlexTV is your ultimate companion, making sure ever
 
 ### Subscription Options 🌟📅
 
-In the **Subscriptions** section, you'll find flexible plans designed to fit your needs and help you get the most out of FitFlexTV! 💪✨ Whether you're just starting your fitness journey or you're a seasoned pro, our subscription options offer exclusive access to premium workouts and features that can elevate your training experience.
+The **Subscription Options** section is designed to offer flexibility for users, providing them with access to premium workouts and features. This section was an essential learning opportunity for implementing subscription management and adding value for the user.
 
-Here’s how it works:
+Here’s how the subscription plans work:
 
-- **Choose Your Plan** 🗓️: Select the subscription that best suits your fitness goals and lifestyle. We offer three options: 3 months, 6 months, or 12 months. Each plan is crafted to provide you with continuous motivation and access to a variety of workouts.
+- **Choose Your Plan** 🗓️: Users can select from 3-month, 6-month, or 12-month plans, each tailored to fit different fitness goals and levels.
 
-- **Enjoy Discounts** 💰: The longer you commit, the more you save! Choose a longer subscription period and benefit from our special discounts. It’s a win-win—more savings and more access to premium content!
+- **Enjoy Discounts** 💰: Longer subscription periods come with discounts, making it a win-win for both the user and the app.
 
-- **Unlock Premium Content** 🔓: With a subscription, you'll gain exclusive access to high-quality, premium workouts that are not available with the free plan. Dive into advanced routines, specialized training programs, and expert-guided sessions that take your fitness to the next level.
+- **Unlock Premium Content** 🔓: Subscribers get access to exclusive, high-quality workouts and specialized training programs.
 
-The **Subscriptions** section ensures that your fitness journey is not only effective but also rewarding. With the flexibility to choose your plan and the added value of premium content, you'll stay motivated and engaged, reaching your fitness goals with ease. 🚀💥
+This section ensures users have access to premium features, making their fitness journey even more rewarding.
 
 <p align="center">
   <img src="doc/picture_19.png" />
@@ -603,24 +591,24 @@ The **Subscriptions** section ensures that your fitness journey is not only effe
   <img src="doc/picture_21.png" />
 </p>
 
+
 ### Settings 🛠️🔧
 
-The **Settings** section in FitFlexTV is your personal control panel, where you can customize your app experience to perfectly suit your preferences. 🌟 Here’s what you can do:
+The **Settings** section in this **FitFlexTV** prototype acts as the personal control panel where users can adjust various settings to customize their experience. 🌟 This is just a demonstration of how this feature could be implemented in a fully functional app. Here’s an overview of the options that might be included:
 
-- **Adjust Language** 🌐: Choose the language that makes you feel most comfortable. Whether you prefer English, Spanish, or any other language we offer, the app will adapt to your choice, making your experience seamless and intuitive.
+- **Adjust Language** 🌐: Users could select their preferred language to make the app feel more intuitive. In this demo, the app could potentially support languages like English, Spanish, and more, allowing users to navigate easily in their language of choice.
 
-- **Select Measurement Units** 📏: Pick your preferred unit of measurement—metric or imperial. Whether you’re used to kilometers and kilograms or miles and pounds, FitFlexTV will display your workout metrics in the format you’re accustomed to.
+- **Select Measurement Units** 📏: In this prototype, users can choose between metric or imperial units. This setting would allow the app to display workout metrics in kilometers, kilograms, miles, or pounds, based on the user’s regional preferences.
 
-- **Set Video Quality** 📹: Control your video streaming experience by selecting the video quality. Choose from Full HD for crisp, clear visuals or opt for Automatic to let the app adjust the quality up to 4K based on your internet connection.
+- **Set Video Quality** 📹: Users could select their preferred video quality for streaming. In a full app, options might include Full HD or an "Automatic" setting that adjusts video quality based on the user’s internet connection.
 
-- **Learn About Us** 🧑‍💻: Discover more about the developers behind FitFlexTV and the vision that drives the app. We’re excited to share our journey with you!
+- **Learn About Us** 🧑‍💻: A section where users could learn more about the developers behind the app and the vision driving the project. This would help users connect with the team behind the app and understand its purpose.
 
-- **Log Out** 🚪: Need a break or switching accounts? Easily log out and take a pause or switch profiles with just a few taps.
+- **Log Out** 🚪: This option would allow users to log out of their account or switch profiles. While basic, this feature is essential for managing multiple user accounts or taking a break from the app.
 
-- **Manage Subscriptions** 💳: Review and adjust your subscription plan. You can change your current plan or even cancel your subscription if needed. Stay in control of your fitness journey and make sure your plan fits your evolving needs.
+- **Manage Subscriptions** 💳: In this section, users could review and manage their subscription plans. While the demo doesn’t include actual payment functionality, in a real app, this would enable users to change or cancel their plans and manage access to premium content.
 
-The **Settings** section ensures that you have the flexibility to tailor FitFlexTV to your liking, enhancing your overall experience. From language preferences to video quality settings, everything is designed to offer you a personalized and enjoyable fitness journey. 🌟🛠️
-
+The **Settings** section in this test project demonstrates how users could personalize their experience. While these options aren’t functional in this demo, they give a clear idea of how they would work in a fully implemented version of the app. 🌟🛠️
 
 <p align="center">
   <img src="doc/picture_13.png" />
@@ -684,6 +672,12 @@ This project acknowledges and respects the work of the original **JetFit** creat
 
 We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
 <div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
+
+
+For demonstration purposes, the **Workout Player** uses a free stock video from Mixkit, showcasing a **shirtless young man lifting a heavy barbell**. This video is used solely to illustrate the player’s functionality
+
+[Free Stock Video: A Shirtless Young Man Lifting a Barbell](https://mixkit.co/free-stock-video/a-shirtless-young-man-does-repetitions-lifting-the-heavy-barbell-52094/)
+
 
 ## Visitors Count
 
