@@ -199,3 +199,31 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+### Third-Party Code Attribution
+
+This project includes code and concepts derived from the following third-party repositories:
+
+#### 1. **JetFit** by TheChance101
+- **Repository:** [https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit](https://github.com/TheChance101/tv-samples/tree/JetFit/JetFit)
+- **License:** Apache License 2.0 (Implementation), Creative Commons Attribution 4.0 International (CC BY 4.0) (Design)
+
+A huge thank you to the creators of **JetFit** and the contributors to **[https://github.com/android/tv-samples/pull/183](PR #183)** for providing an invaluable foundation for **FitFlexTV**. The **JetFit** repository served as a key reference for building a seamless **Jetpack Compose for TV** experience. 
+
+The code and design principles from **JetFit** were adapted to develop the TV app functionality in **FitFlexTV**. The implementation code from **JetFit** has been used under the Apache 2.0 license, while the design elements have been inspired by the CC BY 4.0 license. 
+
+We highly encourage you to visit the original PR, review the effort, and give the deserved recognition to the creators and contributors.
+
+#### Notes on Modifications:
+- The **FitFlexTV** project builds on the foundation set by **JetFit** and **ComposeTv**, incorporating modifications and improvements to suit the requirements of the current project. These include updates to the UI, handling new use cases, and further optimizing the Jetpack Compose integration.
+
+I would like to express our sincere gratitude to the authors and contributors of **JetFit** and **ComposeTv** for their amazing work, which has had a significant impact on the development of **FitFlexTV**.
+
+### Design Attribution
+The design elements in **FitFlexTV** are based on the work of **JetFit**, which is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/). You are free to use, share, and adapt the design, provided that you give appropriate credit, provide a link to the license, and indicate if changes were made. For more details, please visit the link provided.
+
+Additionally, the visual design inspiration and components in **FitFlexTV** were based on the **JetFit design file** available on **Figma**:
+- **Figma File:** [JetFit Fitness App Design](https://www.figma.com/community/file/1237433831695839696/jetfit-fitness-app)
+- **License:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/)
+
+You can freely adapt and use the design under the same terms as the original Figma design.
