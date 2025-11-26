@@ -636,11 +636,6 @@ For demonstration purposes, the **Workout Player** uses a free stock video from 
 
 [Free Stock Video: A Shirtless Young Man Lifting a Barbell](https://mixkit.co/free-stock-video/a-shirtless-young-man-does-repetitions-lifting-the-heavy-barbell-52094/)
 
-
-## Visitors Count
-
-<img width="auto" src="https://profile-counter.glitch.me/fitflextv_android/count.svg" />
-
 ## License ⚖️
 
 This project is licensed under the **Apache License 2.0**, a permissive open-source software license that allows developers to freely use, modify, and distribute the software. 🚀 This includes both personal and commercial use, with some conditions for distribution and modification. 📜
